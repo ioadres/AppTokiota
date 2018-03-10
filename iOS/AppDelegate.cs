@@ -18,6 +18,13 @@ namespace AppTokiota.iOS
             global::Xamarin.Forms.Forms.Init();
 
             LoadApplication(new App(new iOSInitializer()));
+            /*
+             * LoadApplication(UXDivers.Gorilla.iOS.Player.CreateApplication(
+            new UXDivers.Gorilla.Config("Good Gorilla").RegisterAssembliesFromTypes<
+                                   Prism.IActiveAware,
+                                   Prism.PrismApplicationBase,
+                                   Prism.Unity.PrismApplication>()));*/
+
 
             return base.FinishedLaunching(app, options);
         }

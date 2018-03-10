@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
-             x:Class="AppTokiota.App">
-	 <prism:PrismApplication.Resources>
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="AppTokiota.App">
+    <prism:PrismApplication.Resources>
         <ResourceDictionary>
-           
+            <Style x:Key="buttonWizardPrimary" TargetType="Button">
+                <Setter Property="BorderColor" Value="#FFFFFF" />
+                <Setter Property="BorderRadius" Value="20" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="WidthRequest" Value="100" />
+                <Setter Property="BackgroundColor" Value="#FFFFFF" />
+                <Setter Property="TextColor" Value="#CA5D5B" />
+                <Setter Property="HeightRequest" Value="43" />
+                <Setter Property="WidthRequest" Value="148" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="buttonWizardSecundary" TargetType="Button">
+                <Setter Property="BorderColor" Value="#FFFFFF" />
+                <Setter Property="BorderRadius" Value="20" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="WidthRequest" Value="100" />
+                <Setter Property="TextColor" Value="#FFFFFF" />
+                <Setter Property="HeightRequest" Value="43" />
+                <Setter Property="WidthRequest" Value="148" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
         </ResourceDictionary>
         <!-- Application resource dictionary -->
     </prism:PrismApplication.Resources>

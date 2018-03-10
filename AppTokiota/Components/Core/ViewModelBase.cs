@@ -3,7 +3,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 
-namespace AppTokiota.ViewModels
+namespace AppTokiota.Components.Core
 {
     public class ViewModelBase : BindableBase, INavigationAware
     {

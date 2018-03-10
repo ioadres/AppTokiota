@@ -1,0 +1,7 @@
+﻿{
+  "knownAssemblies": [
+    { "name": "Prism" },
+    { "name": "Prism.Forms" },
+    { "name": "Prism.Unity.Forms" }
+  ]
+}

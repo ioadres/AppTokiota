@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 
-namespace AppTokiota.Views
+namespace AppTokiota.Components.Login
 {
     public partial class LoginPage : ContentPage
     {

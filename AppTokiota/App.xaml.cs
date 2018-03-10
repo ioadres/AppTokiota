@@ -1,9 +1,10 @@
 ﻿using Xamarin.Forms.Xaml;
-using AppTokiota.Views;
-using AppTokiota.ViewModels;
 using Prism.Unity;
 using Prism;
 using Prism.Ioc;
+using AppTokiota.Components.Login;
+using AppTokiota.Components.Core.Interfaces;
+using AppTokiota.Components.Core;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace AppTokiota
@@ -15,12 +16,16 @@ namespace AppTokiota
         protected async override void OnInitialized()
         {
             InitializeComponent();
-            await NavigationService.NavigateAsync("LoginPage");
+            var loginModule = Container.Resolve<BaseLoginModule>();
+            await NavigationService.NavigateAsync(loginModule.Tag);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
+            ModuleLoader.Load(containerRegistry);
+
+            var loginModule = Container.Resolve<BaseLoginModule>();
+            loginModule.Register(containerRegistry);   
         }
 
 

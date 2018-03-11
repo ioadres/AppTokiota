@@ -1,29 +1,216 @@
 <?xml version="1.0" encoding="utf-8"?>
-<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" x:Class="AppTokiota.App">
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms" 
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:ctrls="clr-namespace:AppTokiota.Controls;assembly=AppTokiota"
+                        xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms" 
+                        x:Class="AppTokiota.App">
     <prism:PrismApplication.Resources>
         <ResourceDictionary>
-            <Style x:Key="buttonWizardPrimary" TargetType="Button">
-                <Setter Property="BorderColor" Value="#FFFFFF" />
-                <Setter Property="BorderRadius" Value="20" />
-                <Setter Property="BorderWidth" Value="1" />
-                <Setter Property="WidthRequest" Value="100" />
-                <Setter Property="BackgroundColor" Value="#FFFFFF" />
-                <Setter Property="TextColor" Value="#CA5D5B" />
-                <Setter Property="HeightRequest" Value="43" />
-                <Setter Property="WidthRequest" Value="148" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="VerticalOptions" Value="Center" />
+            <!-- COLORS -->
+            <Color x:Key="AccentColor">#BC4C1B</Color>
+            <Color x:Key="BackgroundColor">#212C37</Color>
+            <Color x:Key="BlackColor">#000000</Color>
+            <Color x:Key="BlackTextColor">#253748</Color>
+            <Color x:Key="BlueColor">#0072C6</Color>
+            <Color x:Key="GreenColor">#368F94</Color>
+            <Color x:Key="OrangeColor">#BC4C1B</Color>
+            <Color x:Key="RedColor">#CA5D5B</Color>
+            <Color x:Key="LightOrangeColor">#D87E56</Color>
+            <Color x:Key="WhiteColor">#FFFFFF</Color>
+            <Color x:Key="ValidationErrorColor">#FF204F</Color>
+            <Color x:Key="DarkGrayColor">#ADADAD</Color>
+            <Color x:Key="GrayColor">#F6F1E9</Color>
+
+            <!-- FONTS -->
+            <OnPlatform x:Key="PoppinsBold"
+                        x:TypeArguments="x:String"
+                        iOS="Poppins-Bold"
+                        Android="Poppins-Bold.ttf#Poppins"
+                        />
+
+            <OnPlatform x:Key="PoppinsLight"
+                        x:TypeArguments="x:String"
+                        iOS="Poppins-Light"
+                        Android="Poppins-Light.ttf#Poppins"
+                        />
+
+            <OnPlatform x:Key="PoppinsMedium"
+                        x:TypeArguments="x:String"
+                        iOS="Poppins-Medium"
+                        Android="Poppins-Medium.ttf#Poppins"
+                       />
+            
+            <OnPlatform x:Key="PoppinsRegular"
+                        x:TypeArguments="x:String"
+                        iOS="Poppins-Regular"
+                        Android="Poppins-Regular.ttf#Poppins"
+                      />
+
+            <OnPlatform x:Key="PoppinsSemiBold"
+                        x:TypeArguments="x:String"
+                        iOS="Poppins-SemiBold"
+                        Android="Poppins-SemiBold.ttf#Poppins"
+                        />
+           
+            <OnPlatform x:Key="LittleSize"
+                        x:TypeArguments="x:Double"
+                        iOS="11"
+                        Android="12"
+                        />
+
+            <OnPlatform x:Key="MidMediumSize"
+                        x:TypeArguments="x:Double"
+                        iOS="12"
+                        Android="14"
+                       />
+
+            <OnPlatform x:Key="MediumSize"
+                        x:TypeArguments="x:Double"
+                        iOS="14"
+                        Android="16"
+                        />
+
+            <OnPlatform x:Key="LargeSize"
+                        x:TypeArguments="x:Double"
+                        iOS="16"
+                        Android="18"
+                        />
+
+            <OnPlatform x:Key="LargerSize"
+                        x:TypeArguments="x:Double"
+                        iOS="18"
+                        Android="20"
+                        />
+
+            <OnPlatform x:Key="BigSize"
+                        x:TypeArguments="x:Double"
+                        iOS="20"
+                        Android="24"
+                        />
+
+            <OnPlatform x:Key="ExtraBigSize"
+                      x:TypeArguments="x:Double"
+                      iOS="24"
+                      Android="32"
+                      />
+
+            <OnPlatform x:Key="HugeSize"
+                        x:TypeArguments="x:Double"
+                        iOS="32"
+                        Android="48"
+                        />
+            
+           <!-- STYLES -->
+            <Style x:Key="BaseLabelStyle" TargetType="Label">
             </Style>
-            <Style x:Key="buttonWizardSecundary" TargetType="Button">
-                <Setter Property="BorderColor" Value="#FFFFFF" />
-                <Setter Property="BorderRadius" Value="20" />
+
+           <Style x:Key="PoppinsBoldLabelStyle"
+                   TargetType="Label"
+                   BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontFamily"
+                 Value="{StaticResource PoppinsBold}" />
+            </Style>
+
+            <Style x:Key="PoppinsLightLabelStyle"
+                   TargetType="Label"
+                   BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontFamily"
+                 Value="{StaticResource PoppinsLight}" />
+            </Style>
+
+            <Style x:Key="PoppinsMediumLabelStyle"
+                   TargetType="Label"
+                   BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontFamily"
+                 Value="{StaticResource PoppinsMedium}" />
+            </Style>
+
+            <Style x:Key="PoppinsRegularLabelStyle"
+                   TargetType="Label"
+                   BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontFamily"
+                    Value="{StaticResource PoppinsRegular}" />
+            </Style>
+
+            <Style x:Key="PoppinsSemiBoldLabelStyle"
+                   TargetType="Label"
+                   BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontFamily"
+                    Value="{StaticResource PoppinsSemiBold}" />
+            </Style>
+
+
+            <Style x:Key="BaseEntryStyle"
+                   TargetType="ctrls:ExtendedEntry">
+                <Setter Property="FontFamily"
+                    Value="{StaticResource PoppinsRegular}" />
+                <Setter Property="BackgroundColor"
+                        Value="Transparent" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="PlaceholderColor"
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="HeightRequest"
+                        Value="44" />
+                <Setter Property="WidthRequest"
+                        Value="150" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource MediumSize}" />
+                <Setter Property="HorizontalOptions"
+                        Value="FillAndExpand" />
+                <Setter Property="FontAttributes"
+                        Value="Bold" />
+                <Setter Property="Opacity"
+                        Value="0.6" />
+                 <Setter Property="LineColor"
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="FocusLineColor"
+                        Value="{StaticResource GrayColor}" />
+                <Setter Property="InvalidLineColor"
+                        Value="{StaticResource ValidationErrorColor}" />
+                <Style.Triggers>
+                    <Trigger TargetType="Entry"
+                             Property="IsFocused" 
+                             Value="True">
+                        <Setter Property="Opacity" Value="1" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="ctrls:ExtendedEntry"
+                   BasedOn="{StaticResource BaseEntryStyle}" />
+            
+            <!-- Button --> 
+            <Style x:Key="BaseButtonStyle"
+                   TargetType="Button">
+                <Setter Property="BorderRadius" Value="0" />
+                <Setter Property="HeightRequest" Value="73" />
+                <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource MidMediumSize}" />
+                <Setter Property="FontFamily"
+                        Value="{StaticResource PoppinsSemiBold}" />
+            </Style>
+
+            <Style x:Key="BaseButtonWizardStyle" BasedOn="{StaticResource BaseButtonStyle}"
+                   TargetType="Button">
+                 <Setter Property="BorderRadius" Value="18" />
                 <Setter Property="BorderWidth" Value="1" />
-                <Setter Property="WidthRequest" Value="100" />
-                <Setter Property="TextColor" Value="#FFFFFF" />
                 <Setter Property="HeightRequest" Value="43" />
                 <Setter Property="WidthRequest" Value="148" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="FontFamily"
+                        Value="{StaticResource PoppinsSemiBold}" />
+            </Style>
+
+            <Style x:Key="buttonWizardPrimary" TargetType="Button" BasedOn="{StaticResource BaseButtonWizardStyle}">
+                <Setter Property="BorderColor" Value="#FFFFFF" />
+                <Setter Property="BackgroundColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="TextColor" Value="{StaticResource RedColor}" />
+            </Style>
+            <Style x:Key="buttonWizardSecundary" TargetType="Button" BasedOn="{StaticResource BaseButtonWizardStyle}">
+                <Setter Property="BorderColor" Value="#FFFFFF" />
+                <Setter Property="TextColor" Value="#FFFFFF" />
             </Style>
         </ResourceDictionary>
         <!-- Application resource dictionary -->

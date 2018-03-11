@@ -42,5 +42,21 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>CFBundleTypeName</string>
+		</dict>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>fonts/Poppins-Bold.ttf</string>
+		<string>fonts/Poppins-Regular.ttf</string>
+		<string>fonts/Poppins-Medium.ttf</string>
+		<string>fonts/Poppins-Black.ttf</string>
+		<string>fonts/Poppins-SemiBold.ttf</string>
+		<string>fonts/Poppins-Light.ttf</string>
+	</array>
 </dict>
 </plist>

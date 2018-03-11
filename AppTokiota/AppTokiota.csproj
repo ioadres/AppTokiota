@@ -59,6 +59,7 @@
     <Compile Include="Models\TokenResponse.cs" />
     <Compile Include="Services\ServicesLoader.cs" />
     <Compile Include="AppSettingsKeys.cs" />
+    <Compile Include="Controls\ExtendedEntry.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
@@ -71,6 +72,7 @@
     <Folder Include="Helpers\" />
     <Folder Include="Services\" />
     <Folder Include="Services\Authentication\" />
+    <Folder Include="Fonts\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -160,6 +160,12 @@
     <Reference Include="PCLAppConfig.FileSystemStream">
       <HintPath>..\packages\PCLAppConfig.0.3.4\lib\Xamarin.iOS\PCLAppConfig.FileSystemStream.dll</HintPath>
     </Reference>
+    <Reference Include="EntryCustomReturn.Forms.Plugin.Abstractions">
+      <HintPath>..\packages\Xam.Plugins.Forms.CustomReturnEntry.4.0.0\lib\Xamarin.iOS10\EntryCustomReturn.Forms.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="EntryCustomReturn.Forms.Plugin.iOS">
+      <HintPath>..\packages\Xam.Plugins.Forms.CustomReturnEntry.4.0.0\lib\Xamarin.iOS10\EntryCustomReturn.Forms.Plugin.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppTokiota\AppTokiota.csproj">
@@ -173,6 +179,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Renderers\" />
+    <Folder Include="Resources\fonts\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -186,6 +194,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Renderers\ExtendedEntryRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\login_background.png" />
@@ -195,6 +204,24 @@
     <BundleResource Include="Resources\logo%402x.png" />
     <BundleResource Include="Resources\logo%403x.png" />
     <BundleResource Include="Settings.bundle\Root.plist" />
+    <BundleResource Include="..\CommonResources\Fonts\poppins\Poppins-Black.ttf">
+      <Link>Resources\fonts\Poppins-Black.ttf</Link>
+    </BundleResource>
+    <BundleResource Include="..\CommonResources\Fonts\poppins\Poppins-Bold.ttf">
+      <Link>Resources\fonts\Poppins-Bold.ttf</Link>
+    </BundleResource>
+    <BundleResource Include="..\CommonResources\Fonts\poppins\Poppins-Light.ttf">
+      <Link>Resources\fonts\Poppins-Light.ttf</Link>
+    </BundleResource>
+    <BundleResource Include="..\CommonResources\Fonts\poppins\Poppins-Medium.ttf">
+      <Link>Resources\fonts\Poppins-Medium.ttf</Link>
+    </BundleResource>
+    <BundleResource Include="..\CommonResources\Fonts\poppins\Poppins-Regular.ttf">
+      <Link>Resources\fonts\Poppins-Regular.ttf</Link>
+    </BundleResource>
+    <BundleResource Include="..\CommonResources\Fonts\poppins\Poppins-SemiBold.ttf">
+      <Link>Resources\fonts\Poppins-SemiBold.ttf</Link>
+    </BundleResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets')" />

@@ -2,6 +2,12 @@
   "knownAssemblies": [
     { "name": "Prism" },
     { "name": "Prism.Forms" },
-    { "name": "Prism.Unity.Forms" }
+    { "name": "Prism.Mvvm" },
+    { "name": "Prism.Unity.Forms" },
+    { "name": "Prism.Core" },
+
+    { "name": "AppTokiota" },
+    { "name": "AppTokiota.Components.Login" },
+    { "name": "AppTokiota.Controls" }
   ]
 }

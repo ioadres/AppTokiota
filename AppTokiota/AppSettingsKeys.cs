@@ -9,6 +9,5 @@ namespace AppTokiota
         private const string DefaultMicrosoftGrantType = "DefaultMicrosoftGrantType";
         private const string DefaultMicrosoftResource = "DefaultMicrosoftResource";
         private const string DefaultMicrosoftAuthEndpoint = "DefaultMicrosoftAuthEndpoint";
-
     }
 }

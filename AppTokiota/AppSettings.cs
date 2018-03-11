@@ -9,7 +9,6 @@ namespace AppTokiota
     {       
         private static ISettings Settings => CrossSettings.Current;
 
-
         // API Endpoints
         public static string MicrosoftAuthEndpoint
         {

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
+﻿using Foundation;
 using Prism;
 using Prism.Ioc;
-using Prism.Unity;
 using UIKit;
 
 namespace AppTokiota.iOS
@@ -16,16 +11,17 @@ namespace AppTokiota.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-
+           
             LoadApplication(new App(new iOSInitializer()));
+
             /*
              * LoadApplication(UXDivers.Gorilla.iOS.Player.CreateApplication(
             new UXDivers.Gorilla.Config("Good Gorilla").RegisterAssembliesFromTypes<
                                    Prism.IActiveAware,
                                    Prism.PrismApplicationBase,
-                                   Prism.Unity.PrismApplication>()));*/
+                                   Prism.Unity.PrismApplication>()));
 
-
+*/
             return base.FinishedLaunching(app, options);
         }
     }

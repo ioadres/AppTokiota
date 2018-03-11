@@ -9,7 +9,7 @@ namespace AppTokiota.Components.Login
     public class LoginModule: BaseLoginModule
     {
         public LoginModule() {
-            Tag = "LoginPage";
+            Tag = nameof(LoginPage);
         }
 
         public override void Register(IContainerRegistry containerRegistry) {

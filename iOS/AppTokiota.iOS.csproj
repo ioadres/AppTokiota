@@ -139,6 +139,27 @@
     <Reference Include="UXDivers.Gorilla.SDK.iOS">
       <HintPath>..\packages\UXDivers.GorillaPlayer.SDK.1.2.0.6\lib\Xamarin.iOS10\UXDivers.Gorilla.SDK.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.Settings.Abstractions">
+      <HintPath>..\packages\Xam.Plugins.Settings.3.1.1\lib\Xamarin.iOS10\Plugin.Settings.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Settings">
+      <HintPath>..\packages\Xam.Plugins.Settings.3.1.1\lib\Xamarin.iOS10\Plugin.Settings.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLStorage.Abstractions">
+      <HintPath>..\packages\PCLStorage.1.0.2\lib\portable-Xamarin.iOS+Xamarin.Mac\PCLStorage.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLStorage">
+      <HintPath>..\packages\PCLStorage.1.0.2\lib\portable-Xamarin.iOS+Xamarin.Mac\PCLStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLAppConfig">
+      <HintPath>..\packages\PCLAppConfig.0.3.4\lib\Xamarin.iOS\PCLAppConfig.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLAppConfig.FileSystemStream.Abstractions">
+      <HintPath>..\packages\PCLAppConfig.0.3.4\lib\Xamarin.iOS\PCLAppConfig.FileSystemStream.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLAppConfig.FileSystemStream">
+      <HintPath>..\packages\PCLAppConfig.0.3.4\lib\Xamarin.iOS\PCLAppConfig.FileSystemStream.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppTokiota\AppTokiota.csproj">
@@ -164,6 +185,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Helpers\Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\login_background.png" />
@@ -172,6 +194,7 @@
     <BundleResource Include="Resources\logo.png" />
     <BundleResource Include="Resources\logo%402x.png" />
     <BundleResource Include="Resources\logo%403x.png" />
+    <BundleResource Include="Settings.bundle\Root.plist" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets')" />

@@ -5,16 +5,8 @@ using Plugin.Settings.Abstractions;
 
 namespace AppTokiota
 {
-    public static class AppSettings
-    {
-        // Endpoints
-        private const string DefaultMicrosoftTenant = "DefaultMicrosoftTenant";
-        private const string DefaultMicrosoftApiClientId = "DefaultMicrosoftApiClientId";
-        private const string DefaultMicrosoftGrantType = "DefaultMicrosoftGrantType";
-        private const string DefaultMicrosoftResource = "DefaultMicrosoftResource";
-        private const string DefaultMicrosoftAuthEndpoint = "DefaultMicrosoftAuthEndpoint";
-
-
+    public static partial class AppSettings
+    {       
         private static ISettings Settings => CrossSettings.Current;
 
 

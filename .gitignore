@@ -5,6 +5,7 @@
 [Oo]bj/
 [Bb]in/
 packages/
+AppTokiota/AppSettingsKeys.cs
 TestResults/
 
 # globs

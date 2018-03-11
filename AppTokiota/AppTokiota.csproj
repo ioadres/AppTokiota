@@ -60,6 +60,11 @@
     <Compile Include="Services\ServicesLoader.cs" />
     <Compile Include="AppSettingsKeys.cs" />
     <Compile Include="Controls\ExtendedEntry.cs" />
+    <Compile Include="Components\Core\Validations\IValidationRule.cs" />
+    <Compile Include="Components\Core\Validations\ValidatableObject.cs" />
+    <Compile Include="Components\Core\Validations\IValidity.cs" />
+    <Compile Include="Components\Core\Validations\EmailRule.cs" />
+    <Compile Include="Components\Core\Validations\IsNotNullOrEmptyRule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
@@ -73,6 +78,7 @@
     <Folder Include="Services\" />
     <Folder Include="Services\Authentication\" />
     <Folder Include="Fonts\" />
+    <Folder Include="Components\Core\Validations\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -136,6 +142,10 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\portable-net45+win8+wp8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="EmailAddress">
+      <HintPath>..\packages\EmailAddress.4.1.0\lib\EmailAddress.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.122203\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.122203\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />

@@ -8,6 +8,10 @@
 
     { "name": "AppTokiota" },
     { "name": "AppTokiota.Components.Login" },
+    { "name": "AppTokiota.Components.Core" },
+    { "name": "AppTokiota.Components.Core.Validations" },
     { "name": "AppTokiota.Controls" }
+    { "name": "AppTokiota.Services.Authentication" }
+    { "name": "AppTokiota.Services" }
   ]
 }

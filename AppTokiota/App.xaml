@@ -7,6 +7,16 @@
     <prism:PrismApplication.Resources>
         <ResourceDictionary>
             <!-- COLORS -->
+            <Color x:Key="PrimaryColor">#ca5d5b</Color>
+            <Color x:Key="PrimaryLightColor">#ff8d88</Color>
+            <Color x:Key="PrimaryDarkColor">#952e32</Color>
+            <Color x:Key="SecondaryColor">#424242</Color>
+            <Color x:Key="SecondaryLightColor">#6d6d6d</Color>
+            <Color x:Key="SecondaryDarkColor">#1b1b1b</Color>
+            <Color x:Key="PrimaryTextColor">#5F5F5F</Color>
+            <Color x:Key="SecondaryTextColor">#ECECEC</Color>
+
+                    
             <Color x:Key="AccentColor">#BC4C1B</Color>
             <Color x:Key="BackgroundColor">#212C37</Color>
             <Color x:Key="BlackColor">#000000</Color>
@@ -17,9 +27,10 @@
             <Color x:Key="RedColor">#CA5D5B</Color>
             <Color x:Key="LightOrangeColor">#D87E56</Color>
             <Color x:Key="WhiteColor">#FFFFFF</Color>
-            <Color x:Key="ValidationErrorColor">#FF204F</Color>
-            <Color x:Key="DarkGrayColor">#ADADAD</Color>
-            <Color x:Key="GrayColor">#F6F1E9</Color>
+            <Color x:Key="ValidationErrorColor">#CA5D5B</Color>
+             <Color x:Key="DarkColor">#424242</Color>
+            <Color x:Key="DarkGrayColor">#C6C6C6</Color>
+            <Color x:Key="GrayColor">#ECECEC</Color>
 
             <!-- FONTS -->
             <OnPlatform x:Key="PoppinsBold"
@@ -130,6 +141,7 @@
                    BasedOn="{StaticResource BaseLabelStyle}">
                 <Setter Property="FontFamily"
                     Value="{StaticResource PoppinsRegular}" />
+                
             </Style>
 
             <Style x:Key="PoppinsSemiBoldLabelStyle"
@@ -147,9 +159,9 @@
                 <Setter Property="BackgroundColor"
                         Value="Transparent" />
                 <Setter Property="TextColor"
-                        Value="{StaticResource WhiteColor}" />
+                        Value="{StaticResource DarkGrayColor}" />
                 <Setter Property="PlaceholderColor"
-                        Value="{StaticResource WhiteColor}" />
+                        Value="{StaticResource DarkGrayColor}" />
                 <Setter Property="HeightRequest"
                         Value="44" />
                 <Setter Property="WidthRequest"
@@ -163,9 +175,9 @@
                 <Setter Property="Opacity"
                         Value="0.6" />
                  <Setter Property="LineColor"
-                        Value="{StaticResource WhiteColor}" />
+                        Value="{StaticResource DarkGrayColor}" />
                 <Setter Property="FocusLineColor"
-                        Value="{StaticResource GrayColor}" />
+                        Value="{StaticResource WhiteColor}" />
                 <Setter Property="InvalidLineColor"
                         Value="{StaticResource ValidationErrorColor}" />
                 <Style.Triggers>

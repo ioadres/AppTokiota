@@ -33,7 +33,7 @@
             <Grid RowSpacing="0" ColumnSpacing="0" AbsoluteLayout.LayoutBounds="0.0, 0.0, 1.0, 1.0" AbsoluteLayout.LayoutFlags="All">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="45" />
+                    <RowDefinition Height="45" />       
                     <RowDefinition Height="35" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="35" />
@@ -46,7 +46,7 @@
                 </Grid.ColumnDefinitions>
                 <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="FillAndExpand">
                     <Frame Style="{StaticResource BoxLogoStyle}">
-                        <StackLayout VerticalOptions="FillAndExpand">
+                        <StackLayout VerticalOptions="EndAndExpand">
                             <Image Source="logo.png" WidthRequest="100" HeightRequest="100" />
                         </StackLayout>
                     </Frame>

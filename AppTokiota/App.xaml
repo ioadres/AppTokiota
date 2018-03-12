@@ -36,31 +36,31 @@
             <OnPlatform x:Key="PoppinsBold"
                         x:TypeArguments="x:String"
                         iOS="Poppins-Bold"
-                        Android="Poppins-Bold.ttf#Poppins"
+                        Android="fonts/Poppins-Bold.ttf#Poppins"
                         />
 
             <OnPlatform x:Key="PoppinsLight"
                         x:TypeArguments="x:String"
                         iOS="Poppins-Light"
-                        Android="Poppins-Light.ttf#Poppins"
+                        Android="fonts/Poppins-Light.ttf#Poppins"
                         />
 
             <OnPlatform x:Key="PoppinsMedium"
                         x:TypeArguments="x:String"
                         iOS="Poppins-Medium"
-                        Android="Poppins-Medium.ttf#Poppins"
+                        Android="fonts/Poppins-Medium.ttf#Poppins"
                        />
             
             <OnPlatform x:Key="PoppinsRegular"
                         x:TypeArguments="x:String"
                         iOS="Poppins-Regular"
-                        Android="Poppins-Regular.ttf#Poppins"
+                        Android="fonts/Poppins-Regular.ttf#Poppins"
                       />
 
             <OnPlatform x:Key="PoppinsSemiBold"
                         x:TypeArguments="x:String"
                         iOS="Poppins-SemiBold"
-                        Android="Poppins-SemiBold.ttf#Poppins"
+                        Android="fonts/Poppins-SemiBold.ttf#Poppins"
                         />
            
             <OnPlatform x:Key="LittleSize"
@@ -216,13 +216,14 @@
             </Style>
 
             <Style x:Key="buttonWizardPrimary" TargetType="Button" BasedOn="{StaticResource BaseButtonWizardStyle}">
-                <Setter Property="BorderColor" Value="#FFFFFF" />
+                <Setter Property="BorderColor" Value="{StaticResource WhiteColor}" />
                 <Setter Property="BackgroundColor" Value="{StaticResource WhiteColor}" />
                 <Setter Property="TextColor" Value="{StaticResource RedColor}" />
             </Style>
             <Style x:Key="buttonWizardSecundary" TargetType="Button" BasedOn="{StaticResource BaseButtonWizardStyle}">
-                <Setter Property="BorderColor" Value="#FFFFFF" />
-                <Setter Property="TextColor" Value="#FFFFFF" />
+                <Setter Property="BorderColor" Value="{StaticResource WhiteColor}" />
+              <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
             </Style>
         </ResourceDictionary>
         <!-- Application resource dictionary -->

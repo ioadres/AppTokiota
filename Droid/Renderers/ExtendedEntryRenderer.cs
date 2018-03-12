@@ -1,12 +1,15 @@
 ﻿using System;
 using AppTokiota.Controls;
 using AppTokiota.Droid.Renderers;
-
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
+using System.ComponentModel;
 
 [assembly: ExportRenderer(typeof(ExtendedEntry), typeof(ExtendedEntryRenderer))]
 namespace AppTokiota.Droid.Renderers
 {
-    
+
+#pragma warning disable CS0618 // Type or member is obsolete
     public class ExtendedEntryRenderer : EntryRenderer
     {
         public ExtendedEntry ExtendedEntryElement => Element as ExtendedEntry;
@@ -37,4 +40,5 @@ namespace AppTokiota.Droid.Renderers
             Control?.Background?.SetColorFilter(ExtendedEntryElement.LineColorToApply.ToAndroid(), Android.Graphics.PorterDuff.Mode.SrcAtop);
         }
     }
+#pragma warning restore CS0618 // Type or member is obsolete
 }

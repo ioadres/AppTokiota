@@ -7,6 +7,12 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Prism;
+using Prism.Ioc;
+using UXDivers.Gorilla.Droid;
+using AppTokiota.Controls;
+using AppTokiota.Droid.Renderers;
+using Prism.Unity;
 
 namespace AppTokiota.Droid
 {
@@ -22,16 +28,24 @@ namespace AppTokiota.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
-            LoadApplication(new App(new AndroidInitializer()));
+            /*LoadApplication(UXDivers.Gorilla.Droid.Player.CreateApplication(
+                this,
+                new UXDivers.Gorilla.Config("Good Gorilla")
+                             // Register Grial Shared assembly
+                             .RegisterAssembliesFromTypes<Prism.IPlatformInitializer, Prism.PrismApplicationBase, Prism.Unity.PrismApplication>()
+                            .RegisterAssemblyFromType<ExtendedEntry>()
+                            .RegisterAssemblyFromType<ExtendedEntryRenderer>()
+                            .RegisterAssembly(typeof(AppTokiota.Components.Core.ViewModelBase).Assembly)
+                )); */           
+
+           LoadApplication(new App(new AndroidInitializer()));
         }
     }
 
     public class AndroidInitializer : IPlatformInitializer
     {
-
-        public void RegisterTypes(IUnityContainer container)
+        public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
         }
     }
 }

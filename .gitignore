@@ -39,3 +39,6 @@ Thumbs.db
 
 # dotCover
 *.dotCover
+/.vs/AppTokiota/v15/sqlite3/storage.ide
+/.vs/config/applicationhost.config
+/UpgradeLog.htm

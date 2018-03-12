@@ -3,10 +3,10 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="HeaderTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsSemiBoldLabelStyle}">
+            <Style x:Key="HeaderTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
                 <Setter Property="VerticalOptions" Value="Center" />
-                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
                 <Setter Property="Margin">
                     <Setter.Value>
                         <OnPlatform x:TypeArguments="Thickness">
@@ -17,23 +17,15 @@
                 </Setter>
             </Style>
 
-            <Style x:Key="BoxLogoStyle" TargetType="Frame">
-                <Setter Property="CornerRadius" Value="3" />
-                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
-                 <Setter Property="VerticalOptions" Value="EndAndExpand" />
-                 <Setter Property="Opacity" Value="0.9" />
-                <Setter Property="Padding" Value="10" />
-            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     
     <ContentPage.Content>
-        <AbsoluteLayout>
-            <Image Source="login_background.png" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0.0, 0.0, 1.0, 1.0" AbsoluteLayout.LayoutFlags="All" />
+        <AbsoluteLayout BackgroundColor="{StaticResource WhiteColor}">
+            <Image Source="login_background.png" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0.0, 0.0, 1.0, 1.0" AbsoluteLayout.LayoutFlags="All" Opacity="0.2"/>
             <Grid RowSpacing="0" ColumnSpacing="0" AbsoluteLayout.LayoutBounds="0.0, 0.0, 1.0, 1.0" AbsoluteLayout.LayoutFlags="All">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="45" />       
+                    <RowDefinition Height="*" />     
                     <RowDefinition Height="35" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="35" />
@@ -44,38 +36,32 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="FillAndExpand">
-                    <Frame Style="{StaticResource BoxLogoStyle}">
-                        <StackLayout VerticalOptions="EndAndExpand">
-                            <Image Source="logo.png" WidthRequest="100" HeightRequest="100" />
-                        </StackLayout>
-                    </Frame>
-                </StackLayout>
 
-                <StackLayout  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Padding="50" HorizontalOptions="CenterAndExpand">
-                    <Label Text="Email" TextColor="{Binding Path=LineColorToApply, Source={x:Reference EmailEntry}}" Style="{StaticResource HeaderTextStyle}">
+
+                <Image Source="logo_horizontal.png" WidthRequest="200" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="End" HorizontalOptions="Center" />
+                    
+             
+                <StackLayout  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Padding="50" HorizontalOptions="Fill" >
+                    <Label Text="Email" TextColor="{Binding Path=LineColorToApply, Source={x:Reference EmailEntry}}" Style="{StaticResource HeaderTextStyle}" HorizontalOptions="Fill">
                     </Label>
-                    <ctrls:ExtendedEntry x:Name="EmailEntry" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsPassword="False" Placeholder="Email@Domain.com" AutomationId="Email"
+                    <ctrls:ExtendedEntry x:Name="EmailEntry" VerticalOptions="CenterAndExpand" HorizontalOptions="Fill" IsPassword="False" Placeholder="Email@Domain.com" AutomationId="Email"
                                          Text="{Binding Email.Value, Mode=TwoWay}"
                                          IsValid="{Binding Email.IsValid, Mode=TwoWay}">
                     </ctrls:ExtendedEntry>
 
-                    <Label Text="Password" TextColor="{Binding Path=LineColorToApply, Source={x:Reference PasswordEntry}}" Style="{StaticResource HeaderTextStyle}">
+                    <Label Text="Password" TextColor="{Binding Path=LineColorToApply, Source={x:Reference PasswordEntry}}" Style="{StaticResource HeaderTextStyle}" HorizontalOptions="Fill">
                     </Label>
 
-                    <ctrls:ExtendedEntry  x:Name="PasswordEntry" AutomationId="password" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsPassword="true" Placeholder="**********************" 
+                    <ctrls:ExtendedEntry  x:Name="PasswordEntry" AutomationId="password" VerticalOptions="CenterAndExpand" HorizontalOptions="Fill" IsPassword="true" Placeholder="*********" 
                                          Text="{Binding Password.Value, Mode=TwoWay}"
                                          IsValid="{Binding Password.IsValid, Mode=TwoWay}">
                     </ctrls:ExtendedEntry>
                 </StackLayout>
 
-                <StackLayout Grid.Row="6" Grid.Column="0" VerticalOptions="EndAndExpand" HorizontalOptions="Center" Padding="30">
-                    <Button Text="Enter" Style="{StaticResource buttonWizardPrimary}" Command="{Binding SignInCommand}" />
-                </StackLayout>
-
-                <StackLayout Grid.Row="6" Grid.Column="1" VerticalOptions="EndAndExpand" HorizontalOptions="Center" Padding="30">
-                    <Button Text="About Us" Style="{StaticResource buttonWizardSecundary}" Command="{Binding OpenCompanyURICommand}" />
-                </StackLayout>
+                <Button  Grid.Row="5" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center"  Text="Enter" Style="{StaticResource ButtonWizardPrimary}" Command="{Binding SignInCommand}" />
+              
+                <Button Grid.Row="5" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" Text="About Us" Style="{StaticResource ButtonWizardSecundary}" Command="{Binding OpenCompanyURICommand}" />
+          
                 
             </Grid>
         </AbsoluteLayout>

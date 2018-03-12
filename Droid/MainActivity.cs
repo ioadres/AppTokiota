@@ -36,9 +36,9 @@ namespace AppTokiota.Droid
                             .RegisterAssemblyFromType<ExtendedEntry>()
                             .RegisterAssemblyFromType<ExtendedEntryRenderer>()
                             .RegisterAssembly(typeof(AppTokiota.Components.Core.ViewModelBase).Assembly)
-                )); */           
-
-           LoadApplication(new App(new AndroidInitializer()));
+                ));   */        
+                
+          LoadApplication(new App(new AndroidInitializer()));
         }
     }
 

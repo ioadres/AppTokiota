@@ -159,25 +159,37 @@
                 <Setter Property="BackgroundColor"
                         Value="Transparent" />
                 <Setter Property="TextColor"
-                        Value="{StaticResource DarkGrayColor}" />
+                        Value="{StaticResource WhiteColor}" />
                 <Setter Property="PlaceholderColor"
-                        Value="{StaticResource DarkGrayColor}" />
+                        Value="{StaticResource WhiteColor}" />
                 <Setter Property="HeightRequest"
                         Value="44" />
                 <Setter Property="WidthRequest"
                         Value="150" />
-                <Setter Property="FontSize"
-                        Value="{StaticResource MediumSize}" />
+              <Setter Property="FontSize">
+                <Setter.Value>
+                  <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="Android" Value="{StaticResource LittleSize}" />
+                    <On Platform="iOS" Value="{StaticResource MidMediumSize}" />
+                  </OnPlatform>
+                </Setter.Value>
+              </Setter>
                 <Setter Property="HorizontalOptions"
                         Value="FillAndExpand" />
-                <Setter Property="FontAttributes"
-                        Value="Bold" />
+              <Setter Property="FontAttributes">
+                <Setter.Value>
+                  <OnPlatform x:TypeArguments="x:String">
+                    <On Platform="Android" Value="" />
+                    <On Platform="iOS" Value="Bold" />
+                  </OnPlatform>
+                </Setter.Value>
+              </Setter>
                 <Setter Property="Opacity"
                         Value="0.6" />
                  <Setter Property="LineColor"
-                        Value="{StaticResource DarkGrayColor}" />
-                <Setter Property="FocusLineColor"
                         Value="{StaticResource WhiteColor}" />
+                <Setter Property="FocusLineColor"
+                        Value="{StaticResource GrayColor}" />
                 <Setter Property="InvalidLineColor"
                         Value="{StaticResource ValidationErrorColor}" />
                 <Style.Triggers>
@@ -195,32 +207,29 @@
             <!-- Button --> 
             <Style x:Key="BaseButtonStyle"
                    TargetType="Button">
-                <Setter Property="BorderRadius" Value="0" />
+                <Setter Property="BorderRadius" Value="20" />
                 <Setter Property="HeightRequest" Value="73" />
                 <Setter Property="HorizontalOptions" Value="Fill" />
                 <Setter Property="FontSize"
-                        Value="{StaticResource MidMediumSize}" />
+                        Value="{StaticResource LittleSize}" />
                 <Setter Property="FontFamily"
-                        Value="{StaticResource PoppinsSemiBold}" />
+                        Value="{StaticResource PoppinsRegular}" />
             </Style>
 
             <Style x:Key="BaseButtonWizardStyle" BasedOn="{StaticResource BaseButtonStyle}"
                    TargetType="Button">
-                 <Setter Property="BorderRadius" Value="18" />
                 <Setter Property="BorderWidth" Value="1" />
-                <Setter Property="HeightRequest" Value="43" />
-                <Setter Property="WidthRequest" Value="148" />
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="HeightRequest" Value="35" />
+                <Setter Property="WidthRequest" Value="100" />
                 <Setter Property="FontFamily"
                         Value="{StaticResource PoppinsSemiBold}" />
             </Style>
 
-            <Style x:Key="buttonWizardPrimary" TargetType="Button" BasedOn="{StaticResource BaseButtonWizardStyle}">
-                <Setter Property="BorderColor" Value="{StaticResource WhiteColor}" />
+            <Style x:Key="ButtonWizardPrimary" TargetType="Button" BasedOn="{StaticResource BaseButtonWizardStyle}">
                 <Setter Property="BackgroundColor" Value="{StaticResource WhiteColor}" />
                 <Setter Property="TextColor" Value="{StaticResource RedColor}" />
             </Style>
-            <Style x:Key="buttonWizardSecundary" TargetType="Button" BasedOn="{StaticResource BaseButtonWizardStyle}">
+            <Style x:Key="ButtonWizardSecundary" TargetType="Button" BasedOn="{StaticResource BaseButtonWizardStyle}">
                 <Setter Property="BorderColor" Value="{StaticResource WhiteColor}" />
               <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />

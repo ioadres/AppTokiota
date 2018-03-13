@@ -8,7 +8,7 @@ namespace AppTokiota.Services.Authentication
     {
         bool IsAuthenticated { get; }
         TokenResponse AuthenticatedUser { get; }
-        Task<TokenResponse> Login(string email, string password);
+        Task<bool> Login(string email, string password);
         Task Logout();
     }
 }

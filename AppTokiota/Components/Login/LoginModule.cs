@@ -12,28 +12,16 @@ namespace AppTokiota.Components.Login
     public class LoginModule: BaseModule, ILoginModule
     {
         private readonly IAuthenticationService _authenticationService;
-        
-        public LoginModule(IAuthenticationService authenticationService) {
-            SetTag(nameof(LoginPage));
+        public IAuthenticationService AuthenticationService => _authenticationService;
 
+        public LoginModule(IAuthenticationService authenticationService) {
+            Tag = nameof(LoginPage);
             _authenticationService = authenticationService;
         }
-
-        public Task<TokenResponse> Login(string email, string password)
-        {
-           return _authenticationService.Login(email, password);
-        }
-
-        public String GetUrlCompamy()
-        {
-            return AppSettings.UrlCompany;
-        }
-
-
-        public override void Register(IContainerRegistry containerRegistry) {
+        
+        public static void Register(IContainerRegistry containerRegistry) {
 
             containerRegistry.RegisterForNavigation<LoginPage, LoginViewModel>();
         }
-
     }
 }

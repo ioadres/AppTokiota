@@ -1,4 +1,6 @@
 ﻿using System;
+using AppTokiota.Models;
+
 namespace AppTokiota
 {
     public static partial class AppSettings
@@ -13,5 +15,6 @@ namespace AppTokiota
 
         //Company
         private const string DefaultUrlCompany = "http://tokiota.com/";
+        
     }
 }

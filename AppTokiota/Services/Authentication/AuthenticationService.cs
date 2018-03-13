@@ -17,13 +17,16 @@ namespace AppTokiota.Services.Authentication
 
         public Models.TokenResponse AuthenticatedUser => null;
 
-        public async Task<TokenResponse> Login(string email, string password)
+        public async Task<bool> Login(string email, string password)
         {
-            using (var client = new HttpClient())
+            var succeeded = false;
+            try
             {
-                var url = AppSettings.MicrosoftAuthEndpoint;
+                using (var client = new HttpClient())
+                {
+                    var url = AppSettings.MicrosoftAuthEndpoint;
 
-                var content = new FormUrlEncodedContent(new Dictionary<string, string>
+                    var content = new FormUrlEncodedContent(new Dictionary<string, string>
                 {
                     {"grant_type","password"},
                     {"client_id", ""},
@@ -31,13 +34,20 @@ namespace AppTokiota.Services.Authentication
                     {"username", email },
                     {"password", password }
                 });
-                var response = await client.PostAsync(url, content);
+                    var response = await client.PostAsync(url, content);
 
-                var json = await response.Content.ReadAsStringAsync();
-                var tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(json);
-
-                return tokenResponse;
+                    var json = await response.Content.ReadAsStringAsync();
+                    var tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(json);
+                    
+                    succeeded = true; 
+                }
+            } catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error with MSAL authentication: {e}");
+                //throw new ServiceAuthenticationException();
             }
+
+            return succeeded;            
         }
      
         public Task Logout()
@@ -45,6 +55,6 @@ namespace AppTokiota.Services.Authentication
             AppSettings.RemoveUserData();
             throw new NotImplementedException();
         }
-
+        
     }
 }

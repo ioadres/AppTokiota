@@ -7,7 +7,12 @@ namespace AppTokiota.Components.Core
 {
     public class ViewModelBase : BindableBase, INavigationAware
     {
-        protected readonly INavigationService _navigationService;
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set { SetProperty(ref _isBusy, value); }
+        }
 
         private string _title;
         public string Title
@@ -16,6 +21,7 @@ namespace AppTokiota.Components.Core
             set { SetProperty(ref _title, value); }
         }
 
+        protected readonly INavigationService _navigationService;
         public DelegateCommand<string> NavigateCommand { get; set; }
 
         public ViewModelBase(INavigationService navigationService)

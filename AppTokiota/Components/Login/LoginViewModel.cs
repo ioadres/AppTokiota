@@ -6,13 +6,13 @@ using Prism.Commands;
 using Prism.Navigation;
 using Xamarin.Forms;
 using AppTokiota.Components.Core.Module;
+using AppTokiota.Services.Authentication;
 
 namespace AppTokiota.Components.Login
 {
     public class LoginViewModel : ViewModelBase
     {
-
-        private ILoginModule _loginModule { get; set; }
+        private readonly ILoginModule _loginModule;        
 
         private ValidatableObject<string> _email;
         private ValidatableObject<string> _password;
@@ -47,18 +47,23 @@ namespace AppTokiota.Components.Login
 
         private void OpenCompanyURI()
         {
-            Device.OpenUri(new Uri(_loginModule.GetUrlCompamy()));
+            Device.OpenUri(new Uri(AppSettings.UrlCompany));
         }
 
         public DelegateCommand SignInCommand => new DelegateCommand(SignIn);
 
         private async void SignIn()
         {
-            bool isValid = Validate();
-
-            if (isValid)
+            IsBusy = true;
+            if (Validate())
             {
-               
+                var isAuth = await _loginModule.AuthenticationService.Login(_email.Value, _password.Value);
+                if(isAuth)
+                {
+                    IsBusy = false;
+                    //_analyticService.TrackEvent("SignIn");
+                    NavigateCommand.Execute("MainPage");
+                }
             }
 
         }

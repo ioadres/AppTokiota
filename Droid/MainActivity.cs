@@ -28,7 +28,7 @@ namespace AppTokiota.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
-            /*LoadApplication(UXDivers.Gorilla.Droid.Player.CreateApplication(
+            LoadApplication(UXDivers.Gorilla.Droid.Player.CreateApplication(
                 this,
                 new UXDivers.Gorilla.Config("Good Gorilla")
                              // Register Grial Shared assembly
@@ -37,9 +37,9 @@ namespace AppTokiota.Droid
                             .RegisterAssemblyFromType<ExtendedEntryRenderer>()
                             .RegisterAssemblyFromType<RoundButtonRenderer>()
                             .RegisterAssembly(typeof(AppTokiota.Components.Core.ViewModelBase).Assembly)
-                ));      */   
+                ));        
                 
-          LoadApplication(new App(new AndroidInitializer()));
+          //LoadApplication(new App(new AndroidInitializer()));
         }
     }
 

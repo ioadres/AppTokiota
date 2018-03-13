@@ -5,6 +5,7 @@ using Prism.Ioc;
 using AppTokiota.Components.Core;
 using AppTokiota.Services;
 using AppTokiota.Components.Core.Module;
+using AppTokiota.Components;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace AppTokiota
@@ -22,11 +23,11 @@ namespace AppTokiota
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            //# Container Services
             ServicesLoader.Load(containerRegistry);
-            ModuleLoader.Load(containerRegistry);
 
-            var loginModule = Container.Resolve<ILoginModule>();
-            loginModule.Register(containerRegistry);   
+            //# Container Components
+            ModuleLoader.Load(containerRegistry);            
         }
 
 

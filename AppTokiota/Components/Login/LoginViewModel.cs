@@ -1,18 +1,18 @@
 ﻿using System;
 using AppTokiota.Attributes;
 using AppTokiota.Components.Core;
-using AppTokiota.Components.Core.Interfaces;
 using AppTokiota.Components.Core.Validations;
 using Prism.Commands;
 using Prism.Navigation;
 using Xamarin.Forms;
+using AppTokiota.Components.Core.Module;
 
 namespace AppTokiota.Components.Login
 {
     public class LoginViewModel : ViewModelBase
     {
 
-        private BaseLoginModule _loginModule { get; set; }
+        private ILoginModule _loginModule { get; set; }
 
         private ValidatableObject<string> _email;
         private ValidatableObject<string> _password;
@@ -30,9 +30,11 @@ namespace AppTokiota.Components.Login
         }
 
 
-        public LoginViewModel(INavigationService navigationService, BaseLoginModule loginModule) : base(navigationService){
+        public LoginViewModel(INavigationService navigationService, ILoginModule loginModule) : base(navigationService){
             _loginModule = loginModule;
+
             Title = "Login";
+
             OpenCompanyURICommand = new DelegateCommand(OpenCompanyURI);
 
             _email = new ValidatableObject<string>();

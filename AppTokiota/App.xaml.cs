@@ -2,11 +2,9 @@
 using Prism.Unity;
 using Prism;
 using Prism.Ioc;
-using AppTokiota.Components.Core.Interfaces;
 using AppTokiota.Components.Core;
 using AppTokiota.Services;
-
-
+using AppTokiota.Components.Core.Module;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace AppTokiota
@@ -18,8 +16,8 @@ namespace AppTokiota
         protected async override void OnInitialized()
         {
             InitializeComponent();
-            var loginModule = Container.Resolve<BaseLoginModule>();
-            await NavigationService.NavigateAsync(loginModule.Tag);
+            var loginModule = Container.Resolve<ILoginModule>();
+            await NavigationService.NavigateAsync(loginModule.GetTag());
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -27,7 +25,7 @@ namespace AppTokiota
             ServicesLoader.Load(containerRegistry);
             ModuleLoader.Load(containerRegistry);
 
-            var loginModule = Container.Resolve<BaseLoginModule>();
+            var loginModule = Container.Resolve<ILoginModule>();
             loginModule.Register(containerRegistry);   
         }
 

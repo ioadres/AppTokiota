@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms" xmlns:ctrls="clr-namespace:AppTokiota.Controls;assembly=AppTokiota" prism:ViewModelLocator.AutowireViewModel="True" x:Class="AppTokiota.Components.Login.LoginPage" Title="{Binding Title}">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms" 
+             xmlns:ctrls="clr-namespace:AppTokiota.Controls;assembly=AppTokiota"
+             prism:ViewModelLocator.AutowireViewModel="True" 
+             x:Class="AppTokiota.Components.Login.LoginPage" Title="{Binding Title}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -16,32 +21,28 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
         </ResourceDictionary>
     </ContentPage.Resources>
     
     <ContentPage.Content>
         <AbsoluteLayout BackgroundColor="{StaticResource WhiteColor}">
-            <Image Source="login_background.png" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0.0, 0.0, 1.0, 1.0" AbsoluteLayout.LayoutFlags="All" Opacity="0.2"/>
+            <Image Source="login_background.png" Aspect="AspectFill" AbsoluteLayout.LayoutBounds="0.0, 0.0, 1.0, 1.0" AbsoluteLayout.LayoutFlags="All" Opacity="0.7"/>
             <Grid RowSpacing="0" ColumnSpacing="0" AbsoluteLayout.LayoutBounds="0.0, 0.0, 1.0, 1.0" AbsoluteLayout.LayoutFlags="All">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />     
-                    <RowDefinition Height="35" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="35" />
-                    <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
+                <Image Source="logo_horizontal.png" WidthRequest="300" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="Center" HorizontalOptions="Center" />
 
-                <Image Source="logo_horizontal.png" WidthRequest="200" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="End" HorizontalOptions="Center" />
-                    
-             
-                <StackLayout  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Padding="50" HorizontalOptions="Fill" >
+
+                <StackLayout  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Padding="15,80,15,50" HorizontalOptions="Fill" BackgroundColor="{StaticResource DarkColor}" >
                     <Label Text="Email" TextColor="{Binding Path=LineColorToApply, Source={x:Reference EmailEntry}}" Style="{StaticResource HeaderTextStyle}" HorizontalOptions="Fill">
                     </Label>
                     <ctrls:ExtendedEntry x:Name="EmailEntry" VerticalOptions="CenterAndExpand" HorizontalOptions="Fill" IsPassword="False" Placeholder="Email@Domain.com" AutomationId="Email"
@@ -56,12 +57,15 @@
                                          Text="{Binding Password.Value, Mode=TwoWay}"
                                          IsValid="{Binding Password.IsValid, Mode=TwoWay}">
                     </ctrls:ExtendedEntry>
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Padding="25">
+                    <Button   VerticalOptions="End" HorizontalOptions="Center"  Text="Enter" Style="{StaticResource ButtonWizardPrimary}" Command="{Binding SignInCommand}" />
+
+                    <Button  VerticalOptions="End" HorizontalOptions="End" Text="About Us" Style="{StaticResource ButtonWizardSecundary}" Command="{Binding OpenCompanyURICommand}" />
+                    </StackLayout>
                 </StackLayout>
 
-                <Button  Grid.Row="5" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center"  Text="Enter" Style="{StaticResource ButtonWizardPrimary}" Command="{Binding SignInCommand}" />
-              
-                <Button Grid.Row="5" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" Text="About Us" Style="{StaticResource ButtonWizardSecundary}" Command="{Binding OpenCompanyURICommand}" />
-          
+                <Label Grid.Row="3" Grid.ColumnSpan="2" Text="Copyright © 2012 Tokiota. Todos los derechos reservados." HorizontalTextAlignment="Center"></Label>
                 
             </Grid>
         </AbsoluteLayout>

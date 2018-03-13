@@ -35,8 +35,9 @@ namespace AppTokiota.Droid
                              .RegisterAssembliesFromTypes<Prism.IPlatformInitializer, Prism.PrismApplicationBase, Prism.Unity.PrismApplication>()
                             .RegisterAssemblyFromType<ExtendedEntry>()
                             .RegisterAssemblyFromType<ExtendedEntryRenderer>()
+                            .RegisterAssemblyFromType<RoundButtonRenderer>()
                             .RegisterAssembly(typeof(AppTokiota.Components.Core.ViewModelBase).Assembly)
-                ));   */        
+                ));      */   
                 
           LoadApplication(new App(new AndroidInitializer()));
         }

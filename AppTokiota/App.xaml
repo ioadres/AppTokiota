@@ -169,7 +169,7 @@
               <Setter Property="FontSize">
                 <Setter.Value>
                   <OnPlatform x:TypeArguments="x:Double">
-                    <On Platform="Android" Value="{StaticResource LittleSize}" />
+                    <On Platform="Android" Value="{StaticResource MidMediumSize}" />
                     <On Platform="iOS" Value="{StaticResource MidMediumSize}" />
                   </OnPlatform>
                 </Setter.Value>
@@ -189,7 +189,7 @@
                  <Setter Property="LineColor"
                         Value="{StaticResource WhiteColor}" />
                 <Setter Property="FocusLineColor"
-                        Value="{StaticResource GrayColor}" />
+                        Value="{StaticResource DarkGrayColor}" />
                 <Setter Property="InvalidLineColor"
                         Value="{StaticResource ValidationErrorColor}" />
                 <Style.Triggers>
@@ -211,7 +211,7 @@
                 <Setter Property="HeightRequest" Value="73" />
                 <Setter Property="HorizontalOptions" Value="Fill" />
                 <Setter Property="FontSize"
-                        Value="{StaticResource LittleSize}" />
+                        Value="{StaticResource MidMediumSize}" />
                 <Setter Property="FontFamily"
                         Value="{StaticResource PoppinsRegular}" />
             </Style>
@@ -219,8 +219,8 @@
             <Style x:Key="BaseButtonWizardStyle" BasedOn="{StaticResource BaseButtonStyle}"
                    TargetType="Button">
                 <Setter Property="BorderWidth" Value="1" />
-                <Setter Property="HeightRequest" Value="35" />
-                <Setter Property="WidthRequest" Value="100" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="WidthRequest" Value="150" />
                 <Setter Property="FontFamily"
                         Value="{StaticResource PoppinsSemiBold}" />
             </Style>

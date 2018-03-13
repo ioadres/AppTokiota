@@ -1,5 +1,4 @@
 ﻿using System;
-using AppTokiota.Components.Core.Interfaces;
 using AppTokiota.Components.Login;
 using Prism.Ioc;
 using AppTokiota.Services.Authentication;

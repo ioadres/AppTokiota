@@ -1,15 +1,25 @@
 ﻿using System;
-using AppTokiota.Components.Core.Interfaces;
 using Prism.Ioc;
+using AppTokiota.Components.Core.Module;
 
-namespace AppTokiota.Components.Core
+namespace AppTokiota.Components.Core.Module
 {
-    public class BaseModule
+    public class BaseModule : IBaseModule
     {
-        public String Tag;
-
+        public String _tag;
+        
+        public string GetTag()
+        {
+            return _tag;
+        }
         public virtual void Register(IContainerRegistry containerRegistry)
         {
+            throw new NotImplementedException();
+        }
+
+        public void SetTag(string value)
+        {
+            _tag = value;
         }
     }
 

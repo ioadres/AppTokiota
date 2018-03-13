@@ -42,6 +42,7 @@
     <Compile Include="AppTokiotaPage.xaml.cs">
       <DependentUpon>AppTokiotaPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\Core\Module\IBaseModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Attributes\TagAttribute.cs" />
     <Compile Include="Components\Login\LoginPage.xaml.cs">
@@ -50,7 +51,7 @@
     <Compile Include="Components\Login\LoginViewModel.cs" />
     <Compile Include="Components\Core\ViewModelBase.cs" />
     <Compile Include="Components\Login\LoginModule.cs" />
-    <Compile Include="Components\Core\Module\BaseLoginModule.cs" />
+    <Compile Include="Components\Core\Module\ILoginModule.cs" />
     <Compile Include="Components\Core\Module\BaseModule.cs" />
     <Compile Include="Components\Core\ModuleLoader.cs" />
     <Compile Include="Services\Authentication\IAuthenticationService.cs" />

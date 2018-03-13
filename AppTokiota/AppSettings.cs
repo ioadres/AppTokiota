@@ -45,6 +45,15 @@ namespace AppTokiota
             set => Settings.AddOrUpdateValue(nameof(MicrosoftApiClientId), value);
         }
 
+        public static string UrlCompany
+        {
+            get => Settings.GetValueOrDefault(nameof(UrlCompany), DefaultUrlCompany);
+
+            set => Settings.AddOrUpdateValue(nameof(UrlCompany), value);
+        }
+
+        
+
         // When logout
         public static void RemoveUserData()
         {

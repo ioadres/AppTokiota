@@ -57,7 +57,7 @@ namespace AppTokiota
         // When logout
         public static void RemoveUserData()
         {
-            Settings.Remove(nameof(TokenResponse));
+            Settings.Remove(nameof(AuthenticatedUserResponse));
         }
     }
 }

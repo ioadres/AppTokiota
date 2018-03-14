@@ -28,30 +28,28 @@
 
         <Grid RowSpacing="0" ColumnSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
+                <RowDefinition Height="1*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <Image Source="login_background.png" Aspect="AspectFill"  Grid.Row="0" />
-            
-            <BoxView Grid.Row="0" BackgroundColor="{StaticResource DarkColor}" Opacity="0.5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
+            <Image Source="login_background.png" Aspect="AspectFill"  Grid.Row="0" Grid.RowSpan="2"/>
+            <BoxView Grid.Row="0" Grid.RowSpan="2" BackgroundColor="{StaticResource DarkColor}" Opacity="0.6" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
 
 
-            <Image Source="logo_horizontal.png" Grid.Row="0" WidthRequest="200"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+            <Image Source="logo_horizontal.png" WidthRequest="200" Grid.Row="0" TranslationX="10" TranslationY="10" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
 
-            <BoxView Grid.Row="1" BackgroundColor="{StaticResource DarkColor}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
-
-            <Grid Grid.Row="1" RowSpacing="0" Padding="35" VerticalOptions="Fill">
+           
+            <Grid Grid.Row="1" RowSpacing="0" Padding="25" VerticalOptions="Fill">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="18" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="15" />
+                    <RowDefinition Height="5" />
                     <RowDefinition Height="18" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="25" />
+                    <RowDefinition Height="10" />
                     <RowDefinition Height="40" />
-                    <RowDefinition Height="15" />
+                    <RowDefinition Height="10" />
                     <RowDefinition Height="35" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>

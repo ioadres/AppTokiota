@@ -22,7 +22,7 @@ namespace AppTokiota.Components.Login
         
         public static void Register(IContainerRegistry containerRegistry) {
 
-            containerRegistry.RegisterForNavigation<LoginPage, LoginViewModel>();
+            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
         }
     }
 }

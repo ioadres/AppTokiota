@@ -220,7 +220,7 @@
                    TargetType="Button">
                 <Setter Property="BorderWidth" Value="1" />
                 <Setter Property="HeightRequest" Value="40" />
-                <Setter Property="WidthRequest" Value="150" />
+                <Setter Property="WidthRequest" Value="140" />
                 <Setter Property="FontFamily"  Value="{StaticResource PoppinsSemiBold}" />
             </Style>
 

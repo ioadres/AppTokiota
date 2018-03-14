@@ -11,7 +11,7 @@ using AppTokiota.Components.Dashboard;
 
 namespace AppTokiota.Components.Login
 {
-    public class LoginViewModel : ViewModelBase
+    public class LoginPageViewModel : ViewModelBase
     {
         private readonly ILoginModule _loginModule;        
 
@@ -31,7 +31,7 @@ namespace AppTokiota.Components.Login
         }
 
 
-        public LoginViewModel(INavigationService navigationService, ILoginModule loginModule) : base(navigationService){
+        public LoginPageViewModel(INavigationService navigationService, ILoginModule loginModule) : base(navigationService){
             _loginModule = loginModule;
 
             Title = "Login";
@@ -56,17 +56,21 @@ namespace AppTokiota.Components.Login
         private async void SignIn()
         {
             IsBusy = true;
-            if (Validate())
+            if (Validate() || true)
             {
-                var isAuth = await _loginModule.AuthenticationService.Login(_email.Value, _password.Value);
-                if(isAuth)
+                var responseRequest = await _loginModule.AuthenticationService.Login(_email.Value, _password.Value);
+                if(responseRequest.Success)
                 {
                     IsBusy = false;
                     //_analyticService.TrackEvent("SignIn");
                     NavigateCommand.Execute(DashBoardModule.Tag);
                 }
+                else
+                {
+                    //await DialogService.ShowAlertAsync("Please, try again", "Login error", "Ok");
+                }
             }
-
+            IsBusy = false;
         }
 
         private void AddValidations()

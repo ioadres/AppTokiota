@@ -2147,6 +2147,7 @@ namespace AppTokiota.Droid
 			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Styleable.ViewStubCompat_android_id = global::AppTokiota.Droid.Resource.Styleable.ViewStubCompat_android_id;
 			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Styleable.ViewStubCompat_android_inflatedId = global::AppTokiota.Droid.Resource.Styleable.ViewStubCompat_android_inflatedId;
 			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Styleable.ViewStubCompat_android_layout = global::AppTokiota.Droid.Resource.Styleable.ViewStubCompat_android_layout;
+			global::ModernHttpClient.Resource.String.library_name = global::AppTokiota.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::AppTokiota.Droid.Resource.Attribute.actionBarSize;
 		}
 		

@@ -221,12 +221,12 @@
                 <Setter Property="BorderWidth" Value="1" />
                 <Setter Property="HeightRequest" Value="40" />
                 <Setter Property="WidthRequest" Value="150" />
-                <Setter Property="FontFamily"
-                        Value="{StaticResource PoppinsSemiBold}" />
+                <Setter Property="FontFamily"  Value="{StaticResource PoppinsSemiBold}" />
             </Style>
 
             <Style x:Key="ButtonWizardPrimary" TargetType="Button" BasedOn="{StaticResource BaseButtonWizardStyle}">
-                <Setter Property="BackgroundColor" Value="{StaticResource WhiteColor}" />
+              <Setter Property="BorderColor" Value="{StaticResource RedColor}" />  
+              <Setter Property="BackgroundColor" Value="{StaticResource WhiteColor}" />
                 <Setter Property="TextColor" Value="{StaticResource RedColor}" />
             </Style>
             <Style x:Key="ButtonWizardSecundary" TargetType="Button" BasedOn="{StaticResource BaseButtonWizardStyle}">

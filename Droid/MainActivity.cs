@@ -37,8 +37,8 @@ namespace AppTokiota.Droid
                             .RegisterAssemblyFromType<ExtendedEntryRenderer>()
                             .RegisterAssemblyFromType<RoundButtonRenderer>()
                             .RegisterAssembly(typeof(AppTokiota.Components.Core.ViewModelBase).Assembly)
-                ));      */   
-                
+                ));        
+                */
           LoadApplication(new App(new AndroidInitializer()));
         }
     }

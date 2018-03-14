@@ -5,8 +5,7 @@ using AppTokiota.Services.Authentication;
 
 namespace AppTokiota.Components.Core.Module
 {
-    public interface ILoginModule : IBaseModule
+    public interface IDashBoardModule : IBaseModule
     {
-        IAuthenticationService AuthenticationService { get; }
     }
 }

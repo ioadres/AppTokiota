@@ -6,6 +6,7 @@ using AppTokiota.Components.Core;
 using AppTokiota.Services;
 using AppTokiota.Components.Core.Module;
 using AppTokiota.Components;
+using AppTokiota.Components.Login;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace AppTokiota
@@ -17,8 +18,7 @@ namespace AppTokiota
         protected async override void OnInitialized()
         {
             InitializeComponent();
-            var loginModule = Container.Resolve<ILoginModule>();
-            await NavigationService.NavigateAsync(loginModule.GetTag());
+            await NavigationService.NavigateAsync(LoginModule.Tag);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

@@ -7,6 +7,7 @@ using Prism.Navigation;
 using Xamarin.Forms;
 using AppTokiota.Components.Core.Module;
 using AppTokiota.Services.Authentication;
+using AppTokiota.Components.Dashboard;
 
 namespace AppTokiota.Components.Login
 {
@@ -62,7 +63,7 @@ namespace AppTokiota.Components.Login
                 {
                     IsBusy = false;
                     //_analyticService.TrackEvent("SignIn");
-                    NavigateCommand.Execute("MainPage");
+                    NavigateCommand.Execute(DashBoardModule.Tag);
                 }
             }
 

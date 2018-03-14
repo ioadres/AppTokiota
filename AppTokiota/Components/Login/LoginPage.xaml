@@ -34,7 +34,7 @@
 
             <Image Source="login_background.png" Aspect="AspectFill"  Grid.Row="0" />
             
-            <BoxView Grid.Row="0" BackgroundColor="{StaticResource DarkColor}" Opacity="0.6" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
+            <BoxView Grid.Row="0" BackgroundColor="{StaticResource DarkColor}" Opacity="0.5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
 
 
             <Image Source="logo_horizontal.png" Grid.Row="0" WidthRequest="200"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
@@ -52,7 +52,7 @@
                     <RowDefinition Height="25" />
                     <RowDefinition Height="40" />
                     <RowDefinition Height="15" />
-                    <RowDefinition Height="25" />
+                    <RowDefinition Height="35" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -165,6 +165,7 @@
                        TextColor="{StaticResource WhiteColor}" 
                        Text="Copyright © 2012 Tokiota. Todos los derechos reservados."
                        Style="{StaticResource PoppinsLightLabelStyle}"
+                       FontSize="{StaticResource LittleSize}"
                        HorizontalTextAlignment="Center">
                     <Label.HorizontalOptions>
                         <OnIdiom

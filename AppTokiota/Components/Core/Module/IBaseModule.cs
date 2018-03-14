@@ -9,6 +9,5 @@ namespace AppTokiota.Components.Core.Module
 {
     public interface IBaseModule
     {
-        string GetTag();
     }
 }

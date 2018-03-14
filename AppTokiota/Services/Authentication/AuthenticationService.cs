@@ -29,8 +29,8 @@ namespace AppTokiota.Services.Authentication
                     var content = new FormUrlEncodedContent(new Dictionary<string, string>
                 {
                     {"grant_type","password"},
-                    {"client_id", ""},
-                    {"resource", ""},
+                    {"client_id", AppSettings.MicrosoftApiClientId},
+                    {"resource", AppSettings.MicrosoftResource},
                     {"username", email },
                     {"password", password }
                 });

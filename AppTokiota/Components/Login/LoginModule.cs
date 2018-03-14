@@ -11,11 +11,12 @@ namespace AppTokiota.Components.Login
 {
     public class LoginModule: BaseModule, ILoginModule
     {
+        public static string Tag => nameof(LoginPage);
+
         private readonly IAuthenticationService _authenticationService;
         public IAuthenticationService AuthenticationService => _authenticationService;
 
         public LoginModule(IAuthenticationService authenticationService) {
-            Tag = nameof(LoginPage);
             _authenticationService = authenticationService;
         }
         

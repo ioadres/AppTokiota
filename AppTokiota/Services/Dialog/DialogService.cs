@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Acr.UserDialogs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace AppTokiota.Services.Dialog
 {
     public class DialogService : IDialogService
     {
-      /*  public Task ShowAlertAsync(string message, string title, string buttonLabel)
+        public Task ShowAlertAsync(string message, string title, string buttonLabel)
         {
             return UserDialogs.Instance.AlertAsync(message, title, buttonLabel);
         }
@@ -16,9 +17,7 @@ namespace AppTokiota.Services.Dialog
         public void ShowToast(string message, int duration = 5000)
         {
             var toastConfig = new ToastConfig(message);
-            toastConfig.SetDuration(duration);
-            toastConfig.Position = Device.RuntimePlatform == Device.UWP ? ToastPosition.Top : ToastPosition.Bottom;
-            
+            toastConfig.SetDuration(duration);            
             toastConfig.SetMessageTextColor(System.Drawing.Color.White);
             toastConfig.SetBackgroundColor(System.Drawing.Color.FromArgb(33, 44, 55));
 
@@ -61,6 +60,6 @@ namespace AppTokiota.Services.Dialog
                 return string.Empty;
             }
         }
-    */
+    
     }
 }

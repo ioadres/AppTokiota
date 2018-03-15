@@ -34,10 +34,7 @@
 
             <Image Source="login_background.png" Aspect="AspectFill"  Grid.Row="0" Grid.RowSpan="2"/>
             <BoxView Grid.Row="0" Grid.RowSpan="2" BackgroundColor="{StaticResource DarkColor}" Opacity="0.6" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
-
-
             <Image Source="logo_horizontal.png" WidthRequest="200" Grid.Row="0" TranslationX="10" TranslationY="10" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
-
            
             <Grid Grid.Row="1" RowSpacing="0" Padding="25" VerticalOptions="Fill">
                 <Grid.RowDefinitions>
@@ -172,17 +169,14 @@
                                 Tablet="Center"
                                 Phone="FillAndExpand"/>
                     </Label.HorizontalOptions>
-                    
+
                 </Label>
-
-                
             </Grid>
-
-
-
             
-
-
-        </Grid>
+            <ActivityIndicator 
+                Color="{StaticResource DarkColor}"
+                IsRunning="{Binding IsBusy}" 
+                IsVisible="{Binding IsBusy}" />
+            </Grid>
     </ContentPage.Content>
 </ContentPage>

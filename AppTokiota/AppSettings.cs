@@ -2,13 +2,21 @@
 using AppTokiota.Models;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
+using AppTokiota.Extensions;
 
 namespace AppTokiota
 {
     public static partial class AppSettings
     {       
         private static ISettings Settings => CrossSettings.Current;
-        
+
+        public static AuthenticatedUserResponse AuthenticatedUserResponse
+        {
+            get => Settings.GetValueOrDefault(nameof(AuthenticatedUserResponse), default(AuthenticatedUserResponse));
+
+            set => Settings.AddOrUpdateValue(nameof(AuthenticatedUserResponse), value);
+        }
+
         // API Endpoints
         public static string MicrosoftAuthEndpoint
         {

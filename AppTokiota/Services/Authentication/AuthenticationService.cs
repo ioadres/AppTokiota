@@ -25,7 +25,7 @@ namespace AppTokiota.Services.Authentication
             {
                 using (var client = new HttpClient(new NativeMessageHandler()))
                 {
-                    var url = AppSettings.MicrosoftAuthEndpoint;
+                    var url = String.Format(AppSettings.MicrosoftAuthEndpoint, AppSettings.MicrosoftTenant);
                     var content = new FormUrlEncodedContent(new Dictionary<string, string>
                     {
                         {"grant_type","password"},
@@ -36,11 +36,15 @@ namespace AppTokiota.Services.Authentication
                     });
                     var response = await client.PostAsync(url, content);
                     var json = await response.Content.ReadAsStringAsync();
-                    var tokenResponse = JsonConvert.DeserializeObject<AuthenticatedUserResponse>(json);
-                   
+                    
                     if(!response.IsSuccessStatusCode)
                     {
                         state.Message = "Error : Usuario y/o contraseña incorrecta.";
+                    }
+                    else
+                    {
+                        var tokenResponse = JsonConvert.DeserializeObject<AuthenticatedUserResponse>(json);
+                        AppSettings.AuthenticatedUserResponse = tokenResponse;
                     }
                     state.Success = response.IsSuccessStatusCode;
                 }

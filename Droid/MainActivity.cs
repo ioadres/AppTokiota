@@ -13,6 +13,7 @@ using UXDivers.Gorilla.Droid;
 using AppTokiota.Controls;
 using AppTokiota.Droid.Renderers;
 using Prism.Unity;
+using Acr.UserDialogs;
 
 namespace AppTokiota.Droid
 {
@@ -27,6 +28,7 @@ namespace AppTokiota.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            UserDialogs.Init(this);
 
             /*LoadApplication(UXDivers.Gorilla.Droid.Player.CreateApplication(
                 this,
@@ -39,7 +41,7 @@ namespace AppTokiota.Droid
                             .RegisterAssembly(typeof(AppTokiota.Components.Core.ViewModelBase).Assembly)
                 ));        
                 */
-          LoadApplication(new App(new AndroidInitializer()));
+            LoadApplication(new App(new AndroidInitializer()));
         }
     }
 

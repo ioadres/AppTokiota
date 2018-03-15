@@ -6,6 +6,7 @@ using AppTokiota.Services.Authentication;
 using System.Threading.Tasks;
 using AppTokiota.Models;
 using AppTokiota.Components.Core.Module;
+using AppTokiota.Services.Dialog;
 
 namespace AppTokiota.Components.Login
 {
@@ -14,10 +15,14 @@ namespace AppTokiota.Components.Login
         public static string Tag => nameof(LoginPage);
 
         private readonly IAuthenticationService _authenticationService;
-        public IAuthenticationService AuthenticationService => _authenticationService;
+        private readonly IDialogService _dialogService;
 
-        public LoginModule(IAuthenticationService authenticationService) {
+        public IAuthenticationService AuthenticationService => _authenticationService;
+        public IDialogService DialogService => _dialogService;
+
+        public LoginModule(IAuthenticationService authenticationService, IDialogService dialogService) {
             _authenticationService = authenticationService;
+            _dialogService = dialogService;
         }
         
         public static void Register(IContainerRegistry containerRegistry) {

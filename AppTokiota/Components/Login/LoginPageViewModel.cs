@@ -8,12 +8,13 @@ using Xamarin.Forms;
 using AppTokiota.Components.Core.Module;
 using AppTokiota.Services.Authentication;
 using AppTokiota.Components.Dashboard;
+using AppTokiota.Services.Dialog;
 
 namespace AppTokiota.Components.Login
 {
-    public class LoginViewModel : ViewModelBase
+    public class LoginPageViewModel : ViewModelBase
     {
-        private readonly ILoginModule _loginModule;        
+        private readonly ILoginModule _loginModule;
 
         private ValidatableObject<string> _email;
         private ValidatableObject<string> _password;
@@ -31,7 +32,7 @@ namespace AppTokiota.Components.Login
         }
 
 
-        public LoginViewModel(INavigationService navigationService, ILoginModule loginModule) : base(navigationService){
+        public LoginPageViewModel(INavigationService navigationService, ILoginModule loginModule) : base(navigationService){
             _loginModule = loginModule;
 
             Title = "Login";
@@ -58,15 +59,19 @@ namespace AppTokiota.Components.Login
             IsBusy = true;
             if (Validate())
             {
-                var isAuth = await _loginModule.AuthenticationService.Login(_email.Value, _password.Value);
-                if(isAuth)
+                var responseRequest = await _loginModule.AuthenticationService.Login(_email.Value, _password.Value);
+                if(responseRequest.Success)
                 {
                     IsBusy = false;
                     //_analyticService.TrackEvent("SignIn");
                     NavigateCommand.Execute(DashBoardModule.Tag);
                 }
+                else
+                {
+                    await _loginModule.DialogService.ShowAlertAsync(responseRequest.Message, "Login error", "Ok");
+                }
             }
-
+            IsBusy = false;
         }
 
         private void AddValidations()

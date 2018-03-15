@@ -19,7 +19,7 @@ namespace AppTokiota.Components.Dashboard
 
         public static void Register(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<DashBoardPage, DashBoardViewModel>();
+            containerRegistry.RegisterForNavigation<DashBoardPage, DashBoardPageViewModel>();
         }
     }
 }

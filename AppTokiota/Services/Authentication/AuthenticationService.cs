@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AppTokiota.Models;
+using ModernHttpClient;
 using Newtonsoft.Json;
 
 namespace AppTokiota.Services.Authentication
@@ -13,48 +14,54 @@ namespace AppTokiota.Services.Authentication
         {
         }
 
-        public bool IsAuthenticated =>false ;
+        public bool IsAuthenticated => false;
 
-        public Models.TokenResponse AuthenticatedUser => null;
+        public Models.AuthenticatedUserResponse AuthenticatedUser => null;
 
-        public async Task<bool> Login(string email, string password)
+        public async Task<StateRequest> Login(string email, string password)
         {
-            var succeeded = false;
+            var state = new StateRequest();
             try
             {
-                using (var client = new HttpClient())
+                using (var client = new HttpClient(new NativeMessageHandler()))
                 {
-                    var url = AppSettings.MicrosoftAuthEndpoint;
-
+                    var url = String.Format(AppSettings.MicrosoftAuthEndpoint, AppSettings.MicrosoftTenant);
                     var content = new FormUrlEncodedContent(new Dictionary<string, string>
-                {
-                    {"grant_type","password"},
-                    {"client_id", AppSettings.MicrosoftApiClientId},
-                    {"resource", AppSettings.MicrosoftResource},
-                    {"username", email },
-                    {"password", password }
-                });
+                    {
+                        {"grant_type","password"},
+                        {"client_id", AppSettings.MicrosoftApiClientId},
+                        {"resource", AppSettings.MicrosoftResource},
+                        {"username", email },
+                        {"password", password }
+                    });
                     var response = await client.PostAsync(url, content);
-
                     var json = await response.Content.ReadAsStringAsync();
-                    var tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(json);
                     
-                    succeeded = true; 
+                    if(!response.IsSuccessStatusCode)
+                    {
+                        state.Message = "Error : Usuario y/o contraseña incorrecta.";
+                    }
+                    else
+                    {
+                        var tokenResponse = JsonConvert.DeserializeObject<AuthenticatedUserResponse>(json);
+                        AppSettings.AuthenticatedUserResponse = tokenResponse;
+                    }
+                    state.Success = response.IsSuccessStatusCode;
                 }
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine($"Error with MSAL authentication: {e}");
-                //throw new ServiceAuthenticationException();
+                System.Diagnostics.Debug.WriteLine($"Error with Authentication: {e}");
             }
 
-            return succeeded;            
+            return state;
         }
-     
+
         public Task Logout()
         {
             AppSettings.RemoveUserData();
             throw new NotImplementedException();
         }
-        
+
     }
 }

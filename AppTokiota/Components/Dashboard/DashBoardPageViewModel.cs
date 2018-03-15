@@ -9,11 +9,11 @@ using Prism.Navigation;
 
 namespace AppTokiota.Components.Dashboard
 {
-    public class DashBoardViewModel : ViewModelBase
+    public class DashBoardPageViewModel : ViewModelBase
     {
         private readonly IDashBoardModule _dashBoardModule;
 
-        public DashBoardViewModel(INavigationService navigationService) : base(navigationService)
+        public DashBoardPageViewModel(INavigationService navigationService) : base(navigationService)
         {
         }
     }

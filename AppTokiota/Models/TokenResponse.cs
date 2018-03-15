@@ -4,11 +4,11 @@ using System.Runtime.Serialization;
 namespace AppTokiota.Models
 {
     [DataContract]
-    public class TokenResponse
+    public class AuthenticatedUserResponse
     {
         private readonly DateTime _dateCreation;
 
-        public TokenResponse()
+        public AuthenticatedUserResponse()
         {
             _dateCreation = DateTime.Now;
         }

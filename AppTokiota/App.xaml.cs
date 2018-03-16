@@ -7,6 +7,7 @@ using AppTokiota.Services;
 using AppTokiota.Components.Core.Module;
 using AppTokiota.Components;
 using AppTokiota.Components.Login;
+using AppTokiota.Components.Splash;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace AppTokiota
@@ -18,7 +19,7 @@ namespace AppTokiota
         protected async override void OnInitialized()
         {
             InitializeComponent();
-            await NavigationService.NavigateAsync(LoginModule.Tag);
+            await NavigationService.NavigateAsync(SplashModule.Tag);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

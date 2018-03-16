@@ -23,19 +23,21 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <ContentPage.Content>
 
         <Grid RowSpacing="0" ColumnSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <Image Source="login_background.png" Aspect="AspectFill"  Grid.Row="0" Grid.RowSpan="2"/>
-            <BoxView Grid.Row="0" Grid.RowSpan="2" BackgroundColor="{StaticResource DarkColor}" Opacity="0.6" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
-            <Image Source="logo_horizontal.png" WidthRequest="200" Grid.Row="0" TranslationX="10" TranslationY="10" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
-           
+            <Image Source="login_background.png" Aspect="AspectFill"  Grid.Row="0" Grid.RowSpan="4"/>
+            <BoxView Grid.Row="0" Grid.RowSpan="4" BackgroundColor="{StaticResource DarkColor}" Opacity="0.6" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
+            <Image Source="logo_horizontal.png" WidthRequest="200" Grid.Row="0" TranslationY="10" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+
             <Grid Grid.Row="1" RowSpacing="0" Padding="25" VerticalOptions="Fill">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -46,8 +48,6 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="10" />
                     <RowDefinition Height="40" />
-                    <RowDefinition Height="10" />
-                    <RowDefinition Height="35" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -71,7 +71,7 @@
                     </Label.WidthRequest>
 
                 </Label>
-                    <ctrls:ExtendedEntry x:Name="EmailEntry" IsPassword="False" Placeholder="Email@Domain.com" AutomationId="Email"
+                <ctrls:ExtendedEntry x:Name="EmailEntry" IsPassword="False" Placeholder="Email@Domain.com" AutomationId="Email"
                                          Grid.Row="2"  Grid.ColumnSpan="2"
                                          Text="{Binding Email.Value, Mode=TwoWay}"
                                          IsValid="{Binding Email.IsValid, Mode=TwoWay}">
@@ -123,7 +123,7 @@
                                 x:TypeArguments="x:Double" 
                                 Desktop="350"
                                 Tablet="320"/>
-                    </ctrls:ExtendedEntry.WidthRequest> 
+                    </ctrls:ExtendedEntry.WidthRequest>
                 </ctrls:ExtendedEntry>
 
                 <Button   Grid.Row="7" Grid.Column="0"
@@ -138,7 +138,7 @@
                                 Tablet="Center"
                                 Phone="FillAndExpand"/>
                     </Button.HorizontalOptions>
-                    
+
                 </Button>
 
                 <Button Grid.Row="7" Grid.Column="1"  
@@ -154,29 +154,37 @@
                                 Phone="FillAndExpand"/>
                     </Button.HorizontalOptions>
                 </Button>
+            </Grid>
 
-
-                <Label Grid.Row="9"  Grid.ColumnSpan="2" 
+            <Label Grid.Row="3"
                        TextColor="{StaticResource WhiteColor}" 
                        Text="Copyright © 2012 Tokiota. Todos los derechos reservados."
                        Style="{StaticResource PoppinsLightLabelStyle}"
                        FontSize="{StaticResource LittleSize}"
+                       VerticalTextAlignment="Center"
                        HorizontalTextAlignment="Center">
-                    <Label.HorizontalOptions>
-                        <OnIdiom
+                <Label.HorizontalOptions>
+                    <OnIdiom
                                 x:TypeArguments="LayoutOptions" 
                                 Desktop="Center"
                                 Tablet="Center"
                                 Phone="FillAndExpand"/>
-                    </Label.HorizontalOptions>
+                </Label.HorizontalOptions>
+                <Label.VerticalOptions>
+                    <OnIdiom
+                                x:TypeArguments="LayoutOptions" 
+                                Desktop="Center"
+                                Tablet="Center"
+                                Phone="CenterAndExpand"/>
+                </Label.VerticalOptions>
+            </Label>
 
-                </Label>
-            </Grid>
-            
             <ActivityIndicator 
-                Color="{StaticResource DarkColor}"
+                Color="{StaticResource RedColor}"
+                HorizontalOptions="CenterAndExpand"
                 IsRunning="{Binding IsBusy}" 
                 IsVisible="{Binding IsBusy}" />
-            </Grid>
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

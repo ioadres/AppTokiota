@@ -14,9 +14,9 @@ namespace AppTokiota.Services.Authentication
         {
         }
 
-        public bool IsAuthenticated => false;
+        public bool IsAuthenticated => AppSettings.AuthenticatedUserResponse != null;
 
-        public Models.AuthenticatedUserResponse AuthenticatedUser => null;
+        public Models.AuthenticatedUserResponse AuthenticatedUser => AppSettings.AuthenticatedUserResponse;
 
         public async Task<StateRequest> Login(string email, string password)
         {
@@ -37,15 +37,16 @@ namespace AppTokiota.Services.Authentication
                     var response = await client.PostAsync(url, content);
                     var json = await response.Content.ReadAsStringAsync();
                     
-                    if(!response.IsSuccessStatusCode)
+                    if(response.IsSuccessStatusCode)
                     {
-                        state.Message = "Error : Usuario y/o contraseña incorrecta.";
+                        var tokenResponse = JsonConvert.DeserializeObject<AuthenticatedUserResponse>(json);
+                        AppSettings.AuthenticatedUserResponse = tokenResponse;                        
                     }
                     else
                     {
-                        var tokenResponse = JsonConvert.DeserializeObject<AuthenticatedUserResponse>(json);
-                        AppSettings.AuthenticatedUserResponse = tokenResponse;
+                        state.Message = "Error : Usuario y/o contraseña incorrecta.";
                     }
+
                     state.Success = response.IsSuccessStatusCode;
                 }
             }
@@ -60,7 +61,7 @@ namespace AppTokiota.Services.Authentication
         public Task Logout()
         {
             AppSettings.RemoveUserData();
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
     }

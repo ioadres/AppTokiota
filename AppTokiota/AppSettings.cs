@@ -60,7 +60,14 @@ namespace AppTokiota
             set => Settings.AddOrUpdateValue(nameof(UrlCompany), value);
         }
 
-        
+        public static bool UseFakeServices
+        {
+            get => Settings.GetValueOrDefault(nameof(UseFakeServices), DefaultUseFakeServices);
+
+            set => Settings.AddOrUpdateValue(nameof(UseFakeServices), value);
+        }
+
+
 
         // When logout
         public static void RemoveUserData()

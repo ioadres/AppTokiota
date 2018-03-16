@@ -13,8 +13,10 @@ namespace AppTokiota
         private const string DefaultMicrosoftAuthEndpoint = "DefaultMicrosoftAuthEndpoint";
 
 
-        //Company
+        // App Config
         private const string DefaultUrlCompany = "http://tokiota.com/";
-        
+        private const bool DefaultUseFakeServices = true;
+
+
     }
 }

@@ -13,8 +13,8 @@
       <Color x:Key="SecondaryColor">#424242</Color>
       <Color x:Key="SecondaryLightColor">#6d6d6d</Color>
       <Color x:Key="SecondaryDarkColor">#1b1b1b</Color>
-      <Color x:Key="PrimaryTextColor">#5F5F5F</Color>
-      <Color x:Key="SecondaryTextColor">#ECECEC</Color>
+      <Color x:Key="PrimaryTextColor">#ECECEC</Color>
+      <Color x:Key="SecondaryTextColor">#5F5F5F</Color>
 
 
       <Color x:Key="AccentColor">#BC4C1B</Color>
@@ -246,6 +246,13 @@
           </Setter.Value>
         </Setter>
       </Style>
+
+      <!-- Styles -->
+      <Style TargetType="NavigationPage">
+        <Setter Property="BarBackgroundColor" Value="{StaticResource RedColor}"/>
+        <Setter Property="BarTextColor" Value="White"/>
+      </Style>
+      <!-- Styles -->
 
 
     </ResourceDictionary>

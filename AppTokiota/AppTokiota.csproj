@@ -34,6 +34,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Components\Splash\SplashPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -42,42 +46,68 @@
     <Compile Include="AppTokiotaPage.xaml.cs">
       <DependentUpon>AppTokiotaPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\BaseNavigation\BaseNavigationModule.cs" />
+    <Compile Include="Components\BaseNavigation\BaseNavigationPage.xaml.cs">
+      <DependentUpon>BaseNavigationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\BaseNavigation\BaseNavigationPageViewModel.cs" />
+    <Compile Include="Components\Core\ModuleLoader.cs" />
+    <Compile Include="Components\Core\Module\BaseModule.cs" />
     <Compile Include="Components\Core\Module\IBaseModule.cs" />
+    <Compile Include="Components\Core\Module\IBaseNavigationModule.cs" />
     <Compile Include="Components\Core\Module\IDashBoardModule.cs" />
+    <Compile Include="Components\Core\Module\ILoginModule.cs" />
+    <Compile Include="Components\Core\Module\IMasterModule.cs" />
+    <Compile Include="Components\Core\Module\IMenuModule.cs" />
+    <Compile Include="Components\Core\Module\ISplashModule.cs" />
+    <Compile Include="Components\Core\Validations\EmailRule.cs" />
+    <Compile Include="Components\Core\Validations\IsNotNullOrEmptyRule.cs" />
+    <Compile Include="Components\Core\Validations\IValidationRule.cs" />
+    <Compile Include="Components\Core\Validations\IValidity.cs" />
+    <Compile Include="Components\Core\Validations\ValidatableObject.cs" />
+    <Compile Include="Components\Core\ViewModelBase.cs" />
     <Compile Include="Components\Dashboard\DashBoardModule.cs" />
     <Compile Include="Components\Dashboard\DashBoardPage.xaml.cs">
       <DependentUpon>DashBoardPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\Dashboard\DashBoardPageViewModel.cs" />
-    <Compile Include="Extensions\ISettingsExtensions.cs" />
-    <Compile Include="Models\StateRequest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Attributes\TagAttribute.cs" />
+    <Compile Include="Components\Login\LoginModule.cs" />
     <Compile Include="Components\Login\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\Login\LoginPageViewModel.cs" />
-    <Compile Include="Components\Core\ViewModelBase.cs" />
-    <Compile Include="Components\Login\LoginModule.cs" />
-    <Compile Include="Components\Core\Module\ILoginModule.cs" />
-    <Compile Include="Components\Core\Module\BaseModule.cs" />
-    <Compile Include="Components\Core\ModuleLoader.cs" />
-    <Compile Include="Services\Authentication\IAuthenticationService.cs" />
+    <Compile Include="Components\Master\MasterModule.cs" />
+    <Compile Include="Components\Master\MasterPage.xaml.cs">
+      <DependentUpon>MasterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Master\MasterPageViewModel.cs" />
+    <Compile Include="Components\Menu\MenuModule.cs" />
+    <Compile Include="Components\Menu\MenuPage.xaml.cs">
+      <DependentUpon>MenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Menu\MenuPageViewModel.cs" />
     <Compile Include="Services\Authentication\AuthenticationService.cs" />
-    <Compile Include="AppSettings.cs" />
-    <Compile Include="Models\TokenResponse.cs" />
+    <Compile Include="Services\Authentication\FakeAuthenticationService.cs" />
+    <Compile Include="Services\Authentication\IAuthenticationService.cs" />
     <Compile Include="Services\Dialog\DialogService.cs" />
     <Compile Include="Services\Dialog\IDialogService.cs" />
     <Compile Include="Services\Request\IRequestService.cs" />
     <Compile Include="Services\Request\RequestService.cs" />
     <Compile Include="Services\ServicesLoader.cs" />
+    <Compile Include="Components\Splash\SplashModule.cs" />
+    <Compile Include="Components\Splash\SplashPage.xaml.cs">
+      <DependentUpon>SplashPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Splash\SplashPageViewModel.cs" />
+    <Compile Include="Extensions\ISettingsExtensions.cs" />
+    <Compile Include="Models\MenuItem.cs" />
+    <Compile Include="Models\StateRequest.cs" />
+    <Compile Include="Models\TokenResponse.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Attributes\TagAttribute.cs" />
+    <Compile Include="AppSettings.cs" />
     <Compile Include="AppSettingsKeys.cs" />
     <Compile Include="Controls\ExtendedEntry.cs" />
-    <Compile Include="Components\Core\Validations\IValidationRule.cs" />
-    <Compile Include="Components\Core\Validations\ValidatableObject.cs" />
-    <Compile Include="Components\Core\Validations\IValidity.cs" />
-    <Compile Include="Components\Core\Validations\EmailRule.cs" />
-    <Compile Include="Components\Core\Validations\IsNotNullOrEmptyRule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Fonts\" />
@@ -148,7 +178,23 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Components\BaseNavigation\BaseNavigationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="Components\Dashboard\DashBoardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Components\Master\MasterPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Components\Menu\MenuPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

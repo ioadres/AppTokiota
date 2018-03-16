@@ -1,30 +1,30 @@
 ﻿using AppTokiota.Components.Core.Module;
+using AppTokiota.Services.Authentication;
+using Prism.Ioc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AppTokiota.Services.Authentication;
-using Prism.Ioc;
 
-namespace AppTokiota.Components.Dashboard
+namespace AppTokiota.Components.Splash
 {
-    public class DashBoardModule : BaseModule, IDashBoardModule
+    public class SplashModule : BaseModule, ISplashModule
     {
-        public static string Tag => nameof(DashBoardPage);
         private readonly IAuthenticationService _authenticationService;
+
+        public static string Tag => nameof(SplashPage);
 
         public IAuthenticationService AuthenticationService => _authenticationService;
 
-        public DashBoardModule(IAuthenticationService authenticationService)
+        public SplashModule(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
         }
 
-
         public static void Register(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<DashBoardPage, DashBoardPageViewModel>();
+            containerRegistry.RegisterForNavigation<SplashPage, SplashPageViewModel>();
         }
     }
 }

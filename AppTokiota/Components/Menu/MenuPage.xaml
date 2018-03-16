@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    Title="{Binding Title}"
+    Icon="hamburguer.png"
+    x:Class="AppTokiota.Components.Menu.MenuPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="HeaderTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+            </Style>
+
+            <Style x:Key="ItemsTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsLightLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid HorizontalOptions="StartAndExpand" RowSpacing="0" ColumnSpacing="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Image Source="login_background_menu.png" Aspect="AspectFill"  Grid.Row="0" Grid.RowSpan="3"/>
+
+            <Grid HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="{StaticResource DarkColor}" Opacity="0.3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
+
+                <StackLayout VerticalOptions="Fill" HorizontalOptions="Fill" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >
+                    <Image VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="75">
+                        <Image.Source>
+                            <FileImageSource File="logo.png" />
+                        </Image.Source>
+                    </Image>
+                </StackLayout>
+            </Grid>
+
+            <ListView ItemsSource="{Binding MenuList}" SeparatorVisibility="None" VerticalOptions="Center" HasUnevenRows="true" Grid.Row="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout VerticalOptions="FillAndExpand" Orientation="Horizontal" Padding="20,10,0,10" Spacing="20">
+                                <!--<control:AwesomeLabelControl Text="{Binding Icon}" TextColor="#696a6c" FontSize="15" FontFamily="fontawesome"/>-->
+                                <Label Grid.Column="1" VerticalOptions="Center" Style="{StaticResource ItemsTextStyle}" Text="{Binding Title}">
+                                </Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

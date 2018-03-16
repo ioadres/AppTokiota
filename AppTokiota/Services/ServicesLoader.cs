@@ -11,7 +11,15 @@ namespace AppTokiota.Services
     {
         public static void Load(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<IAuthenticationService, AuthenticationService>();
+         
+            if (AppSettings.UseFakeServices)
+            {
+                containerRegistry.RegisterSingleton<IAuthenticationService, FakeAuthenticationService>();
+            } else
+            {
+                containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
+            }
+
             containerRegistry.Register<IRequestService, RequestService>();
             containerRegistry.Register<IDialogService, DialogService>();
         }

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms" 
+             prism:ViewModelLocator.AutowireViewModel="True" 
+             x:Class="AppTokiota.Components.Splash.SplashPage" Title="{Binding Title}">
+    <ContentPage.BackgroundColor>
+        <OnPlatform x:TypeArguments="Color">
+            <On Platform="Android" Value="Transparent" />
+            <On Platform="UWP" Value="{StaticResource BackgroundColor}" />
+        </OnPlatform>
+    </ContentPage.BackgroundColor>
+    <ContentPage.Content>
+        <Grid    
+            AutomationId="splash">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Image Grid.Row="0" Source="login_background.png" Aspect="AspectFill" />
+            <BoxView Grid.Row="0" BackgroundColor="{StaticResource DarkColor}" Opacity="0.4" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
+            <Image Grid.Row="0" Source="logo_horizontal.png" WidthRequest="200" TranslationY="-70" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" />
+            
+            <ActivityIndicator 
+                Color="{StaticResource RedColor}"
+                IsRunning="True" 
+                IsVisible="True" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

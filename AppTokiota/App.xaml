@@ -25,6 +25,8 @@
       <Color x:Key="GreenColor">#368F94</Color>
       <Color x:Key="OrangeColor">#BC4C1B</Color>
       <Color x:Key="RedColor">#CA5D5B</Color>
+      <Color x:Key="RedDarkColor">#AC4E4C</Color>
+
       <Color x:Key="LightOrangeColor">#D87E56</Color>
       <Color x:Key="WhiteColor">#FFFFFF</Color>
       <Color x:Key="ValidationErrorColor">#CA5D5B</Color>
@@ -33,6 +35,12 @@
       <Color x:Key="GrayColor">#ECECEC</Color>
 
       <!-- FONTS -->
+        <OnPlatform x:Key="AwaesomeRegular"
+              x:TypeArguments="x:String"
+              iOS="fa-regular-400"
+             
+                    />
+            
       <OnPlatform x:Key="PoppinsBold"
                   x:TypeArguments="x:String"
                   iOS="Poppins-Bold"
@@ -235,13 +243,15 @@
         <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
       </Style>
 
+            
+
       <Style TargetType="{x:Type ActivityIndicator}">
         <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="WidthRequest">
           <Setter.Value>
             <OnPlatform x:TypeArguments="x:Double">
-              <On Platform="Android, iOS" Value="200" />
+              <On Platform="Android, iOS" Value="300" />
             </OnPlatform>
           </Setter.Value>
         </Setter>
@@ -253,6 +263,13 @@
         <Setter Property="BarTextColor" Value="White"/>
       </Style>
       <!-- Styles -->
+
+      <Style x:Key="MenuLabelItem"
+              TargetType="Label"
+              BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+        <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+        <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+      </Style>
 
 
     </ResourceDictionary>

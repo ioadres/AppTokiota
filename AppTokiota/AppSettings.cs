@@ -17,6 +17,13 @@ namespace AppTokiota
             set => Settings.AddOrUpdateValue(nameof(AuthenticatedUserResponse), value);
         }
 
+        public static User User
+        {
+            get => Settings.GetValueOrDefault(nameof(User), default(User));
+
+            set => Settings.AddOrUpdateValue(nameof(User), value);
+        }
+
         // API Endpoints
         public static string MicrosoftAuthEndpoint
         {
@@ -73,6 +80,7 @@ namespace AppTokiota
         public static void RemoveUserData()
         {
             Settings.Remove(nameof(AuthenticatedUserResponse));
+            Settings.Remove(nameof(User));
         }
     }
 }

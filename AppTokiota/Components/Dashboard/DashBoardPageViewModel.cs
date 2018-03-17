@@ -15,6 +15,7 @@ namespace AppTokiota.Components.Dashboard
 
         public DashBoardPageViewModel(INavigationService navigationService, IDashBoardModule dashBoardModule) : base(navigationService)
         {
+            Title = "";
             _dashBoardModule = dashBoardModule;
             //_dashBoardModule.AuthenticationService.Logout();
         }

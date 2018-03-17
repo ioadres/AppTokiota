@@ -1,10 +1,13 @@
-﻿<NavigationPage
+<NavigationPage
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms" 
     prism:ViewModelLocator.AutowireViewModel="True" 
-    Title="BaseNavigationView"
-    Icon="icon.png"
-    x:Class="AppTokiota.Components.BaseNavigation.BaseNavigationPage">
-
+    x:Class="AppTokiota.Components.BaseNavigation.BaseNavigationPage"
+    BarTextColor="{StaticResource WhiteColor}">
+    <NavigationPage.BarBackgroundColor>
+        <OnPlatform x:TypeArguments="Color">
+            <On Platform="Android, iOS" Value="{StaticResource RedColor}" />
+        </OnPlatform>
+    </NavigationPage.BarBackgroundColor>
 </NavigationPage>

@@ -16,19 +16,21 @@ namespace AppTokiota.Services.Authentication
 
         public async Task<StateRequest> Login(string email, string password)
         {
-            await Task.Delay(500);
+            await Task.Delay(2000);
             var stateRequest = new StateRequest()
             {
                 Success = true               
             };
 
-            if (email.StartsWith("a"))
+            if (email.ToLower().StartsWith("a"))
             {
                 stateRequest.Success = false;
                 stateRequest.Message = "Usuario y/o Contraseña incorrecta.";
-            } else
+            } 
+            else
             {
                 AppSettings.AuthenticatedUserResponse = new AuthenticatedUserResponse();
+                AppSettings.User = new User(email, password);
             }
 
             return stateRequest;

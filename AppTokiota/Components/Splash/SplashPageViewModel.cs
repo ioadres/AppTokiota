@@ -35,7 +35,7 @@ namespace AppTokiota.Components.Splash
         {
             if (_splashModule.AuthenticationService.IsAuthenticated)
             {
-                NavigateCommand.Execute(MasterModule.Tag + BaseNavigationModule.Tag + DashBoardModule.Tag);
+                NavigateCommand.Execute(MasterModule.Tag + BaseNavigationModule.Tag + DashBoardModule.Tag + '/' + DashBoardModule.Tag);
             }
             else
             {

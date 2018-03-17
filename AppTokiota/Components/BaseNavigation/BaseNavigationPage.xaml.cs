@@ -1,4 +1,5 @@
-﻿using Prism.Navigation;
+﻿using AppTokiota.Utils;
+using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,14 @@ namespace AppTokiota.Components.BaseNavigation
         public BaseNavigationPage()
         {
             InitializeComponent();
+        }
+
+        internal void ApplyNavigationTextColor(Page targetPage)
+        {
+            var color = NavigationBarAttachedProperty.GetTextColor(targetPage);
+            BarTextColor = color == Color.Default
+                ? Color.White
+                : color;
         }
     }
 }

@@ -216,14 +216,10 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Renderers\ExtendedEntryRenderer.cs" />
+    <Compile Include="Renderers\MenuItemCellRenderer.cs" />
+    <Compile Include="Renderers\NavigationRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\login_background.png" />
-    <BundleResource Include="Resources\login_background%402x.png" />
-    <BundleResource Include="Resources\login_background%403x.png" />
-    <BundleResource Include="Resources\logo.png" />
-    <BundleResource Include="Resources\logo%402x.png" />
-    <BundleResource Include="Resources\logo%403x.png" />
     <BundleResource Include="Settings.bundle\Root.plist" />
     <BundleResource Include="..\CommonResources\Fonts\poppins\Poppins-Black.ttf">
       <Link>Resources\fonts\Poppins-Black.ttf</Link>
@@ -243,6 +239,18 @@
     <BundleResource Include="..\CommonResources\Fonts\poppins\Poppins-SemiBold.ttf">
       <Link>Resources\fonts\Poppins-SemiBold.ttf</Link>
     </BundleResource>
+    <BundleResource Include="Resources\icon.png" />
+    <BundleResource Include="Resources\login_background.png" />
+    <BundleResource Include="Resources\login_background_menu.png" />
+    <BundleResource Include="Resources\logo.png" />
+    <BundleResource Include="Resources\logo_horizontal.png" />
+    <BundleResource Include="..\CommonResources\Fonts\FontAwesome\fa-regular-400.ttf">
+      <Link>Resources\fonts\fa-regular-400.ttf</Link>
+    </BundleResource>
+    <BundleResource Include="..\CommonResources\Fonts\FontAwesome\fontawesome.ttf">
+      <Link>Resources\fonts\fontawesome.ttf</Link>
+    </BundleResource>
+    <BundleResource Include="Resources\ic_menu.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets')" />

@@ -40,7 +40,8 @@ namespace AppTokiota.Services.Authentication
                     if(response.IsSuccessStatusCode)
                     {
                         var tokenResponse = JsonConvert.DeserializeObject<AuthenticatedUserResponse>(json);
-                        AppSettings.AuthenticatedUserResponse = tokenResponse;                        
+                        AppSettings.AuthenticatedUserResponse = tokenResponse;
+                        AppSettings.User = new User(email,password);
                     }
                     else
                     {

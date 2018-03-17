@@ -1,4 +1,5 @@
 ﻿using AppTokiota.Components.Core.Module;
+using AppTokiota.Services.Authentication;
 using Prism.Ioc;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,13 @@ namespace AppTokiota.Components.Menu
     public class MenuModule : IMenuModule
     {
         public static string Tag => nameof(MenuPage);
+        private readonly IAuthenticationService _authenticationService;
 
-        public MenuModule()
+        public IAuthenticationService AuthenticationService => _authenticationService;
+
+        public MenuModule(IAuthenticationService authenticationService)
         {
-
+            _authenticationService = authenticationService;
         }
 
         public static void Register(IContainerRegistry containerRegistry)

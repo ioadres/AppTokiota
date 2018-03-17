@@ -108,10 +108,17 @@
     <Compile Include="AppSettings.cs" />
     <Compile Include="AppSettingsKeys.cs" />
     <Compile Include="Controls\ExtendedEntry.cs" />
+    <Compile Include="Controls\MenuItemCell.cs" />
+    <Compile Include="Controls\AwesomeLabelControl.cs" />
+    <Compile Include="Helpers\FontAwesome.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\ObjectCommandArg.cs" />
+    <Compile Include="Utils\NavigationBarAttachedProperty.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Fonts\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Behaviors\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -176,6 +183,9 @@
       <HintPath>..\packages\EmailAddress.4.1.0\lib\EmailAddress.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="Xamarin.Forms.BehaviorsPack">
+      <HintPath>..\packages\Xamarin.Forms.BehaviorsPack.1.4.0\lib\netstandard1.0\Xamarin.Forms.BehaviorsPack.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Components\BaseNavigation\BaseNavigationPage.xaml">

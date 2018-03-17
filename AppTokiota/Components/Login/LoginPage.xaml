@@ -26,12 +26,12 @@
 
     <ContentPage.Content>
 
-        <Grid RowSpacing="0" ColumnSpacing="0">
+        <Grid RowSpacing="0" ColumnSpacing="0" AutomationId="MenuContent">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Image Source="login_background.png" Aspect="AspectFill"  Grid.Row="0" Grid.RowSpan="4"/>
@@ -45,8 +45,8 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="5" />
                     <RowDefinition Height="18" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="25" />
                     <RowDefinition Height="40" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
@@ -156,6 +156,14 @@
                 </Button>
             </Grid>
 
+            <ActivityIndicator 
+                    Grid.Row="2"
+                    Color="{StaticResource RedColor}"
+                    HorizontalOptions="Center"
+                    IsRunning="{Binding IsBusy}" 
+                    IsVisible="{Binding IsBusy}" />
+
+            
             <Label Grid.Row="3"
                        TextColor="{StaticResource WhiteColor}" 
                        Text="Copyright © 2012 Tokiota. Todos los derechos reservados."
@@ -178,13 +186,7 @@
                                 Phone="CenterAndExpand"/>
                 </Label.VerticalOptions>
             </Label>
-
-            <ActivityIndicator 
-                Color="{StaticResource RedColor}"
-                HorizontalOptions="CenterAndExpand"
-                IsRunning="{Binding IsBusy}" 
-                IsVisible="{Binding IsBusy}" />
-
-        </Grid>
+            
+            </Grid>
     </ContentPage.Content>
 </ContentPage>

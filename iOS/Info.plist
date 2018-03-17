@@ -57,6 +57,7 @@
 		<string>fonts/Poppins-Black.ttf</string>
 		<string>fonts/Poppins-SemiBold.ttf</string>
 		<string>fonts/Poppins-Light.ttf</string>
+		<string>fonts/fontawesome.ttf</string>
 	</array>
 </dict>
 </plist>

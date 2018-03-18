@@ -10,6 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using AppTokiota.Components.Core.Module;
 using AppTokiota.Components.Login;
+using AppTokiota.Components.Master;
+using AppTokiota.Components.Timesheet;
+using AppTokiota.Components.Dashboard;
 
 namespace AppTokiota.Components.Menu
 {
@@ -63,13 +66,14 @@ namespace AppTokiota.Components.Menu
             MenuList.Add(new MenuItem()
             {
                 Icon = "\uf0e4",
-                Title = "Dashboard"
+                Title = "Dashboard",
+                PageName = MasterModule.GetMasterNavigationPage(DashBoardModule.Tag)
             });
             MenuList.Add(new MenuItem()
             {
                 Icon = "\uf073",
                 Title = "Timesheet",
-                PageName = LoginModule.Tag
+                PageName = MasterModule.GetMasterNavigationPage(TimesheetModule.Tag)
             });
             MenuList.Add(new MenuItem()
             {

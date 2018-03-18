@@ -21,5 +21,9 @@ namespace AppTokiota.Components.Master
         {
             containerRegistry.RegisterForNavigation<MasterPage, MasterPageViewModel>();
         }
+
+        public static string GetMasterNavigationPage(string page) {
+            return MasterModule.Tag + BaseNavigation.BaseNavigationModule.Tag + page;
+        }
     }
 }

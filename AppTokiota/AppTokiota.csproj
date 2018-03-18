@@ -38,6 +38,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Components\Timesheet\TimesheetPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -114,11 +118,34 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\ObjectCommandArg.cs" />
     <Compile Include="Utils\NavigationBarAttachedProperty.cs" />
+    <Compile Include="Components\Timesheet\TimesheetModule.cs" />
+    <Compile Include="Components\Timesheet\TimesheetPage.xaml.cs">
+      <DependentUpon>TimesheetPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Timesheet\TimesheetPageViewModel.cs" />
+    <Compile Include="Components\Core\Module\ITimesheetModule.cs" />
+    <Compile Include="Controls\Calendar\CalandarChanges.cs" />
+    <Compile Include="Controls\Calendar\Calendar.cs" />
+    <Compile Include="Controls\Calendar\Calendar.Disabled.cs" />
+    <Compile Include="Controls\Calendar\Calendar.MonthNavigation.cs" />
+    <Compile Include="Controls\Calendar\Calendar.MonthYearView.cs" />
+    <Compile Include="Controls\Calendar\Calendar.NumberOfWeek.cs" />
+    <Compile Include="Controls\Calendar\Calendar.OutsideMonth.cs" />
+    <Compile Include="Controls\Calendar\Calendar.Selected.cs" />
+    <Compile Include="Controls\Calendar\Calendar.SpecialDates.cs" />
+    <Compile Include="Controls\Calendar\Calendar.Weekdays.cs" />
+    <Compile Include="Controls\Calendar\CalendarButton.cs" />
+    <Compile Include="Controls\Calendar\DateTimeEventArgs.cs" />
+    <Compile Include="Controls\Calendar\DateTypeEnum.cs" />
+    <Compile Include="Controls\Calendar\EnumerableExtensions.cs" />
+    <Compile Include="Controls\Calendar\SpecialDate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="Behaviors\" />
     <Folder Include="Utils\" />
+    <Folder Include="Components\Timesheet\" />
+    <Folder Include="Controls\Calendar\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

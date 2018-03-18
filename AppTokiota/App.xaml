@@ -243,9 +243,20 @@
         <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
       </Style>
 
+
+      <Style x:Key="ButtonPrimary" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="BorderColor" Value="{StaticResource WhiteColor}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="WidthRequest" Value="100" />
+        <Setter Property="FontFamily"  Value="{StaticResource PoppinsSemiBold}" />
+      </Style>
+
             
 
-      <Style TargetType="{x:Type ActivityIndicator}">
+      <Style TargetType="ActivityIndicator">
         <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="WidthRequest">

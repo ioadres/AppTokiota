@@ -6,6 +6,7 @@ using AppTokiota.Components.Splash;
 using AppTokiota.Components.Menu;
 using AppTokiota.Components.Master;
 using AppTokiota.Components.BaseNavigation;
+using AppTokiota.Components.Timesheet;
 
 namespace AppTokiota.Components.Core
 {
@@ -29,6 +30,9 @@ namespace AppTokiota.Components.Core
 
             containerRegistry.Register<IBaseNavigationModule, BaseNavigationModule>();
             BaseNavigationModule.Register(containerRegistry);
+
+            containerRegistry.Register<ITimesheetModule, TimesheetModule>();
+            TimesheetModule.Register(containerRegistry);
         }
     }
 }

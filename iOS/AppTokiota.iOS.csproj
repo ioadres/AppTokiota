@@ -218,6 +218,7 @@
     <Compile Include="Renderers\ExtendedEntryRenderer.cs" />
     <Compile Include="Renderers\MenuItemCellRenderer.cs" />
     <Compile Include="Renderers\NavigationRenderer.cs" />
+    <Compile Include="Renderers\CalendarButtonRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Settings.bundle\Root.plist" />
@@ -251,6 +252,10 @@
       <Link>Resources\fonts\fontawesome.ttf</Link>
     </BundleResource>
     <BundleResource Include="Resources\ic_menu.png" />
+    <BundleResource Include="Resources\ball_left.png" />
+    <BundleResource Include="Resources\ball_right.png" />
+    <BundleResource Include="Resources\ball.png" />
+    <BundleResource Include="Resources\selected.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets')" />

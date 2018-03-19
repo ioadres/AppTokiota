@@ -1,15 +1,11 @@
 ﻿using System;
-using AppTokiota.Attributes;
 using AppTokiota.Components.Core;
 using AppTokiota.Components.Core.Validations;
 using Prism.Commands;
 using Prism.Navigation;
 using Xamarin.Forms;
 using AppTokiota.Components.Core.Module;
-using AppTokiota.Services.Authentication;
 using AppTokiota.Components.Dashboard;
-using AppTokiota.Services.Dialog;
-using System.Threading.Tasks;
 using AppTokiota.Components.BaseNavigation;
 using AppTokiota.Components.Master;
 
@@ -34,7 +30,6 @@ namespace AppTokiota.Components.Login
             set { SetProperty(ref _password, value); }
         }
 
-
         public LoginPageViewModel(INavigationService navigationService, ILoginModule loginModule) : base(navigationService){
             _loginModule = loginModule;
 
@@ -56,7 +51,6 @@ namespace AppTokiota.Components.Login
         }
 
         public DelegateCommand SignInCommand => new DelegateCommand(SignIn);
-
         private async void SignIn()
         {
             IsBusy = true;

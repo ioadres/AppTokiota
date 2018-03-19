@@ -6,7 +6,7 @@ using AppTokiota.Models;
 using ModernHttpClient;
 using Newtonsoft.Json;
 
-namespace AppTokiota.Services.Authentication
+namespace AppTokiota.Services
 {
     public class AuthenticationService : IAuthenticationService
     {

@@ -1,9 +1,7 @@
 ﻿using System;
 using AppTokiota.Components.Login;
 using Prism.Ioc;
-using AppTokiota.Services.Authentication;
-using AppTokiota.Services.Request;
-using AppTokiota.Services.Dialog;
+using AppTokiota.Services;
 
 namespace AppTokiota.Services
 {
@@ -15,9 +13,11 @@ namespace AppTokiota.Services
             if (AppSettings.UseFakeServices)
             {
                 containerRegistry.RegisterSingleton<IAuthenticationService, FakeAuthenticationService>();
+                containerRegistry.RegisterSingleton<ITimesheetService, FakeTimesheetService>();
             } else
             {
                 containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
+                containerRegistry.Register<ITimesheetService, ITimesheetService>();
             }
 
             containerRegistry.Register<IRequestService, RequestService>();

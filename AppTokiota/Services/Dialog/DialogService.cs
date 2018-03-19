@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppTokiota.Services.Dialog
+namespace AppTokiota.Services
 {
     public class DialogService : IDialogService
     {

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using AppTokiota.Models;
 
-namespace AppTokiota.Services.Authentication
+namespace AppTokiota.Services
 {
     public interface IAuthenticationService
     {

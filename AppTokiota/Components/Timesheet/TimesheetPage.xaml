@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="AppTokiota.Components.Timesheet.TimesheetPage"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True"
     xmlns:controls="clr-namespace:AppTokiota.Controls;assembly=AppTokiota"
     xmlns:b="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+    xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation" 
     Title="{Binding Title}"
-    x:Class="AppTokiota.Components.Timesheet.TimesheetPage">
+    >
     <ContentPage.Resources>
         <ResourceDictionary>
-            
+
+            <xamanimation:StoryBoard 
+                x:Key="CalendarTranslationAnimation" 
+                Target="{x:Reference Calendar}">
+                <xamanimation:TranslateToAnimation 
+                    TranslateY="0"
+                    Easing="CubicOut" 
+                    Duration="750" />
+            </xamanimation:StoryBoard>
+
             <Style x:Key="HeaderTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource ExtraBigSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
@@ -18,17 +29,22 @@
                 <Setter Property="FontSize" Value="{StaticResource ExtraBigSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
-            <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+            <Style x:Key="IconPlusTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
-            <Style x:Key="FooterSubTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+            <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+    <ContentPage.Triggers>
+        <EventTrigger Event="Appearing">
+            <xamanimation:BeginAnimation 
+                Animation="{StaticResource CalendarTranslationAnimation}" />
+        </EventTrigger>
+    </ContentPage.Triggers>
     <ContentPage.Content>
         <Grid VerticalOptions="Fill" HorizontalOptions="Fill" RowSpacing="0" ColumnSpacing="0">
         <Grid.RowDefinitions>
@@ -41,7 +57,9 @@
 
                  <controls:Calendar 
                         x:Name="Calendar"
+                        TranslationY="250"
                         SelectedDates="{Binding Dates, Mode=TwoWay}"
+                        SpecialDates="{Binding SpecialDates, Mode=TwoWay}"
                         MultiSelectDates="True" 
                         SelectRange="True"
                         StartDay="Sunday" 
@@ -69,46 +87,16 @@
                         SelectedFontSize="12"
                         SelectedBorderWidth="1"
                         SelectedTextColor="{StaticResource WhiteColor}"
-                        SelectedBorderColor="{StaticResource RedColor}"
-                        SelectedBackgroundColor="{StaticResource RedColor}"
-                    
-                        HorizontalOptions="Center">
-                        <!--
-                    <controls:Calendar.SelectedBackgroundImage>
-                            <OnPlatform x:TypeArguments="FileImageSource">
-                                <On Platform="Android, iOS" Value="ball" />
-                                <On Platform="UWP" Value="Assets/ball.png" />
-                            </OnPlatform>
-                        </controls:Calendar.SelectedBackgroundImage>
-                        <controls:Calendar.SelectedRangeBackgroundImage>
-                            <OnPlatform x:TypeArguments="FileImageSource">
-                                <On Platform="Android, iOS" Value="selected" />
-                                <On Platform="UWP" Value="Assets/selected.png" />
-                            </OnPlatform>
-                        </controls:Calendar.SelectedRangeBackgroundImage>
-                        <controls:Calendar.FirstSelectedBackgroundImage>
-                            <OnPlatform x:TypeArguments="FileImageSource">
-                                <On Platform="Android, iOS" Value="ball_left" />
-                                <On Platform="UWP" Value="Assets/ball_left.png" />
-                            </OnPlatform>
-                        </controls:Calendar.FirstSelectedBackgroundImage>
-                        <controls:Calendar.LastSelectedBackgroundImage>
-                            <OnPlatform x:TypeArguments="FileImageSource">
-                                <On Platform="Android, iOS" Value="ball_right" />
-                                <On Platform="UWP" Value="Assets/ball_right.png" />
-                            </OnPlatform>
-                        </controls:Calendar.LastSelectedBackgroundImage>-->
+                        SelectedBorderColor="{StaticResource BlueColor}"
+                        SelectedBackgroundColor="{StaticResource BlueColor}"
+                     
+                        HorizontalOptions="Center">                       
                     </controls:Calendar>
                 
             </StackLayout>
 
-            <StackLayout Grid.Row="1" Padding="15" BackgroundColor="{StaticResource DarkColor}">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                    <Label Text="Proyectos" Style="{StaticResource FooterTextStyle}"></Label>
-                    <Label HorizontalTextAlignment="End" Text="+" Style="{StaticResource FooterTextStyle}"></Label>
-                </StackLayout>
-                <BoxView BackgroundColor="{StaticResource GrayColor}" HeightRequest="2" HorizontalOptions="FillAndExpand"></BoxView>
-
+            <StackLayout Grid.Row="1" Padding="15" BackgroundColor="{StaticResource RedColor}">
+                <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource IconPlusTextStyle}"  HorizontalTextAlignment="Center"/>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

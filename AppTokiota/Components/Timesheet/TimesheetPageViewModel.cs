@@ -5,12 +5,14 @@ using AppTokiota.Components.Core;
 using AppTokiota.Components.Core.Module;
 using Prism.Commands;
 using Prism.Navigation;
+using AppTokiota.Controls;
+using System.Threading.Tasks;
 
 namespace AppTokiota.Components.Timesheet
 {
-    public class TimesheetPageViewModel: ViewModelBase
+    public class TimesheetPageViewModel : ViewModelBase
     {
-        private readonly ITimesheetModule _menuModule;
+        private readonly ITimesheetModule _timesheetModule;
 
         private ObservableCollection<DateTime> _dates;
 
@@ -20,15 +22,19 @@ namespace AppTokiota.Components.Timesheet
             set { SetProperty(ref _dates, value); }
         }
 
-        private DateTime _from;
-        private DateTime _until;
-        private bool _isNextEnabled;
+        private ObservableCollection<SpecialDate> _specialDates;
+        public ObservableCollection<SpecialDate> SpecialDates
+        {
+            get { return _specialDates; }
+            set { SetProperty(ref _specialDates, value); }
+        }
+        
 
         public DelegateCommand<object> SignOutCommand => new DelegateCommand<object>(SelectedDate);
 
-        public TimesheetPageViewModel(INavigationService navigationService, ITimesheetModule menuModule) : base(navigationService)
+        public TimesheetPageViewModel(INavigationService navigationService, ITimesheetModule timesheetModule) : base(navigationService)
         {
-            _menuModule = menuModule;
+            _timesheetModule = timesheetModule;
             Title = "Timesheet";
 
             var today = DateTime.Today;
@@ -38,28 +44,22 @@ namespace AppTokiota.Components.Timesheet
                 today
             };
 
+            LoadSpecialDatesAsync();
+
             SelectedDate(today);
 
         }
 
-        public DateTime From
+        private async void LoadSpecialDatesAsync()
         {
-            get { return _from; }
-            set { SetProperty(ref _from, value); }
+            SpecialDates = new ObservableCollection<SpecialDate>();
+            DateTime date = DateTime.Now;
+            var from = new DateTime(date.Year, date.Month, 1);
+            var to = from.AddMonths(1).AddDays(-1);
+            var result = await _timesheetModule.TimesheetService.GetSpecialDatesBeetweenDates(from, to);
+            result.ForEach(x => SpecialDates.Add(x));
         }
-
-        public DateTime Until
-        {
-            get { return _until; }
-            set { SetProperty(ref _until, value); }
-        }
-
-        public bool IsNextEnabled
-        {
-            get { return _isNextEnabled; }
-            set { SetProperty(ref _isNextEnabled, value); }
-        }
-
+            
         private void SelectedDate(object date)
         {
             if (date == null)
@@ -67,9 +67,7 @@ namespace AppTokiota.Components.Timesheet
 
             if (Dates.Any())
             {
-                From = Dates.OrderBy(d => d.Day).FirstOrDefault();
-                Until = Dates.OrderBy(d => d.Day).LastOrDefault();
-                IsNextEnabled = Dates.Any() ? true : false;
+
             }
         }
     }

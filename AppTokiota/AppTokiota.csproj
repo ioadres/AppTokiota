@@ -90,6 +90,11 @@
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\Menu\MenuPageViewModel.cs" />
+    <Compile Include="Models\Timesheet\Activities.cs" />
+    <Compile Include="Models\Timesheet\Days.cs" />
+    <Compile Include="Models\Timesheet\Projects.cs" />
+    <Compile Include="Models\Timesheet\Task.cs" />
+    <Compile Include="Models\Timesheet\Timesheet.cs" />
     <Compile Include="Services\Authentication\AuthenticationService.cs" />
     <Compile Include="Services\Authentication\FakeAuthenticationService.cs" />
     <Compile Include="Services\Authentication\IAuthenticationService.cs" />
@@ -117,6 +122,9 @@
     <Compile Include="Helpers\FontAwesome.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\ObjectCommandArg.cs" />
+    <Compile Include="Services\Timesheet\FakeTimesheetService.cs" />
+    <Compile Include="Services\Timesheet\ITimesheetService.cs" />
+    <Compile Include="Services\Timesheet\TimesheetService.cs" />
     <Compile Include="Utils\NavigationBarAttachedProperty.cs" />
     <Compile Include="Components\Timesheet\TimesheetModule.cs" />
     <Compile Include="Components\Timesheet\TimesheetPage.xaml.cs">
@@ -141,11 +149,7 @@
     <Compile Include="Controls\Calendar\SpecialDate.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Helpers\" />
     <Folder Include="Behaviors\" />
-    <Folder Include="Utils\" />
-    <Folder Include="Components\Timesheet\" />
-    <Folder Include="Controls\Calendar\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -169,6 +173,9 @@
     </Reference>
     <Reference Include="Prism">
       <HintPath>..\packages\Prism.Core.7.0.0.396\lib\netstandard1.0\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamanimation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamanimation.1.1.0\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamanimation.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform">
       <HintPath>..\packages\Xamarin.Forms.2.5.0.122203\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Platform.dll</HintPath>

@@ -8,7 +8,7 @@
     prism:ViewModelLocator.AutowireViewModel="True"
     Title="{Binding Title}">
     <MasterDetailPage.Master>
-        <Menu:MenuPage >
+        <Menu:MenuPage Title=" ">
           </Menu:MenuPage>    
     </MasterDetailPage.Master>
     

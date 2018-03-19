@@ -30,13 +30,14 @@ namespace AppTokiota.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             UserDialogs.Init(this);
 
-            /*LoadApplication(UXDivers.Gorilla.Droid.Player.CreateApplication(
+           /* LoadApplication(UXDivers.Gorilla.Droid.Player.CreateApplication(
                 this,
                 new UXDivers.Gorilla.Config("Good Gorilla")
                              // Register Grial Shared assembly
                              .RegisterAssembliesFromTypes<Prism.IPlatformInitializer, Prism.PrismApplicationBase, Prism.Unity.PrismApplication>()
                             .RegisterAssemblyFromType<ExtendedEntry>()
                             .RegisterAssemblyFromType<ExtendedEntryRenderer>()
+                            .RegisterAssemblyFromType<AwesomeLabelRenderer>()
                             .RegisterAssemblyFromType<RoundButtonRenderer>()
                             .RegisterAssembly(typeof(AppTokiota.Components.Core.ViewModelBase).Assembly)
                 ));        

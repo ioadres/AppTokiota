@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppTokiota.Components.Core.Module
 {
-    public interface IMasterModule
+    public interface IMasterModule : IBaseModule
     {
     }
 }

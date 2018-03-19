@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AppTokiota.Models;
 
-namespace AppTokiota.Services.Authentication
+namespace AppTokiota.Services
 {
     public class FakeAuthenticationService : IAuthenticationService
     {

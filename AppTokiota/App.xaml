@@ -74,49 +74,49 @@
       <OnPlatform x:Key="LittleSize"
                   x:TypeArguments="x:Double"
                   iOS="11"
-                  Android="12"
+                  Android="11"
                         />
 
       <OnPlatform x:Key="MidMediumSize"
                   x:TypeArguments="x:Double"
                   iOS="12"
-                  Android="14"
+                  Android="12"
                        />
 
       <OnPlatform x:Key="MediumSize"
                   x:TypeArguments="x:Double"
                   iOS="14"
-                  Android="16"
+                  Android="14"
                         />
 
       <OnPlatform x:Key="LargeSize"
                   x:TypeArguments="x:Double"
                   iOS="16"
-                  Android="18"
+                  Android="16"
                         />
 
       <OnPlatform x:Key="LargerSize"
                   x:TypeArguments="x:Double"
                   iOS="18"
-                  Android="20"
+                  Android="18"
                         />
 
       <OnPlatform x:Key="BigSize"
                   x:TypeArguments="x:Double"
                   iOS="20"
-                  Android="24"
+                  Android="20"
                         />
 
       <OnPlatform x:Key="ExtraBigSize"
                 x:TypeArguments="x:Double"
                 iOS="24"
-                Android="32"
+                Android="24"
                       />
 
       <OnPlatform x:Key="HugeSize"
                   x:TypeArguments="x:Double"
                   iOS="32"
-                  Android="48"
+                  Android="32"
                         />
 
       <!-- STYLES -->

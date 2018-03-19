@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppTokiota.Services.Request
+namespace AppTokiota.Services
 {
     public interface IRequestService
     {

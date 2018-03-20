@@ -17,12 +17,22 @@ namespace AppTokiota.Models
         public bool IsClosed { get; set; }
 
         [DataMember(Name = "holiday")]
-        public bool Holiday { get; set; }
+        public Holiday Holiday { get; set; }
 
         [DataMember(Name = "name")]
         public string name { get; set; }
 
         [DataMember(Name = "isWeekend")]
         public bool IsWeekend { get; set; }
+    }
+
+    [DataContract]
+    public class Holiday
+    {
+        [DataMember(Name = "isHolyday")]
+        public bool IsHolyday { get; set; }
+
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
     }
 }

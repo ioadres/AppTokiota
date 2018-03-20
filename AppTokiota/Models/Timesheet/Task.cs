@@ -10,31 +10,31 @@ namespace AppTokiota.Models
     [DataContract]
     public class TaskT
     {
-        [DataMember(Name = "id")]
+        [DataMember(Name ="id")]
         public int Id { get; set; }
 
-        [DataMember(Name = "date")]
-        public string Date { get; set; }
+        [DataMember(Name = "displayName")]
+        public string DisplayName { get; set; }
 
-        [DataMember(Name = "description")]
-        public string Description { get; set; }
+        [DataMember(Name = "scheduled")]
+        public float Scheduled { get; set; }
+
+        [DataMember(Name = "consumed")]
+        public float Consumed { get; set; }
 
         [DataMember(Name = "deviation")]
-        public double Deviation { get; set; }
-
-        [DataMember(Name = "imputed")]
-        public double Imputed { get; set; }
+        public float Deviation { get; set; }
 
         [DataMember(Name = "projectId")]
         public int ProjectId { get; set; }
 
-        [DataMember(Name = "taskId")]
-        public int TaskId { get; set; }
-
-        [DataMember(Name = "userId")]
-        public string UserId { get; set; }
-
         [DataMember(Name = "assignementId")]
         public int AssignementId { get; set; }
+
+        [DataMember(Name = "isClosed")]
+        public bool IsClosed { get; set; }
+
+        [DataMember(Name = "isChargeable")]
+        public bool IsChargeable { get; set; }
     }
 }

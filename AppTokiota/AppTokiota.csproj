@@ -90,6 +90,8 @@
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\Menu\MenuPageViewModel.cs" />
+    <Compile Include="Helpers\CalendarColor.cs" />
+    <Compile Include="Models\Calendar\DayStyle.cs" />
     <Compile Include="Models\Timesheet\Activities.cs" />
     <Compile Include="Models\Timesheet\Days.cs" />
     <Compile Include="Models\Timesheet\Projects.cs" />
@@ -98,6 +100,8 @@
     <Compile Include="Services\Authentication\AuthenticationService.cs" />
     <Compile Include="Services\Authentication\FakeAuthenticationService.cs" />
     <Compile Include="Services\Authentication\IAuthenticationService.cs" />
+    <Compile Include="Services\Calendar\CalendarService.cs" />
+    <Compile Include="Services\Calendar\ICalendarService.cs" />
     <Compile Include="Services\Dialog\DialogService.cs" />
     <Compile Include="Services\Dialog\IDialogService.cs" />
     <Compile Include="Services\Request\IRequestService.cs" />
@@ -122,6 +126,7 @@
     <Compile Include="Helpers\FontAwesome.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\ObjectCommandArg.cs" />
+    <Compile Include="Services\Timesheet\FakeTimesheetData.cs" />
     <Compile Include="Services\Timesheet\FakeTimesheetService.cs" />
     <Compile Include="Services\Timesheet\ITimesheetService.cs" />
     <Compile Include="Services\Timesheet\TimesheetService.cs" />

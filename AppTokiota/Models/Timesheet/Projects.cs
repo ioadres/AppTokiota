@@ -20,7 +20,7 @@ namespace AppTokiota.Models
         public bool IsClosed { get; set; }
 
         [DataMember(Name = "htmlColor")]
-        public object HtmlColor { get; set; }
+        public string HtmlColor { get; set; }
 
         [DataMember(Name = "isHoliday")]
         public bool IsHoliday { get; set; }
@@ -29,6 +29,6 @@ namespace AppTokiota.Models
         public bool DetailedDescription { get; set; }
 
         [DataMember(Name = "tasks")]
-        public List<TaskT> Tasks { get; set; }
+        public Dictionary<int,TaskT> Tasks { get; set; }
     }
 }

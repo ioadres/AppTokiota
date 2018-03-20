@@ -14,7 +14,7 @@ namespace AppTokiota.Models
         public int Id { get; set; }
 
         [DataMember(Name = "date")]
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
 
         [DataMember(Name = "description")]
         public string Description { get; set; }

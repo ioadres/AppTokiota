@@ -7,5 +7,6 @@ namespace AppTokiota.Components.Core.Module
         IAuthenticationService AuthenticationService { get; }
         IDialogService DialogService { get; }
         ITimesheetService TimesheetService { get; }
+        ICalendarService CalendarService { get; }
     }
 }

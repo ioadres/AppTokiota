@@ -17,9 +17,10 @@ namespace AppTokiota.Services
             } else
             {
                 containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
-                containerRegistry.Register<ITimesheetService, ITimesheetService>();
+                containerRegistry.Register<ITimesheetService, TimesheetService>();
             }
 
+            containerRegistry.Register<ICalendarService, CalendarService>();
             containerRegistry.Register<IRequestService, RequestService>();
             containerRegistry.Register<IDialogService, DialogService>();
         }

@@ -10,16 +10,19 @@ namespace AppTokiota.Components.Timesheet
         private readonly IAuthenticationService _authenticationService;
         private readonly IDialogService _dialogService;
         private readonly ITimesheetService _timesheetService;
+        private readonly ICalendarService _calendarService;
 
         public IAuthenticationService AuthenticationService => _authenticationService;
         public IDialogService DialogService => _dialogService;
         public ITimesheetService TimesheetService => _timesheetService;
+        public ICalendarService CalendarService => _calendarService;
 
-        public TimesheetModule(IAuthenticationService authenticationService, IDialogService dialogService, ITimesheetService timesheetService)
+        public TimesheetModule(IAuthenticationService authenticationService, IDialogService dialogService, ITimesheetService timesheetService, ICalendarService calendarService)
         {
             _authenticationService = authenticationService;
             _dialogService = dialogService;
             _timesheetService = timesheetService;
+            _calendarService = calendarService;
         }
         public static string Tag => nameof(TimesheetPage);
         public static void Register(IContainerRegistry containerRegistry)

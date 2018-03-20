@@ -11,9 +11,9 @@ namespace AppTokiota.Models
     public class Timesheet
     {
         [DataMember(Name = "activities")]
-        public List<Activity> Activities { get; set; }
+        public Dictionary<int,Activity> Activities { get; set; }
         [DataMember(Name = "projects")]
-        public List<Project> Projects { get; set; }
+        public Dictionary<int,Project> Projects { get; set; }
         [DataMember(Name = "days")]
         public List<Day> Days { get; set; }
     }

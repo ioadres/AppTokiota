@@ -5,24 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using AppTokiota.Controls;
 using AppTokiota.Models;
+using AppTokiota.Helpers;
+using AppTokiota.Models.Calendar;
 
 namespace AppTokiota.Services
 {
     public class TimesheetService : ITimesheetService
     {
-        public Task<IList<SpecialDate>> GetSpecialDatesBeetweenDates(DateTime from, DateTime To)
+        private IRequestService _requestService;
+        public TimesheetService(IRequestService requestService)
         {
-            throw new NotImplementedException();
+            _requestService = requestService;
         }
-
-        public Timesheet GetTimesheetBeetweenDates(DateTime from, DateTime To)
+        
+        public async Task<Timesheet> GetTimesheetBeetweenDates(DateTime from, DateTime to)
         {
-            throw new NotImplementedException();
-        }
-
-        Task<Timesheet> ITimesheetService.GetTimesheetBeetweenDates(DateTime from, DateTime To)
-        {
-            throw new NotImplementedException();
+            var url = $"{AppSettings.TimesheetUrlEndPoint}from={from.ToString("yyyy-MM-dd")}&to={to.ToString("yyyy-MM-dd")}";
+            var timesheet = await _requestService.GetAsync<Timesheet>(url,AppSettings.AuthenticatedUserResponse.AccessToken);
+            return timesheet;
         }
     }
 }

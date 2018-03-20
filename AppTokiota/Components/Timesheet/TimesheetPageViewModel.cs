@@ -7,6 +7,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using AppTokiota.Controls;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace AppTokiota.Components.Timesheet
 {
@@ -35,7 +36,9 @@ namespace AppTokiota.Components.Timesheet
         public TimesheetPageViewModel(INavigationService navigationService, ITimesheetModule timesheetModule) : base(navigationService)
         {
             _timesheetModule = timesheetModule;
+
             Title = "Timesheet";
+            IsBusy = true;
 
             var today = DateTime.Today;
 
@@ -44,20 +47,26 @@ namespace AppTokiota.Components.Timesheet
                 today
             };
 
-            LoadSpecialDatesAsync();
+            _specialDates = new ObservableCollection<SpecialDate>();
 
+            LoadSpecialDatesAsync();
             SelectedDate(today);
 
         }
 
-        private async void LoadSpecialDatesAsync()
+        private void LoadSpecialDatesAsync()
         {
-            SpecialDates = new ObservableCollection<SpecialDate>();
-            DateTime date = DateTime.Now;
-            var from = new DateTime(date.Year, date.Month, 1);
-            var to = from.AddMonths(1).AddDays(-1);
-            var result = await _timesheetModule.TimesheetService.GetSpecialDatesBeetweenDates(from, to);
-            result.ForEach(x => SpecialDates.Add(x));
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                DateTime date = DateTime.Now;
+                var from = new DateTime(date.Year, date.Month, 1);
+                var to = from.AddMonths(1).AddDays(-1);
+                var timesheet = await _timesheetModule.TimesheetService.GetTimesheetBeetweenDates(from, to);
+                var specialDates = await _timesheetModule.CalendarService.GetSpecialDatesBeetweenDatesAsync(timesheet);
+                specialDates.ForEach(x => SpecialDates.Add(x));
+
+                IsBusy = false;
+             });            
         }
             
         private void SelectedDate(object date)

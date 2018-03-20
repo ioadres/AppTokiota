@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace AppTokiota.Services
 {
-    public interface ITimesheetService
+    public interface ICalendarService
     {
-        Task<Timesheet> GetTimesheetBeetweenDates(DateTime from, DateTime To);
+        Task<IList<SpecialDate>> GetSpecialDatesBeetweenDatesAsync(Timesheet timesheet);
     }
 }

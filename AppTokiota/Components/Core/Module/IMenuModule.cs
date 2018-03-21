@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AppTokiota.Services.Authentication;
+using AppTokiota.Services;
 
 namespace AppTokiota.Components.Core.Module
 {
-    public interface IMenuModule
+    public interface IMenuModule : IBaseModule
     {
-        IAuthenticationService AuthenticationService { get; }
     }
 }

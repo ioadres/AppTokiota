@@ -18,13 +18,14 @@ namespace AppTokiota.Components.Splash
     {
         private ISplashModule _splashModule;
 
-        public SplashPageViewModel(INavigationService navigationService, ISplashModule splashModule) : base(navigationService)
+        public SplashPageViewModel(IViewModelBaseModule baseModule, ISplashModule splashModule) : base(baseModule)
         {
             Title = "Splash";
             _splashModule = splashModule;
-
+            
             Device.StartTimer(new TimeSpan(0, 0, 3), () =>
             {
+                BaseModule.AuthenticationService.InitializeAsync();
                 AuthenticationRun();
                 return false;
             });
@@ -33,7 +34,7 @@ namespace AppTokiota.Components.Splash
 
         private void AuthenticationRun()
         {
-            if (_splashModule.AuthenticationService.IsAuthenticated)
+            if (BaseModule.AuthenticationService.IsAuthenticated)
             {
                 NavigateCommand.Execute(MasterModule.Tag + BaseNavigationModule.Tag + DashBoardModule.Tag);
             }

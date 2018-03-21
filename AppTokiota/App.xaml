@@ -21,9 +21,11 @@
       <Color x:Key="BackgroundColor">#212C37</Color>
       <Color x:Key="BlackColor">#000000</Color>
       <Color x:Key="BlackTextColor">#253748</Color>
-      <Color x:Key="BlueColor">#0072C6</Color>
-      <Color x:Key="GreenColor">#368F94</Color>
-      <Color x:Key="OrangeColor">#BC4C1B</Color>
+      <Color x:Key="BlueColor">#8dc0f1</Color>
+      <Color x:Key="GreenColor">#40baaa</Color>
+      <Color x:Key="OrangeColor">#f99090</Color>
+      <Color x:Key="PurpleColor">#ed77bc</Color>
+      <Color x:Key="YellowColor">#ffd88d</Color>
       <Color x:Key="RedColor">#CA5D5B</Color>
       <Color x:Key="RedDarkColor">#AC4E4C</Color>
 
@@ -74,49 +76,49 @@
       <OnPlatform x:Key="LittleSize"
                   x:TypeArguments="x:Double"
                   iOS="11"
-                  Android="12"
+                  Android="11"
                         />
 
       <OnPlatform x:Key="MidMediumSize"
                   x:TypeArguments="x:Double"
                   iOS="12"
-                  Android="14"
+                  Android="12"
                        />
 
       <OnPlatform x:Key="MediumSize"
                   x:TypeArguments="x:Double"
                   iOS="14"
-                  Android="16"
+                  Android="14"
                         />
 
       <OnPlatform x:Key="LargeSize"
                   x:TypeArguments="x:Double"
                   iOS="16"
-                  Android="18"
+                  Android="16"
                         />
 
       <OnPlatform x:Key="LargerSize"
                   x:TypeArguments="x:Double"
                   iOS="18"
-                  Android="20"
+                  Android="18"
                         />
 
       <OnPlatform x:Key="BigSize"
                   x:TypeArguments="x:Double"
                   iOS="20"
-                  Android="24"
+                  Android="20"
                         />
 
       <OnPlatform x:Key="ExtraBigSize"
                 x:TypeArguments="x:Double"
                 iOS="24"
-                Android="32"
+                Android="24"
                       />
 
       <OnPlatform x:Key="HugeSize"
                   x:TypeArguments="x:Double"
                   iOS="32"
-                  Android="48"
+                  Android="32"
                         />
 
       <!-- STYLES -->
@@ -243,7 +245,6 @@
         <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
       </Style>
 
-
       <Style x:Key="ButtonPrimary" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
         <Setter Property="BorderColor" Value="{StaticResource WhiteColor}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
@@ -252,9 +253,7 @@
         <Setter Property="HeightRequest" Value="40" />
         <Setter Property="WidthRequest" Value="100" />
         <Setter Property="FontFamily"  Value="{StaticResource PoppinsSemiBold}" />
-      </Style>
-
-            
+      </Style>            
 
       <Style TargetType="ActivityIndicator">
         <Setter Property="VerticalOptions" Value="Center" />
@@ -281,7 +280,6 @@
         <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
         <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
       </Style>
-
 
     </ResourceDictionary>
     <!-- Application resource dictionary -->

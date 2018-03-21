@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AppTokiota.Models;
 
-namespace AppTokiota.Services.Authentication
+namespace AppTokiota.Services
 {
     public class FakeAuthenticationService : IAuthenticationService
     {
@@ -13,6 +13,11 @@ namespace AppTokiota.Services.Authentication
         public bool IsAuthenticated => AppSettings.AuthenticatedUserResponse != null;
 
         public Models.AuthenticatedUserResponse AuthenticatedUser => AppSettings.AuthenticatedUserResponse;
+
+        public Task InitializeAsync()
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<StateRequest> Login(string email, string password)
         {
@@ -39,6 +44,11 @@ namespace AppTokiota.Services.Authentication
         public Task Logout()
         {
             AppSettings.RemoveUserData();
+            return Task.FromResult(true);
+        }
+
+        public Task<bool> UserIsAuthenticatedAndValidAsync()
+        {
             return Task.FromResult(true);
         }
     }

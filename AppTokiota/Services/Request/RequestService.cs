@@ -10,7 +10,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppTokiota.Services.Request
+namespace AppTokiota.Services
 {
     public class RequestService : IRequestService
     {

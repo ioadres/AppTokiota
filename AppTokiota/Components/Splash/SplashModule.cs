@@ -1,5 +1,5 @@
 ﻿using AppTokiota.Components.Core.Module;
-using AppTokiota.Services.Authentication;
+using AppTokiota.Services;
 using Prism.Ioc;
 using System;
 using System.Collections.Generic;

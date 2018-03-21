@@ -60,6 +60,16 @@ namespace AppTokiota
             set => Settings.AddOrUpdateValue(nameof(MicrosoftApiClientId), value);
         }
 
+        // Api Timesheet Endpoint
+
+        
+        public static string TimesheetUrlEndPoint
+        {
+            get => Settings.GetValueOrDefault(nameof(TimesheetUrlEndPoint), DefaultTimesheetUrlEndPoint);
+
+            set => Settings.AddOrUpdateValue(nameof(TimesheetUrlEndPoint), value);
+        }
+
         public static string UrlCompany
         {
             get => Settings.GetValueOrDefault(nameof(UrlCompany), DefaultUrlCompany);

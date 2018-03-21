@@ -13,7 +13,7 @@ namespace AppTokiota.Components.Dashboard
     {
         private readonly IDashBoardModule _dashBoardModule;
 
-        public DashBoardPageViewModel(INavigationService navigationService, IDashBoardModule dashBoardModule) : base(navigationService)
+        public DashBoardPageViewModel(IViewModelBaseModule baseModule, IDashBoardModule dashBoardModule) : base(baseModule)
         {
             Title = "Dashboard";
             _dashBoardModule = dashBoardModule;

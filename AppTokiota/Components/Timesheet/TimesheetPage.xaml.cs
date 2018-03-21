@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppTokiota.Components.Core.Module;
+using System;
 using System.Collections.Generic;
 
 using Xamarin.Forms;
@@ -9,8 +10,10 @@ namespace AppTokiota.Components.Timesheet
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TimesheetPage : ContentPage
     {
-        public TimesheetPage()
+        private ITimesheetModule _timesheetModule;
+        public TimesheetPage(ITimesheetModule timesheetModule)
         {
+            _timesheetModule = timesheetModule;
             InitializeComponent();
         }
     }

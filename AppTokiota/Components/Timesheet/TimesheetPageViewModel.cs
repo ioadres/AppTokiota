@@ -5,12 +5,16 @@ using AppTokiota.Components.Core;
 using AppTokiota.Components.Core.Module;
 using Prism.Commands;
 using Prism.Navigation;
+using AppTokiota.Controls;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+using System.Diagnostics;
 
 namespace AppTokiota.Components.Timesheet
 {
-    public class TimesheetPageViewModel: ViewModelBase
+    public class TimesheetPageViewModel : ViewModelBase
     {
-        private readonly ITimesheetModule _menuModule;
+        private readonly ITimesheetModule _timesheetModule;
 
         private ObservableCollection<DateTime> _dates;
 
@@ -20,16 +24,22 @@ namespace AppTokiota.Components.Timesheet
             set { SetProperty(ref _dates, value); }
         }
 
-        private DateTime _from;
-        private DateTime _until;
-        private bool _isNextEnabled;
+        private ObservableCollection<SpecialDate> _specialDates;
+        public ObservableCollection<SpecialDate> SpecialDates
+        {
+            get { return _specialDates; }
+            set { SetProperty(ref _specialDates, value); }
+        }
+        
 
         public DelegateCommand<object> SignOutCommand => new DelegateCommand<object>(SelectedDate);
 
-        public TimesheetPageViewModel(INavigationService navigationService, ITimesheetModule menuModule) : base(navigationService)
+        public TimesheetPageViewModel(IViewModelBaseModule baseModule, ITimesheetModule timesheetModule) : base(baseModule)
         {
-            _menuModule = menuModule;
+            _timesheetModule = timesheetModule;
+
             Title = "Timesheet";
+            IsBusy = true;
 
             var today = DateTime.Today;
 
@@ -38,28 +48,41 @@ namespace AppTokiota.Components.Timesheet
                 today
             };
 
+            _specialDates = new ObservableCollection<SpecialDate>();
+
+            LoadSpecialDatesAsync();
             SelectedDate(today);
 
         }
 
-        public DateTime From
+        private void LoadSpecialDatesAsync()
         {
-            get { return _from; }
-            set { SetProperty(ref _from, value); }
-        }
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                try
+                {
+                    DateTime date = DateTime.Now;
+                    var from = new DateTime(date.Year, date.Month, 1);
+                    var to = from.AddMonths(1).AddDays(-1);
+                    var timesheet = await _timesheetModule.TimesheetService.GetTimesheetBeetweenDates(from, to);
+                    var specialDates = await _timesheetModule.CalendarService.GetSpecialDatesBeetweenDatesAsync(timesheet);
+                    specialDates.ForEach(x => SpecialDates.Add(x));
+                    IsBusy = false;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"[Booking] Error: {ex}");
 
-        public DateTime Until
-        {
-            get { return _until; }
-            set { SetProperty(ref _until, value); }
-        }
+                    await BaseModule.DialogService.ShowAlertAsync(
+                        "An error ocurred, try again",
+                        "Error",
+                        "Ok");
 
-        public bool IsNextEnabled
-        {
-            get { return _isNextEnabled; }
-            set { SetProperty(ref _isNextEnabled, value); }
-        }
+                }
 
+            });            
+        }
+            
         private void SelectedDate(object date)
         {
             if (date == null)
@@ -67,9 +90,7 @@ namespace AppTokiota.Components.Timesheet
 
             if (Dates.Any())
             {
-                From = Dates.OrderBy(d => d.Day).FirstOrDefault();
-                Until = Dates.OrderBy(d => d.Day).LastOrDefault();
-                IsNextEnabled = Dates.Any() ? true : false;
+
             }
         }
     }

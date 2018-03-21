@@ -1,20 +1,26 @@
-﻿using System;
+﻿using Android.Content;
+using Android.Views;
+using AppTokiota.Controls;
+using AppTokiota.Droid.Renderers;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
+using View = Android.Views.View;
 
 [assembly: ExportRenderer(typeof(MenuItemCell), typeof(MenuItemCellRenderer))]
 namespace AppTokiota.Droid.Renderers
 {
     public class MenuItemCellRenderer : ViewCellRenderer
     {
-        protected override View GetCellCore(Cell item, View convertView, ViewGroup parent, Context context)
+        protected override Android.Views.View GetCellCore(Cell item, Android.Views.View convertView, ViewGroup parent, Context context)
         {
             var cell = base.GetCellCore(item, convertView, parent, context);
-            var view = item as MenuItemCell;
+            var listView = parent as Android.Widget.ListView;
 
-            if (view != null)
+            if (listView != null)
             {
                 // Disable native cell selection color style
-                view.SetSelector(cell.);
-                view.CacheColorHint = Android.Graphics.Color.Transparent;
+                listView.SetSelector(Android.Resource.Color.Transparent);
+                listView.CacheColorHint = Android.Graphics.Color.Transparent;
             }
 
             return cell;

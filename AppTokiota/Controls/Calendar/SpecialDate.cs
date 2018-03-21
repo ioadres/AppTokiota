@@ -6,9 +6,15 @@ namespace AppTokiota.Controls
 {
 	public class SpecialDate
 	{
-		public SpecialDate(DateTime date)
+        public SpecialDate(DateTime date)
+        {
+            Date = date;
+        }
+
+        public SpecialDate(DateTime date, bool v)
 		{
 			Date = date;
+            Selectable = v;
 		}
 
 		public DateTime Date { get; set; }

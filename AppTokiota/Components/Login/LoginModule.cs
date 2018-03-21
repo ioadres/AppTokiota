@@ -1,7 +1,6 @@
 ﻿using Prism.Ioc;
-using AppTokiota.Services.Authentication;
+using AppTokiota.Services;
 using AppTokiota.Components.Core.Module;
-using AppTokiota.Services.Dialog;
 
 namespace AppTokiota.Components.Login
 {

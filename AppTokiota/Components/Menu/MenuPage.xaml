@@ -7,19 +7,19 @@
     xmlns:b="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
     Title=" "
     x:Class="AppTokiota.Components.Menu.MenuPage">
-        <ContentPage.Icon>
+    <ContentPage.Icon>
         <OnPlatform x:TypeArguments="FileImageSource">
             <On Platform="iOS" Value="ic_menu" />
         </OnPlatform>
     </ContentPage.Icon>
-    
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="ItemsTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
             </Style>
-            <Style x:Key="UserTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
+            <Style x:Key="UserTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
             </Style>
@@ -30,7 +30,7 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <ContentPage.Content>
         <Grid HorizontalOptions="StartAndExpand" RowSpacing="0" ColumnSpacing="0">
 
@@ -68,36 +68,36 @@
                         Command="{Binding ItemTappedCommand}"
                         EventArgsPropertyPath="Item"></b:EventToCommandBehavior>
                 </ListView.Behaviors>
-                
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <control:MenuItemCell BackgroundColorSelected="{StaticResource RedDarkColor}">
-                                <ViewCell.View>
-                                    <StackLayout VerticalOptions="FillAndExpand" Orientation="Horizontal" Padding="20,25,10,25" Spacing="30">
-                                        <control:AwesomeLabelControl Text="{Binding Icon}" TextColor="{StaticResource WhiteColor}" FontSize="{StaticResource HugeSize}" />
-                                        <Label VerticalOptions="Center" Style="{StaticResource ItemsTextStyle}" Text="{Binding Title}">
-                                        </Label>
-                                    </StackLayout>
-                                </ViewCell.View>
+                            <ViewCell.View>
+                                <StackLayout VerticalOptions="FillAndExpand" Orientation="Horizontal" Padding="20,15,10,15" Spacing="30">
+                                    <control:AwesomeLabelControl Text="{Binding Icon}" TextColor="{StaticResource WhiteColor}" FontSize="{StaticResource HugeSize}" />
+                                    <Label VerticalOptions="Center" Style="{StaticResource ItemsTextStyle}" Text="{Binding Title}">
+                                    </Label>
+                                </StackLayout>
+                            </ViewCell.View>
                         </control:MenuItemCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
 
-           
-            <StackLayout HorizontalOptions="FillAndExpand" Grid.Row="2" Padding="15">
+
+            <StackLayout HorizontalOptions="EndAndExpand" Grid.Row="2" Padding="15">
                 <Label Text="{Binding Email}" Style="{StaticResource UserTextStyle}" HorizontalTextAlignment="End"></Label>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" VerticalOptions="Fill">
                     <control:AwesomeLabelControl Text="&#xf08b;" TextColor="{StaticResource WhiteColor}" FontSize="{StaticResource LargeSize}" VerticalOptions="Center" />
                     <Label VerticalOptions="Center" Style="{StaticResource LogoutTextStyle}" Text="Logout"></Label>
                 </StackLayout>
             </StackLayout>
-             <BoxView  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="2">
+            <BoxView  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="2">
                 <BoxView.GestureRecognizers>
                     <TapGestureRecognizer 
                        Command="{Binding SignOutCommand}"  
                        NumberOfTapsRequired="1"/>
-                   </BoxView.GestureRecognizers>
+                </BoxView.GestureRecognizers>
             </BoxView>
         </Grid>
     </ContentPage.Content>

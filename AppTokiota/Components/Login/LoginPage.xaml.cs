@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using AppTokiota.Services.Authentication;
+using AppTokiota.Services;
 using Xamarin.Forms;
 
 namespace AppTokiota.Components.Login

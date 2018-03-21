@@ -7,6 +7,5 @@ namespace AppTokiota.Components.Core.Module
 {
     public interface IDashBoardModule : IBaseModule
     {
-        IAuthenticationService AuthenticationService { get; }
     }
 }

@@ -10,5 +10,7 @@ namespace AppTokiota.Services
         AuthenticatedUserResponse AuthenticatedUser { get; }
         Task<StateRequest> Login(string email, string password);
         Task Logout();
+        Task InitializeAsync();
+        Task<bool> UserIsAuthenticatedAndValidAsync();
     }
 }

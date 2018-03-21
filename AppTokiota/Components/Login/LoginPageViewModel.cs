@@ -8,6 +8,7 @@ using AppTokiota.Components.Core.Module;
 using AppTokiota.Components.Dashboard;
 using AppTokiota.Components.BaseNavigation;
 using AppTokiota.Components.Master;
+using AppTokiota.Services.Authentication;
 
 namespace AppTokiota.Components.Login
 {
@@ -30,7 +31,7 @@ namespace AppTokiota.Components.Login
             set { SetProperty(ref _password, value); }
         }
 
-        public LoginPageViewModel(INavigationService navigationService, ILoginModule loginModule) : base(navigationService){
+        public LoginPageViewModel(IViewModelBaseModule baseModule, ILoginModule loginModule) : base(baseModule){
             _loginModule = loginModule;
 
             Title = "Login";
@@ -44,7 +45,6 @@ namespace AppTokiota.Components.Login
         }
 
         public DelegateCommand OpenCompanyURICommand { get; set; }
-
         private void OpenCompanyURI()
         {
             Device.OpenUri(new Uri(AppSettings.UrlCompany));
@@ -53,22 +53,34 @@ namespace AppTokiota.Components.Login
         public DelegateCommand SignInCommand => new DelegateCommand(SignIn);
         private async void SignIn()
         {
-            IsBusy = true;
-            if (Validate())
+            try
             {
-                var responseRequest = await _loginModule.AuthenticationService.Login(_email.Value, _password.Value);
-                if(responseRequest.Success)
+                IsBusy = true;
+                if (Validate())
                 {
-                    IsBusy = false;
-                    //_analyticService.TrackEvent("SignIn");
-                    NavigateCommand.Execute(MasterModule.Tag + BaseNavigationModule.Tag + DashBoardModule.Tag);
-                }
-                else
-                {
-                    await _loginModule.DialogService.ShowAlertAsync(responseRequest.Message, "Login error", "Ok");
+                    var responseRequest = await BaseModule.AuthenticationService.Login(_email.Value, _password.Value);
+                    if (responseRequest.Success)
+                    {
+                       NavigateCommand.Execute(MasterModule.GetMasterNavigationPage(DashBoardModule.Tag));
+                    }
+                    else
+                    {
+                        await BaseModule.DialogService.ShowAlertAsync(responseRequest.Message, "Login error", "Ok");
+                    }
                 }
             }
-            IsBusy = false;
+            catch (ServiceAuthenticationException)
+            {
+                await BaseModule.DialogService.ShowAlertAsync("Please, try again", "Login error", "Ok");
+            }
+            catch (Exception)
+            {
+                await BaseModule.DialogService.ShowAlertAsync("An error occurred, try again", "Error", "Ok");
+            }
+            finally
+            {
+                IsBusy = false;
+            }            
         }
 
         private void AddValidations()

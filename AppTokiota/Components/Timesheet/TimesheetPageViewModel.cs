@@ -8,6 +8,7 @@ using Prism.Navigation;
 using AppTokiota.Controls;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using System.Diagnostics;
 
 namespace AppTokiota.Components.Timesheet
 {
@@ -33,7 +34,7 @@ namespace AppTokiota.Components.Timesheet
 
         public DelegateCommand<object> SignOutCommand => new DelegateCommand<object>(SelectedDate);
 
-        public TimesheetPageViewModel(INavigationService navigationService, ITimesheetModule timesheetModule) : base(navigationService)
+        public TimesheetPageViewModel(IViewModelBaseModule baseModule, ITimesheetModule timesheetModule) : base(baseModule)
         {
             _timesheetModule = timesheetModule;
 
@@ -58,15 +59,28 @@ namespace AppTokiota.Components.Timesheet
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-                DateTime date = DateTime.Now;
-                var from = new DateTime(date.Year, date.Month, 1);
-                var to = from.AddMonths(1).AddDays(-1);
-                var timesheet = await _timesheetModule.TimesheetService.GetTimesheetBeetweenDates(from, to);
-                var specialDates = await _timesheetModule.CalendarService.GetSpecialDatesBeetweenDatesAsync(timesheet);
-                specialDates.ForEach(x => SpecialDates.Add(x));
+                try
+                {
+                    DateTime date = DateTime.Now;
+                    var from = new DateTime(date.Year, date.Month, 1);
+                    var to = from.AddMonths(1).AddDays(-1);
+                    var timesheet = await _timesheetModule.TimesheetService.GetTimesheetBeetweenDates(from, to);
+                    var specialDates = await _timesheetModule.CalendarService.GetSpecialDatesBeetweenDatesAsync(timesheet);
+                    specialDates.ForEach(x => SpecialDates.Add(x));
+                    IsBusy = false;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"[Booking] Error: {ex}");
 
-                IsBusy = false;
-             });            
+                    await BaseModule.DialogService.ShowAlertAsync(
+                        "An error ocurred, try again",
+                        "Error",
+                        "Ok");
+
+                }
+
+            });            
         }
             
         private void SelectedDate(object date)

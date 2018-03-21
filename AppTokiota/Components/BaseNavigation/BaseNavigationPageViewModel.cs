@@ -1,4 +1,5 @@
 ﻿using AppTokiota.Components.Core;
+using AppTokiota.Components.Core.Module;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,8 @@ namespace AppTokiota.Components.BaseNavigation
 {
     public class BaseNavigationPageViewModel : ViewModelBase
     {
-        public BaseNavigationPageViewModel(INavigationService navigationService)
-            : base(navigationService)
+        public BaseNavigationPageViewModel(IViewModelBaseModule baseModule) : base(baseModule)
         {
-
         }
     }
 }

@@ -64,12 +64,14 @@
     <Compile Include="Components\Core\Module\IMasterModule.cs" />
     <Compile Include="Components\Core\Module\IMenuModule.cs" />
     <Compile Include="Components\Core\Module\ISplashModule.cs" />
+    <Compile Include="Components\Core\Module\IViewModelBaseModule.cs" />
     <Compile Include="Components\Core\Validations\EmailRule.cs" />
     <Compile Include="Components\Core\Validations\IsNotNullOrEmptyRule.cs" />
     <Compile Include="Components\Core\Validations\IValidationRule.cs" />
     <Compile Include="Components\Core\Validations\IValidity.cs" />
     <Compile Include="Components\Core\Validations\ValidatableObject.cs" />
     <Compile Include="Components\Core\ViewModelBase.cs" />
+    <Compile Include="Components\Core\ViewModelBaseModule.cs" />
     <Compile Include="Components\Dashboard\DashBoardModule.cs" />
     <Compile Include="Components\Dashboard\DashBoardPage.xaml.cs">
       <DependentUpon>DashBoardPage.xaml</DependentUpon>
@@ -100,6 +102,7 @@
     <Compile Include="Services\Authentication\AuthenticationService.cs" />
     <Compile Include="Services\Authentication\FakeAuthenticationService.cs" />
     <Compile Include="Services\Authentication\IAuthenticationService.cs" />
+    <Compile Include="Services\Authentication\ServiceAuthenticationException.cs" />
     <Compile Include="Services\Calendar\CalendarService.cs" />
     <Compile Include="Services\Calendar\ICalendarService.cs" />
     <Compile Include="Services\Dialog\DialogService.cs" />
@@ -152,6 +155,7 @@
     <Compile Include="Controls\Calendar\DateTypeEnum.cs" />
     <Compile Include="Controls\Calendar\EnumerableExtensions.cs" />
     <Compile Include="Controls\Calendar\SpecialDate.cs" />
+    <Compile Include="Utils\Timer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Behaviors\" />

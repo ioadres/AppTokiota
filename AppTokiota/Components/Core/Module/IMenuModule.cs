@@ -9,6 +9,5 @@ namespace AppTokiota.Components.Core.Module
 {
     public interface IMenuModule : IBaseModule
     {
-        IAuthenticationService AuthenticationService { get; }
     }
 }

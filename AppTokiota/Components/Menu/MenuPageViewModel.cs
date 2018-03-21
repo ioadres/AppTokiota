@@ -39,7 +39,7 @@ namespace AppTokiota.Components.Menu
         public DelegateCommand SignOutCommand => new DelegateCommand(SignOut);
 
 
-        public MenuPageViewModel(INavigationService navigationService, IMenuModule menuModule) : base(navigationService)
+        public MenuPageViewModel(IViewModelBaseModule baseModule, IMenuModule menuModule) : base(baseModule)
         {
             _menuModule = menuModule;
             Title = "MenuPage";
@@ -56,7 +56,7 @@ namespace AppTokiota.Components.Menu
 
         private async void SignOut()
         {
-            await _menuModule.AuthenticationService.Logout();
+            await BaseModule.AuthenticationService.Logout();
             NavigateCommand.Execute(LoginModule.Tag);
         }
 

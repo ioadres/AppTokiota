@@ -14,6 +14,11 @@ namespace AppTokiota.Services
 
         public Models.AuthenticatedUserResponse AuthenticatedUser => AppSettings.AuthenticatedUserResponse;
 
+        public Task InitializeAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<StateRequest> Login(string email, string password)
         {
             await Task.Delay(2000);
@@ -39,6 +44,11 @@ namespace AppTokiota.Services
         public Task Logout()
         {
             AppSettings.RemoveUserData();
+            return Task.FromResult(true);
+        }
+
+        public Task<bool> UserIsAuthenticatedAndValidAsync()
+        {
             return Task.FromResult(true);
         }
     }

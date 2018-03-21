@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.tokiota.AppTokiota">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.tokiota.AppTokiota" android:versionCode="1" android:versionName="1.0">
 	<uses-sdk android:minSdkVersion="15" />
-	<application android:label="AppTokiota">
-	</application>
+	<application android:label="AppTokiota"></application>
 </manifest>

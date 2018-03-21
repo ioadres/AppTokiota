@@ -1,4 +1,4 @@
-# AppTokiota (Dev - in building) 
+# AppTokiota (Dev-standard - in building) 
 
 ## Supported Platforms: iOS, and Android
 

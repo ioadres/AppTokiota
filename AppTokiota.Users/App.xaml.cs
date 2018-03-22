@@ -5,6 +5,7 @@ using Prism.Unity;
 using AppTokiota.Users.Services;
 using AppTokiota.Users.Components.Core;
 using AppTokiota.Users.Components.Splash;
+using Akavache;
 
 namespace AppTokiota.Users
 {
@@ -15,7 +16,9 @@ namespace AppTokiota.Users
 
         protected override async void OnInitialized()
         {
+
             InitializeComponent();
+            BlobCache.ApplicationName = AppSettings.IdAppAkavache;
             await NavigationService.NavigateAsync(SplashModule.Tag);
         }
 

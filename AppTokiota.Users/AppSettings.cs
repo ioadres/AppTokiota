@@ -17,6 +17,14 @@ namespace AppTokiota
             set => Settings.AddOrUpdateValue(nameof(AuthenticatedUserResponse), value);
         }
 
+        public static string IdAppAkavache
+        {
+            get => Settings.GetValueOrDefault(nameof(IdAppAkavache), DefaultIdAppAkavache);
+
+            set => Settings.AddOrUpdateValue(nameof(IdAppAkavache), value);
+        }
+
+
         public static User User
         {
             get => Settings.GetValueOrDefault(nameof(User), default(User));

@@ -11,10 +11,7 @@ using AppTokiota.Users.Utils;
 namespace AppTokiota.Users.Services
 {
     public class AuthenticationService : IAuthenticationService
-    {
-
-        Timer _accessTokenRenewer;
-
+    {        
         public AuthenticationService()
         {
         }
@@ -107,7 +104,6 @@ namespace AppTokiota.Users.Services
         public async Task InitializeAsync()
         {
             await UserIsAuthenticatedAndValidAsync();
-            _accessTokenRenewer = new Timer(new TimerCallback(OnTokenExpiredCallback), this, TimeSpan.FromSeconds(int.Parse(AppSettings.AuthenticatedUserResponse.ExpiresIn)), TimeSpan.FromMilliseconds(-1));
         }
 
         async Task OnTokenExpiredCallback(object stateInfo)
@@ -119,17 +115,6 @@ namespace AppTokiota.Users.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(string.Format("Failed to renew access token. Details: {0}", ex.Message));
-            }
-            finally
-            {
-                try
-                {
-                    _accessTokenRenewer.Change(TimeSpan.FromSeconds(int.Parse(AppSettings.AuthenticatedUserResponse.ExpiresIn)), TimeSpan.FromMilliseconds(-1));
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(string.Format("Failed to reschedule the timer to renew access token. Details: {0}", ex.Message));
-                }
             }
         } 
     }

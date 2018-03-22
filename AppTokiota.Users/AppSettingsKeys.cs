@@ -15,11 +15,12 @@ namespace AppTokiota
 
         // Endpoint Timesheet
         private const string DefaultTimesheetUrlEndPoint = "https://timesheet.tokiota.com//api/timesheets?";
-        
+
 
 
 
         // App Config
+        private const string DefaultIdAppAkavache = "tokiota.com";
         private const string DefaultUrlCompany = "http://tokiota.com/";
         private const bool DefaultUseFakeServices = false;
 

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    xmlns:control="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
+    xmlns:b="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+    Title=" "
+    x:Class="AppTokiota.Users.Components.Menu.MenuPage">
+    <ContentPage.Icon>
+        <OnPlatform x:TypeArguments="FileImageSource">
+            <On Platform="iOS" Value="ic_menu" />
+        </OnPlatform>
+    </ContentPage.Icon>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ItemsTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
+            </Style>
+            <Style x:Key="UserTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
+            </Style>
+
+            <Style x:Key="LogoutTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsLightLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid HorizontalOptions="StartAndExpand" RowSpacing="0" ColumnSpacing="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Image Source="login_background_menu.png" Aspect="AspectFill"  Grid.Row="0" Grid.RowSpan="3"/>
+
+            <Grid HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="{StaticResource DarkColor}" Opacity="0.2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
+
+                <StackLayout VerticalOptions="Fill" HorizontalOptions="Fill" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Padding="30" >
+                    <Image VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="200">
+                        <Image.Source>
+                            <FileImageSource File="logo_horizontal.png" />
+                        </Image.Source>
+                    </Image>
+                </StackLayout>
+            </Grid>
+
+            <ListView ItemsSource="{Binding MenuList}" CachingStrategy="RecycleElement" SeparatorVisibility="None" HasUnevenRows="true" Grid.Row="1" BackgroundColor="Transparent">
+                <ListView.Behaviors>
+                    <b:EventToCommandBehavior 
+                        EventName="ItemTapped"
+                        Command="{Binding ItemTappedCommand}"
+                        EventArgsPropertyPath="Item"></b:EventToCommandBehavior>
+                </ListView.Behaviors>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <control:MenuItemCell BackgroundColorSelected="{StaticResource RedDarkColor}">
+                            <ViewCell.View>
+                                <StackLayout VerticalOptions="FillAndExpand" Orientation="Horizontal" Padding="20,15,10,15" Spacing="30">
+                                    <control:AwesomeLabelControl Text="{Binding Icon}" TextColor="{StaticResource WhiteColor}" FontSize="{StaticResource HugeSize}" />
+                                    <Label VerticalOptions="Center" Style="{StaticResource ItemsTextStyle}" Text="{Binding Title}">
+                                    </Label>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </control:MenuItemCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+            <StackLayout HorizontalOptions="EndAndExpand" Grid.Row="2" Padding="15">
+                <Label Text="{Binding Email}" Style="{StaticResource UserTextStyle}" HorizontalTextAlignment="End"></Label>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" VerticalOptions="Fill">
+                    <control:AwesomeLabelControl Text="&#xf08b;" TextColor="{StaticResource WhiteColor}" FontSize="{StaticResource LargeSize}" VerticalOptions="Center" />
+                    <Label VerticalOptions="Center" Style="{StaticResource LogoutTextStyle}" Text="Logout"></Label>
+                </StackLayout>
+            </StackLayout>
+            <BoxView  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="2">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer 
+                       Command="{Binding SignOutCommand}"  
+                       NumberOfTapsRequired="1"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

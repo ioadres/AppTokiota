@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using Android.Runtime;
 using Xamarin.Forms.Platform.Android;
-using AppTokiota.Controls;
+using AppTokiota.Users.Controls;
 using Android.Graphics.Drawables;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using AppTokiota.Droid.Renderers;
 using Android.Graphics;
-using AppTokiota.Controls;
 
-[assembly: ExportRenderer(typeof(AppTokiota.Controls.CalendarButton), typeof(CalendarButtonRenderer))]
+[assembly: ExportRenderer(typeof(AppTokiota.Users.Controls.CalendarButton), typeof(CalendarButtonRenderer))]
 namespace AppTokiota.Droid.Renderers
 {
     [Preserve(AllMembers = true)]

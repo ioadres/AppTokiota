@@ -10,7 +10,7 @@ using Android.OS;
 using Prism;
 using Prism.Ioc;
 using UXDivers.Gorilla.Droid;
-using AppTokiota.Controls;
+using AppTokiota.Users.Controls;
 using AppTokiota.Droid.Renderers;
 using Prism.Unity;
 using Acr.UserDialogs;
@@ -42,7 +42,7 @@ namespace AppTokiota.Droid
                             .RegisterAssembly(typeof(AppTokiota.Components.Core.ViewModelBase).Assembly)
                 ));        
                 */
-            LoadApplication(new App(new AndroidInitializer()));
+            LoadApplication(new AppTokiota.Users.App(new AndroidInitializer()));
         }
     }
 

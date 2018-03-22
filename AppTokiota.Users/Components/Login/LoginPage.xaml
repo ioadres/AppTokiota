@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms" 
+             xmlns:ctrls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
+             prism:ViewModelLocator.AutowireViewModel="True" 
+             xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation" 
+             x:Class="AppTokiota.Users.Components.Login.LoginPage" Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>      
+            <Style x:Key="HeaderTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="Margin">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="5, 0, 0, 0" />
+                            <On Platform="iOS" Value="0, 8, 0, 0" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources> 
+
+    <ContentPage.Content>
+        <Grid RowSpacing="0" ColumnSpacing="0" AutomationId="MenuContent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Image Source="login_background.png" Aspect="AspectFill"  Grid.Row="0" Grid.RowSpan="4"/>
+            <BoxView Grid.Row="0" Grid.RowSpan="4" BackgroundColor="{StaticResource DarkColor}" Opacity="0.6" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
+            <Image x:Name="Logo" TranslationY="100" Source="logo_horizontal.png" WidthRequest="200" Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+
+            <Grid Grid.Row="1" RowSpacing="0" Padding="25" VerticalOptions="Fill">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="18" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="18" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="*"/>
+                    <ColumnDefinition  Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="1"  Grid.ColumnSpan="2" Text="Email" TextColor="{Binding Path=LineColorToApply, Source={x:Reference EmailEntry}}" Style="{StaticResource HeaderTextStyle}">
+                    <Label.HorizontalOptions>
+                        <OnIdiom
+                                x:TypeArguments="LayoutOptions" 
+                                Desktop="Center"
+                                Tablet="Center"
+                                Phone="FillAndExpand"/>
+                    </Label.HorizontalOptions>
+                    <Label.WidthRequest>
+                        <OnIdiom
+                                x:TypeArguments="x:Double" 
+                                Desktop="350"
+                                Tablet="320"/>
+                    </Label.WidthRequest>
+
+                </Label>
+                <ctrls:ExtendedEntry x:Name="EmailEntry" IsPassword="False" Placeholder="Email@Domain.com" AutomationId="Email"
+                                         Grid.Row="2"  Grid.ColumnSpan="2"
+                                         Text="{Binding Email.Value, Mode=TwoWay}"
+                                         IsValid="{Binding Email.IsValid, Mode=TwoWay}">
+                    <ctrls:ExtendedEntry.HorizontalOptions>
+                        <OnIdiom
+                                x:TypeArguments="LayoutOptions" 
+                                Desktop="Center"
+                                Tablet="Center"
+                                Phone="FillAndExpand" />
+                    </ctrls:ExtendedEntry.HorizontalOptions>
+                    <ctrls:ExtendedEntry.WidthRequest>
+                        <OnIdiom
+                                x:TypeArguments="x:Double" 
+                                Desktop="350"
+                                Tablet="320"/>
+                    </ctrls:ExtendedEntry.WidthRequest>
+                </ctrls:ExtendedEntry>
+
+                <Label Text="Password" Grid.Row="4"  Grid.ColumnSpan="2" TextColor="{Binding Path=LineColorToApply, Source={x:Reference PasswordEntry}}" Style="{StaticResource HeaderTextStyle}">
+
+                    <Label.HorizontalOptions>
+                        <OnIdiom
+                                x:TypeArguments="LayoutOptions" 
+                                Desktop="Center"
+                                Tablet="Center"
+                                Phone="FillAndExpand" />
+                    </Label.HorizontalOptions>
+                    <Label.WidthRequest>
+                        <OnIdiom
+                                x:TypeArguments="x:Double" 
+                                Desktop="350"
+                                Tablet="320"/>
+                    </Label.WidthRequest>
+                </Label>
+
+                <ctrls:ExtendedEntry  x:Name="PasswordEntry" AutomationId="password" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" IsPassword="true" Placeholder="*********" 
+                                         Grid.Row="5"  Grid.ColumnSpan="2"
+                                          Text="{Binding Password.Value, Mode=TwoWay}"
+                                         IsValid="{Binding Password.IsValid, Mode=TwoWay}">
+                    <ctrls:ExtendedEntry.HorizontalOptions>
+                        <OnIdiom
+                                x:TypeArguments="LayoutOptions" 
+                                Desktop="Center"
+                                Tablet="Center"
+                                Phone="FillAndExpand"/>
+                    </ctrls:ExtendedEntry.HorizontalOptions>
+                    <ctrls:ExtendedEntry.WidthRequest>
+                        <OnIdiom
+                                x:TypeArguments="x:Double" 
+                                Desktop="350"
+                                Tablet="320"/>
+                    </ctrls:ExtendedEntry.WidthRequest>
+                </ctrls:ExtendedEntry>
+
+                <Button   Grid.Row="7" Grid.Column="0"
+                                  VerticalOptions="Center" 
+                                  HorizontalOptions="CenterAndExpand"  
+                                  Text="Enter" Style="{StaticResource ButtonWizardPrimary}"
+                                  Command="{Binding SignInCommand}" >
+                    <Button.HorizontalOptions>
+                        <OnIdiom
+                                x:TypeArguments="LayoutOptions" 
+                                Desktop="Center"
+                                Tablet="Center"
+                                Phone="FillAndExpand"/>
+                    </Button.HorizontalOptions>
+
+                </Button>
+
+                <Button Grid.Row="7" Grid.Column="1"  
+                    VerticalOptions="Center" 
+                         HorizontalOptions="CenterAndExpand" 
+                         Text="About Us" Style="{StaticResource ButtonWizardSecundary}" 
+                         Command="{Binding OpenCompanyURICommand}" >
+                    <Button.HorizontalOptions>
+                        <OnIdiom
+                                x:TypeArguments="LayoutOptions" 
+                                Desktop="Center"
+                                Tablet="Center"
+                                Phone="FillAndExpand"/>
+                    </Button.HorizontalOptions>
+                </Button>
+            </Grid>
+
+            <ActivityIndicator 
+                    Grid.Row="2"
+                    Color="{StaticResource RedColor}"
+                    HorizontalOptions="Center"
+                    IsRunning="{Binding IsBusy}" 
+                    IsVisible="{Binding IsBusy}" />
+
+
+            <Label Grid.Row="3"
+                       TextColor="{StaticResource WhiteColor}" 
+                       Text="Copyright © 2012 Tokiota. Todos los derechos reservados."
+                       Style="{StaticResource PoppinsLightLabelStyle}"
+                       FontSize="{StaticResource LittleSize}"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center">
+                <Label.HorizontalOptions>
+                    <OnIdiom
+                                x:TypeArguments="LayoutOptions" 
+                                Desktop="Center"
+                                Tablet="Center"
+                                Phone="FillAndExpand"/>
+                </Label.HorizontalOptions>
+                <Label.VerticalOptions>
+                    <OnIdiom
+                                x:TypeArguments="LayoutOptions" 
+                                Desktop="Center"
+                                Tablet="Center"
+                                Phone="CenterAndExpand"/>
+                </Label.VerticalOptions>
+            </Label>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -9,7 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using AppTokiota.Controls;
+using AppTokiota.Users.Controls;
 using AppTokiota.Droid.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;

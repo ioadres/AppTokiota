@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="AppTokiota.Users.Components.Timesheet.TimesheetPage"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    xmlns:controls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
+    xmlns:b="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+    Title="{Binding Title}"
+    >
+    <ContentPage.Resources>
+        <ResourceDictionary>        
+
+            <Style x:Key="HeaderTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource ExtraBigSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
+            <Style x:Key="HeaderStatusTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource ExtraBigSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
+            <Style x:Key="IconPlusTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
+            <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
+
+            <Style x:Key="ColorDescriptionTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+   
+    <ContentPage.Content>
+        <Grid VerticalOptions="Fill" HorizontalOptions="Fill" RowSpacing="0" ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0" BackgroundColor="{StaticResource WhiteColor}" HorizontalOptions="CenterAndExpand">
+                <StackLayout Orientation="Horizontal" Margin="1" HorizontalOptions="CenterAndExpand">
+
+                    <StackLayout Orientation="Horizontal" Margin="1">
+                        <BoxView BackgroundColor="{StaticResource BlueColor}" WidthRequest="4" HeightRequest="2"></BoxView>
+                        <Label Text="Selected" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Margin="1">
+                        <BoxView BackgroundColor="{StaticResource GreenColor}" WidthRequest="4" HeightRequest="2"></BoxView>
+                        <Label Text="Imputed" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <BoxView BackgroundColor="{StaticResource OrangeColor}" WidthRequest="4" HeightRequest="2"></BoxView>
+                        <Label Text="Holidays" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <BoxView BackgroundColor="{StaticResource RedDarkColor}" WidthRequest="4" HeightRequest="2"></BoxView>
+                        <Label Text="MyHolidays" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
+                    </StackLayout>
+
+                </StackLayout>
+
+                <controls:Calendar 
+                        x:Name="Calendar"
+                        SelectedDates="{Binding Dates, Mode=TwoWay}"
+                        SpecialDates="{Binding SpecialDates, Mode=TwoWay}"
+                        MultiSelectDates="True" 
+                        SelectRange="False"
+                        StartDay="Monday" 
+                        DatesFontSize="12"
+                        TitleLabelFontSize="20"
+                        EnableTitleMonthYearView="True"
+                        WeekdaysShow="True"
+                        WeekdaysFontSize="12"
+                        WeekdaysTextColor ="{StaticResource DarkColor}"
+                        WeekdaysFontAttributes="Bold"
+
+                        DisabledBorderColor="{StaticResource DarkGrayColor}"
+                        DisabledBackgroundColor="{StaticResource DarkGrayColor}"
+                        DisabledFontSize="12"
+                        DisabledBorderWidth="6"
+
+                        BorderWidth="1"
+                        BorderColor="{StaticResource WhiteColor}"
+                    
+                        DatesBackgroundColor="{StaticResource WhiteColor}"
+                        TitleLeftArrowTextColor="{StaticResource DarkGrayColor}"
+                        TitleRightArrowTextColor="{StaticResource DarkGrayColor}"
+                  
+                        SelectedFontSize="12"
+                        SelectedBorderWidth="1"
+                        SelectedTextColor="{StaticResource DarkColor}"
+                        SelectedBorderColor="{StaticResource BlueColor}"
+                        SelectedBackgroundColor="{StaticResource BlueColor}"
+                        
+                    
+                        RightArrowCommand="{Binding DateChosen}"
+                        LeftArrowCommand="{Binding DateChosen}"
+                        MonthYearButtonCommand="{Binding DateChosen}"
+                        HorizontalOptions="Center">
+                </controls:Calendar>
+
+            </StackLayout>
+
+            <StackLayout Grid.Row="1" Padding="15" BackgroundColor="{StaticResource RedColor}">
+                <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource IconPlusTextStyle}"  HorizontalTextAlignment="Center"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

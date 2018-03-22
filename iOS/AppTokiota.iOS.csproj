@@ -186,12 +186,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AppTokiota\AppTokiota.csproj">
-      <Project>{8FE84E31-1CD7-40CA-A3B8-234827341460}</Project>
-      <Name>AppTokiota</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <InProject>false</InProject>
     </ImageAsset>
@@ -199,7 +193,12 @@
       <InProject>false</InProject>
     </ImageAsset>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\AppTokiota.Users\AppTokiota.Users.csproj">
+      <Project>{49d9f9c9-9524-4730-bc2b-a2e49eb4fa2a}</Project>
+      <Name>AppTokiota.Users</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
   </ItemGroup>

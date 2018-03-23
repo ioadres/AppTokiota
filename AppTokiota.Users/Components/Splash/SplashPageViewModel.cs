@@ -20,16 +20,15 @@ namespace AppTokiota.Users.Components.Splash
             
             Device.StartTimer(new TimeSpan(0, 0, 3), () =>
             {
-                BaseModule.AuthenticationService.InitializeAsync();
                 AuthenticationRun();
                 return false;
             });
         }
 
 
-        private void AuthenticationRun()
+        private async void AuthenticationRun()
         {
-            if (BaseModule.AuthenticationService.IsAuthenticated)
+            if (await BaseModule.AuthenticationService.UserIsAuthenticatedAndValidAsync())
             {
                 NavigateCommand.Execute(MasterModule.Tag + BaseNavigationModule.Tag + DashBoardModule.Tag);
             }

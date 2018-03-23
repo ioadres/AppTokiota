@@ -7,6 +7,7 @@ using AppTokiota.Users.Components.Menu;
 using AppTokiota.Users.Components.Master;
 using AppTokiota.Users.Components.BaseNavigation;
 using AppTokiota.Users.Components.Timesheet;
+using AppTokiota.Users.Components.Connection;
 
 namespace AppTokiota.Users.Components.Core
 {
@@ -33,6 +34,10 @@ namespace AppTokiota.Users.Components.Core
 
             containerRegistry.Register<IBaseNavigationModule, BaseNavigationModule>();
             BaseNavigationModule.Register(containerRegistry);
+
+
+            containerRegistry.Register<IConnectionModule, ConnectionModule>();
+            ConnectionModule.Register(containerRegistry);
 
             containerRegistry.Register<ITimesheetModule, TimesheetModule>();
             TimesheetModule.Register(containerRegistry);

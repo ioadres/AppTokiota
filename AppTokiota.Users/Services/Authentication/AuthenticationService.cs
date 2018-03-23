@@ -7,18 +7,22 @@ using ModernHttpClient;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using AppTokiota.Users.Utils;
+using AppTokiota.Users.Services.Cache;
 
 namespace AppTokiota.Users.Services
 {
     public class AuthenticationService : IAuthenticationService
-    {        
-        public AuthenticationService()
-        {
-        }
+    {
+        private ICacheEntity _cacheEntity;
 
         public bool IsAuthenticated => AppSettings.AuthenticatedUserResponse != null;
 
         public Models.AuthenticatedUserResponse AuthenticatedUser => AppSettings.AuthenticatedUserResponse;
+
+        public AuthenticationService(ICacheEntity cacheEntity)
+        {
+            _cacheEntity = cacheEntity;
+        }
 
         public async Task<StateRequest> Login(string email, string password)
         {
@@ -63,59 +67,33 @@ namespace AppTokiota.Users.Services
             return state;
         }
 
+        public async Task<bool> UserIsAuthenticatedAndValidAsync()
+        {            
+            if (!IsAuthenticated)
+            {
+                return false;
+            }
+            try
+            {
+                var keyToken = AppSettings.IdAppCache;
+                var exist = await _cacheEntity.GetObjectAsync<bool>(keyToken);
+                if (!exist)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error with token refresh attempt: {ex}");
+            }
+
+            return false;
+        }
+
         public Task Logout()
         {
             AppSettings.RemoveUserData();
             return Task.FromResult(true);
         }
-
-        public async Task<bool> UserIsAuthenticatedAndValidAsync()
-        {
-            if (!IsAuthenticated)
-            {
-                return false;
-            }            
-            else
-            {
-                bool refreshSucceded = false;
-
-                try
-                {
-                   /* var tokenCache = App.AuthenticationClient.UserTokenCache;
-                    AuthenticationResult ar = await App.AuthenticationClient.AcquireTokenSilentAsync(
-                        new string[] { AppSettings.B2cClientId },
-                        AuthenticatedUser.Id,
-                        $"{AppSettings.B2cAuthority}{AppSettings.B2cTenant}",
-                        AppSettings.B2cPolicy,
-                        true);
-                    SaveAuthenticationResult(ar);*/
-
-                    refreshSucceded = true;
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Error with token refresh attempt: {ex}");
-                }
-
-                return refreshSucceded;
-            }
-        }
-
-        public async Task InitializeAsync()
-        {
-            await UserIsAuthenticatedAndValidAsync();
-        }
-
-        async Task OnTokenExpiredCallback(object stateInfo)
-        {
-            try
-            {
-                await UserIsAuthenticatedAndValidAsync();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(string.Format("Failed to renew access token. Details: {0}", ex.Message));
-            }
-        } 
     }
 }

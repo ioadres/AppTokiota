@@ -17,11 +17,11 @@ namespace AppTokiota
             set => Settings.AddOrUpdateValue(nameof(AuthenticatedUserResponse), value);
         }
 
-        public static string IdAppAkavache
+        public static string IdAppCache
         {
-            get => Settings.GetValueOrDefault(nameof(IdAppAkavache), DefaultIdAppAkavache);
+            get => Settings.GetValueOrDefault(nameof(IdAppCache), DefaultIdAppCache);
 
-            set => Settings.AddOrUpdateValue(nameof(IdAppAkavache), value);
+            set => Settings.AddOrUpdateValue(nameof(IdAppCache), value);
         }
 
 
@@ -76,6 +76,13 @@ namespace AppTokiota
             get => Settings.GetValueOrDefault(nameof(TimesheetUrlEndPoint), DefaultTimesheetUrlEndPoint);
 
             set => Settings.AddOrUpdateValue(nameof(TimesheetUrlEndPoint), value);
+        }
+
+        public static string TimesheetDomain
+        {
+            get => Settings.GetValueOrDefault(nameof(TimesheetDomain), DefaultTimesheetDomain);
+
+            set => Settings.AddOrUpdateValue(nameof(TimesheetDomain), value);
         }
 
         public static string UrlCompany

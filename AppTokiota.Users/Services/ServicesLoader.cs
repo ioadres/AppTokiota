@@ -1,6 +1,7 @@
 ﻿using System;
 using Prism.Ioc;
 using AppTokiota.Users.Services;
+using AppTokiota.Users.Services.Cache;
 
 namespace AppTokiota.Users.Services
 {
@@ -22,6 +23,7 @@ namespace AppTokiota.Users.Services
             containerRegistry.Register<ICalendarService, CalendarService>();
             containerRegistry.Register<IRequestService, RequestService>();
             containerRegistry.Register<IDialogService, DialogService>();
+            containerRegistry.Register<ICacheEntity, AkavacheEntity>();
         }
     }
 }

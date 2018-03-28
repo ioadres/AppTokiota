@@ -7,14 +7,20 @@ using AppTokiota.Users.Controls;
 using AppTokiota.Users.Models;
 using AppTokiota.Users.Helpers;
 using AppTokiota.Users.Models.Calendar;
-
+using AppTokiota.Users.Services.Cache;
+using Prism.Navigation;
 namespace AppTokiota.Users.Services
 {
+
     public class TimesheetService : ITimesheetService
     {
         private IRequestService _requestService;
-        public TimesheetService(IRequestService requestService)
+        private ICacheEntity _cacheService;
+
+        public TimesheetService(IRequestService requestService, ICacheEntity cacheService)
+          
         {
+            _cacheService = cacheService;
             _requestService = requestService;
         }
 

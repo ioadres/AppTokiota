@@ -17,19 +17,18 @@ namespace AppTokiota
             set => Settings.AddOrUpdateValue(nameof(AuthenticatedUserResponse), value);
         }
 
-        public static string IdAppAkavache
+        public static string IdAppCache
         {
-            get => Settings.GetValueOrDefault(nameof(IdAppAkavache), DefaultIdAppAkavache);
+            get => Settings.GetValueOrDefault(nameof(IdAppCache), DefaultIdAppCache);
 
-            set => Settings.AddOrUpdateValue(nameof(IdAppAkavache), value);
+            set => Settings.AddOrUpdateValue(nameof(IdAppCache), value);
         }
 
-
-        public static User User
+        public static string IdAppUserCache
         {
-            get => Settings.GetValueOrDefault(nameof(User), default(User));
+            get => Settings.GetValueOrDefault(nameof(IdAppUserCache), DefaultIdAppUserCache);
 
-            set => Settings.AddOrUpdateValue(nameof(User), value);
+            set => Settings.AddOrUpdateValue(nameof(IdAppUserCache), value);
         }
 
         // API Endpoints
@@ -78,6 +77,13 @@ namespace AppTokiota
             set => Settings.AddOrUpdateValue(nameof(TimesheetUrlEndPoint), value);
         }
 
+        public static string TimesheetDomain
+        {
+            get => Settings.GetValueOrDefault(nameof(TimesheetDomain), DefaultTimesheetDomain);
+
+            set => Settings.AddOrUpdateValue(nameof(TimesheetDomain), value);
+        }
+
         public static string UrlCompany
         {
             get => Settings.GetValueOrDefault(nameof(UrlCompany), DefaultUrlCompany);
@@ -98,7 +104,6 @@ namespace AppTokiota
         public static void RemoveUserData()
         {
             Settings.Remove(nameof(AuthenticatedUserResponse));
-            Settings.Remove(nameof(User));
         }
     }
 }

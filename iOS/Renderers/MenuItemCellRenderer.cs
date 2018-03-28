@@ -1,10 +1,10 @@
 ﻿using System;
-using AppTokiota.Controls;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using CoreMedia;
 using AppTokiota.iOS.Renderers;
+using AppTokiota.Users.Controls;
 
 [assembly: ExportRenderer(typeof(MenuItemCell), typeof(MenuItemCellRenderer))]
 namespace AppTokiota.iOS.Renderers

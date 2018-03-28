@@ -35,7 +35,7 @@ namespace AppTokiota.Users.Services
             else
             {
                 AppSettings.AuthenticatedUserResponse = new AuthenticatedUserResponse();
-                AppSettings.User = new User(email, password);
+
             }
 
             return stateRequest;

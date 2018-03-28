@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                         xmlns:ctrls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
@@ -75,107 +75,83 @@
 
             <OnPlatform x:Key="LittleSize"
                   x:TypeArguments="x:Double"
-                  iOS="11"
+                  iOS="13"
                   Android="11"
                         />
 
             <OnPlatform x:Key="MidMediumSize"
                   x:TypeArguments="x:Double"
-                  iOS="12"
+                  iOS="14"
                   Android="12"
                        />
 
             <OnPlatform x:Key="MediumSize"
                   x:TypeArguments="x:Double"
-                  iOS="14"
+                  iOS="16"
                   Android="14"
                         />
 
             <OnPlatform x:Key="LargeSize"
                   x:TypeArguments="x:Double"
-                  iOS="16"
+                  iOS="18"
                   Android="16"
                         />
 
             <OnPlatform x:Key="LargerSize"
                   x:TypeArguments="x:Double"
-                  iOS="18"
+                  iOS="20"
                   Android="18"
                         />
 
             <OnPlatform x:Key="BigSize"
                   x:TypeArguments="x:Double"
-                  iOS="20"
+                  iOS="22"
                   Android="20"
                         />
 
             <OnPlatform x:Key="ExtraBigSize"
                 x:TypeArguments="x:Double"
-                iOS="24"
+                iOS="26"
                 Android="24"
                       />
 
             <OnPlatform x:Key="HugeSize"
                   x:TypeArguments="x:Double"
-                  iOS="32"
-                  Android="32"
-                        />
+                  iOS="34"
+                  Android="32"/>
 
             <!-- STYLES -->
             <Style x:Key="BaseLabelStyle" TargetType="Label">
             </Style>
 
-            <Style x:Key="PoppinsBoldLabelStyle"
-              TargetType="Label"
-              BasedOn="{StaticResource BaseLabelStyle}">
-                <Setter Property="FontFamily"
-         Value="{StaticResource PoppinsBold}" />
+            <Style x:Key="PoppinsBoldLabelStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontFamily" Value="{StaticResource PoppinsBold}" />
             </Style>
 
-            <Style x:Key="PoppinsLightLabelStyle"
-             TargetType="Label"
-             BasedOn="{StaticResource BaseLabelStyle}">
-                <Setter Property="FontFamily"
-         Value="{StaticResource PoppinsLight}" />
+            <Style x:Key="PoppinsLightLabelStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontFamily" Value="{StaticResource PoppinsLight}" />
             </Style>
 
-            <Style x:Key="PoppinsMediumLabelStyle"
-             TargetType="Label"
-             BasedOn="{StaticResource BaseLabelStyle}">
-                <Setter Property="FontFamily"
-         Value="{StaticResource PoppinsMedium}" />
+            <Style x:Key="PoppinsMediumLabelStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontFamily" Value="{StaticResource PoppinsMedium}" />
             </Style>
 
-            <Style x:Key="PoppinsRegularLabelStyle"
-             TargetType="Label"
-             BasedOn="{StaticResource BaseLabelStyle}">
-                <Setter Property="FontFamily"
-            Value="{StaticResource PoppinsRegular}" />
-
+            <Style x:Key="PoppinsRegularLabelStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontFamily" Value="{StaticResource PoppinsRegular}" />
             </Style>
 
-            <Style x:Key="PoppinsSemiBoldLabelStyle"
-             TargetType="Label"
-             BasedOn="{StaticResource BaseLabelStyle}">
-                <Setter Property="FontFamily"
-            Value="{StaticResource PoppinsSemiBold}" />
+            <Style x:Key="PoppinsSemiBoldLabelStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontFamily" Value="{StaticResource PoppinsSemiBold}" />
             </Style>
 
 
-            <Style x:Key="BaseEntryStyle"
-             TargetType="ctrls:ExtendedEntry">
-                <Setter Property="FontFamily"
-            Value="{StaticResource PoppinsRegular}" />
-                <Setter Property="BackgroundColor"
-                Value="Transparent" />
-                <Setter Property="TextColor"
-                Value="{StaticResource WhiteColor}" />
-                <Setter Property="PlaceholderColor"
-                Value="{StaticResource WhiteColor}" />
-                <Setter Property="HeightRequest"
-                Value="44" />
-                <Setter Property="WidthRequest"
-                Value="150" />
+            <Style x:Key="BaseEntryStyle" TargetType="ctrls:ExtendedEntry">
+                <Setter Property="FontFamily" Value="{StaticResource PoppinsRegular}" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="PlaceholderColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="HeightRequest" Value="44" />
+                <Setter Property="WidthRequest" Value="150" />
                 <Setter Property="FontSize">
                     <Setter.Value>
                         <OnPlatform x:TypeArguments="x:Double">
@@ -184,8 +160,7 @@
                         </OnPlatform>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="HorizontalOptions"
-                Value="FillAndExpand" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
                 <Setter Property="FontAttributes">
                     <Setter.Value>
                         <OnPlatform x:TypeArguments="x:String">
@@ -194,40 +169,29 @@
                         </OnPlatform>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Opacity"
-                Value="0.6" />
-                <Setter Property="LineColor"
-               Value="{StaticResource WhiteColor}" />
-                <Setter Property="FocusLineColor"
-                Value="{StaticResource DarkGrayColor}" />
-                <Setter Property="InvalidLineColor"
-                Value="{StaticResource ValidationErrorColor}" />
+                <Setter Property="Opacity" Value="0.6" />
+                <Setter Property="LineColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="FocusLineColor" Value="{StaticResource DarkGrayColor}" />
+                <Setter Property="InvalidLineColor" Value="{StaticResource ValidationErrorColor}" />
                 <Style.Triggers>
-                    <Trigger TargetType="Entry"
-                   Property="IsFocused"
-                   Value="True">
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
                         <Setter Property="Opacity" Value="1" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
 
-            <Style TargetType="ctrls:ExtendedEntry"
-             BasedOn="{StaticResource BaseEntryStyle}" />
+            <Style TargetType="ctrls:ExtendedEntry" BasedOn="{StaticResource BaseEntryStyle}" />
 
             <!-- Button -->
-            <Style x:Key="BaseButtonStyle"
-             TargetType="Button">
+            <Style x:Key="BaseButtonStyle" TargetType="Button">
                 <Setter Property="BorderRadius" Value="20" />
                 <Setter Property="HeightRequest" Value="73" />
                 <Setter Property="HorizontalOptions" Value="Fill" />
-                <Setter Property="FontSize"
-                Value="{StaticResource MidMediumSize}" />
-                <Setter Property="FontFamily"
-                Value="{StaticResource PoppinsRegular}" />
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="FontFamily" Value="{StaticResource PoppinsRegular}" />
             </Style>
 
-            <Style x:Key="BaseButtonWizardStyle" BasedOn="{StaticResource BaseButtonStyle}"
-             TargetType="Button">
+            <Style x:Key="BaseButtonWizardStyle" BasedOn="{StaticResource BaseButtonStyle}" TargetType="Button">
                 <Setter Property="BorderWidth" Value="1" />
                 <Setter Property="HeightRequest" Value="40" />
                 <Setter Property="WidthRequest" Value="140" />
@@ -255,6 +219,17 @@
                 <Setter Property="FontFamily"  Value="{StaticResource PoppinsSemiBold}" />
             </Style>
 
+            <Style x:Key="ButtonSecundary" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+                <Setter Property="BorderColor" Value="{StaticResource DarkColor}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource DarkColor}" />
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="WidthRequest" Value="100" />
+                <Setter Property="FontFamily"  Value="{StaticResource PoppinsSemiBold}" />
+            </Style>
+           
+
             <Style TargetType="ActivityIndicator">
                 <Setter Property="VerticalOptions" Value="Center" />
                 <Setter Property="HorizontalOptions" Value="Center" />
@@ -274,9 +249,7 @@
             </Style>
             <!-- Styles -->
 
-            <Style x:Key="MenuLabelItem"
-              TargetType="Label"
-              BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+            <Style x:Key="MenuLabelItem" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
             </Style>

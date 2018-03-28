@@ -4,8 +4,8 @@ using CoreGraphics;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using SmartHotel.Clients.iOS.Renderers;
-using AppTokiota.Controls;
+using AppTokiota.Users.Controls;
+using AppTokiota.iOS.Renderers;
 #if __UNIFIED__
 using Foundation;
 #else
@@ -13,9 +13,8 @@ using MonoTouch.Foundation;
 #endif
 
 [assembly: ExportRenderer(typeof(CalendarButton), typeof(CalendarButtonRenderer))]
-namespace SmartHotel.Clients.iOS.Renderers
+namespace AppTokiota.iOS.Renderers
 {
-    [Preserve(AllMembers = true)]
     public class CalendarButtonRenderer : ButtonRenderer
     {
         protected override void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

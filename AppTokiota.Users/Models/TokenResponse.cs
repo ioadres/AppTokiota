@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using AppTokiota.Users.Components.Master;
 
 namespace AppTokiota.Users.Models
 {
@@ -48,5 +49,15 @@ namespace AppTokiota.Users.Models
 
         [DataMember(Name = "refresh_token")]
         public string RefreshToken { get; set; }
+
+        public void Mapper(AuthenticatedRefreshTokenResponse model) {
+            Resource = model.Resource;
+            ExpiresIn = model.ExpiresIn;
+            ExpiresOn = model.ExpiresOn;
+            AccessToken = model.AccessToken;
+            RefreshToken = model.RefreshToken;
+            TokenType = model.TokenType;
+        }
     }
+
 }

@@ -17,8 +17,7 @@ namespace AppTokiota.Users.Services
             var specialDates = new List<SpecialDate>();
             var modelDay = GetSpecialDaysByModelDay(timesheet.Days).ToList();
             var modelImputed = GetSpecialDaysByModelInputed(timesheet.Activities).ToList();
-            var modelDayClose = GetSpecialDaysByCloseDay(timesheet.Days);
-           
+            var modelDayClose = GetSpecialDaysByCloseDay(timesheet.Days);          
             
 
             specialDates.AddRange(modelDay);
@@ -33,19 +32,11 @@ namespace AppTokiota.Users.Services
             var listSpecialDate = new List<SpecialDate>();
             try
             {
-                var dayStyle = CalendarColors.GetInputed();
+                var dayStyle = new List<DayStyle>() { CalendarColors.GetInputed() };
                 foreach (var item in activities)
                 {
-                    listSpecialDate.Add(new SpecialDate(item.Value.Date)
-                    {
-                        BackgroundColor = dayStyle.BackgroundColor,
-                        TextColor = dayStyle.TextColor,
-                        FontFamily = dayStyle.FontFamily,
-                        FontAttributes = dayStyle.FontAttributes,
-                        BorderWidth = dayStyle.BorderWidth,
-                        BackgroundImage = dayStyle.BackgroundImage,
-                        FontSize = dayStyle.FontSize
-                    });
+                    var specialDay = new SpecialDate(item.Value.Date, true);
+                    listSpecialDate.Add(CalendarColors.GetSpecialDay(specialDay, item.Value.Date, dayStyle));                   
                 }
             }
             catch (Exception e)
@@ -61,7 +52,7 @@ namespace AppTokiota.Users.Services
             var listSpecialDate = new List<SpecialDate>();
             foreach (var item in days)
             {
-                var specialDay = new SpecialDate(item.Date, !item.IsClosed);
+                var specialDay = new SpecialDate(item.Date, true);
                 var dayStyle = new List<DayStyle>();
                 if (item.IsWeekend)
                 {
@@ -82,7 +73,7 @@ namespace AppTokiota.Users.Services
             var listSpecialDate = new List<SpecialDate>();
             foreach (var item in days.Where(x=>x.IsClosed))
             {
-                var specialDay = new SpecialDate(item.Date, !item.IsClosed);
+                var specialDay = new SpecialDate(item.Date, true);
                 var dayStyle = new List<DayStyle>();
                 dayStyle.Add(CalendarColors.SetCloseDay());
                 listSpecialDate.Add(CalendarColors.GetSpecialDay(specialDay, item.Date, dayStyle));

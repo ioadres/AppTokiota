@@ -41,10 +41,17 @@ namespace AppTokiota.Users.Components.Menu
 
         public MenuPageViewModel(IViewModelBaseModule baseModule, IMenuModule menuModule) : base(baseModule)
         {
-            _menuModule = menuModule;
             Title = "MenuPage";
+            _menuModule = menuModule;
+
             MenuList = new ObservableCollection<MenuItem>();
-            Email = AppSettings.User.Email;
+
+            Task.Run(async() =>
+            {
+                var user = await BaseModule.CacheEntity.GetObjectAsync<User>(AppSettings.IdAppUserCache);
+                if (user != null) Email = user.Email;
+            });
+           
             LoadMenu();
         }
        

@@ -11,7 +11,6 @@ using Android.Graphics;
 [assembly: ExportRenderer(typeof(AppTokiota.Users.Controls.CalendarButton), typeof(CalendarButtonRenderer))]
 namespace AppTokiota.Droid.Renderers
 {
-    [Preserve(AllMembers = true)]
     public class CalendarButtonRenderer : ButtonRenderer
     {
         protected override void OnElementChanged(ElementChangedEventArgs<Button> e)

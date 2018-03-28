@@ -4,6 +4,7 @@ using AppTokiota.Users.Components.Core.Module;
 using AppTokiota.Users.Components.Dashboard;
 using AppTokiota.Users.Components.Login;
 using AppTokiota.Users.Components.Master;
+using Plugin.Connectivity;
 using System;
 using Xamarin.Forms;
 
@@ -28,14 +29,19 @@ namespace AppTokiota.Users.Components.Splash
 
         private async void AuthenticationRun()
         {
-            if (await BaseModule.AuthenticationService.UserIsAuthenticatedAndValidAsync())
+            if (CrossConnectivity.Current.IsConnected)
             {
-                NavigateCommand.Execute(MasterModule.Tag + BaseNavigationModule.Tag + DashBoardModule.Tag);
-            }
-            else
-            {
-                NavigateCommand.Execute(LoginModule.Tag);
-            }           
+                if (await BaseModule.AuthenticationService.UserIsAuthenticatedAndValidAsync())
+                {
+                    NavigateCommand.Execute(MasterModule.Tag + BaseNavigationModule.Tag + DashBoardModule.Tag);
+                }
+                else
+                {
+                    NavigateCommand.Execute(LoginModule.Tag);
+                }
+            } else {
+                NavigateCommand.Execute(ConnectionModule.Tag);
+            }     
         }
     }
 }

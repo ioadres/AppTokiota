@@ -52,18 +52,5 @@ namespace AppTokiota.Components.Core
         public virtual void OnNavigatingTo(NavigationParameters parameters)
         {
         }
-
-
-        public async Task InitializeAsync(string destination)
-        {
-            if (await BaseModule.AuthenticationService.UserIsAuthenticatedAndValidAsync())
-            {   
-                NavigateCommand.Execute(destination);
-            }
-            else
-            {
-                NavigateCommand.Execute(LoginModule.Tag);
-            }
-        }
     }
 }

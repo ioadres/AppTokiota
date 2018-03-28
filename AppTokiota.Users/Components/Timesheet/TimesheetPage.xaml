@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="AppTokiota.Users.Components.Timesheet.TimesheetPage"
@@ -29,8 +29,12 @@
             </Style>
 
             <Style x:Key="ColorDescriptionTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
+            </Style>
+            <Style x:Key="ColorBoxStyle" TargetType="BoxView">
+                <Setter Property="WidthRequest" Value="5" />
+                <Setter Property="HeightRequest" Value="2"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -43,27 +47,21 @@
             </Grid.RowDefinitions>
 
             <StackLayout Grid.Row="0" BackgroundColor="{StaticResource WhiteColor}" HorizontalOptions="CenterAndExpand">
-                <StackLayout Orientation="Horizontal" Margin="1" HorizontalOptions="CenterAndExpand">
+                <StackLayout Orientation="Horizontal" Margin="5" HorizontalOptions="CenterAndExpand">
 
                     <StackLayout Orientation="Horizontal" Margin="1">
-                        <BoxView BackgroundColor="{StaticResource BlueColor}" WidthRequest="4" HeightRequest="2"></BoxView>
+                        <BoxView BackgroundColor="{StaticResource BlueColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
                         <Label Text="Selected" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" Margin="1">
-                        <BoxView BackgroundColor="{StaticResource GreenColor}" WidthRequest="4" HeightRequest="2"></BoxView>
+                        <BoxView BackgroundColor="{StaticResource GreenColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
                         <Label Text="Imputed" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal">
-                        <BoxView BackgroundColor="{StaticResource OrangeColor}" WidthRequest="4" HeightRequest="2"></BoxView>
+                        <BoxView BackgroundColor="{StaticResource OrangeColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
                         <Label Text="Holidays" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
                     </StackLayout>
-
-                    <StackLayout Orientation="Horizontal">
-                        <BoxView BackgroundColor="{StaticResource RedDarkColor}" WidthRequest="4" HeightRequest="2"></BoxView>
-                        <Label Text="MyHolidays" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
-                    </StackLayout>
-
                 </StackLayout>
 
                 <controls:Calendar 
@@ -73,27 +71,27 @@
                         MultiSelectDates="True" 
                         SelectRange="False"
                         StartDay="Monday" 
-                        DatesFontSize="12"
-                        TitleLabelFontSize="20"
+                        DatesFontSize="{StaticResource MidMediumSize }"
+                        TitleLabelFontSize="{StaticResource MediumSize }"
                         EnableTitleMonthYearView="True"
                         WeekdaysShow="True"
-                        WeekdaysFontSize="12"
+                        WeekdaysFontSize="{StaticResource MidMediumSize }"
                         WeekdaysTextColor ="{StaticResource DarkColor}"
                         WeekdaysFontAttributes="Bold"
 
                         DisabledBorderColor="{StaticResource DarkGrayColor}"
                         DisabledBackgroundColor="{StaticResource DarkGrayColor}"
-                        DisabledFontSize="12"
+                        DisabledFontSize="{StaticResource MidMediumSize }"
                         DisabledBorderWidth="6"
 
                         BorderWidth="1"
-                        BorderColor="{StaticResource WhiteColor}"
+                        BorderColor="{StaticResource DarkColor}"
                     
                         DatesBackgroundColor="{StaticResource WhiteColor}"
                         TitleLeftArrowTextColor="{StaticResource DarkGrayColor}"
                         TitleRightArrowTextColor="{StaticResource DarkGrayColor}"
                   
-                        SelectedFontSize="12"
+                        SelectedFontSize="{StaticResource MidMediumSize }"
                         SelectedBorderWidth="1"
                         SelectedTextColor="{StaticResource DarkColor}"
                         SelectedBorderColor="{StaticResource BlueColor}"
@@ -108,7 +106,7 @@
 
             </StackLayout>
 
-            <StackLayout Grid.Row="1" Padding="15" BackgroundColor="{StaticResource RedColor}">
+            <StackLayout Grid.Row="1" Padding="25" BackgroundColor="{StaticResource RedColor}">
                 <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource IconPlusTextStyle}"  HorizontalTextAlignment="Center"/>
             </StackLayout>
         </Grid>

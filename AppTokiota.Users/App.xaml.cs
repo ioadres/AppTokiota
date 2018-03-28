@@ -12,6 +12,8 @@ using AppTokiota.Users.Components.Login;
 using AppTokiota.Users.Components.Connection;
 using AppTokiota.Users.Components;
 using AppTokiota.Users.Components.Dashboard;
+using Prism.Navigation;
+using AppTokiota.Users.Components.Master;
 
 namespace AppTokiota.Users
 {
@@ -30,7 +32,6 @@ namespace AppTokiota.Users
             InitializeComponent();
 
             BlobCache.ApplicationName = AppSettings.IdAppCache;
-            BlobCache.LocalMachine.InsertObject(AppSettings.IdAppCache, true, DateTimeOffset.Now.AddSeconds(10));
             await NavigationService.NavigateAsync(SplashModule.Tag);
         }
 
@@ -41,35 +42,6 @@ namespace AppTokiota.Users
 
             //# Container Components
             ModuleLoader.Load(containerRegistry);
-
-        }
-
-        private async void OnConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
-        {
-
-            try
-            {
-                if (e.IsConnected == true)
-                {
-                    var result = await _authenticationService.UserIsAuthenticatedAndValidAsync();
-                    if (!result)
-                    {
-                        await NavigationService.NavigateAsync(LoginModule.Tag);
-                    }
-                    else
-                    {
-                        await NavigationService.NavigateAsync(DashBoardModule.Tag);
-                    }
-                }
-                else
-                {
-                    await _authenticationService.Logout();
-                    await NavigationService.NavigateAsync(ConnectionModule.Tag);
-                }
-            }
-            catch (Exception ex)
-            {
-            }
 
         }
 
@@ -86,6 +58,36 @@ namespace AppTokiota.Users
         protected override void OnResume()
         {
             CrossConnectivity.Current.ConnectivityChanged += OnConnectivityChanged;
+            AuthenticationRun();           
+        }
+
+        private async void OnConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
+        {
+            if (e.IsConnected == true)
+            {
+                AuthenticationRun();
+            }
+            else
+            {
+                await NavigationService.NavigateAsync(ConnectionModule.Tag);
+            }
+        }
+
+        private async void AuthenticationRun() 
+        {
+            try
+            {    
+                var result = await _authenticationService.UserIsAuthenticatedAndValidAsync();
+                if (!result)
+                {
+                    await NavigationService.NavigateAsync(LoginModule.Tag);
+                } else {
+                    if(_authenticationService.IsAuthenticated) await NavigationService.NavigateAsync(MasterModule.GetMasterNavigationPage(DashBoardModule.Tag));
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }

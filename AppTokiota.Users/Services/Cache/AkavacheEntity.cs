@@ -39,6 +39,11 @@ namespace AppTokiota.Users.Services.Cache
             await BlobCache.UserAccount.InvalidateAll();
         }
 
+        public async Task InsertObjectAsync<T>(string key, T value, DateTimeOffset dateTimeOffset)
+        {
+            await BlobCache.UserAccount.InsertObject<T>(key, value, dateTimeOffset);
+        }
+
         #endregion
     }
 }

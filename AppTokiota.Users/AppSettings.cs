@@ -24,12 +24,11 @@ namespace AppTokiota
             set => Settings.AddOrUpdateValue(nameof(IdAppCache), value);
         }
 
-
-        public static User User
+        public static string IdAppUserCache
         {
-            get => Settings.GetValueOrDefault(nameof(User), default(User));
+            get => Settings.GetValueOrDefault(nameof(IdAppUserCache), DefaultIdAppUserCache);
 
-            set => Settings.AddOrUpdateValue(nameof(User), value);
+            set => Settings.AddOrUpdateValue(nameof(IdAppUserCache), value);
         }
 
         // API Endpoints
@@ -105,7 +104,6 @@ namespace AppTokiota
         public static void RemoveUserData()
         {
             Settings.Remove(nameof(AuthenticatedUserResponse));
-            Settings.Remove(nameof(User));
         }
     }
 }

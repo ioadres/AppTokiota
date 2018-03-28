@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AppTokiota.Users.Services.Cache;
 
 namespace AppTokiota.Users.Components.Core.Module
 {
@@ -13,5 +14,6 @@ namespace AppTokiota.Users.Components.Core.Module
         IAuthenticationService AuthenticationService { get; }
         IDialogService DialogService { get; }
         INavigationService NavigationService { get; }
+        ICacheEntity CacheEntity { get; }
     }
 }

@@ -11,11 +11,11 @@ namespace AppTokiota
         private const string DefaultMicrosoftApiClientId = "";
         private const string DefaultMicrosoftGrantType = "password";
         private const string DefaultMicrosoftResource = "";
-        private const string DefaultMicrosoftAuthEndpoint = "https://login.microsoft.com/{0}/oauth2/token";
+        private const string DefaultMicrosoftAuthEndpoint = "";
 
 
         // Endpoint Timesheet
-        private const string DefaultTimesheetUrlEndPoint = "?";
+        private const string DefaultTimesheetUrlEndPoint = "";
         private const string DefaultTimesheetDomain = "";
 
 
@@ -23,7 +23,8 @@ namespace AppTokiota
 
         // App Config
         private const string DefaultIdAppCache = "";
-        private const string DefaultUrlCompany = "http://tokiota.com/";
+        private const string DefaultIdAppUserCache = "";
+        private const string DefaultUrlCompany = "";
         private const bool DefaultUseFakeServices = false;
 
 

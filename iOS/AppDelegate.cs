@@ -1,5 +1,5 @@
-﻿using AppTokiota.Controls;
-using AppTokiota.iOS.Renderers;
+﻿using AppTokiota.iOS.Renderers;
+using AppTokiota.Users;
 using Foundation;
 using Prism;
 using Prism.Ioc;

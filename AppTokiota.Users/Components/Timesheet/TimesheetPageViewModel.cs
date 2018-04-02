@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Diagnostics;
 using System.Windows.Input;
+using Plugin.DeviceOrientation;
+using AppTokiota.Users.Components.ManageImputedDay;
+using AppTokiota.Users.Models;
 
 namespace AppTokiota.Users.Components.Timesheet
 {
@@ -25,18 +28,24 @@ namespace AppTokiota.Users.Components.Timesheet
             _timesheetModule = timesheetModule;
 
             Title = "Timesheet";
-            IsBusy = true;
 
             DateTime date = DateTime.Now;
             _dates = new ObservableCollection<DateTime>();
             _specialDates = new ObservableCollection<SpecialDate>();
 
             var from = new DateTime(date.Year, date.Month, 1);
-            var to = from.AddMonths(1).AddDays(-1);
-            LoadSpecialDatesAsync(from, to);
+            DateChosen.Execute(from);
+
+            _orientation = (int)CrossDeviceOrientation.Current.CurrentOrientation == 1 ||  (int)CrossDeviceOrientation.Current.CurrentOrientation == 4? StackOrientation.Horizontal : StackOrientation.Vertical;
+            CrossDeviceOrientation.Current.OrientationChanged += (sender, args) =>
+            {
+                Orientation = (int)CrossDeviceOrientation.Current.CurrentOrientation == 1 || (int)CrossDeviceOrientation.Current.CurrentOrientation == 4 ? StackOrientation.Horizontal : StackOrientation.Vertical;
+            };
 
         }
         #endregion
+
+        private Models.Timesheet _currentTimesheet;
 
         /// <summary>
         /// Gets or sets the selection collection dates 
@@ -46,8 +55,44 @@ namespace AppTokiota.Users.Components.Timesheet
         public ObservableCollection<DateTime> Dates
         {
             get { return _dates; }
-            set { SetProperty(ref _dates, value); }
+            set { 
+                SetProperty(ref _dates, value);
+            }
         }
+
+        /// <summary>
+        /// Gets if is a multipleSelection
+        /// </summary>
+        /// <value>If is multile</value>
+        private StackOrientation _orientation = StackOrientation.Vertical;
+        public StackOrientation Orientation
+        {
+            get { return _orientation; }
+            set { SetProperty(ref _orientation, value); }
+        }
+
+        /// <summary>
+        /// Gets if is a multipleSelection
+        /// </summary>
+        /// <value>If is multile</value>
+        private bool _isMultiple;
+        public bool IsMultiple
+        {
+            get { return Dates.Count() > 1; }
+            set { SetProperty(ref _isMultiple, value); }
+        }
+
+        /// <summary>
+        /// Gets if is not a multiple selection
+        /// </summary>
+        /// <value>If is not multile</value>
+        private bool _isNotMultiple;
+        public bool IsNotMultiple
+        {
+            get { return Dates.Count() == 1; }
+            set { SetProperty(ref _isNotMultiple, value); }
+        }
+
 
         /// <summary>
         /// Gets or sets the special collection dates 
@@ -60,12 +105,13 @@ namespace AppTokiota.Users.Components.Timesheet
             set { SetProperty(ref _specialDates, value); }
         }
 
+
         #region EventChangeDateMonthOfCalendar
         public Command DateChosen => new Command((obj) => { ChangeDateCalendar((DateTime)obj); });
         protected void ChangeDateCalendar(DateTime from)
         {
-            var to = from.AddMonths(1).AddDays(-1);
-            LoadSpecialDatesAsync(from, to);
+            var to = from.AddMonths(1).AddDays(10);
+            LoadSpecialDatesAsync(from.AddDays(-7), to);
         }
         #endregion
 
@@ -76,22 +122,37 @@ namespace AppTokiota.Users.Components.Timesheet
             if (date == null)
                 return;
 
+            IsMultiple = Dates.Count() > 1;
+            IsNotMultiple = Dates.Count() == 1;
+
             if (Dates.Any())
             {
-
             }
+        }
+        #endregion
+
+        #region NavigateToManageImputedDay
+        public DelegateCommand ManageImputedDayCommand => new DelegateCommand(ManageImputedDay);
+        protected async void ManageImputedDay()
+        {
+            var selectedDateTimesheet = _timesheetModule.TimesheetService.GetTimesheetByDate(_currentTimesheet, Dates.FirstOrDefault());
+            var navigationParameters = new NavigationParameters();
+            navigationParameters.Add(TimesheetForDay.Tag, selectedDateTimesheet);
+            await BaseModule.NavigationService.NavigateAsync(ManageImputedDayModule.Tag, navigationParameters);
         }
         #endregion
 
         #region MethodToLoadSpecialDatesFromTheSelectionMonthInCalendar
         protected void LoadSpecialDatesAsync(DateTime from, DateTime to)
         {
+            IsBusy = true;
             Device.BeginInvokeOnMainThread(async () =>
             {
                 try
                 {
-                    var timesheet = await _timesheetModule.TimesheetService.GetTimesheetBeetweenDates(from, to);
-                    var specialDates = await _timesheetModule.CalendarService.GetSpecialDatesBeetweenDatesAsync(timesheet);
+                    Dates.Clear();
+                    _currentTimesheet = await _timesheetModule.TimesheetService.GetTimesheetBeetweenDates(from, to);
+                    var specialDates = await _timesheetModule.CalendarService.GetSpecialDatesBeetweenDatesAsync(_currentTimesheet);
                     specialDates.ForEach(x => SpecialDates.Add(x));
                     IsBusy = false;
                 }
@@ -107,5 +168,7 @@ namespace AppTokiota.Users.Components.Timesheet
             });
         }
         #endregion
+
+
     }
 }

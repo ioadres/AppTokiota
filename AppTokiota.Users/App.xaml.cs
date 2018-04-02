@@ -14,6 +14,7 @@ using AppTokiota.Users.Components;
 using AppTokiota.Users.Components.Dashboard;
 using Prism.Navigation;
 using AppTokiota.Users.Components.Master;
+using System.Runtime.InteropServices;
 
 namespace AppTokiota.Users
 {
@@ -22,6 +23,8 @@ namespace AppTokiota.Users
     public partial class App : PrismApplication
     {
         private IAuthenticationService _authenticationService;
+
+        public App() : this(null) { }
 
         public App(IPlatformInitializer initializer = null) : base(initializer) { }
 
@@ -65,7 +68,7 @@ namespace AppTokiota.Users
         {
             if (e.IsConnected == true)
             {
-                AuthenticationRun();
+                AuthenticationRun(true);
             }
             else
             {
@@ -73,7 +76,7 @@ namespace AppTokiota.Users
             }
         }
 
-        private async void AuthenticationRun() 
+        private async void AuthenticationRun(bool isConnectivityChange = false) 
         {
             try
             {    
@@ -82,7 +85,7 @@ namespace AppTokiota.Users
                 {
                     await NavigationService.NavigateAsync(LoginModule.Tag);
                 } else {
-                    if(_authenticationService.IsAuthenticated) await NavigationService.NavigateAsync(MasterModule.GetMasterNavigationPage(DashBoardModule.Tag));
+                    if(_authenticationService.IsAuthenticated && isConnectivityChange) await NavigationService.NavigateAsync(MasterModule.GetMasterNavigationPage(DashBoardModule.Tag));
                 }
             }
             catch (Exception ex)

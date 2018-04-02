@@ -29,26 +29,30 @@
             </Style>
 
             <Style x:Key="ColorDescriptionTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
             </Style>
             <Style x:Key="ColorBoxStyle" TargetType="BoxView">
                 <Setter Property="WidthRequest" Value="5" />
                 <Setter Property="HeightRequest" Value="2"/>
             </Style>
+            <Style x:Key="ActionSelectedTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
    
     <ContentPage.Content>
-        <Grid VerticalOptions="Fill" HorizontalOptions="Fill" RowSpacing="0" ColumnSpacing="0">
+        <Grid    
+            AutomationId="calendar">
+        <Grid RowSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="0.6*" />
+                <RowDefinition Height="8.2*" />
+                <RowDefinition Height="1.2*" />
             </Grid.RowDefinitions>
-
-            <StackLayout Grid.Row="0" BackgroundColor="{StaticResource WhiteColor}" HorizontalOptions="CenterAndExpand">
-                <StackLayout Orientation="Horizontal" Margin="5" HorizontalOptions="CenterAndExpand">
-
+                <StackLayout Orientation="Horizontal" Margin="1" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0">
                     <StackLayout Orientation="Horizontal" Margin="1">
                         <BoxView BackgroundColor="{StaticResource BlueColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
                         <Label Text="Selected" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
@@ -63,9 +67,12 @@
                         <Label Text="Holidays" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
                     </StackLayout>
                 </StackLayout>
-
+            
+                <Grid
+                    Grid.Row="1">
                 <controls:Calendar 
                         x:Name="Calendar"
+                        DateCommand="{Binding SelectedDateCommand}"
                         SelectedDates="{Binding Dates, Mode=TwoWay}"
                         SpecialDates="{Binding SpecialDates, Mode=TwoWay}"
                         MultiSelectDates="True" 
@@ -83,9 +90,6 @@
                         DisabledBackgroundColor="{StaticResource DarkGrayColor}"
                         DisabledFontSize="{StaticResource MidMediumSize }"
                         DisabledBorderWidth="6"
-
-                        BorderWidth="1"
-                        BorderColor="{StaticResource DarkColor}"
                     
                         DatesBackgroundColor="{StaticResource WhiteColor}"
                         TitleLeftArrowTextColor="{StaticResource DarkGrayColor}"
@@ -96,19 +100,56 @@
                         SelectedTextColor="{StaticResource DarkColor}"
                         SelectedBorderColor="{StaticResource BlueColor}"
                         SelectedBackgroundColor="{StaticResource BlueColor}"
-                        
+
+                        BorderWidth="1"
+                        BorderColor="{StaticResource DarkColor}"
                     
                         RightArrowCommand="{Binding DateChosen}"
                         LeftArrowCommand="{Binding DateChosen}"
                         MonthYearButtonCommand="{Binding DateChosen}"
                         HorizontalOptions="Center">
                 </controls:Calendar>
+                </Grid>
 
-            </StackLayout>
-
-            <StackLayout Grid.Row="1" Padding="25" BackgroundColor="{StaticResource RedColor}">
-                <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource IconPlusTextStyle}"  HorizontalTextAlignment="Center"/>
-            </StackLayout>
+            <Grid 
+                AutomationId="Multiple"
+                Grid.Row="2"
+                IsVisible="{Binding IsMultiple}"
+                BackgroundColor="{StaticResource RedColor}"                 
+                >
+                     <Grid.GestureRecognizers>
+                    <TapGestureRecognizer 
+                        Command="{Binding ManageImputedDayCommand}" />
+                    </Grid.GestureRecognizers>
+                    
+                     <StackLayout Orientation="Horizontal" Margin="1" HorizontalOptions="Center" VerticalOptions="Center">
+                        <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource IconPlusTextStyle}"/>
+                        <Label Text="Imputed a multiple selected day" Style="{StaticResource ActionSelectedTextStyle}"></Label>
+                    </StackLayout>
+            </Grid>
+            <Grid 
+                AutomationId="NotMultiple"
+                Grid.Row="2"
+                IsVisible="{Binding IsNotMultiple}"
+                BackgroundColor="{StaticResource GreenColor}"                 
+                >
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer 
+                        Command="{Binding ManageImputedDayCommand}" />
+                </Grid.GestureRecognizers>
+                    
+                <StackLayout Orientation="Horizontal" Margin="1" HorizontalOptions="Center" VerticalOptions="Center">
+                    <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource IconPlusTextStyle}"/>
+                    <Label Text="Imputed a selected day" Style="{StaticResource ActionSelectedTextStyle}"></Label>
+                </StackLayout>
+            </Grid>
+                
+        </Grid>
+        <ActivityIndicator 
+                    Color="{StaticResource RedColor}"
+                    HorizontalOptions="Center"
+                    IsRunning="{Binding IsBusy}" 
+                    IsVisible="{Binding IsBusy}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

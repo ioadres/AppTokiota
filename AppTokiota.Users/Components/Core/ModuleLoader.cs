@@ -8,6 +8,7 @@ using AppTokiota.Users.Components.Master;
 using AppTokiota.Users.Components.BaseNavigation;
 using AppTokiota.Users.Components.Timesheet;
 using AppTokiota.Users.Components.Connection;
+using AppTokiota.Users.Components.ManageImputedDay;
 
 namespace AppTokiota.Users.Components.Core
 {
@@ -41,6 +42,9 @@ namespace AppTokiota.Users.Components.Core
 
             containerRegistry.Register<ITimesheetModule, TimesheetModule>();
             TimesheetModule.Register(containerRegistry);
+
+            containerRegistry.Register<IManageImputedDayModule, ManageImputedDayModule>();
+            ManageImputedDayModule.Register(containerRegistry);
         }
     }
 }

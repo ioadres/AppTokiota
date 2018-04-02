@@ -22,8 +22,8 @@ namespace AppTokiota.Users.Controls
                 FontAttributes = FontAttributes.None,
                 BackgroundColor = Color.Transparent,
                 BackgroundImage = FileImageSource.FromFile((Device.RuntimePlatform == Device.UWP) ? "Assets/ic_arrow_left_normal.png" : "ic_arrow_left_normal") as FileImageSource,
-                HeightRequest = 48,
-                WidthRequest = 48,
+                HeightRequest = 28,
+                WidthRequest = 28,
                 Margin = new Thickness(24, 0, 0, 0),
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.End
@@ -45,8 +45,8 @@ namespace AppTokiota.Users.Controls
             {
                 FontAttributes = FontAttributes.None,
                 BackgroundColor = Color.Transparent,
-                HeightRequest = 48,
-                WidthRequest = 48,
+                HeightRequest = 28,
+                WidthRequest = 28,
                 Margin = new Thickness(0, 0, 24, 0),
                 BackgroundImage = FileImageSource.FromFile((Device.RuntimePlatform == Device.UWP) ? "Assets/ic_arrow_right_normal.png" : "ic_arrow_right_normal") as FileImageSource,
                 VerticalOptions = LayoutOptions.Center,
@@ -58,7 +58,7 @@ namespace AppTokiota.Users.Controls
 				Padding = 0,
 				VerticalOptions = LayoutOptions.Start,
 				Orientation = StackOrientation.Horizontal,
-				HeightRequest = 50,
+				HeightRequest = 30,
 				Children = { TitleLeftArrow, TitleLabel, TitleRightArrow}
 			};
 

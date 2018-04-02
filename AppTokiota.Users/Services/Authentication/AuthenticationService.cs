@@ -91,7 +91,7 @@ namespace AppTokiota.Users.Services
                     if (response.IsSuccessStatusCode)
                     {
                         var tokenResponse = JsonConvert.DeserializeObject<AuthenticatedRefreshTokenResponse>(json);
-                        AppSettings.AuthenticatedUserResponse.Mapper(tokenResponse);
+                        AppSettings.AuthenticatedUserResponse = AuthenticatedUserResponse.Mapper(AppSettings.AuthenticatedUserResponse, tokenResponse);
                         await _cacheEntity.InsertObjectAsync(AppSettings.IdAppCache, true, DateTimeOffset.Now.AddSeconds(Double.Parse(AppSettings.AuthenticatedUserResponse.ExpiresIn)));
                     }
                     return response.IsSuccessStatusCode;

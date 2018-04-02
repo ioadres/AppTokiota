@@ -228,6 +228,12 @@
     <Reference Include="Xamarin.Forms.BehaviorsPack">
       <HintPath>..\packages\Xamarin.Forms.BehaviorsPack.1.4.0\lib\netstandard1.0\Xamarin.Forms.BehaviorsPack.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.DeviceOrientation.Abstractions">
+      <HintPath>..\packages\Plugin.DeviceOrientation.1.0.7\lib\Xamarin.iOS10\Plugin.DeviceOrientation.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.DeviceOrientation">
+      <HintPath>..\packages\Plugin.DeviceOrientation.1.0.7\lib\Xamarin.iOS10\Plugin.DeviceOrientation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">

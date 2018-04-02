@@ -11,5 +11,6 @@ namespace AppTokiota.Users.Services
     public interface ITimesheetService
     {
         Task<Timesheet> GetTimesheetBeetweenDates(DateTime from, DateTime To);
-    }
+        TimesheetForDay GetTimesheetByDate(Timesheet currentTimesheet, DateTime dateTime);
+	}
 }

@@ -1,5 +1,6 @@
 ﻿using AppTokiota.iOS.Renderers;
 using AppTokiota.Users;
+using AppTokiota.Users.Controls;
 using Foundation;
 using Prism;
 using Prism.Ioc;
@@ -14,11 +15,11 @@ namespace AppTokiota.iOS
         {
             global::Xamarin.Forms.Forms.Init();
            
-           LoadApplication(new App(new iOSInitializer()));
-            /*
-             * 
+            LoadApplication(new App(new iOSInitializer()));
 
-             LoadApplication(UXDivers.Gorilla.iOS.Player.CreateApplication(
+ 
+
+           /*  LoadApplication(UXDivers.Gorilla.iOS.Player.CreateApplication(
             new UXDivers.Gorilla.Config("Good Gorilla")
                 .RegisterAssembliesFromTypes<
                                    Prism.IActiveAware,
@@ -28,10 +29,9 @@ namespace AppTokiota.iOS
                 .RegisterAssemblyFromType<MenuItemCell>()
                 .RegisterAssemblyFromType<ExtendedEntry>()
                 .RegisterAssemblyFromType<ExtendedEntryRenderer>()
-                .RegisterAssembly(typeof(AppTokiota.Components.Core.ViewModelBase).Assembly)     
+                .RegisterAssembly(typeof(AppTokiota.Users.Components.Core.ViewModelBase).Assembly)     
             // Register UXDivers Effects assembly
-            ));
-*/
+            ));*/
 
 
 

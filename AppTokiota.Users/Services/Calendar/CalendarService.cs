@@ -18,11 +18,20 @@ namespace AppTokiota.Users.Services
             var modelDay = GetSpecialDaysByModelDay(timesheet.Days).ToList();
             var modelImputed = GetSpecialDaysByModelInputed(timesheet.Activities).ToList();
             var modelDayClose = GetSpecialDaysByCloseDay(timesheet.Days);          
-            
 
-            specialDates.AddRange(modelDay);
-            specialDates.AddRange(modelImputed);
             specialDates.AddRange(modelDayClose);
+
+            foreach(var item in modelImputed) {
+                if (specialDates.Any(x => x.Date.Equals(item.Date))) continue;
+                specialDates.Add(item);
+            }
+
+            foreach (var item in modelDay)
+            {
+                if (specialDates.Any(x => x.Date.Equals(item.Date))) continue;
+                specialDates.Add(item);
+            }
+
 
             return await Task.FromResult(specialDates);
         }

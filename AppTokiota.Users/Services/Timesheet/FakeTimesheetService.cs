@@ -17,7 +17,11 @@ namespace AppTokiota.Users.Services
         public async Task<Timesheet> GetTimesheetBeetweenDates(DateTime from, DateTime To)
         {
             return await Task.Run(() => JsonConvert.DeserializeObject<Timesheet>(FakeTimesheetData.Timesheet));
-        }        
+        }
 
+        public TimesheetForDay GetTimesheetByDate(Timesheet currentTimesheet, DateTime dateTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

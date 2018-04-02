@@ -30,5 +30,14 @@ namespace AppTokiota.Users.Services
             var timesheet = await _requestService.GetAsync<Timesheet>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
             return timesheet;
         }
+
+        public TimesheetForDay GetTimesheetByDate(Timesheet currentTimesheet, DateTime dateTime)
+        {
+            var timesheetForDay = new TimesheetForDay();
+            timesheetForDay.Day = currentTimesheet.Days.FirstOrDefault(x => x.Date.Equals(dateTime));
+            timesheetForDay.Projects = currentTimesheet.Projects.Values.ToList();
+            timesheetForDay.Activities = TimesheetForDay.Map(currentTimesheet, dateTime).OrderBy(x=>x.Id).ToList();
+            return timesheetForDay;
+        }
     }
 }

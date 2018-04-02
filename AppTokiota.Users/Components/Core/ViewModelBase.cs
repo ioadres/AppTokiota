@@ -41,7 +41,6 @@ namespace AppTokiota.Users.Components.Core
 
         public virtual void OnNavigatedFrom(NavigationParameters parameters)
         {
-
         }
 
         public virtual void OnNavigatedTo(NavigationParameters parameters)

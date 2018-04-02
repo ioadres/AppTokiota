@@ -16,8 +16,13 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="ItemsTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
+            </Style>
+            <Style x:Key="ItemsIconTextStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
+                <Setter Property="FontFamily" Value="fontawesome"/>
             </Style>
             <Style x:Key="UserTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
@@ -74,7 +79,7 @@
                         <control:MenuItemCell BackgroundColorSelected="{StaticResource RedDarkColor}">
                             <ViewCell.View>
                                 <StackLayout VerticalOptions="FillAndExpand" Orientation="Horizontal" Padding="20,15,10,15" Spacing="30">
-                                    <control:AwesomeLabelControl Text="{Binding Icon}" TextColor="{StaticResource WhiteColor}" FontSize="{StaticResource HugeSize}" />
+                                    <Label VerticalOptions="Center" Style="{StaticResource ItemsIconTextStyle}" Text="{Binding Icon}"></Label>
                                     <Label VerticalOptions="Center" Style="{StaticResource ItemsTextStyle}" Text="{Binding Title}">
                                     </Label>
                                 </StackLayout>

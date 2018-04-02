@@ -43,7 +43,7 @@
             <Style x:Key="CellIcontStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
-                <Setter Property="FontFamily" Value="fontawesome"/>
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
                 <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
             </Style>
 

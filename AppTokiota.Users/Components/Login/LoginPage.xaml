@@ -36,7 +36,7 @@
 
             <Image Source="login_background.png" Aspect="AspectFill"  Grid.Row="0" Grid.RowSpan="4"/>
             <BoxView Grid.Row="0" Grid.RowSpan="4" BackgroundColor="{StaticResource DarkColor}" Opacity="0.6" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
-            <Image x:Name="Logo" TranslationY="100" Source="logo_horizontal.png" WidthRequest="200" Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+            <Image x:Name="Logo" TranslationY="25" Source="logo_horizontal.png" WidthRequest="200" Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
 
             <Grid Grid.Row="1" RowSpacing="0" Padding="25" VerticalOptions="Fill">
                 <Grid.RowDefinitions>

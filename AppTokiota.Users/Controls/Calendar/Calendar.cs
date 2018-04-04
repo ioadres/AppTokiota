@@ -548,7 +548,7 @@ namespace AppTokiota.Users.Controls
                         var day = start.ToString(WeekdaysFormat);
                         string showDay = char.ToUpper(day[0]) + day.Substring(1).ToLower();
                         dayLabels[i].Text = showDay;
-					}
+                    }
 
 					ChangeWeekNumbers(start, i);
 

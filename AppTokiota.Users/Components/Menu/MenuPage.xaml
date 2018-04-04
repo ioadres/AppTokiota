@@ -20,7 +20,7 @@
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
             </Style>
             <Style x:Key="ItemsIconTextStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
             </Style>

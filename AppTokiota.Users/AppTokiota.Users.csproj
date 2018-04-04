@@ -15,6 +15,7 @@
     <PackageReference Include="Unity" Version="5.7.3" />
     <PackageReference Include="Xam.Plugin.Connectivity" Version="3.1.1" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
+    <PackageReference Include="Xamanimation" Version="1.1.0" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
     <PackageReference Include="Xamarin.Forms.BehaviorsPack" Version="1.4.0" />
     <PackageReference Include="Plugin.DeviceOrientation" Version="1.0.7" />

@@ -8,7 +8,16 @@
              x:Class="AppTokiota.Users.Components.Login.LoginPage" Title="{Binding Title}">
 
     <ContentPage.Resources>
-        <ResourceDictionary>      
+        <ResourceDictionary>
+            <xamanimation:StoryBoard 
+                x:Key="TranslationAnimation" 
+                Target="{x:Reference Logo}">
+                <xamanimation:TranslateToAnimation 
+                    TranslateY="30"
+                    Easing="CubicOut" 
+                    Duration="750" />
+            </xamanimation:StoryBoard>
+
             <Style x:Key="HeaderTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
                 <Setter Property="VerticalOptions" Value="Center" />
@@ -23,7 +32,13 @@
                 </Setter>
             </Style>
         </ResourceDictionary>
-    </ContentPage.Resources> 
+    </ContentPage.Resources>
+    <ContentPage.Triggers>
+        <EventTrigger Event="Appearing">
+            <xamanimation:BeginAnimation 
+                Animation="{StaticResource TranslationAnimation}" />
+        </EventTrigger>
+    </ContentPage.Triggers>
 
     <ContentPage.Content>
         <Grid RowSpacing="0" ColumnSpacing="0" AutomationId="MenuContent">
@@ -36,7 +51,7 @@
 
             <Image Source="login_background.png" Aspect="AspectFill"  Grid.Row="0" Grid.RowSpan="4"/>
             <BoxView Grid.Row="0" Grid.RowSpan="4" BackgroundColor="{StaticResource DarkColor}" Opacity="0.6" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
-            <Image x:Name="Logo" TranslationY="25" Source="logo_horizontal.png" WidthRequest="200" Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+            <Image x:Name="Logo"  TranslationY="100" Source="logo_horizontal.png" WidthRequest="200" Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
 
             <Grid Grid.Row="1" RowSpacing="0" Padding="25" VerticalOptions="Fill">
                 <Grid.RowDefinitions>

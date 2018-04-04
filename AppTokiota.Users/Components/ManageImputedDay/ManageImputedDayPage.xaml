@@ -20,7 +20,7 @@
             <Style x:Key="HeaderTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
                  <Setter Property="VerticalTextAlignment" Value="Center" />
-                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
             <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
@@ -54,21 +54,21 @@
     </ContentPage.Resources>
     <ContentPage.Content>
 
-        <Grid BackgroundColor="{StaticResource DarkColor}">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
-            <Grid Padding="15" Grid.Row="0">
+
+            <Grid Padding="10" Grid.Row="0" BackgroundColor="{StaticResource DarkColor}">
                     <Grid.ColumnDefinitions>
                          <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="4*" />
                         <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
-                    <Label Text="Desviation" Grid.Column="2" Style="{StaticResource HeaderTextStyle}"/>
+                    <Label Text="Desviation" Grid.Column="2" Style="{StaticResource HeaderTextStyle}" />
                     <Label Text="Imputed" Grid.Column="3" Style="{StaticResource HeaderTextStyle}"/>
              </Grid>
 
@@ -78,11 +78,11 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <StackLayout Grid.Column="0" Padding="15" >
+                <StackLayout Grid.Column="0" Padding="10" >
                     <Label Text="Imputed" Style="{StaticResource FooterTextStyle}" />
                     <Label Text="Desviation" Style="{StaticResource FooterTextStyle}"/>
                 </StackLayout>
-                <StackLayout Grid.Column="1" Padding="15">
+                <StackLayout Grid.Column="1" Padding="10">
                     <Label Text="{Binding ImputedTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
                     <Label Text="{Binding DesviationTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
                 </StackLayout>
@@ -90,7 +90,7 @@
         
            <ListView x:Name="listView" 
                      Grid.Row="1"
-                     RowHeight="100"
+                     RowHeight="65"
                      HasUnevenRows="true"
                      CachingStrategy="RecycleElement"
                      VerticalOptions="FillAndExpand" 

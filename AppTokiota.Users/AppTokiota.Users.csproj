@@ -35,6 +35,5 @@
 	<ItemGroup>
 	  <Folder Include="Components\ManageImputedDay\" />
 	  <Folder Include="Models\Timesheet\ByDay\" />
-	  <Folder Include="Converters\" />
 	</ItemGroup>
 </Project>

@@ -18,7 +18,7 @@
         <ResourceDictionary>        
 
             <Style x:Key="HeaderTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
+                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}" />
                  <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
@@ -49,7 +49,8 @@
 
             <converters:ActivityTypeConverter x:Key="cnvActivityType"></converters:ActivityTypeConverter>
             <converters:MinutesToHourConverter x:Key="cnvMinutesToHour"></converters:MinutesToHourConverter>
-            
+            <converters:DescriptionToShortDescription x:Key="cnvDescriptionToShortDescription"></converters:DescriptionToShortDescription>
+
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -62,12 +63,12 @@
             </Grid.RowDefinitions>
 
             <Grid Padding="10" Grid.Row="0" BackgroundColor="{StaticResource DarkColor}">
-                    <Grid.ColumnDefinitions>
-                         <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="4*" />
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="2*" />
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.6*" />
+                    <ColumnDefinition Width="5.4*" />
+                    <ColumnDefinition Width="1.5*" />
+                    <ColumnDefinition Width="1.5*" />
+                </Grid.ColumnDefinitions>
                     <Label Text="Desviation" Grid.Column="2" Style="{StaticResource HeaderTextStyle}" />
                     <Label Text="Imputed" Grid.Column="3" Style="{StaticResource HeaderTextStyle}"/>
              </Grid>
@@ -106,23 +107,23 @@
                                 <MenuItem Command="{Binding Source={x:Reference this}, Path=BindingContext.OnDeleteItemCommand}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
                                 <MenuItem Command="{Binding OnEditItemCommand}" CommandParameter="{Binding .}" Text="Edit" IsDestructive="false" />
                             </ViewCell.ContextActions>
-                          <Grid Padding="15">
+                          <Grid Padding="10">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="4*" />
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="0.6*" />
+                                    <ColumnDefinition Width="5.4*" />
+                                    <ColumnDefinition Width="1.5*" />
+                                    <ColumnDefinition Width="1.5*" />
                                 </Grid.ColumnDefinitions> 
                                 <StackLayout Grid.Row="0" Grid.ColumnSpan="4">
                                     <Label Text="{Binding Project.DisplayName}" Style="{StaticResource CellHeaderStyle}"></Label>
                                     <Label Text="{Binding Task.DisplayName}" Style="{StaticResource CellHeaderStyle}"></Label>
                                 </StackLayout>
                                 <Label Grid.Row="1" Text="{Binding Project.IsHoliday, Converter={StaticResource cnvActivityType}}" Grid.Column="0" Style="{StaticResource CellIcontStyle}"/>
-                                <Label Grid.Row="1" Text="{Binding Description}" Grid.Column="1" Style="{StaticResource CellTextStyle}"/>
+                                <Label Grid.Row="1" Text="{Binding Description, Converter={StaticResource cnvDescriptionToShortDescription}}" Grid.Column="1" Style="{StaticResource CellTextStyle}"/>
                                 <Label Grid.Row="1" Text="{Binding Deviation, Converter={StaticResource cnvMinutesToHour}}" Grid.Column="2" Style="{StaticResource CellTextStyle}"/>
                                 <Label Grid.Row="1" Text="{Binding Imputed, Converter={StaticResource cnvMinutesToHour}}" Grid.Column="3" Style="{StaticResource CellTextStyle}"/>
                             </Grid>

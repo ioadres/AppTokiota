@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Prism.Navigation;
 
-namespace AppTokiota.Users.Components.Dashboard
+namespace AppTokiota.Users.Components.DashBoard
 {
     public class DashBoardPageViewModel : ViewModelBase
     {
@@ -17,7 +17,6 @@ namespace AppTokiota.Users.Components.Dashboard
         {
             Title = "Dashboard";
             _dashBoardModule = dashBoardModule;
-            //_dashBoardModule.AuthenticationService.Logout();
         }
     }
 }

@@ -11,10 +11,15 @@ using Plugin.Connectivity;
 using AppTokiota.Users.Components.Login;
 using AppTokiota.Users.Components.Connection;
 using AppTokiota.Users.Components;
-using AppTokiota.Users.Components.Dashboard;
 using Prism.Navigation;
 using AppTokiota.Users.Components.Master;
 using System.Runtime.InteropServices;
+using Prism.Mvvm;
+using System.Globalization;
+using System.Reflection;
+using Prism.Modularity;
+using System.Threading.Tasks;
+using AppTokiota.Users.Components.DashBoard;
 
 namespace AppTokiota.Users
 {
@@ -24,22 +29,21 @@ namespace AppTokiota.Users
     {
         private IAuthenticationService _authenticationService;
 
-        public App() : this(null) { }
-
         public App(IPlatformInitializer initializer = null) : base(initializer) { }
 
         protected override async void OnInitialized()
         {
-            _authenticationService = Container.Resolve<IAuthenticationService>();
-
             InitializeComponent();
 
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+            _authenticationService = Container.Resolve<IAuthenticationService>();
+
             BlobCache.ApplicationName = AppSettings.IdAppCache;
-            await NavigationService.NavigateAsync(SplashModule.Tag);
+            await NavigationService.NavigateAsync(PageRoutes.GetKey<SplashPage>());
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
-        {
+        {           
             //# Container Services
             ServicesLoader.Load(containerRegistry);
 
@@ -50,21 +54,21 @@ namespace AppTokiota.Users
 
         protected override void OnStart()
         {
-            CrossConnectivity.Current.ConnectivityChanged += OnConnectivityChanged;
+            CrossConnectivity.Current.ConnectivityChanged += TaskScheduler_OnConnectivityChanged;
         }
 
         protected override void OnSleep()
         {
-            CrossConnectivity.Current.ConnectivityChanged -= OnConnectivityChanged;
+            CrossConnectivity.Current.ConnectivityChanged -= TaskScheduler_OnConnectivityChanged;
         }
 
         protected override void OnResume()
         {
-            CrossConnectivity.Current.ConnectivityChanged += OnConnectivityChanged;
+            CrossConnectivity.Current.ConnectivityChanged += TaskScheduler_OnConnectivityChanged;
             AuthenticationRun();           
         }
 
-        private async void OnConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
+        async void TaskScheduler_OnConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
         {
             if (e.IsConnected == true)
             {
@@ -72,25 +76,42 @@ namespace AppTokiota.Users
             }
             else
             {
-                await NavigationService.NavigateAsync(ConnectionModule.Tag);
+                await NavigationService.NavigateAsync(PageRoutes.GetKey<ConnectionPage>());
             }
         }
 
-        private async void AuthenticationRun(bool isConnectivityChange = false) 
+        async void AuthenticationRun(bool isConnectivityChange = false) 
         {
             try
             {    
                 var result = await _authenticationService.UserIsAuthenticatedAndValidAsync();
                 if (!result)
                 {
-                    await NavigationService.NavigateAsync(LoginModule.Tag);
+                    await NavigationService.NavigateAsync(PageRoutes.GetKey<LoginPage>());
                 } else {
-                    if(_authenticationService.IsAuthenticated && isConnectivityChange) await NavigationService.NavigateAsync(MasterModule.GetMasterNavigationPage(DashBoardModule.Tag));
+                    if(_authenticationService.IsAuthenticated && isConnectivityChange) {
+                        await NavigationService.NavigateAsync(MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<DashBoardPage>()));
+                    } 
                 }
             }
             catch (Exception ex)
             {
             }
         }
+
+
+
+        void TaskScheduler_UnobservedTaskException(Object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            if (!e.Observed)
+            {
+                // prevents the app domain from being torn down
+                e.SetObserved();
+
+                // show the crash page
+                //ShowCrashPage(e.Exception.Flatten().GetBaseException());
+            }
+        }
+
     }
 }

@@ -1,18 +1,12 @@
 ﻿using AppTokiota.Users.Components.Core.Module;
 using Prism.Ioc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AppTokiota.Users.Components.Core;
+using AppTokiota.Users.Components.BaseNavigation;
 
 namespace AppTokiota.Users.Components.Master
 {
     public class MasterModule : IMasterModule
     {
-
-        public static string Tag => "/" + nameof(MasterPage);
-
         public MasterModule()
         {
         }
@@ -23,7 +17,7 @@ namespace AppTokiota.Users.Components.Master
         }
 
         public static string GetMasterNavigationPage(string page) {
-            return MasterModule.Tag + BaseNavigation.BaseNavigationModule.Tag + page;
+            return $"{PageRoutes.GetKey<MasterPage>()}{PageRoutes.GetKey<BaseNavigationPage>()}{page}";
         }
     }
 }

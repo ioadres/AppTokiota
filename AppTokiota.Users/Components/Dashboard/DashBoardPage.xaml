@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms" 
              xmlns:ctrls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
-             prism:ViewModelLocator.AutowireViewModel="True" 
-             x:Class="AppTokiota.Users.Components.Dashboard.DashBoardPage"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="AppTokiota.Users.Components.DashBoard.DashBoardPage"
              Title="{Binding Title}">
 
      <ContentPage.Resources>

@@ -230,7 +230,7 @@ namespace AppTokiota.Users.Controls
 
 				if (WeekdaysShow)
 				{
-					var columDef = new ColumnDefinition { Width = 48 };
+					var columDef = new ColumnDefinition { Width = 40 };
 					var dl = new Grid { VerticalOptions = LayoutOptions.CenterAndExpand, RowSpacing = 0, ColumnSpacing = 0, Padding = 0};
 					dl.ColumnDefinitions = new ColumnDefinitionCollection { columDef, columDef, columDef, columDef, columDef, columDef, columDef };
                     var marginFront = NumberOfWeekFontSize * 1.5;
@@ -241,7 +241,7 @@ namespace AppTokiota.Users.Controls
 					{
                         dayLabels.Add(new Label
                         {
-                            HeightRequest = 48,
+                            HeightRequest = 30,
                             HorizontalOptions = LayoutOptions.Center,
                             VerticalOptions = LayoutOptions.Center,
                             HorizontalTextAlignment = TextAlignment.Center,

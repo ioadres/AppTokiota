@@ -73,6 +73,12 @@
                   Android="fonts/Poppins-SemiBold.ttf#Poppins"
                         />
 
+            <OnPlatform x:Key="FontAwesome"
+                  x:TypeArguments="x:String"
+                  iOS="fontawesome"
+                  Android="fonts/fontawesome.ttf#FontAwesome"
+                        />
+
             <OnPlatform x:Key="MidLittleSize"
                   x:TypeArguments="x:Double"
                   iOS="10"

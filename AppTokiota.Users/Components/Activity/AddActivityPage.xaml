@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="AppTokiota.Users.Components.Activity.AddActivityPage"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    xmlns:converters="clr-namespace:AppTokiota.Users.Converters;assembly=AppTokiota.Users"
+    xmlns:controls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
+    xmlns:b="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+    x:Name="this"
+    Title="{Binding Title}"
+    >
+   
+    <ContentPage.Content>
+    <StackLayout>
+            <Label>Hello</Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

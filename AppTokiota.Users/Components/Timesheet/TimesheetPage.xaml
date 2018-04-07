@@ -5,31 +5,28 @@
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True"
     xmlns:controls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
+    xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"   
     xmlns:b="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
     Title="{Binding Title}"
     >
     <ContentPage.Resources>
-        <ResourceDictionary>        
+        <ResourceDictionary>
+            <xamanimation:StoryBoard 
+                x:Key="CalendarTranslationAnimation" 
+                Target="{x:Reference Calendar}">
+                <xamanimation:TranslateToAnimation 
+                    TranslateY="0"
+                    Easing="CubicOut" 
+                    Duration="750" />
+            </xamanimation:StoryBoard>
 
-            <Style x:Key="HeaderTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource ExtraBigSize}" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
-            <Style x:Key="HeaderStatusTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource ExtraBigSize}" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
             <Style x:Key="IconPlusTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource BigSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
-            <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
 
             <Style x:Key="ColorDescriptionTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
+                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
             </Style>
             <Style x:Key="ColorBoxStyle" TargetType="BoxView">
@@ -42,7 +39,12 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-   
+    <ContentPage.Triggers>
+        <EventTrigger Event="Appearing">
+            <xamanimation:BeginAnimation 
+                Animation="{StaticResource CalendarTranslationAnimation}" />
+        </EventTrigger>
+    </ContentPage.Triggers>
     <ContentPage.Content>
         <Grid    
             AutomationId="calendar">
@@ -71,7 +73,8 @@
                 <Grid
                     Grid.Row="1">
                 <controls:Calendar 
-                        x:Name="Calendar"
+                        x:Name="Calendar"                    
+                        TranslationY="350"
                         DateCommand="{Binding SelectedDateCommand}"
                         SelectedDates="{Binding Dates, Mode=TwoWay}"
                         SpecialDates="{Binding SpecialDates, Mode=TwoWay}"
@@ -79,23 +82,23 @@
                         SelectRange="False"
                         StartDay="Monday" 
                         DatesFontSize="{StaticResource MidMediumSize }"
-                        TitleLabelFontSize="{StaticResource MediumSize }"
+                        TitleLabelFontSize="{StaticResource MidMediumSize }"
                         EnableTitleMonthYearView="True"
                         WeekdaysShow="True"
-                        WeekdaysFontSize="{StaticResource MidMediumSize }"
+                        WeekdaysFontSize="{StaticResource LittleSize }"
                         WeekdaysTextColor ="{StaticResource DarkColor}"
                         WeekdaysFontAttributes="Bold"
 
                         DisabledBorderColor="{StaticResource DarkGrayColor}"
                         DisabledBackgroundColor="{StaticResource DarkGrayColor}"
-                        DisabledFontSize="{StaticResource MidMediumSize }"
+                        DisabledFontSize="{StaticResource LittleSize }"
                         DisabledBorderWidth="6"
                     
                         DatesBackgroundColor="{StaticResource WhiteColor}"
                         TitleLeftArrowTextColor="{StaticResource DarkGrayColor}"
                         TitleRightArrowTextColor="{StaticResource DarkGrayColor}"
                   
-                        SelectedFontSize="{StaticResource MidMediumSize }"
+                        SelectedFontSize="{StaticResource LittleSize }"
                         SelectedBorderWidth="1"
                         SelectedTextColor="{StaticResource DarkColor}"
                         SelectedBorderColor="{StaticResource BlueColor}"

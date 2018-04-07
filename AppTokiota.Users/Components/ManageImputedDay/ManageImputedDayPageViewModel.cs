@@ -9,6 +9,7 @@ using Prism.Commands;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using AppTokiota.Users.Components.Activity;
 
 namespace AppTokiota.Users.Components.ManageImputedDay
 {
@@ -26,6 +27,17 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         }
 
         private Models.TimesheetForDay _currentTimesheetForDay;
+        public Models.TimesheetForDay CurrentTimesheetForDay
+        {
+            get { return _currentTimesheetForDay; }
+        }
+
+        private bool _isEnable;
+        public bool IsEnable
+        {
+            get { return _isEnable; }
+            set { SetProperty(ref _isEnable, value); }
+        }
 
         /// <summary>
         /// Gets or sets the activities collection dates 
@@ -77,11 +89,29 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         }
         #endregion
 
+        #region EventOnEditItem
+        public DelegateCommand OnAddItemCommand => new DelegateCommand(() => OnAddItem());
+        protected async void OnAddItem()
+        {
+            var navigationParameters = new NavigationParameters();
+            navigationParameters.Add(TimesheetForDay.Tag, _currentTimesheetForDay);
+            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters);
+        }
+        #endregion
+
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
-            _currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
-            UpdateDayOfTimesheet(_currentTimesheetForDay);
-            Title = _currentTimesheetForDay.Day.Date.ToString("yyyy-MM-dd");
+            var keyContains = parameters.ContainsKey(TimesheetForDay.Tag);
+            if(keyContains) {
+                _currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
+                UpdateDayOfTimesheet(_currentTimesheetForDay);
+                Title = _currentTimesheetForDay.Day.Date.ToString("yyyy-MM-dd");
+            }
+        }
+
+        public override void OnNavigatedFrom(NavigationParameters parameters)
+        {
+
         }
 
         private async void UpdateDayOfTimesheet(TimesheetForDay timesheet) {
@@ -91,6 +121,7 @@ namespace AppTokiota.Users.Components.ManageImputedDay
                 ImputedTotal = Activities.Sum(x => x.Imputed);
                 DesviationTotal = Activities.Sum(x => x.Deviation);
                 _currentTimesheetForDay = timesheet;
+                IsEnable = !_currentTimesheetForDay.Day.IsClosed;
             });
         }
 

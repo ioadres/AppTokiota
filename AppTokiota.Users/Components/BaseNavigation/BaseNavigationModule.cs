@@ -10,16 +10,9 @@ namespace AppTokiota.Users.Components.BaseNavigation
 {
     public class BaseNavigationModule : IBaseNavigationModule
     {
-        public static string Tag => "/" + nameof(BaseNavigationPage) + "/";
-
         public BaseNavigationModule()
         {
 
-        }
-
-        public static void Register(IContainerRegistry containerRegistry)
-        {
-            containerRegistry.RegisterForNavigation<BaseNavigationPage, BaseNavigationPageViewModel>();
         }
     }
 }

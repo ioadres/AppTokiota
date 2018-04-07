@@ -11,7 +11,6 @@ namespace AppTokiota.Users.Components.Menu
 {
     public class MenuModule : IMenuModule
     {
-        public static string Tag => nameof(MenuPage);
         private readonly IAuthenticationService _authenticationService;
 
         public IAuthenticationService AuthenticationService => _authenticationService;
@@ -19,11 +18,6 @@ namespace AppTokiota.Users.Components.Menu
         public MenuModule(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
-        }
-
-        public static void Register(IContainerRegistry containerRegistry)
-        {
-            containerRegistry.RegisterForNavigation<MenuPage, MenuPageViewModel>();
         }
     }
 }

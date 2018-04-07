@@ -6,25 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using AppTokiota.Users.Services;
 using Prism.Ioc;
+using AppTokiota.Users.Components.Core;
 
-namespace AppTokiota.Users.Components.Dashboard
+namespace AppTokiota.Users.Components.DashBoard
 {
-    public class DashBoardModule : BaseModule, IDashBoardModule
+    public class DashBoardModule : IDashBoardModule
     {
-        public static string Tag => nameof(DashBoardPage);
         private readonly IAuthenticationService _authenticationService;
 
         public IAuthenticationService AuthenticationService => _authenticationService;
 
         public DashBoardModule(IAuthenticationService authenticationService)
         {
-            _authenticationService = authenticationService;
-        }
-
-
-        public static void Register(IContainerRegistry containerRegistry)
-        {
-            containerRegistry.RegisterForNavigation<DashBoardPage, DashBoardPageViewModel>();
+            _authenticationService = authenticationService; 
         }
     }
 }

@@ -7,8 +7,8 @@ namespace AppTokiota.Users.Controls
     {
         public CalendarButton() : base()
         {
-            HeightRequest = 48;
-            WidthRequest = 48;
+            HeightRequest = 40;
+            WidthRequest = 40;
         }
 
 		public static readonly BindableProperty DateProperty =

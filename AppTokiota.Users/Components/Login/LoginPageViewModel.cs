@@ -2,11 +2,12 @@
 using Prism.Commands;
 using Xamarin.Forms;
 using AppTokiota.Users.Components.Core.Module;
-using AppTokiota.Users.Components.Dashboard;
+using AppTokiota.Users.Components;
 using AppTokiota.Users.Components.Master;
 using AppTokiota.Users.Components.Core;
 using AppTokiota.Users.Components.Core.Validations;
 using AppTokiota.Users.Services;
+using AppTokiota.Users.Components.DashBoard;
 
 namespace AppTokiota.Users.Components.Login
 {
@@ -62,7 +63,7 @@ namespace AppTokiota.Users.Components.Login
                     var responseRequest = await BaseModule.AuthenticationService.Login(_email.Value, _password.Value);
                     if (responseRequest.Success)
                     {
-                        NavigateCommand.Execute(MasterModule.GetMasterNavigationPage(DashBoardModule.Tag));
+                        NavigateCommand.Execute(MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<DashBoardPage>()));
                     }
                     else
                     {

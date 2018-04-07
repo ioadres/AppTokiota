@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace AppTokiota.Users.Components.Dashboard
+namespace AppTokiota.Users.Components.DashBoard
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DashBoardPage : ContentPage

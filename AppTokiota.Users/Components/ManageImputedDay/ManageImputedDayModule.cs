@@ -2,8 +2,6 @@
 using AppTokiota.Users.Components.Core.Module;
 using Prism.Ioc;
 using AppTokiota.Users.Services;
-using AppTokiota.Users.Components.ManageImputedDay;
-
 namespace AppTokiota.Users.Components.ManageImputedDay
 {
     public class ManageImputedDayModule : IManageImputedDayModule
@@ -21,12 +19,6 @@ namespace AppTokiota.Users.Components.ManageImputedDay
             _authenticationService = authenticationService;
             _dialogService = dialogService;
             _timesheetService = timesheetService;
-        }
-
-        public static string Tag => nameof(ManageImputedDayPage);
-        public static void Register(IContainerRegistry containerRegistry)
-        {
-            containerRegistry.RegisterForNavigation<ManageImputedDayPage, ManageImputedDayPageViewModel>();
         }
     }
 }

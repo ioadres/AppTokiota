@@ -4,10 +4,8 @@ using AppTokiota.Users.Components.Core.Module;
 
 namespace AppTokiota.Users.Components.Login
 {
-    public class LoginModule: BaseModule, ILoginModule
+    public class LoginModule: ILoginModule
     {
-        public static string Tag => "/" + nameof(LoginPage);
-
         private readonly IAuthenticationService _authenticationService;
         private readonly IDialogService _dialogService;
 
@@ -17,11 +15,6 @@ namespace AppTokiota.Users.Components.Login
         public LoginModule(IAuthenticationService authenticationService, IDialogService dialogService) {
             _authenticationService = authenticationService;
             _dialogService = dialogService;
-        }
-        
-        public static void Register(IContainerRegistry containerRegistry) {
-
-            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
         }
     }
 }

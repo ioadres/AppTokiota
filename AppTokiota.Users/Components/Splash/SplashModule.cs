@@ -9,22 +9,15 @@ using System.Threading.Tasks;
 
 namespace AppTokiota.Users.Components.Splash
 {
-    public class SplashModule : BaseModule, ISplashModule
+    public class SplashModule : ISplashModule
     {
         private readonly IAuthenticationService _authenticationService;
-
-        public static string Tag => nameof(SplashPage);
 
         public IAuthenticationService AuthenticationService => _authenticationService;
 
         public SplashModule(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
-        }
-
-        public static void Register(IContainerRegistry containerRegistry)
-        {
-            containerRegistry.RegisterForNavigation<SplashPage, SplashPageViewModel>();
         }
     }
 }

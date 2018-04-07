@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace AppTokiota.Users.Components
+namespace AppTokiota.Users.Components.Connection
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ConnectionPage : ContentPage

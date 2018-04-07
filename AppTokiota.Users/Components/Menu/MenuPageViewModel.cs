@@ -12,7 +12,8 @@ using AppTokiota.Users.Components.Core.Module;
 using AppTokiota.Users.Components.Login;
 using AppTokiota.Users.Components.Master;
 using AppTokiota.Users.Components.Timesheet;
-using AppTokiota.Users.Components.Dashboard;
+using AppTokiota.Users.Components;
+using AppTokiota.Users.Components.DashBoard;
 
 namespace AppTokiota.Users.Components.Menu
 {
@@ -64,23 +65,22 @@ namespace AppTokiota.Users.Components.Menu
         private async void SignOut()
         {
             await BaseModule.AuthenticationService.Logout();
-            NavigateCommand.Execute(LoginModule.Tag);
+            NavigateCommand.Execute(PageRoutes.GetKey<LoginPage>());
         }
 
         private void LoadMenu()
         {
-
             MenuList.Add(new MenuItem()
             {
                 Icon = "\uf0e4",
                 Title = "Dashboard",
-                PageName = MasterModule.GetMasterNavigationPage(DashBoardModule.Tag)
+                PageName = MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<DashBoardPage>())
             });
             MenuList.Add(new MenuItem()
             {
                 Icon = "\uf073",
                 Title = "Timesheet",
-                PageName = MasterModule.GetMasterNavigationPage(TimesheetModule.Tag)
+                PageName = MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<TimesheetPage>())
             });
             MenuList.Add(new MenuItem()
             {

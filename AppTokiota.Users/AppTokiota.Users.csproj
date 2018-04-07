@@ -35,5 +35,8 @@
 	<ItemGroup>
 	  <Folder Include="Components\ManageImputedDay\" />
 	  <Folder Include="Models\Timesheet\ByDay\" />
+	  <Folder Include="Components\Activity\" />
+	  <Folder Include="Components\Core\Module\Base\" />
+	  <Folder Include="Components\Core\ViewModel\" />
 	</ItemGroup>
 </Project>

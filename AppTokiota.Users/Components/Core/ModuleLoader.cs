@@ -1,50 +1,70 @@
 ﻿using AppTokiota.Users.Components.Login;
 using Prism.Ioc;
 using AppTokiota.Users.Components.Core.Module;
-using AppTokiota.Users.Components.Dashboard;
+using AppTokiota.Users.Components;
 using AppTokiota.Users.Components.Splash;
 using AppTokiota.Users.Components.Menu;
 using AppTokiota.Users.Components.Master;
 using AppTokiota.Users.Components.BaseNavigation;
 using AppTokiota.Users.Components.Timesheet;
 using AppTokiota.Users.Components.Connection;
+using Prism.Unity;
+using Unity;
+using AppTokiota.Users.Components.DashBoard;
+using AppTokiota.Users.Components.Activity;
 using AppTokiota.Users.Components.ManageImputedDay;
+using System;
 
 namespace AppTokiota.Users.Components.Core
 {
     public static class ModuleLoader
     {
-        public static void Load(IContainerRegistry containerRegistry) {
+        public static void Load(IContainerRegistry containerRegistry)
+        {
 
             containerRegistry.Register<IViewModelBaseModule, ViewModelBaseModule>();
 
             containerRegistry.Register<ILoginModule, LoginModule>();
-            LoginModule.Register(containerRegistry);
+            containerRegistry.RegisterForNavigation<LoginPage>();
+            PageRoutes.AddKey<LoginPage>($"/{nameof(LoginPage)}");
 
             containerRegistry.Register<IDashBoardModule, DashBoardModule>();
-            DashBoardModule.Register(containerRegistry);
+            containerRegistry.RegisterForNavigation<DashBoardPage>();
+            PageRoutes.AddKey<DashBoardPage>(nameof(DashBoardPage));
 
             containerRegistry.Register<ISplashModule, SplashModule>();
-            SplashModule.Register(containerRegistry);
+            containerRegistry.RegisterForNavigation<SplashPage>();
+            PageRoutes.AddKey<SplashPage>(nameof(SplashPage));
 
             containerRegistry.Register<IMenuModule, MenuModule>();
-            MenuModule.Register(containerRegistry);
+            containerRegistry.RegisterForNavigation<MenuPage>();
+            PageRoutes.AddKey<MenuPage>(nameof(MenuPage));
 
             containerRegistry.Register<IMasterModule, MasterModule>();
-            MasterModule.Register(containerRegistry);
+            containerRegistry.RegisterForNavigation<MasterPage>();
+            PageRoutes.AddKey<MasterPage>($"/{nameof(MasterPage)}");
 
             containerRegistry.Register<IBaseNavigationModule, BaseNavigationModule>();
-            BaseNavigationModule.Register(containerRegistry);
-
+            containerRegistry.RegisterForNavigation<BaseNavigationPage>();
+            PageRoutes.AddKey<BaseNavigationPage>($"/{nameof(BaseNavigationPage)}/");
 
             containerRegistry.Register<IConnectionModule, ConnectionModule>();
-            ConnectionModule.Register(containerRegistry);
+            containerRegistry.RegisterForNavigation<ConnectionPage>();
+            PageRoutes.AddKey<ConnectionPage>($"/{nameof(ConnectionPage)}");
 
             containerRegistry.Register<ITimesheetModule, TimesheetModule>();
-            TimesheetModule.Register(containerRegistry);
+            containerRegistry.RegisterForNavigation<TimesheetPage>();
+            PageRoutes.AddKey<TimesheetPage>(nameof(TimesheetPage));
 
             containerRegistry.Register<IManageImputedDayModule, ManageImputedDayModule>();
-            ManageImputedDayModule.Register(containerRegistry);
+            containerRegistry.RegisterForNavigation<ManageImputedDayPage>();
+            PageRoutes.AddKey<ManageImputedDayPage>(nameof(ManageImputedDayPage));
+
+            containerRegistry.Register<IAddActivityModule, AddActivityModule>();
+            containerRegistry.RegisterForNavigation<AddActivityPage>();
+            PageRoutes.AddKey<AddActivityPage>(nameof(AddActivityPage));
+
         }
+
     }
 }

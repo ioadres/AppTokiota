@@ -24,10 +24,5 @@ namespace AppTokiota.Users.Components.Timesheet
             _timesheetService = timesheetService;
             _calendarService = calendarService;
         }
-        public static string Tag => nameof(TimesheetPage);
-        public static void Register(IContainerRegistry containerRegistry)
-        {
-            containerRegistry.RegisterForNavigation<TimesheetPage, TimesheetPageViewModel>();
-        }
     }
 }

@@ -4,7 +4,7 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms" 
              prism:ViewModelLocator.AutowireViewModel="True" 
              xmlns:controls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
-             x:Class="AppTokiota.Users.Components.ConnectionPage"
+             x:Class="AppTokiota.Users.Components.Connection.ConnectionPage"
              Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>       

@@ -6,11 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AppTokiota.Users.Components
+namespace AppTokiota.Users.Components.Connection
 {
     public class ConnectionModule : IConnectionModule
     {
-        public static string Tag => "/" + nameof(ConnectionPage);
         private readonly IAuthenticationService _authenticationService;
 
         public IAuthenticationService AuthenticationService => _authenticationService;
@@ -18,12 +17,6 @@ namespace AppTokiota.Users.Components
         public ConnectionModule(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
-        }
-
-
-        public static void Register(IContainerRegistry containerRegistry)
-        {
-            containerRegistry.RegisterForNavigation<ConnectionPage, ConnectionPageViewModel>();
         }
     }
 }

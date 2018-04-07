@@ -11,8 +11,9 @@ using Xamarin.Forms;
 using System.Diagnostics;
 using System.Windows.Input;
 using Plugin.DeviceOrientation;
-using AppTokiota.Users.Components.ManageImputedDay;
+using AppTokiota.Users.Components;
 using AppTokiota.Users.Models;
+using AppTokiota.Users.Components.ManageImputedDay;
 
 namespace AppTokiota.Users.Components.Timesheet
 {
@@ -138,7 +139,7 @@ namespace AppTokiota.Users.Components.Timesheet
             var selectedDateTimesheet = _timesheetModule.TimesheetService.GetTimesheetByDate(_currentTimesheet, Dates.FirstOrDefault());
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add(TimesheetForDay.Tag, selectedDateTimesheet);
-            await BaseModule.NavigationService.NavigateAsync(ManageImputedDayModule.Tag, navigationParameters);
+            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<ManageImputedDayPage>(), navigationParameters);
         }
         #endregion
 

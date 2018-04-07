@@ -11,7 +11,7 @@
     Title="{Binding Title}"
     >
     <ContentPage.ToolbarItems> 
-        <ToolbarItem Text="Add" />
+        <ToolbarItem Text="Add" IsEnabled="{Binding IsEnable}" Command="{Binding OnAddItemCommand}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Resources>
@@ -50,6 +50,7 @@
             <converters:ActivityTypeConverter x:Key="cnvActivityType"></converters:ActivityTypeConverter>
             <converters:MinutesToHourConverter x:Key="cnvMinutesToHour"></converters:MinutesToHourConverter>
             <converters:DescriptionToShortDescription x:Key="cnvDescriptionToShortDescription"></converters:DescriptionToShortDescription>
+            <converters:InverseBoolConverter x:Key="cnvInverseBoolConverter"></converters:InverseBoolConverter>
 
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -91,7 +92,7 @@
         
            <ListView x:Name="listView" 
                      Grid.Row="1"
-                     RowHeight="65"
+                     RowHeight="100"
                      HasUnevenRows="true"
                      CachingStrategy="RecycleElement"
                      VerticalOptions="FillAndExpand" 
@@ -99,11 +100,12 @@
                      BackgroundColor="{StaticResource WhiteColor}"
                      SeparatorColor="{StaticResource GrayColor}"
                      ItemsSource="{Binding Activities}" 
+                     IsEnabled="{Binding IsEnable}"
                      >
               <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.ContextActions>
+                        <ViewCell >
+                            <ViewCell.ContextActions >
                                 <MenuItem Command="{Binding Source={x:Reference this}, Path=BindingContext.OnDeleteItemCommand}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
                                 <MenuItem Command="{Binding OnEditItemCommand}" CommandParameter="{Binding .}" Text="Edit" IsDestructive="false" />
                             </ViewCell.ContextActions>

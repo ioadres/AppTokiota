@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using AppTokiota.Users.Components.Core;
 using AppTokiota.Users.Components.Core.Module;
@@ -21,7 +22,7 @@ namespace AppTokiota.Users.Components.Activity
 
         public AddActivityPageViewModel(IViewModelBaseModule baseModule, IAddActivityModule addActivityModule) : base(baseModule)
         {
-                _addActivityModule = addActivityModule;
+           _addActivityModule = addActivityModule;
 
             Title = "Add Activity";
         }    

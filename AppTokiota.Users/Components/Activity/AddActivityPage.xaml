@@ -12,8 +12,96 @@
     >
    
     <ContentPage.Content>
-    <StackLayout>
-            <Label>Hello</Label>
-        </StackLayout>
+        <ScrollView>
+     <Grid BackgroundColor="{StaticResource GrayColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Padding="10,10,0,0" Grid.Row="1" BackgroundColor="{StaticResource WhiteColor}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="6*"/>
+                </Grid.RowDefinitions>
+
+                <Picker Grid.Row="0" Title="Projects" HorizontalOptions="FillAndExpand" ItemsSource="{Binding CurrentTimesheetForDay.Projects}" TextColor="{StaticResource SecondaryTextColor}">
+                </Picker>
+
+                <Picker Grid.Row="1" Title="Tasks" HorizontalOptions="FillAndExpand" ItemsSource="{Binding CurrentTimesheetForDay.Projects}" TextColor="{StaticResource SecondaryTextColor}">
+                </Picker>
+                
+                <controls:ExtendedEditor Grid.Row="2" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                                         x:Name="Description" 
+                                         Placeholder="Description"
+                                         PlaceholderColor="{StaticResource GrayColor}"
+                                         AutomationId="Description" 
+                                         TextColor="{StaticResource SecondaryTextColor}">
+                </controls:ExtendedEditor>
+                
+                 <!---<controls:ExtendedEntry 
+                    Grid.Row="2"
+                    x:Name="Description" 
+                    AutomationId="Description"  
+                    IsPassword="False" 
+                    Placeholder="Description"
+                    PlaceholderColor="{StaticResource GrayColor}"
+                    TextColor="{StaticResource SecondaryTextColor}"
+                    VerticalOptions="StartAndExpand"
+                    LineColor="{StaticResource WhiteColor}"
+                    Keyboard="Chat"
+                    >
+                     <controls:ExtendedEntry.HorizontalOptions>
+                        <OnIdiom
+                                x:TypeArguments="LayoutOptions" 
+                                Desktop="Center"
+                                Tablet="Center"
+                                Phone="FillAndExpand" />
+                    </controls:ExtendedEntry.HorizontalOptions>
+                </controls:ExtendedEntry>-->
+
+             </Grid>
+
+             <Grid Padding="10" Grid.Row="3" BackgroundColor="{StaticResource WhiteColor}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <controls:CustomDateTimePicker x:Name="pckImputedDate" 
+                  Grid.Row="0"
+                  BackgroundColor="Transparent" 
+                  TextColor="{StaticResource SecondaryTextColor}"
+                  HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand"
+                  Format="hh:mm"
+                  />
+
+                <controls:CustomDateTimePicker x:Name="pckDesviationDate" 
+                  Grid.Row="1"
+                  BackgroundColor="Transparent" 
+                  TextColor="{StaticResource SecondaryTextColor}"
+                  HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand"
+                  Format="hh:mm"
+                  />
+                
+             </Grid>
+
+            <Grid Padding="10" Grid.Row="5" BackgroundColor="{StaticResource WhiteColor}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+             </Grid>
+            
+           </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

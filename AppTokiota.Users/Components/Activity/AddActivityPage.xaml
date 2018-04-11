@@ -16,14 +16,31 @@
      <Grid BackgroundColor="{StaticResource GrayColor}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="15"/>
-                <RowDefinition Height="4*"/>
-                <RowDefinition Height="15"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="15"/>
                 <RowDefinition Height="4*"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
+         
+         <Grid Padding="10" Grid.Row="1" BackgroundColor="{StaticResource WhiteColor}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-            <Grid Padding="10,10,0,0" Grid.Row="1" BackgroundColor="{StaticResource WhiteColor}">
+                    <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand">
+                        <Button Style="{StaticResource ButtonSecundary}" WidthRequest="150" Text="Imputation" Command="{Binding TimeImputedOpenCommand}"></Button>
+                        <controls:TimeEntry ContentViewVisible="{Binding TimeImputationEntryVisibility}" SelectedTimeCommand="{Binding TimeImputationCommand}"></controls:TimeEntry>
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" VerticalOptions="FillAndExpand">
+                        <Button Style="{StaticResource ButtonSecundary}" WidthRequest="150" Text="Desviation" Command="{Binding TimeDesviationOpenCommand}"></Button>
+                        <controls:TimeEntry ContentViewVisible="{Binding TimeDesviationEntryVisibility}" SelectedTimeCommand="{Binding TimeDesviationCommand}"></controls:TimeEntry>
+                    </StackLayout>
+                </Grid>
+
+                <Grid Padding="10,10,0,0" Grid.Row="3" BackgroundColor="{StaticResource WhiteColor}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="2*"/>
@@ -44,54 +61,9 @@
                                          TextColor="{StaticResource SecondaryTextColor}">
                 </controls:ExtendedEditor>
                 
-                 <!---<controls:ExtendedEntry 
-                    Grid.Row="2"
-                    x:Name="Description" 
-                    AutomationId="Description"  
-                    IsPassword="False" 
-                    Placeholder="Description"
-                    PlaceholderColor="{StaticResource GrayColor}"
-                    TextColor="{StaticResource SecondaryTextColor}"
-                    VerticalOptions="StartAndExpand"
-                    LineColor="{StaticResource WhiteColor}"
-                    Keyboard="Chat"
-                    >
-                     <controls:ExtendedEntry.HorizontalOptions>
-                        <OnIdiom
-                                x:TypeArguments="LayoutOptions" 
-                                Desktop="Center"
-                                Tablet="Center"
-                                Phone="FillAndExpand" />
-                    </controls:ExtendedEntry.HorizontalOptions>
-                </controls:ExtendedEntry>-->
 
              </Grid>
 
-             <Grid Padding="10" Grid.Row="3" BackgroundColor="{StaticResource WhiteColor}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <controls:CustomDateTimePicker x:Name="pckImputedDate" 
-                  Grid.Row="0"
-                  BackgroundColor="Transparent" 
-                  TextColor="{StaticResource SecondaryTextColor}"
-                  HorizontalOptions="FillAndExpand"
-                  VerticalOptions="FillAndExpand"
-                  Format="hh:mm"
-                  />
-
-                <controls:CustomDateTimePicker x:Name="pckDesviationDate" 
-                  Grid.Row="1"
-                  BackgroundColor="Transparent" 
-                  TextColor="{StaticResource SecondaryTextColor}"
-                  HorizontalOptions="FillAndExpand"
-                  VerticalOptions="FillAndExpand"
-                  Format="hh:mm"
-                  />
-                
-             </Grid>
 
             <Grid Padding="10" Grid.Row="5" BackgroundColor="{StaticResource WhiteColor}">
                 <Grid.RowDefinitions>

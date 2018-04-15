@@ -9,10 +9,11 @@ namespace AppTokiota.Users.Controls
 {
     public class TimeEntry : ContentView
     {
-        #region DateCommand
+        #region SelectedTimeCommand
+
 
         public static readonly BindableProperty SelectedTimeCommandProperty =
-            BindableProperty.Create(nameof(SelectedTimeCommand), typeof(ICommand), typeof(Calendar), null);
+            BindableProperty.Create(nameof(SelectedTimeCommand), typeof(ICommand), typeof(TimeEntry), null);
 
         /// <summary>
         /// Gets or sets the Selected Time command.
@@ -29,14 +30,23 @@ namespace AppTokiota.Users.Controls
         #region Content Visible
 
         public static readonly BindableProperty ContentViewVisibleProperty =
-            BindableProperty.Create(nameof(ContentViewVisible), typeof(bool), typeof(TimeEntry), false,
-                                    propertyChanged: (bindable, oldValue, newValue) => (bindable as TimeEntry).ChangeContentViewVisibleProperty((bool)newValue, (bool)oldValue));
+            BindableProperty.Create(nameof(ContentViewVisible), typeof(bool), typeof(TimeEntry), false, BindingMode.TwoWay,
+                                    propertyChanged: (bindable, oldValue, newValue) =>
+                                    {
+                                    (bindable as TimeEntry).ChangeContentViewVisibleProperty((bool)newValue, (bool)oldValue);
+                                    });
 
         protected void ChangeContentViewVisibleProperty(bool newValue, bool oldValue)
         {
-            if (newValue == oldValue) return;
-            MainView.IsVisible = newValue;
+            if(newValue == false) {
+                Content = null;
+                MainView.Children.Clear();
+                Content = MainView;
+            } else {
+                ChangeOptionImputation(MainHours);
+            }
         }
+
 
         /// <summary>
         /// Gets or sets the visibility  of the Content views.
@@ -52,14 +62,19 @@ namespace AppTokiota.Users.Controls
 
         private ButtonTimeTask SelectedHour;
         private ButtonTimeTask SelectedMinute;
-        StackLayout ContentView, MainView;
-        List<ButtonTimeTask> ButtonsHour;
-        List<ButtonTimeTask> ButtonsMinutes;
-        Grid MainHours;
-        Grid MainMinutes;
+        private List<ButtonTimeTask> ButtonsHour;
+        private List<ButtonTimeTask> ButtonsMinutes;
+        private Grid MainHours;
+        private Grid MainMinutes;
+        private StackLayout MainView;
+        private Dictionary<string, string> Response;
 
         public TimeEntry()
         {
+            Response = new Dictionary<string, string>();
+            Response.Add("Hour", "");
+            Response.Add("Minute", "");
+            Response.Add("Format", "");
 
             CreatedHours();
             CreatedMinutes();
@@ -67,17 +82,12 @@ namespace AppTokiota.Users.Controls
             MainView = new StackLayout
             {
                 Padding = 0,
-                Children = { MainHours },
-                IsVisible = false
+                HorizontalOptions=LayoutOptions.Center
             };
 
-            ContentView = new StackLayout
-            {
-                Padding = 0,
-                Children = { MainView }
-            };
-
-            this.Content = ContentView;
+            this.HorizontalOptions = LayoutOptions.FillAndExpand;
+            this.VerticalOptions = LayoutOptions.FillAndExpand;
+            this.Content = MainView;
         }
 
 
@@ -90,8 +100,8 @@ namespace AppTokiota.Users.Controls
 
             MainHours = new Grid
             {
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
                 RowSpacing = GridSpace,
                 ColumnSpacing = GridSpace,
                 Padding = 1
@@ -102,9 +112,9 @@ namespace AppTokiota.Users.Controls
 
             ButtonsHour = new List<ButtonTimeTask>();
 
-            for (var fila = 0; fila < 3; fila++)
+            for (var fila = 0; fila < 4; fila++)
             {
-                for (var i = 1; i <= 8; i++)
+                for (var i = 1; i <= 6; i++)
                 {
                     ButtonsHour.Add(new ButtonTimeTask()
                     {
@@ -114,10 +124,10 @@ namespace AppTokiota.Users.Controls
                         FontSize = 10,
                         BackgroundColor = Color.Transparent,
                         TextColor = Color.DarkSalmon,
-                        Text = $"{i + (fila * 8)} h",
+                        Text = $"{i + (fila * 6)} h",
                         WidthRequest = 50,
                         HeightRequest = 35,
-                        Value = i.ToString(),
+                        Value = (i + (fila * 6)).ToString(),
                     });
                     var b = ButtonsHour.Last();
                     b.Clicked += HourClickedEvent;
@@ -135,8 +145,8 @@ namespace AppTokiota.Users.Controls
 
             MainMinutes = new Grid
             {
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
                 RowSpacing = GridSpace,
                 ColumnSpacing = GridSpace,
                 Padding = 1,
@@ -174,40 +184,55 @@ namespace AppTokiota.Users.Controls
 
         protected void MinuteClickedEvent(object s, EventArgs a)
         {
-            var selected = (s as ButtonTimeTask);
-            if (SelectedMinute != null)
-            {
-                SelectedMinute.BackgroundColor = Color.Transparent;
-            }
-            selected.BackgroundColor = Color.LightGreen;
-            SelectedMinute = selected;
-
             Device.BeginInvokeOnMainThread(() =>
             {
-                MainView.Children.Clear();
-                MainView.Children.Add(MainHours);
+                var selected = (s as ButtonTimeTask);
+                if (SelectedMinute != null)
+                {
+                    SelectedMinute.BackgroundColor = Color.Transparent;
+                }
+                selected.BackgroundColor = Color.LightGreen;
+                SelectedMinute = selected;
+
                 ContentViewVisible = false;
-                MainView.ForceLayout();
-                SelectedTimeCommand?.Execute($"{SelectedHour}:{SelectedMinute}");
+
+
+                Response["Hour"] = SelectedHour.Value;
+                Response["Minute"] = SelectedMinute.Value;
+                Response["Format"] = SelectedHour.Value + "h "+ SelectedMinute.Value + "m";
+
+
+                SelectedTimeCommand?.Execute(Response);
             });
         }
 
         protected void HourClickedEvent(object s, EventArgs a)
         {
-            var selectedHour = (s as ButtonTimeTask);
-            if (SelectedHour != null)
-            {
-                SelectedHour.BackgroundColor = Color.Transparent;
-            }
-            selectedHour.BackgroundColor = Color.LightGreen;
-            SelectedHour = selectedHour;
-
             Device.BeginInvokeOnMainThread(() =>
             {
-                MainView.Children.Clear();
-                MainView.Children.Add(MainMinutes);
-            });
+                var selectedHour = (s as ButtonTimeTask);
+                if (SelectedHour != null)
+                {
+                    SelectedHour.BackgroundColor = Color.Transparent;
+                }
+                selectedHour.BackgroundColor = Color.LightGreen;
+                SelectedHour = selectedHour;
 
+                ChangeOptionImputation(MainMinutes);
+                });
+        }
+
+        protected void ChangeOptionImputation(Grid  panel) {
+            
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                Content = null;
+
+                MainView.Children.Clear();
+                MainView.Children.Add(panel);
+
+                Content = MainView;
+            });
         }
     }
 }

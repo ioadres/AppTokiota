@@ -1,79 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+<popup:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="AppTokiota.Users.Components.Activity.AddActivityPage"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:utils="clr-namespace:AppTokiota.Users.Utils;assembly=AppTokiota.Users"  
     prism:ViewModelLocator.AutowireViewModel="True"
-    xmlns:converters="clr-namespace:AppTokiota.Users.Converters;assembly=AppTokiota.Users"
     xmlns:controls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
-    xmlns:b="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
-    x:Name="this"
+    BackgroundColor="{StaticResource WhiteColor}"
+    utils:NavigationBarAttachedProperty.BackgroundColor="{StaticResource WhiteColor}"
+    utils:NavigationBarAttachedProperty.TextColor="{StaticResource DarkColor}"
+    xmlns:animations="clr-namespace:AppTokiota.Users.Animations;assembly=AppTokiota.Users"
     Title="{Binding Title}"
-    >
-   
-    <ContentPage.Content>
-        <ScrollView>
-     <Grid BackgroundColor="{StaticResource GrayColor}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="15"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="15"/>
-                <RowDefinition Height="4*"/>
-                <RowDefinition Height="15"/>
-                <RowDefinition Height="4*"/>
-            </Grid.RowDefinitions>
-         
-         <Grid Padding="10" Grid.Row="1" BackgroundColor="{StaticResource WhiteColor}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+    x:Name="this">
+    <popup:PopupPage.Animation>
+       <animations:PopUpAnimation></animations:PopUpAnimation>
+    </popup:PopupPage.Animation>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TitleH4Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
+            </Style>
+            <Style x:Key="TitleH3Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
+            </Style>
+            <Style x:Key="TitleH2Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
+            </Style>
+            <Style x:Key="TitleH1Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
+            </Style>
+            <Style x:Key="ActionSelectedTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
 
-                    <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand">
-                        <Button Style="{StaticResource ButtonSecundary}" WidthRequest="150" Text="Imputation" Command="{Binding TimeImputedOpenCommand}"></Button>
-                        <controls:TimeEntry ContentViewVisible="{Binding TimeImputationEntryVisibility}" SelectedTimeCommand="{Binding TimeImputationCommand}"></controls:TimeEntry>
-                    </StackLayout>
-
-                    <StackLayout Grid.Row="1" VerticalOptions="FillAndExpand">
-                        <Button Style="{StaticResource ButtonSecundary}" WidthRequest="150" Text="Desviation" Command="{Binding TimeDesviationOpenCommand}"></Button>
-                        <controls:TimeEntry ContentViewVisible="{Binding TimeDesviationEntryVisibility}" SelectedTimeCommand="{Binding TimeDesviationCommand}"></controls:TimeEntry>
-                    </StackLayout>
-                </Grid>
-
-                <Grid Padding="10,10,0,0" Grid.Row="3" BackgroundColor="{StaticResource WhiteColor}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="6*"/>
-                </Grid.RowDefinitions>
-
-                <Picker Grid.Row="0" Title="Projects" HorizontalOptions="FillAndExpand" ItemsSource="{Binding CurrentTimesheetForDay.Projects}" TextColor="{StaticResource SecondaryTextColor}">
-                </Picker>
-
-                <Picker Grid.Row="1" Title="Tasks" HorizontalOptions="FillAndExpand" ItemsSource="{Binding CurrentTimesheetForDay.Projects}" TextColor="{StaticResource SecondaryTextColor}">
-                </Picker>
-                
-                <controls:ExtendedEditor Grid.Row="2" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
-                                         x:Name="Description" 
-                                         Placeholder="Description"
-                                         PlaceholderColor="{StaticResource GrayColor}"
-                                         AutomationId="Description" 
-                                         TextColor="{StaticResource SecondaryTextColor}">
-                </controls:ExtendedEditor>
-                
-
-             </Grid>
-
-
-            <Grid Padding="10" Grid.Row="5" BackgroundColor="{StaticResource WhiteColor}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="4*"/>
-                    <RowDefinition Height="4*"/>
-                    <RowDefinition Height="2*"/>
-                </Grid.RowDefinitions>
-             </Grid>
+            <Style x:Key="ItemsIconTextStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}" />
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+            </Style>
             
-           </Grid>
-        </ScrollView>
+       </ResourceDictionary>
+     </ContentPage.Resources>
+
+    <ContentPage.Content>
+       <Grid BackgroundColor="{StaticResource WhiteColor}" RowSpacing="0" ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand" Padding="0,15,0,15" HorizontalOptions="FillAndExpand">
+
+                <Grid HorizontalOptions="FillAndExpand" Padding="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Style="{StaticResource ItemsIconTextStyle}" Text="&#xf0d9;" Grid.Column="0" HorizontalTextAlignment="Center"></Label>
+                    <Label  Style="{StaticResource TitleH4Style}" Text="New Activity"  Grid.Column="1" HorizontalTextAlignment="Center"></Label>
+                    <Label Style="{StaticResource ItemsIconTextStyle}" Text="&#xf00d;" Grid.Column="2" HorizontalTextAlignment="Center"></Label>  
+                 </Grid>
+
+                <ProgressBar x:Name="progress" Progress="0.5" Scale="5" BackgroundColor="{StaticResource RedColor}"  ></ProgressBar>
+                
+            </StackLayout>
+
+
+            <Grid Grid.Row="2" RowSpacing="0" ColumnSpacing="0"  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="4*"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Style="{StaticResource TitleH1Style}" Text="{Binding CurrentDayTitle}" HorizontalTextAlignment="Center"></Label>
+                <Label Grid.Row="1" Style="{StaticResource TitleH2Style}" Text="Please select the imputation Time" HorizontalTextAlignment="Center"></Label>
+
+                <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" Padding="0,0,0,15">
+                    <Button Style="{StaticResource ButtonSecundary}" WidthRequest="150" Text="Select Time" Command="{Binding TimeImputedOpenCommand}" VerticalOptions="Fill"></Button>
+                    <Label TranslationY="15" Style="{StaticResource TitleH2Style}" Text="{Binding TimeSelectedImputation}" ></Label>
+                </StackLayout>
+                
+                <StackLayout Grid.Row="3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                     <controls:TimeEntry ContentViewVisible="{Binding TimeImputationEntryVisibility, Mode=TwoWay}" SelectedTimeCommand="{Binding TimeImputationCommand}" ></controls:TimeEntry>
+                </StackLayout>
+               
+            </Grid>
+
+            <Grid 
+                AutomationId="Next"
+                x:Name="Next"
+                Grid.Row="3"
+                BackgroundColor="{StaticResource BlueColor}"
+                Padding="20"
+                >
+                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Continue" Style="{StaticResource ActionSelectedTextStyle}"></Label>
+                </StackLayout>
+            </Grid>
+            
+        </Grid>
+
     </ContentPage.Content>
-</ContentPage>
+
+</popup:PopupPage>

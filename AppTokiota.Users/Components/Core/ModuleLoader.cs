@@ -62,7 +62,8 @@ namespace AppTokiota.Users.Components.Core
 
             containerRegistry.Register<IAddActivityModule, AddActivityModule>();
             containerRegistry.RegisterForNavigation<AddActivityPage>();
-            PageRoutes.AddKey<AddActivityPage>(nameof(AddActivityPage));
+            PageRoutes.AddKey<AddActivityPage>($"{nameof(AddActivityPage)}");
+
 
         }
 

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using AppTokiota.Users.Components.Activity;
+using Rg.Plugins.Popup.Services;
 
 namespace AppTokiota.Users.Components.ManageImputedDay
 {
@@ -95,7 +96,7 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         {
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add(TimesheetForDay.Tag, _currentTimesheetForDay);
-            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters);
+            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters, true);
         }
         #endregion
 

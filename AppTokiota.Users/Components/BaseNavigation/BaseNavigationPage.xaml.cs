@@ -31,5 +31,13 @@ namespace AppTokiota.Users.Components.BaseNavigation
                 ? Color.White
                 : color;
         }
+
+        internal void ApplyNavigationBackgroundColor(Page targetPage)
+        {
+            var color = NavigationBarAttachedProperty.GetBackgroundColor(targetPage);
+            BarBackgroundColor = color == Color.Default
+                                         ? (Color)App.Current.Resources["RedColor"]
+                : color;
+        }
     }
 }

@@ -82,7 +82,7 @@ namespace AppTokiota.Users.Controls
             MainView = new StackLayout
             {
                 Padding = 0,
-                HorizontalOptions=LayoutOptions.Center
+                HorizontalOptions = LayoutOptions.FillAndExpand
             };
 
             this.HorizontalOptions = LayoutOptions.FillAndExpand;
@@ -100,8 +100,8 @@ namespace AppTokiota.Users.Controls
 
             MainHours = new Grid
             {
-                VerticalOptions = LayoutOptions.CenterAndExpand,
-                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
                 RowSpacing = GridSpace,
                 ColumnSpacing = GridSpace,
                 Padding = 1
@@ -145,8 +145,8 @@ namespace AppTokiota.Users.Controls
 
             MainMinutes = new Grid
             {
-                VerticalOptions = LayoutOptions.CenterAndExpand,
-                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
                 RowSpacing = GridSpace,
                 ColumnSpacing = GridSpace,
                 Padding = 1,

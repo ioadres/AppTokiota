@@ -7,6 +7,7 @@ using AppTokiota.Users.Models;
 using Prism.Navigation;
 using Prism.Commands;
 using System.Collections.Generic;
+using Rg.Plugins.Popup.Services;
 
 namespace AppTokiota.Users.Components.Activity
 {
@@ -50,13 +51,6 @@ namespace AppTokiota.Users.Components.Activity
             set { SetProperty(ref _timeSelectedDesviation, value); }
         }
 
-        private string _currentDayTitle;
-        public string CurrentDayTitle
-        {
-            get { return _currentDayTitle; }
-            set { SetProperty(ref _currentDayTitle, value); }
-        }
-
         #region TimeDesviationAction
         public DelegateCommand<Dictionary<string, string>> TimeDesviationCommand => new DelegateCommand<Dictionary<string, string>>(TimeDesviationAction);
         protected void TimeDesviationAction(Dictionary<string, string> response)
@@ -89,23 +83,31 @@ namespace AppTokiota.Users.Components.Activity
         }
         #endregion
 
+        #region TimeDesviationAction
+        public DelegateCommand ClosePopupCommand => new DelegateCommand(ClosePopup);
+        protected void ClosePopup()
+        {
+            PopupNavigation.PopAllAsync();
+        }
+        #endregion
+
         public AddActivityPageViewModel(IViewModelBaseModule baseModule, IAddActivityModule addActivityModule) : base(baseModule)
         {
            _addActivityModule = addActivityModule;
 
             Title = "New Activity";
-            CurrentDayTitle = "Dia";
         }    
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
             _currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
-            CurrentDayTitle = _currentTimesheetForDay.Day.Date.ToString("dd-MM-yyyy");
+            Title = _currentTimesheetForDay.Day.Date.ToString("dd-MM-yyyy");
+            BaseModule.NavigationService.GoBackAsync();
         }
 
 		public override void OnNavigatedFrom(NavigationParameters parameters)
 		{
-            _currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
+            //_currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
 		}
 	}
 }

@@ -31,12 +31,12 @@
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
             </Style>
-            <Style x:Key="TitleH1Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+            <Style x:Key="TitleH1Style" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
             </Style>
             <Style x:Key="ActionSelectedTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+                <Setter Property="FontSize" Value="{StaticResource MidLargeSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
 
@@ -66,9 +66,10 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Style="{StaticResource ItemsIconTextStyle}" Text="&#xf0d9;" Grid.Column="0" HorizontalTextAlignment="Center"></Label>
+                    <Label Style="{StaticResource ItemsIconTextStyle}" Text="&#xf0d9;" Grid.Column="0" HorizontalTextAlignment="Center" IsVisible="false"></Label>
                     <Label  Style="{StaticResource TitleH4Style}" Text="New Activity"  Grid.Column="1" HorizontalTextAlignment="Center"></Label>
-                    <Label Style="{StaticResource ItemsIconTextStyle}" Text="&#xf00d;" Grid.Column="2" HorizontalTextAlignment="Center"></Label>  
+                    <Label Style="{StaticResource ItemsIconTextStyle}" Text="&#xf00d;" Grid.Column="2" HorizontalTextAlignment="Center">
+                    </Label>  
                  </Grid>
 
                 <ProgressBar x:Name="progress" Progress="0.5" Scale="5" BackgroundColor="{StaticResource RedColor}"  ></ProgressBar>
@@ -79,21 +80,17 @@
             <Grid Grid.Row="2" RowSpacing="0" ColumnSpacing="0"  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
                     <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="70"/>
                     <RowDefinition Height="4*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Style="{StaticResource TitleH1Style}" Text="{Binding CurrentDayTitle}" HorizontalTextAlignment="Center"></Label>
+                <Label Grid.Row="0" Style="{StaticResource TitleH1Style}" Text="{Binding TimeSelectedImputation}" HorizontalTextAlignment="Center"></Label>
                 <Label Grid.Row="1" Style="{StaticResource TitleH2Style}" Text="Please select the imputation Time" HorizontalTextAlignment="Center"></Label>
-
-                <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" Padding="0,0,0,15">
-                    <Button Style="{StaticResource ButtonSecundary}" WidthRequest="150" Text="Select Time" Command="{Binding TimeImputedOpenCommand}" VerticalOptions="Fill"></Button>
-                    <Label TranslationY="15" Style="{StaticResource TitleH2Style}" Text="{Binding TimeSelectedImputation}" ></Label>
-                </StackLayout>
-                
-                <StackLayout Grid.Row="3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Button Grid.Row="2" Style="{StaticResource ButtonSecundary}" WidthRequest="150" Text="Select Time" Command="{Binding TimeImputedOpenCommand}" VerticalOptions="Center" HorizontalOptions="Center"></Button>
+     
+                <StackLayout Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center">
                      <controls:TimeEntry ContentViewVisible="{Binding TimeImputationEntryVisibility, Mode=TwoWay}" SelectedTimeCommand="{Binding TimeImputationCommand}" ></controls:TimeEntry>
                 </StackLayout>
                

@@ -102,7 +102,7 @@ namespace AppTokiota.Users.Components.Activity
         {
             _currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
             Title = _currentTimesheetForDay.Day.Date.ToString("dd-MM-yyyy");
-            BaseModule.NavigationService.GoBackAsync();
+           // BaseModule.NavigationService.GoBackAsync();
         }
 
 		public override void OnNavigatedFrom(NavigationParameters parameters)

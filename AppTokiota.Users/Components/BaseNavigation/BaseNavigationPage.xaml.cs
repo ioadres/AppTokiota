@@ -19,10 +19,16 @@ namespace AppTokiota.Users.Components.BaseNavigation
             get { return true; }
         }
 
-        public BaseNavigationPage()
+        public BaseNavigationPage() : base()
         {
             InitializeComponent();
         }
+
+        public BaseNavigationPage(Page root) : base(root)
+        {
+            InitializeComponent();
+        }
+
 
         internal void ApplyNavigationTextColor(Page targetPage)
         {

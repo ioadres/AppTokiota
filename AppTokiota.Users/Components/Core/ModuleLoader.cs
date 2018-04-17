@@ -64,6 +64,9 @@ namespace AppTokiota.Users.Components.Core
             containerRegistry.RegisterForNavigation<AddActivityPage>();
             PageRoutes.AddKey<AddActivityPage>($"{nameof(AddActivityPage)}");
 
+            containerRegistry.RegisterForNavigation<AddActivityTimeDesviationPage>();
+            PageRoutes.AddKey<AddActivityTimeDesviationPage>($"{nameof(AddActivityTimeDesviationPage)}"); 
+
 
         }
 

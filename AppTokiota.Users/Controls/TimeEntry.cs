@@ -81,8 +81,7 @@ namespace AppTokiota.Users.Controls
 
             MainView = new StackLayout
             {
-                Padding = 0,
-                HorizontalOptions = LayoutOptions.FillAndExpand
+                Padding = 0
             };
 
             this.HorizontalOptions = LayoutOptions.FillAndExpand;
@@ -100,15 +99,14 @@ namespace AppTokiota.Users.Controls
 
             MainHours = new Grid
             {
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Center,
                 RowSpacing = GridSpace,
-                ColumnSpacing = GridSpace,
-                Padding = 1
+                ColumnSpacing = GridSpace
             };
 
-            MainHours.ColumnDefinitions = new ColumnDefinitionCollection { columDef, columDef, columDef, columDef, columDef, columDef, columDef, columDef };
-            MainHours.RowDefinitions = new RowDefinitionCollection { rowDef, rowDef, rowDef };
+            MainHours.ColumnDefinitions = new ColumnDefinitionCollection { columDef, columDef, columDef, columDef, columDef, columDef };
+            MainHours.RowDefinitions = new RowDefinitionCollection { rowDef, rowDef, rowDef, rowDef };
 
             ButtonsHour = new List<ButtonTimeTask>();
 

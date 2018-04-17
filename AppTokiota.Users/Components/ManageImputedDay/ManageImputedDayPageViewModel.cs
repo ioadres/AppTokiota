@@ -90,7 +90,7 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         }
         #endregion
 
-        #region EventOnEditItem
+        #region EventOnAddItem
         public DelegateCommand OnAddItemCommand => new DelegateCommand(() => OnAddItem());
         protected async void OnAddItem()
         {

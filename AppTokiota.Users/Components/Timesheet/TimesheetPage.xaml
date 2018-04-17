@@ -9,8 +9,8 @@
     xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"   
     xmlns:b="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
     xmlns:utils="clr-namespace:AppTokiota.Users.Utils;assembly=AppTokiota.Users"
-             utils:NavigationBarAttachedProperty.BackgroundColor="{StaticResource RedColor}"
-             utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}"        
+    utils:NavigationBarAttachedProperty.BackgroundColor="{StaticResource RedColor}"
+    utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}"        
     Title="{Binding Title}"
     >
     <ContentPage.Resources>

@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using AppTokiota.Users.Components.Core;
+﻿using AppTokiota.Users.Components.Core;
 using AppTokiota.Users.Components.Core.Module;
 using AppTokiota.Users.Models;
-using Prism.Navigation;
 using Prism.Commands;
-using System.Collections.Generic;
+using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace AppTokiota.Users.Components.Activity
 {
-    public class AddActivityPageViewModel : ViewModelBase
+    public class AddActivityTimeDesviationPageViewModel : ViewModelBase
     {
         #region Services
         protected readonly IAddActivityModule _addActivityModule;
@@ -27,11 +26,13 @@ namespace AppTokiota.Users.Components.Activity
         public bool TimeImputationEntryVisibility
         {
             get { return _timeImputationEntryVisibility; }
-            set {
+            set
+            {
                 SetProperty(ref _timeImputationEntryVisibility, value);
-                if (!string.IsNullOrEmpty(TimeSelectedImputation)){
+                if (!string.IsNullOrEmpty(TimeSelectedImputation))
+                {
                     TimeTitleImputationEntryVisibility = !_timeImputationEntryVisibility;
-                }                
+                }
             }
         }
 
@@ -41,14 +42,29 @@ namespace AppTokiota.Users.Components.Activity
             get { return _timeTitleImputationEntryVisibility; }
             set { SetProperty(ref _timeTitleImputationEntryVisibility, value); }
         }
-        
+
+        private bool _timeDesviationEntryVisibility;
+        public bool TimeDesviationEntryVisibility
+        {
+            get { return _timeDesviationEntryVisibility; }
+            set { SetProperty(ref _timeDesviationEntryVisibility, value); }
+        }
+
         private string _timeSelectedImputation;
         public string TimeSelectedImputation
         {
             get { return _timeSelectedImputation; }
             set { SetProperty(ref _timeSelectedImputation, value); }
         }
-                
+
+        private string _timeSelectedDesviation;
+        public string TimeSelectedDesviation
+        {
+            get { return _timeSelectedDesviation; }
+            set { SetProperty(ref _timeSelectedDesviation, value); }
+        }
+
+
         #region TimeImputationAction
         public DelegateCommand<Dictionary<string, string>> TimeImputationCommand => new DelegateCommand<Dictionary<string, string>>(TimeImputationAction);
         protected void TimeImputationAction(Dictionary<string, string> response)
@@ -65,7 +81,6 @@ namespace AppTokiota.Users.Components.Activity
             TimeImputationEntryVisibility = !TimeImputationEntryVisibility;
         }
         #endregion
-        
         #region CloseAction
         public DelegateCommand ClosePopupCommand => new DelegateCommand(ClosePopup);
         protected void ClosePopup()
@@ -75,36 +90,23 @@ namespace AppTokiota.Users.Components.Activity
         }
         #endregion
 
-        #region NextAction
-        public DelegateCommand NextCommand => new DelegateCommand(Next);
-        protected async void Next()
+        public AddActivityTimeDesviationPageViewModel(IViewModelBaseModule baseModule, IAddActivityModule addActivityModule) : base(baseModule)
         {
-            var navigationParameters = new NavigationParameters();
-            navigationParameters.Add(TimesheetForDay.Tag, _currentTimesheetForDay);
-            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityTimeDesviationPage>(), navigationParameters, true,false);
-        }
-        #endregion
-
-
-
-        public AddActivityPageViewModel(IViewModelBaseModule baseModule, IAddActivityModule addActivityModule) : base(baseModule)
-        {
-           _addActivityModule = addActivityModule;
+            _addActivityModule = addActivityModule;
 
             Title = "New Activity";
-        }    
+        }
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
             _currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
             Title = _currentTimesheetForDay.Day.Date.ToString("dd-MM-yyyy");
-           // BaseModule.NavigationService.GoBackAsync();
+            
         }
 
-		public override void OnNavigatedFrom(NavigationParameters parameters)
-		{
+        public override void OnNavigatedFrom(NavigationParameters parameters)
+        {
             //_currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
-		}
-	}
+        }
+    }
 }
-

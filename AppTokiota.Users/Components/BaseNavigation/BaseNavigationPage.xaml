@@ -4,10 +4,10 @@
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms" 
     prism:ViewModelLocator.AutowireViewModel="True" 
     x:Class="AppTokiota.Users.Components.BaseNavigation.BaseNavigationPage"
-    BarTextColor="{StaticResource WhiteColor}">
+     BarTextColor="{StaticResource WhiteColor}">
     <NavigationPage.BarBackgroundColor>
         <OnPlatform x:TypeArguments="Color">
-            <On Platform="Android, iOS" Value="{StaticResource RedColor}" />
+            <On Platform="Android, iOS" Value="{StaticResource RedDarkColor}" />
         </OnPlatform>
     </NavigationPage.BarBackgroundColor>
 </NavigationPage>

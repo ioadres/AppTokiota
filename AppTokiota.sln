@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTokiota.iOS", "iOS\AppTo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTokiota.Droid", "Droid\AppTokiota.Droid.csproj", "{E16F3CA4-0E2C-4C8D-BEF7-FBA3301CEE70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTokiota.Users", "AppTokiota.Users\AppTokiota.Users.csproj", "{49D9F9C9-9524-4730-BC2B-A2E49EB4FA2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppTokiota.Users", "AppTokiota.Users\AppTokiota.Users.csproj", "{49D9F9C9-9524-4730-BC2B-A2E49EB4FA2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +37,7 @@ Global
 		{E16F3CA4-0E2C-4C8D-BEF7-FBA3301CEE70}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{E16F3CA4-0E2C-4C8D-BEF7-FBA3301CEE70}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
 		{E16F3CA4-0E2C-4C8D-BEF7-FBA3301CEE70}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{E16F3CA4-0E2C-4C8D-BEF7-FBA3301CEE70}.Debug|iPhoneSimulator.Deploy.0 = Debug|Any CPU
 		{E16F3CA4-0E2C-4C8D-BEF7-FBA3301CEE70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E16F3CA4-0E2C-4C8D-BEF7-FBA3301CEE70}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E16F3CA4-0E2C-4C8D-BEF7-FBA3301CEE70}.Release|iPhone.ActiveCfg = Release|Any CPU

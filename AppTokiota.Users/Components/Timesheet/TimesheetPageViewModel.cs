@@ -27,8 +27,9 @@ namespace AppTokiota.Users.Components.Timesheet
         public TimesheetPageViewModel(IViewModelBaseModule baseModule, ITimesheetModule timesheetModule) : base(baseModule)
         {
             _timesheetModule = timesheetModule;
-
+           
             Title = "Timesheet";
+            _isVisibleFooter = true;
 
             DateTime date = DateTime.Now;
             _dates = new ObservableCollection<DateTime>();
@@ -36,13 +37,6 @@ namespace AppTokiota.Users.Components.Timesheet
 
             var from = new DateTime(date.Year, date.Month, 1);
             DateChosen.Execute(from);
-
-            _orientation = (int)CrossDeviceOrientation.Current.CurrentOrientation == 1 ||  (int)CrossDeviceOrientation.Current.CurrentOrientation == 4? StackOrientation.Horizontal : StackOrientation.Vertical;
-            CrossDeviceOrientation.Current.OrientationChanged += (sender, args) =>
-            {
-                Orientation = (int)CrossDeviceOrientation.Current.CurrentOrientation == 1 || (int)CrossDeviceOrientation.Current.CurrentOrientation == 4 ? StackOrientation.Horizontal : StackOrientation.Vertical;
-            };
-
         }
         #endregion
 
@@ -79,19 +73,30 @@ namespace AppTokiota.Users.Components.Timesheet
         private bool _isMultiple;
         public bool IsMultiple
         {
-            get { return Dates.Count() > 1; }
+            get { return _isMultiple; }
             set { SetProperty(ref _isMultiple, value); }
         }
 
         /// <summary>
         /// Gets if is not a multiple selection
         /// </summary>
-        /// <value>If is not multile</value>
+        /// <value>If is not multiple selection</value>
         private bool _isNotMultiple;
         public bool IsNotMultiple
         {
-            get { return Dates.Count() == 1; }
+            get { return _isNotMultiple; }
             set { SetProperty(ref _isNotMultiple, value); }
+        }
+
+        /// <summary>
+        /// Get if  Date no selected 
+        /// </summary>
+        /// <value></value>
+        private bool _isVisibleFooter;
+        public bool IsVisibleFooter
+        {
+            get { return _isVisibleFooter; }
+            set { SetProperty(ref _isVisibleFooter, value); }
         }
 
 
@@ -106,6 +111,28 @@ namespace AppTokiota.Users.Components.Timesheet
             set { SetProperty(ref _specialDates, value); }
         }
 
+
+        /// <summary>
+        /// Gets or sets the Total Desviation 
+        /// </summary>
+        /// <value>The Total Desviation</value>
+        private double _desviationTotal;
+        public double DesviationTotal
+        {
+            get { return _desviationTotal; }
+            set { SetProperty(ref _desviationTotal, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the Total Imputed 
+        /// </summary>
+        /// <value>The Total Imputed</value>
+        private double _imputedTotal;
+        public double ImputedTotal
+        {
+            get { return _imputedTotal; }
+            set { SetProperty(ref _imputedTotal, value); }
+        }
 
         #region EventChangeDateMonthOfCalendar
         public Command DateChosen => new Command((obj) => { ChangeDateCalendar((DateTime)obj); });
@@ -125,6 +152,7 @@ namespace AppTokiota.Users.Components.Timesheet
 
             IsMultiple = Dates.Count() > 1;
             IsNotMultiple = Dates.Count() == 1;
+            IsVisibleFooter = Dates.Count() == 0;
 
             if (Dates.Any())
             {

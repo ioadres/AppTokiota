@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms" 
-             xmlns:ctrls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="AppTokiota.Users.Components.DashBoard.DashBoardPage"
-             Title="{Binding Title}">
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms" 
+            xmlns:ctrls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
+            prism:ViewModelLocator.AutowireViewModel="True"
+            x:Class="AppTokiota.Users.Components.DashBoard.DashBoardPage"
+            xmlns:utils="clr-namespace:AppTokiota.Users.Utils;assembly=AppTokiota.Users"
+             utils:NavigationBarAttachedProperty.BackgroundColor="{StaticResource RedColor}"
+             utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}"        
+            Title="{Binding Title}">
 
      <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="HeaderTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource ExtraBigSize}" />
+                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
             <Style x:Key="HeaderStatusTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource ExtraBigSize}" />
+                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
             <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
@@ -41,9 +44,11 @@
                 <StackLayout Orientation="Horizontal">
                     <Label Text="20%" Style="{StaticResource HeaderStatusTextStyle}"></Label>
                     <Label Text="Succed" Style="{StaticResource HeaderStatusTextStyle}"></Label>
-                    <Button Text="Review" Style="{StaticResource ButtonPrimary}" HorizontalOptions="EndAndExpand"></Button>
                 </StackLayout>
             </StackLayout>
+
+            <Button Text="Review" Style="{StaticResource ButtonPrimary}" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Center" TranslationX="-15"></Button>
+            
             <BoxView Grid.Row="1" BackgroundColor="{StaticResource GrayColor}"></BoxView>
 
             <StackLayout Grid.Row="2" Padding="15" BackgroundColor="{StaticResource RedColor}">

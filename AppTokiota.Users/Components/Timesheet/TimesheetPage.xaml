@@ -4,9 +4,13 @@
     x:Class="AppTokiota.Users.Components.Timesheet.TimesheetPage"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True"
+    xmlns:converters="clr-namespace:AppTokiota.Users.Converters;assembly=AppTokiota.Users"
     xmlns:controls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
     xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"   
     xmlns:b="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+    xmlns:utils="clr-namespace:AppTokiota.Users.Utils;assembly=AppTokiota.Users"
+    utils:NavigationBarAttachedProperty.BackgroundColor="{StaticResource RedColor}"
+    utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}"        
     Title="{Binding Title}"
     >
     <ContentPage.Resources>
@@ -20,6 +24,33 @@
                     Duration="750" />
             </xamanimation:StoryBoard>
 
+            <xamanimation:StoryBoard 
+                x:Key="MultipleGridAnimation"    
+                Target="{x:Reference MultipleGrid}">
+                <xamanimation:FadeToAnimation  Opacity="0" Duration="0" />
+                <xamanimation:TranslateToAnimation TranslateY="600" Duration="0" />
+                <xamanimation:FadeToAnimation Opacity="1" Duration="150" />
+                <xamanimation:TranslateToAnimation TranslateY="0" Easing="CubicOut" Duration="200" />
+            </xamanimation:StoryBoard>
+            
+            <xamanimation:StoryBoard 
+                x:Key="NotMultipleGridAnimation"    
+                Target="{x:Reference NotMultipleGrid}">
+                <xamanimation:FadeToAnimation  Opacity="0" Duration="0" />
+                <xamanimation:TranslateToAnimation TranslateY="600" Duration="0" />
+                <xamanimation:FadeToAnimation Opacity="1" Duration="150" />
+                <xamanimation:TranslateToAnimation TranslateY="0" Easing="CubicOut" Duration="200" />
+            </xamanimation:StoryBoard>
+
+            <xamanimation:StoryBoard 
+                x:Key="FooterAnimation"    
+                Target="{x:Reference Footer}">
+              <xamanimation:FadeToAnimation  Opacity="0" Duration="0" />
+                <xamanimation:TranslateToAnimation TranslateY="600" Duration="0" />
+                <xamanimation:FadeToAnimation Opacity="1" Duration="150" />
+                <xamanimation:TranslateToAnimation TranslateY="0" Easing="CubicOut" Duration="200" />
+            </xamanimation:StoryBoard>
+            
             <Style x:Key="IconPlusTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource BigSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
@@ -37,6 +68,13 @@
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
+             <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
+
+             <converters:MinutesToHourConverter x:Key="cnvMinutesToHour"></converters:MinutesToHourConverter>
+            
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Triggers>
@@ -50,9 +88,10 @@
             AutomationId="calendar">
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.6*" />
-                <RowDefinition Height="8.2*" />
-                <RowDefinition Height="1.2*" />
+                <RowDefinition Height="0.8*" />
+                <RowDefinition Height="9.2*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
                 <StackLayout Orientation="Horizontal" Margin="1" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0">
                     <StackLayout Orientation="Horizontal" Margin="1">
@@ -115,37 +154,85 @@
                 </Grid>
 
             <Grid 
-                AutomationId="Multiple"
+                AutomationId="MultipleGrid"
+                x:Name="MultipleGrid"
                 Grid.Row="2"
                 IsVisible="{Binding IsMultiple}"
-                BackgroundColor="{StaticResource RedColor}"                 
+                BackgroundColor="{StaticResource RedColor}"
+                Padding="20"
                 >
-                     <Grid.GestureRecognizers>
-                    <TapGestureRecognizer 
-                        Command="{Binding ManageImputedDayCommand}" />
+                     <Grid.Triggers>
+                    <Trigger TargetType="Grid" Property="Grid.IsVisible" Value="True">
+                        <Trigger.EnterActions>
+                            <xamanimation:BeginAnimation
+                                Animation="{StaticResource MultipleGridAnimation}" />
+                        </Trigger.EnterActions>
+                    </Trigger>
+                </Grid.Triggers>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding ManageImputedDayCommand}" />
                     </Grid.GestureRecognizers>
                     
-                     <StackLayout Orientation="Horizontal" Margin="1" HorizontalOptions="Center" VerticalOptions="Center">
+                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                         <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource IconPlusTextStyle}"/>
                         <Label Text="Imputed a multiple selected day" Style="{StaticResource ActionSelectedTextStyle}"></Label>
                     </StackLayout>
             </Grid>
             <Grid 
-                AutomationId="NotMultiple"
+                AutomationId="NotMultipleGrid"
+                x:Name="NotMultipleGrid"
                 Grid.Row="2"
                 IsVisible="{Binding IsNotMultiple}"
-                BackgroundColor="{StaticResource GreenColor}"                 
+                BackgroundColor="{StaticResource GreenColor}" 
+                Padding="20"
                 >
+                <Grid.Triggers>
+                    <Trigger TargetType="Grid" Property="Grid.IsVisible" Value="True">
+                        <Trigger.EnterActions>
+                            <xamanimation:BeginAnimation
+                                Animation="{StaticResource NotMultipleGridAnimation}" />
+                        </Trigger.EnterActions>
+                    </Trigger>
+                </Grid.Triggers>
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer 
                         Command="{Binding ManageImputedDayCommand}" />
                 </Grid.GestureRecognizers>
                     
-                <StackLayout Orientation="Horizontal" Margin="1" HorizontalOptions="Center" VerticalOptions="Center">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                     <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource IconPlusTextStyle}"/>
                     <Label Text="Imputed a selected day" Style="{StaticResource ActionSelectedTextStyle}"></Label>
                 </StackLayout>
             </Grid>
+
+            <Grid Grid.Row="3" 
+                  x:Name="Footer"
+                  AutomationId="Footer"
+                  BackgroundColor="{StaticResource DarkColor}"
+                  IsVisible="{Binding IsVisibleFooter}" >
+                <Grid.Triggers>
+                    <Trigger TargetType="Grid" Property="Grid.IsVisible" Value="True">
+                        <Trigger.EnterActions>
+                            <xamanimation:BeginAnimation
+                                Animation="{StaticResource FooterAnimation}" />
+                        </Trigger.EnterActions>
+                    </Trigger>
+                </Grid.Triggers>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Column="0" Padding="10" >
+                    <Label Text="Imputed" Style="{StaticResource FooterTextStyle}" />
+                    <Label Text="Desviation" Style="{StaticResource FooterTextStyle}"/>
+                </StackLayout>
+                <StackLayout Grid.Column="1" Padding="10">
+                    <Label Text="{Binding ImputedTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
+                    <Label Text="{Binding DesviationTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
+                </StackLayout>
+           </Grid>
                 
         </Grid>
         <ActivityIndicator 

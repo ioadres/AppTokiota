@@ -102,13 +102,13 @@
                   Android="14"
                         />
 
-            <OnPlatform x:Key="LargeSize"
+            <OnPlatform x:Key="MidLargeSize"
                   x:TypeArguments="x:Double"
                   iOS="18"
                   Android="16"
                         />
 
-            <OnPlatform x:Key="LargerSize"
+            <OnPlatform x:Key="LargeSize"
                   x:TypeArguments="x:Double"
                   iOS="20"
                   Android="18"

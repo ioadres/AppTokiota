@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <popup:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="AppTokiota.Users.Components.Activity.AddActivityPage"
+    x:Class="AppTokiota.Users.Components.Activity.AddActivityTimeDesviationPage"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:utils="clr-namespace:AppTokiota.Users.Utils;assembly=AppTokiota.Users"  
@@ -103,8 +103,8 @@
                     <RowDefinition Height="7*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="1" Style="{StaticResource TitleH2Style}" Text="Please select the imputation Time" HorizontalTextAlignment="Center"></Label>
-                <Button Grid.Row="3" Style="{StaticResource ButtonSecundary}" WidthRequest="150" Text="Select Time" Command="{Binding TimeImputedOpenCommand}" VerticalOptions="Center" HorizontalOptions="Center"></Button>
+                <Label Grid.Row="1" Style="{StaticResource TitleH2Style}" Text="Please select the Desviation Time" HorizontalTextAlignment="Center"></Label>
+                <Button Grid.Row="3" Style="{StaticResource ButtonSecundary}" WidthRequest="150" Text="Select Desviation" Command="{Binding TimeImputedOpenCommand}" VerticalOptions="Center" HorizontalOptions="Center"></Button>
 
                 <StackLayout Grid.Row="5" HorizontalOptions="Fill" IsVisible="{Binding TimeTitleImputationEntryVisibility, Mode=TwoWay}">
                     <controls:AwesomeLabelControl Text="&#xf017;"
@@ -112,7 +112,7 @@
                                         Margin="25" HorizontalOptions="Center"
                                         />
                     <Label TranslationY="20" Style="{StaticResource TitleH1Style}"  Text="{Binding TimeSelectedImputation}" HorizontalTextAlignment="Center">
-                        
+
                     </Label>
 
                 </StackLayout>
@@ -140,10 +140,6 @@
                     </Trigger>
                 </Grid.Triggers>
 
-                <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NextCommand}" />
-                </Grid.GestureRecognizers>
-
                 <Label Text="Continue" Style="{StaticResource ActionSelectedTextStyle}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"></Label>
 
             </Grid>
@@ -152,3 +148,4 @@
     </ContentPage.Content>
 
 </popup:PopupPage>
+

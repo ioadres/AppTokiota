@@ -18,7 +18,7 @@ namespace AppTokiota.Users.Services
         {
             var toastConfig = new ToastConfig(message);
             toastConfig.SetDuration(duration);            
-            //toastConfig.SetMessageTextColor(System.Drawing.Color.White);
+            toastConfig.SetMessageTextColor(System.Drawing.Color.White);
             toastConfig.SetBackgroundColor(System.Drawing.Color.FromArgb(33, 44, 55));
 
             UserDialogs.Instance.Toast(toastConfig);

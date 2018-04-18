@@ -7,6 +7,9 @@
     xmlns:converters="clr-namespace:AppTokiota.Users.Converters;assembly=AppTokiota.Users"
     xmlns:controls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
     xmlns:b="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+    xmlns:utils="clr-namespace:AppTokiota.Users.Utils;assembly=AppTokiota.Users"  
+    utils:NavigationBarAttachedProperty.BackgroundColor="{StaticResource RedColor}"
+    utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}"                  
     x:Name="this"
     Title="{Binding Title}"
     >

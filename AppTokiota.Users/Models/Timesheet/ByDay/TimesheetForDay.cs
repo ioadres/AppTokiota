@@ -10,7 +10,6 @@ namespace AppTokiota.Users.Models
     {
         public static string Tag = nameof(TimesheetForDay);
 
-
         public List<ActivityDay> Activities { get; set; }
         public List<Project> Projects { get; set; }
         public Day Day { get; set; }

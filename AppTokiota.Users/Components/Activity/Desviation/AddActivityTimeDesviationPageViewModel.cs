@@ -78,16 +78,39 @@ namespace AppTokiota.Users.Components.Activity
         public DelegateCommand TimeImputedOpenCommand => new DelegateCommand(TimeImputedOpen);
         protected void TimeImputedOpen()
         {
+
+            TimeTitleImputationEntryVisibility = false;
             TimeImputationEntryVisibility = !TimeImputationEntryVisibility;
         }
         #endregion
-        #region CloseAction
-        public DelegateCommand ClosePopupCommand => new DelegateCommand(ClosePopup);
-        protected void ClosePopup()
+
+        #region GoBack
+        public DelegateCommand GoBackCommand => new DelegateCommand(GoBack);
+        protected void GoBack()
         {
-            PopupNavigation.PopAllAsync();
+            var navigationParameters = new NavigationParameters();
+            navigationParameters.Add(TimesheetForDay.Tag, _currentTimesheetForDay);
+            BaseModule.NavigationService.NavigateAsync($"../{PageRoutes.GetKey<AddActivityPage>()}",navigationParameters,false, false);
+        }
+        #endregion
+
+        #region CloseAction
+        public DelegateCommand CloseCommand => new DelegateCommand(Close);
+        protected void Close()
+        {
             BaseModule.NavigationService.GoBackAsync();
         }
+        #endregion
+
+        #region NextAction
+        public DelegateCommand NextCommand => new DelegateCommand(Next);
+        protected async void Next()
+        {
+            var navigationParameters = new NavigationParameters();
+            navigationParameters.Add(TimesheetForDay.Tag, _currentTimesheetForDay);
+            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityProjectPage>(), navigationParameters, false, false);
+        }
+
         #endregion
 
         public AddActivityTimeDesviationPageViewModel(IViewModelBaseModule baseModule, IAddActivityModule addActivityModule) : base(baseModule)
@@ -95,6 +118,8 @@ namespace AppTokiota.Users.Components.Activity
             _addActivityModule = addActivityModule;
 
             Title = "New Activity";
+            TimeSelectedImputation = "0h 0m";
+            TimeTitleImputationEntryVisibility = true;
         }
 
         public override void OnNavigatedTo(NavigationParameters parameters)

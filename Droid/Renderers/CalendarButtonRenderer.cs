@@ -7,12 +7,17 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using AppTokiota.Droid.Renderers;
 using Android.Graphics;
+using Android.Content;
 
 [assembly: ExportRenderer(typeof(AppTokiota.Users.Controls.CalendarButton), typeof(CalendarButtonRenderer))]
 namespace AppTokiota.Droid.Renderers
 {
     public class CalendarButtonRenderer : ButtonRenderer
     {
+        public CalendarButtonRenderer(Context context) :base(context)
+        {
+
+        }
         protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
         {
             base.OnElementChanged(e);

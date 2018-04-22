@@ -27,11 +27,13 @@ namespace AppTokiota.Users.Components.Activity
         public bool TimeImputationEntryVisibility
         {
             get { return _timeImputationEntryVisibility; }
-            set {
+            set
+            {
                 SetProperty(ref _timeImputationEntryVisibility, value);
-                if (!string.IsNullOrEmpty(TimeSelectedImputation)){
+                if (!string.IsNullOrEmpty(TimeSelectedImputation))
+                {
                     TimeTitleImputationEntryVisibility = !_timeImputationEntryVisibility;
-                }                
+                }
             }
         }
 
@@ -41,14 +43,14 @@ namespace AppTokiota.Users.Components.Activity
             get { return _timeTitleImputationEntryVisibility; }
             set { SetProperty(ref _timeTitleImputationEntryVisibility, value); }
         }
-        
+
         private string _timeSelectedImputation;
         public string TimeSelectedImputation
         {
             get { return _timeSelectedImputation; }
             set { SetProperty(ref _timeSelectedImputation, value); }
         }
-                
+
         #region TimeImputationAction
         public DelegateCommand<Dictionary<string, string>> TimeImputationCommand => new DelegateCommand<Dictionary<string, string>>(TimeImputationAction);
         protected void TimeImputationAction(Dictionary<string, string> response)
@@ -63,14 +65,14 @@ namespace AppTokiota.Users.Components.Activity
         protected void TimeImputedOpen()
         {
             TimeImputationEntryVisibility = !TimeImputationEntryVisibility;
+            TimeTitleImputationEntryVisibility = false;
         }
         #endregion
-        
+
         #region CloseAction
         public DelegateCommand ClosePopupCommand => new DelegateCommand(ClosePopup);
         protected void ClosePopup()
         {
-            PopupNavigation.PopAllAsync();
             BaseModule.NavigationService.GoBackAsync();
         }
         #endregion
@@ -81,7 +83,7 @@ namespace AppTokiota.Users.Components.Activity
         {
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add(TimesheetForDay.Tag, _currentTimesheetForDay);
-            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityTimeDesviationPage>(), navigationParameters, true,false);
+            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityTimeDesviationPage>(), navigationParameters, false, false);
         }
         #endregion
 
@@ -89,22 +91,23 @@ namespace AppTokiota.Users.Components.Activity
 
         public AddActivityPageViewModel(IViewModelBaseModule baseModule, IAddActivityModule addActivityModule) : base(baseModule)
         {
-           _addActivityModule = addActivityModule;
+            _addActivityModule = addActivityModule;
 
             Title = "New Activity";
-        }    
+            TimeSelectedImputation = "0h 0m";
+            TimeTitleImputationEntryVisibility = true;
+        }
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
             _currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
             Title = _currentTimesheetForDay.Day.Date.ToString("dd-MM-yyyy");
-           // BaseModule.NavigationService.GoBackAsync();
         }
 
-		public override void OnNavigatedFrom(NavigationParameters parameters)
-		{
+        public override void OnNavigatedFrom(NavigationParameters parameters)
+        {
             //_currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
-		}
-	}
+        }
+    }
 }
 

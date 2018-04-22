@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<popup:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="AppTokiota.Users.Components.Activity.AddActivityPage"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-    xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:utils="clr-namespace:AppTokiota.Users.Utils;assembly=AppTokiota.Users"  
     xmlns:controls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
     xmlns:animations="clr-namespace:AppTokiota.Users.Animations;assembly=AppTokiota.Users"
@@ -14,9 +13,6 @@
     BackgroundColor="{StaticResource WhiteColor}"
     Title="{Binding Title}"
     x:Name="this">
-    <popup:PopupPage.Animation>
-        <animations:PopUpAnimation></animations:PopUpAnimation>
-    </popup:PopupPage.Animation>
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -68,12 +64,12 @@
 
         <Grid BackgroundColor="{StaticResource WhiteColor}" RowSpacing="0" ColumnSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand" Padding="5" HorizontalOptions="FillAndExpand">
+            <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand" Padding="15" HorizontalOptions="FillAndExpand">
 
                 <Grid HorizontalOptions="FillAndExpand">
                     <Grid.ColumnDefinitions>
@@ -89,40 +85,38 @@
                         </Label.GestureRecognizers>
                     </Label>
                 </Grid>
-                <ProgressBar x:Name="progress" Progress="0.5" Scale="2"></ProgressBar>
+                <ProgressBar x:Name="progress" Progress="0.30" Scale="2"></ProgressBar>
             </StackLayout>
 
 
-            <Grid Grid.Row="1" RowSpacing="0" ColumnSpacing="0"  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="25"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="7*"/>
-                </Grid.RowDefinitions>
+            <StackLayout Grid.Row="1"   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid RowSpacing="0" ColumnSpacing="0" HorizontalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="7*"/>
+                    </Grid.RowDefinitions>
 
-                <Label Grid.Row="1" Style="{StaticResource TitleH2Style}" Text="Please select the imputation Time" HorizontalTextAlignment="Center"></Label>
-                <Button Grid.Row="3" Style="{StaticResource ButtonSecundary}" WidthRequest="150" Text="Select Time" Command="{Binding TimeImputedOpenCommand}" VerticalOptions="Center" HorizontalOptions="Center"></Button>
+                    <Label Grid.Row="0" Style="{StaticResource TitleH2Style}" Text="Please select the imputation Time" HorizontalTextAlignment="Center"></Label>
+                <Button Grid.Row="2" Style="{StaticResource ButtonSecundary}" WidthRequest="150" Text="Select Time" Command="{Binding TimeImputedOpenCommand}" VerticalOptions="Center" HorizontalOptions="Center"></Button>
 
-                <StackLayout Grid.Row="5" HorizontalOptions="Fill" IsVisible="{Binding TimeTitleImputationEntryVisibility, Mode=TwoWay}">
+                    <StackLayout Grid.Row="4" HorizontalOptions="Fill" IsVisible="{Binding TimeTitleImputationEntryVisibility, Mode=TwoWay}"  VerticalOptions="Center">
                     <controls:AwesomeLabelControl Text="&#xf017;"
                                         Style="{StaticResource IconPlusTextStyle}" 
-                                        Margin="25" HorizontalOptions="Center"
+                                        HorizontalOptions="Center"
                                         />
-                    <Label TranslationY="20" Style="{StaticResource TitleH1Style}"  Text="{Binding TimeSelectedImputation}" HorizontalTextAlignment="Center">
-                        
-                    </Label>
+                     <Label Style="{StaticResource TitleH1Style}"  Margin="15"   Text="{Binding TimeSelectedImputation}" HorizontalTextAlignment="Center"></Label>
 
                 </StackLayout>
 
-
-                <StackLayout Grid.Row="5" HorizontalOptions="Center">
+                    <StackLayout Grid.Row="4" HorizontalOptions="Center"  VerticalOptions="Center">
                     <controls:TimeEntry ContentViewVisible="{Binding TimeImputationEntryVisibility, Mode=TwoWay}" SelectedTimeCommand="{Binding TimeImputationCommand}" ></controls:TimeEntry>
                 </StackLayout>
 
-            </Grid>
+                </Grid>
+            </StackLayout>
 
             <Grid 
                 AutomationId="ImputationTimeNext"
@@ -130,6 +124,7 @@
                 Grid.Row="2"
                 IsVisible="{Binding TimeTitleImputationEntryVisibility, Mode=TwoWay}"
                 BackgroundColor="{StaticResource RedColor}"
+                Padding="20"
                 >
                 <Grid.Triggers>
                     <Trigger TargetType="Grid" Property="Grid.IsVisible" Value="True">
@@ -139,16 +134,19 @@
                         </Trigger.EnterActions>
                     </Trigger>
                 </Grid.Triggers>
-
+                
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding NextCommand}" />
                 </Grid.GestureRecognizers>
 
-                <Label Text="Continue" Style="{StaticResource ActionSelectedTextStyle}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"></Label>
-
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Continue" Style="{StaticResource ActionSelectedTextStyle}"></Label>
+                </StackLayout>
             </Grid>
+            
+           
         </Grid>
 
     </ContentPage.Content>
 
-</popup:PopupPage>
+</ContentPage>

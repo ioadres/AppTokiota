@@ -95,7 +95,11 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         protected async void OnAddItem()
         {
             var navigationParameters = new NavigationParameters();
-            navigationParameters.Add(TimesheetForDay.Tag, _currentTimesheetForDay);
+            var imputedContext = new Imputed()
+            {
+                CurrentTimesheet = _currentTimesheetForDay
+            };
+            navigationParameters.Add(Imputed.Tag, imputedContext);
             await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters, false, true);
         }
         #endregion

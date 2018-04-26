@@ -5,6 +5,8 @@ using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 
 namespace AppTokiota.Users.Components.Activity
@@ -15,10 +17,62 @@ namespace AppTokiota.Users.Components.Activity
         protected readonly IAddActivityModule _addActivityModule;
         #endregion
 
-        private Models.TimesheetForDay _currentTimesheetForDay;
-        public Models.TimesheetForDay CurrentTimesheetForDay
+        private Models.Imputed _context;
+        public Models.Imputed Context
         {
-            get { return _currentTimesheetForDay; }
+            get { return _context; }
+        }
+
+        private Models.Project _selectedProject;
+        public Models.Project SelectedProject
+        {
+            get { return _selectedProject; }
+
+            set {
+                SetProperty(ref _selectedProject, value);
+                Tasks = _selectedProject.Tasks.Select(x => x.Value).ToList();
+            }
+        }
+
+        private List<Models.Project> _projects;
+        public List<Models.Project> Projects
+        {
+            get { return _projects; }
+
+            set { SetProperty(ref _projects, value); }
+        }
+
+
+        private List<Models.TaskT> _tasks;
+        public List<Models.TaskT> Tasks
+        {
+            get { return _tasks; }
+
+            set { SetProperty(ref _tasks, value); }
+        }
+
+        private Models.TaskT _selectedTask;
+        public Models.TaskT SelectedTask
+        {
+            get { return _selectedTask; }
+
+            set { SetProperty(ref _selectedTask, value); }
+        }
+
+        public float _consumed;
+        public float Consumed
+        {
+            get { return _consumed; }
+
+            set { SetProperty(ref _consumed, value); }
+        }
+
+        public float _desviation;
+        public float Desviation
+        {
+            get { return _desviation; }
+
+            set { SetProperty(ref _desviation, value); }
         }
 
         private bool _confirmVisibility;
@@ -35,7 +89,7 @@ namespace AppTokiota.Users.Components.Activity
         protected void GoBack()
         {
             var navigationParameters = new NavigationParameters();
-            navigationParameters.Add(TimesheetForDay.Tag, _currentTimesheetForDay);
+            navigationParameters.Add(Imputed.Tag, Context);
             BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityTimeDesviationPage>(), navigationParameters, false, false);
         }
         #endregion
@@ -57,8 +111,9 @@ namespace AppTokiota.Users.Components.Activity
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
-            _currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
-            Title = _currentTimesheetForDay.Day.Date.ToString("dd-MM-yyyy");
+            _context = parameters.GetValue<Imputed>(Imputed.Tag);
+            Projects = _context.CurrentTimesheet.Projects;
+            Title = _context.CurrentTimesheet.Day.Date.ToString("dd-MM-yyyy");
 
         }
     }

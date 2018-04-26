@@ -92,15 +92,23 @@
             <StackLayout Grid.Row="1"   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource WhiteColor}">
                 <Grid Padding="10,10,0,0" >
                     <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="2.5*"/>
+                    <RowDefinition Height="2.5*"/>
+                    <RowDefinition Height="5*"/>
                     </Grid.RowDefinitions>
                     
-                        <Picker Grid.Row="0" Title="Projects" HorizontalOptions="FillAndExpand" ItemsSource="{Binding CurrentTimesheetForDay.Projects}" TextColor="{StaticResource SecondaryTextColor}">
+                        <Picker Grid.Row="0" Title="Projects" HorizontalOptions="FillAndExpand" 
+                                ItemsSource="{Binding Projects}" 
+                                ItemDisplayBinding="{Binding DisplayName}"
+                                SelectedItem="{Binding SelectedProject}"
+                                TextColor="{StaticResource SecondaryTextColor}">
                         </Picker>
 
-                        <Picker Grid.Row="1" Title="Tasks" HorizontalOptions="FillAndExpand" ItemsSource="{Binding CurrentTimesheetForDay.Projects}" TextColor="{StaticResource SecondaryTextColor}">
+                        <Picker Grid.Row="1" Title="Tasks" HorizontalOptions="FillAndExpand" 
+                                ItemsSource="{Binding Tasks}"                                 
+                                ItemDisplayBinding="{Binding DisplayName}"
+                                SelectedItem="{Binding SelectedTask}"
+                                TextColor="{StaticResource SecondaryTextColor}">
                         </Picker>
 
                         <controls:ExtendedEditor VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
@@ -167,7 +175,7 @@
                 x:Name="ImputationConfirm"
                 Grid.Row="3"
                 IsVisible="{Binding ConfirmVisibility, Mode=TwoWay}"
-                BackgroundColor="{StaticResource BlueColor}"
+                BackgroundColor="{StaticResource RedColor}"
                 Padding="20"
                 >
                 <Grid.Triggers>

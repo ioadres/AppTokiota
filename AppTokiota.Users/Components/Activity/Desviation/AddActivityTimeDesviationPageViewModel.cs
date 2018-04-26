@@ -16,10 +16,10 @@ namespace AppTokiota.Users.Components.Activity
         protected readonly IAddActivityModule _addActivityModule;
         #endregion
 
-        private Models.TimesheetForDay _currentTimesheetForDay;
-        public Models.TimesheetForDay CurrentTimesheetForDay
+        private Models.Imputed _context;
+        public Models.Imputed Context
         {
-            get { return _currentTimesheetForDay; }
+            get { return _context; }
         }
 
         private bool _timeImputationEntryVisibility;
@@ -89,7 +89,7 @@ namespace AppTokiota.Users.Components.Activity
         protected void GoBack()
         {
             var navigationParameters = new NavigationParameters();
-            navigationParameters.Add(TimesheetForDay.Tag, _currentTimesheetForDay);
+            navigationParameters.Add(Imputed.Tag, Context);
             BaseModule.NavigationService.NavigateAsync($"../{PageRoutes.GetKey<AddActivityPage>()}",navigationParameters,false, false);
         }
         #endregion
@@ -107,7 +107,7 @@ namespace AppTokiota.Users.Components.Activity
         protected async void Next()
         {
             var navigationParameters = new NavigationParameters();
-            navigationParameters.Add(TimesheetForDay.Tag, _currentTimesheetForDay);
+            navigationParameters.Add(Imputed.Tag, Context);
             await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityProjectPage>(), navigationParameters, false, false);
         }
 
@@ -124,8 +124,8 @@ namespace AppTokiota.Users.Components.Activity
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
-            _currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
-            Title = _currentTimesheetForDay.Day.Date.ToString("dd-MM-yyyy");
+            _context = parameters.GetValue<Imputed>(Imputed.Tag);
+            Title = _context.CurrentTimesheet.Day.Date.ToString("dd-MM-yyyy");
             
         }
 

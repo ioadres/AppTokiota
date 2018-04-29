@@ -5,6 +5,7 @@ using AppTokiota.Users.Components.Login;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Xamarin.Forms;
 
 namespace AppTokiota.Users.Components.Core
 {
@@ -14,7 +15,15 @@ namespace AppTokiota.Users.Components.Core
         public bool IsBusy
         {
             get { return _isBusy; }
-            set { SetProperty(ref _isBusy, value); }
+            set { SetProperty(ref _isBusy, value);
+                if(value) {
+                    Device.BeginInvokeOnMainThread(() => BaseModule.DialogService.ShowLoading());
+                }
+                else {
+                    BaseModule.DialogService.HideLoading();
+                }
+
+            }
         }
 
         private string _title;

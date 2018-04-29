@@ -17,13 +17,14 @@ namespace AppTokiota.Users.Services
             } else
             {
                 containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
-                containerRegistry.Register<ITimesheetService, TimesheetService>();
+                containerRegistry.RegisterSingleton<ITimesheetService, TimesheetService>();
             }
 
-            containerRegistry.Register<ICalendarService, CalendarService>();
+            containerRegistry.RegisterSingleton<IDialogService, DialogService>();
+            containerRegistry.RegisterSingleton<ICacheEntity, AkavacheEntity>();
+            containerRegistry.RegisterSingleton<ICalendarService, CalendarService>();
+
             containerRegistry.Register<IRequestService, RequestService>();
-            containerRegistry.Register<IDialogService, DialogService>();
-            containerRegistry.Register<ICacheEntity, AkavacheEntity>();
         }
     }
 }

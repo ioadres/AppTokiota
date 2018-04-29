@@ -55,7 +55,10 @@ namespace AppTokiota.Users.Components.Activity
         public DelegateCommand<Dictionary<string, string>> TimeImputationCommand => new DelegateCommand<Dictionary<string, string>>(TimeImputationAction);
         protected void TimeImputationAction(Dictionary<string, string> response)
         {
-            TimeSelectedImputation = response["Format"];
+            
+            Context.Consumed.Minute = float.Parse(response["Minute"]);
+            Context.Consumed.Hour = float.Parse(response["Hour"]);
+            TimeSelectedImputation = Context.Consumed.ToString();
             TimeTitleImputationEntryVisibility = true;
         }
         #endregion
@@ -81,8 +84,6 @@ namespace AppTokiota.Users.Components.Activity
         public DelegateCommand NextCommand => new DelegateCommand(Next);
         protected async void Next()
         {
-           // Context.Consumed = TimeSelectedImputation;
-
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add(Imputed.Tag, Context);
             await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityTimeDesviationPage>(), navigationParameters, false, false);
@@ -94,16 +95,14 @@ namespace AppTokiota.Users.Components.Activity
         public AddActivityPageViewModel(IViewModelBaseModule baseModule, IAddActivityModule addActivityModule) : base(baseModule)
         {
             _addActivityModule = addActivityModule;
-
-            Title = "New Activity";
-            TimeSelectedImputation = "0h 0m";
+            Title = "Select Consumed";
             TimeTitleImputationEntryVisibility = true;
         }
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
             _context = parameters.GetValue<Imputed>(Imputed.Tag);
-            Title = _context.CurrentTimesheet.Day.Date.ToString("dd-MM-yyyy");
+            TimeSelectedImputation = Context.Consumed.ToString();
         }
 
         public override void OnNavigatedFrom(NavigationParameters parameters)

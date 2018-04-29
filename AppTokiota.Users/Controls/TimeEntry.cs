@@ -80,7 +80,6 @@ namespace AppTokiota.Users.Controls
             Response = new Dictionary<string, string>();
             Response.Add("Hour", "");
             Response.Add("Minute", "");
-            Response.Add("Format", "");
 
             CreatedHours();
             CreatedMinutes();
@@ -200,7 +199,6 @@ namespace AppTokiota.Users.Controls
 
             Response["Hour"] = SelectedHour.Value;
             Response["Minute"] = SelectedMinute.Value;
-            Response["Format"] = SelectedHour.Value + "h " + SelectedMinute.Value + "m";
 
             SelectedTimeCommand?.Execute(Response);
         }

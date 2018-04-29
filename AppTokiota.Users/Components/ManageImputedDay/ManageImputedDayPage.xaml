@@ -14,7 +14,7 @@
     Title="{Binding Title}"
     >
     <ContentPage.ToolbarItems> 
-        <ToolbarItem Text="Add" IsEnabled="{Binding IsEnable}" Command="{Binding OnAddItemCommand}"/>
+        <ToolbarItem Text="Add" IsEnabled="{Binding IsEnable}"  Command="{Binding OnAddItemCommand}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Resources>
@@ -136,6 +136,6 @@
                 </DataTemplate>
               </ListView.ItemTemplate>
             </ListView>
-        </Grid>
+            </Grid>
     </ContentPage.Content>
 </ContentPage>

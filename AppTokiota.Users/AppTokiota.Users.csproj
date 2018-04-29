@@ -34,10 +34,14 @@
 
 	<ItemGroup>
 	  <Folder Include="Components\ManageImputedDay\" />
-	  <Folder Include="Models\Timesheet\ByDay\" />
+	  <Folder Include="Models\Timesheet\AddImputation\" />
 	  <Folder Include="Components\Core\Module\Base\" />
 	  <Folder Include="Components\Core\ViewModel\" />
 	  <Folder Include="Animations\" />
+	  <Folder Include="Models\Timesheet\ApiTimesheet\" />
+	  <Folder Include="Models\Oauth\" />
+	  <Folder Include="Models\Login\" />
+	  <Folder Include="Models\Menu\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Components\Activity\NavigationPage\ActivityNavigationPage.xaml.cs">

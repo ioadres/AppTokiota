@@ -171,14 +171,6 @@
                 </Button>
             </Grid>
 
-            <ActivityIndicator 
-                    Grid.Row="2"
-                    Color="{StaticResource RedColor}"
-                    HorizontalOptions="Center"
-                    IsRunning="{Binding IsBusy}" 
-                    IsVisible="{Binding IsBusy}" />
-
-
             <Label Grid.Row="3"
                        TextColor="{StaticResource WhiteColor}" 
                        Text="Copyright © 2012 Tokiota. Todos los derechos reservados."
@@ -201,7 +193,6 @@
                                 Phone="CenterAndExpand"/>
                 </Label.VerticalOptions>
             </Label>
-
         </Grid>
     </ContentPage.Content>
 </ContentPage>

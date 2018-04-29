@@ -20,10 +20,13 @@ namespace AppTokiota.Users.Components.Splash
         {
             Title = "Splash";
             _splashModule = splashModule;
-            
+
+            IsBusy = true;
+
             Device.StartTimer(new TimeSpan(0, 0, 3), () =>
             {
                 AuthenticationRun();
+                IsBusy = false;
                 return false;
             });
         }

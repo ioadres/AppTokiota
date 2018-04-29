@@ -119,15 +119,18 @@ namespace AppTokiota.Users.Components.ManageImputedDay
 
         }
 
-        private async void UpdateDayOfTimesheet(TimesheetForDay timesheet) {
-            await Task.Run(() =>
-            {
+        private void UpdateDayOfTimesheet(TimesheetForDay timesheet)
+        {          
+            IsBusy = true;
+            Device.BeginInvokeOnMainThread(() => {
                 Activities = new ObservableCollection<ActivityDay>(timesheet.Activities);
                 ImputedTotal = Activities.Sum(x => x.Imputed);
                 DesviationTotal = Activities.Sum(x => x.Deviation);
                 _currentTimesheetForDay = timesheet;
                 IsEnable = !_currentTimesheetForDay.Day.IsClosed;
+                IsBusy = false;
             });
+            
         }
 
 

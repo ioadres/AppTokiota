@@ -10,14 +10,7 @@ using System;
 using Plugin.Connectivity;
 using AppTokiota.Users.Components.Login;
 using AppTokiota.Users.Components.Connection;
-using AppTokiota.Users.Components;
-using Prism.Navigation;
 using AppTokiota.Users.Components.Master;
-using System.Runtime.InteropServices;
-using Prism.Mvvm;
-using System.Globalization;
-using System.Reflection;
-using Prism.Modularity;
 using System.Threading.Tasks;
 using AppTokiota.Users.Components.DashBoard;
 
@@ -27,8 +20,6 @@ namespace AppTokiota.Users
 
     public partial class App : PrismApplication
     {
-        private IAuthenticationService _authenticationService;
-
         /* 
          * NOTE: 
          * The Xamarin Forms XAML Previewer in Visual Studio uses System.Activator.CreateInstance.
@@ -42,8 +33,6 @@ namespace AppTokiota.Users
             InitializeComponent();
 
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
-            _authenticationService = Container.Resolve<IAuthenticationService>();
-
             BlobCache.ApplicationName = AppSettings.IdAppCache;
             await NavigationService.NavigateAsync(PageRoutes.GetKey<SplashPage>());
         }
@@ -90,12 +79,13 @@ namespace AppTokiota.Users
         {
             try
             {    
-                var result = await _authenticationService.UserIsAuthenticatedAndValidAsync();
+                var authenticationService = Container.Resolve<IAuthenticationService>();
+                var result = await authenticationService.UserIsAuthenticatedAndValidAsync();
                 if (!result)
                 {
                     await NavigationService.NavigateAsync(PageRoutes.GetKey<LoginPage>());
                 } else {
-                    if(_authenticationService.IsAuthenticated && isConnectivityChange) {
+                    if(authenticationService.IsAuthenticated && isConnectivityChange) {
                         await NavigationService.NavigateAsync(MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<DashBoardPage>()));
                     } 
                 }

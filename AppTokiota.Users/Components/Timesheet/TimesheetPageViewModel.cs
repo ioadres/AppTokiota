@@ -14,6 +14,7 @@ using Plugin.DeviceOrientation;
 using AppTokiota.Users.Components;
 using AppTokiota.Users.Models;
 using AppTokiota.Users.Components.ManageImputedDay;
+using AppTokiota.Users.Components.Activity;
 
 namespace AppTokiota.Users.Components.Timesheet
 {
@@ -29,7 +30,6 @@ namespace AppTokiota.Users.Components.Timesheet
             _timesheetModule = timesheetModule;
            
             Title = "Timesheet";
-            _isVisibleFooter = true;
 
             DateTime date = DateTime.Now;
             _dates = new ObservableCollection<DateTime>();
@@ -171,6 +171,27 @@ namespace AppTokiota.Users.Components.Timesheet
         }
         #endregion
 
+        #region NavigateToManageImputedDay
+        public DelegateCommand ManageMultipleImputedDayCommand => new DelegateCommand(ManageMultipleImputedDay);
+        protected async void ManageMultipleImputedDay()
+        {
+            var selectedDateTimesheet = _timesheetModule.TimesheetService.GetTimesheetByDates(_currentTimesheet, Dates.ToList());
+
+            if(selectedDateTimesheet.Days.Any()) {
+                var imputed = new Imputed()
+                {
+                    CurrentTimesheetMultipleDay = selectedDateTimesheet
+                };
+
+                var navigationParameters = new NavigationParameters();
+                navigationParameters.Add(Imputed.Tag, imputed);
+                await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters);
+            } else {
+                BaseModule.DialogService.ShowToast("The all days selected is closed");
+            }           
+        }
+        #endregion
+
         #region MethodToLoadSpecialDatesFromTheSelectionMonthInCalendar
         protected void LoadSpecialDatesAsync(DateTime from, DateTime to)
         {
@@ -187,6 +208,7 @@ namespace AppTokiota.Users.Components.Timesheet
                 }
                 catch (Exception ex)
                 {
+                    IsBusy = false;
                     Debug.WriteLine($"[Booking] Error: {ex}");
 
                     await BaseModule.DialogService.ShowAlertAsync(
@@ -199,5 +221,16 @@ namespace AppTokiota.Users.Components.Timesheet
         #endregion
 
 
-    }
+        public override void OnNavigatedTo(NavigationParameters parameters)
+        {
+            IsMultiple = Dates.Count() > 1;
+            IsNotMultiple = Dates.Count() == 1;
+            IsVisibleFooter = Dates.Count() == 0;
+
+            if (Dates.Any())
+            {
+            }
+        }
+
+	}
 }

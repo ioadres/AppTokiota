@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>AppTokiota.Droid</RootNamespace>
     <AssemblyName>AppTokiota.Droid</AssemblyName>
-    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -307,7 +307,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
     <AndroidResource Include="Resources\drawable\login_background.png" />
-    <AndroidResource Include="Resources\drawable\login_background_menu.png" />
     <AndroidResource Include="Resources\drawable\logo.png" />
     <AndroidResource Include="Resources\drawable\logo_horizontal.png" />
     <AndroidResource Include="Resources\layout\Tabbar.axml" />
@@ -316,6 +315,12 @@
     <AndroidResource Include="Resources\drawable-hdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\login_background_menu.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\login_background_menu.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\login_background_menu.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\login_background_menu.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\login_background_menu.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\login_background_menu.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppTokiota.Users\AppTokiota.Users.csproj">

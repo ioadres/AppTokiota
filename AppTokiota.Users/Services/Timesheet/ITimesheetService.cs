@@ -12,5 +12,6 @@ namespace AppTokiota.Users.Services
     {
         Task<Timesheet> GetTimesheetBeetweenDates(DateTime from, DateTime To);
         TimesheetForDay GetTimesheetByDate(Timesheet currentTimesheet, DateTime dateTime);
+        TimesheetForMultipleDay GetTimesheetByDates(Timesheet currentTimesheet, List<DateTime> dateTimes);
 	}
 }

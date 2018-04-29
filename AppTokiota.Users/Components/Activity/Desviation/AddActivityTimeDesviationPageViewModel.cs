@@ -69,7 +69,9 @@ namespace AppTokiota.Users.Components.Activity
         public DelegateCommand<Dictionary<string, string>> TimeImputationCommand => new DelegateCommand<Dictionary<string, string>>(TimeImputationAction);
         protected void TimeImputationAction(Dictionary<string, string> response)
         {
-            TimeSelectedImputation = response["Format"];
+            Context.Desviation.Minute = float.Parse(response["Minute"]);
+            Context.Desviation.Hour = float.Parse(response["Hour"]);
+            TimeSelectedImputation = Context.Desviation.ToString();
             TimeTitleImputationEntryVisibility = true;
         }
         #endregion
@@ -116,17 +118,14 @@ namespace AppTokiota.Users.Components.Activity
         public AddActivityTimeDesviationPageViewModel(IViewModelBaseModule baseModule, IAddActivityModule addActivityModule) : base(baseModule)
         {
             _addActivityModule = addActivityModule;
-
-            Title = "New Activity";
-            TimeSelectedImputation = "0h 0m";
+            Title = "Select Desviation";
             TimeTitleImputationEntryVisibility = true;
         }
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
             _context = parameters.GetValue<Imputed>(Imputed.Tag);
-            Title = _context.CurrentTimesheet.Day.Date.ToString("dd-MM-yyyy");
-            
+            TimeSelectedImputation = Context.Desviation.ToString();
         }
 
         public override void OnNavigatedFrom(NavigationParameters parameters)

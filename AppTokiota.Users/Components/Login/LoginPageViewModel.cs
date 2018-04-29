@@ -53,8 +53,6 @@ namespace AppTokiota.Users.Components.Login
         public DelegateCommand SignInCommand => new DelegateCommand(SignIn);
         private async void SignIn()
         {
-            if (IsBusy) return;
-
             try
             {
                 IsBusy = true;
@@ -67,6 +65,7 @@ namespace AppTokiota.Users.Components.Login
                     }
                     else
                     {
+                        IsBusy = false;
                         await BaseModule.DialogService.ShowAlertAsync(responseRequest.Message, "Login error", "Ok");
                     }
                 }

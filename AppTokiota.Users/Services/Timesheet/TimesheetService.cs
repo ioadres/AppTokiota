@@ -12,7 +12,7 @@ using Prism.Navigation;
 namespace AppTokiota.Users.Services
 {
 
-    public class TimesheetService : ITimesheetService
+    public class TimesheetService : TimesheetServiceBase, ITimesheetService
     {
         private IRequestService _requestService;
         private ICacheEntity _cacheService;
@@ -29,15 +29,6 @@ namespace AppTokiota.Users.Services
             var url = $"{AppSettings.TimesheetUrlEndPoint}from={from.ToString("yyyy-MM-dd")}&to={to.ToString("yyyy-MM-dd")}";
             var timesheet = await _requestService.GetAsync<Timesheet>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
             return timesheet;
-        }
-
-        public TimesheetForDay GetTimesheetByDate(Timesheet currentTimesheet, DateTime dateTime)
-        {
-            var timesheetForDay = new TimesheetForDay();
-            timesheetForDay.Day = currentTimesheet.Days.FirstOrDefault(x => x.Date.Equals(dateTime));
-            timesheetForDay.Projects = currentTimesheet.Projects.Values.ToList();
-            timesheetForDay.Activities = TimesheetForDay.Map(currentTimesheet, dateTime).OrderBy(x=>x.Id).ToList();
-            return timesheetForDay;
         }
     }
 }

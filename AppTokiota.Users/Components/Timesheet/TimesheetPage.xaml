@@ -231,11 +231,11 @@
                 </Grid.ColumnDefinitions>
                 <StackLayout Grid.Column="0" Padding="10" >
                     <Label Text="Imputed" Style="{StaticResource FooterTextStyle}" />
-                    <Label Text="Desviation" Style="{StaticResource FooterTextStyle}"/>
+                    <Label Text="Deviation" Style="{StaticResource FooterTextStyle}"/>
                 </StackLayout>
                 <StackLayout Grid.Column="1" Padding="10">
                     <Label Text="{Binding ImputedTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
-                    <Label Text="{Binding DesviationTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
+                    <Label Text="{Binding DeviationTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
                 </StackLayout>
            </Grid>
                 

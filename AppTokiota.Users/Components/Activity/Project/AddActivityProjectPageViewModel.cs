@@ -64,17 +64,17 @@ namespace AppTokiota.Users.Components.Activity
                 if (ConfirmVisibility == false) ConfirmVisibility = true;
                 if(_selectedTask == null )  {
                     Consumed = 0;
-                    Desviation = 0;
+                    Deviation = 0;
                     ConfirmVisibility = false; 
                 }
                 if(_selectedTask != null && Context.CurrentTimesheet != null) {
                     Consumed = _selectedTask.Consumed + Context.Consumed.GetMimutes();
-                    Desviation = _selectedTask.Deviation + Context.Desviation.GetMimutes();
+                    Deviation = _selectedTask.Deviation + Context.Deviation.GetMimutes();
                 }
                 if (_selectedTask != null && Context.CurrentTimesheetMultipleDay != null)
                 {
                     Consumed = _selectedTask.Consumed + (Context.Consumed.GetMimutes() * Context.CurrentTimesheetMultipleDay.Days.Count());
-                    Desviation = _selectedTask.Deviation + (Context.Desviation.GetMimutes() * Context.CurrentTimesheetMultipleDay.Days.Count());
+                    Deviation = _selectedTask.Deviation + (Context.Deviation.GetMimutes() * Context.CurrentTimesheetMultipleDay.Days.Count());
                 }
             }
         }
@@ -87,12 +87,12 @@ namespace AppTokiota.Users.Components.Activity
             set { SetProperty(ref _consumed, value); }
         }
 
-        public float _desviation;
-        public float Desviation
+        public float _deviation;
+        public float Deviation
         {
-            get { return _desviation; }
+            get { return _deviation; }
 
-            set { SetProperty(ref _desviation, value); }
+            set { SetProperty(ref _deviation, value); }
         }
 
         private bool _confirmVisibility;

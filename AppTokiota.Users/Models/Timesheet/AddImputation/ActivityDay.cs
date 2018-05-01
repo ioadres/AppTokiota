@@ -3,7 +3,9 @@ namespace AppTokiota.Users.Models
 {
     public class ActivityDay
     {
-        public int Id { get; set; }
+        public static string Tag = nameof(ActivityDay);
+
+		public int Id { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public double Deviation { get; set; }

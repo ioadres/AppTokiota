@@ -42,6 +42,7 @@
 	  <Folder Include="Models\Oauth\" />
 	  <Folder Include="Models\Login\" />
 	  <Folder Include="Models\Menu\" />
+	  <Folder Include="Components\ManageImputedDay\InfoActivity\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Components\Activity\NavigationPage\ActivityNavigationPage.xaml.cs">

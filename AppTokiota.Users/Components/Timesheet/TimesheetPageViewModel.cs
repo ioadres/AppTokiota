@@ -113,14 +113,14 @@ namespace AppTokiota.Users.Components.Timesheet
 
 
         /// <summary>
-        /// Gets or sets the Total Desviation 
+        /// Gets or sets the Total Deviation 
         /// </summary>
-        /// <value>The Total Desviation</value>
-        private double _desviationTotal;
-        public double DesviationTotal
+        /// <value>The Total Deviation</value>
+        private double _deviationTotal;
+        public double DeviationTotal
         {
-            get { return _desviationTotal; }
-            set { SetProperty(ref _desviationTotal, value); }
+            get { return _deviationTotal; }
+            set { SetProperty(ref _deviationTotal, value); }
         }
 
         /// <summary>

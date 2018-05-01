@@ -11,11 +11,11 @@ namespace AppTokiota.Users.Models
         public TimesheetForMultipleDay CurrentTimesheetMultipleDay { get; set; }
 
         public Time Consumed { get; set; }
-        public Time Desviation { get; set; }
+        public Time Deviation { get; set; }
 
         public Imputed() {
             Consumed = new Time();
-            Desviation = new Time();
+            Deviation = new Time();
         }
     }
 

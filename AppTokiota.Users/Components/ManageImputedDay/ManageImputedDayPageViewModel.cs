@@ -33,11 +33,11 @@ namespace AppTokiota.Users.Components.ManageImputedDay
             get { return _currentTimesheetForDay; }
         }
 
-        private bool _isEnable;
-        public bool IsEnable
+        private bool _isEnabled;
+        public bool IsEnabled
         {
-            get { return _isEnable; }
-            set { SetProperty(ref _isEnable, value); }
+            get { return _isEnabled; }
+            set { SetProperty(ref _isEnabled, value); }
         }
 
         /// <summary>
@@ -52,14 +52,14 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         }
 
         /// <summary>
-        /// Gets or sets the Total Desviation 
+        /// Gets or sets the Total DeviationTotal 
         /// </summary>
-        /// <value>The Total Desviation</value>
-        private double _desviationTotal;
-        public double DesviationTotal
+        /// <value>The Total DeviationTotal</value>
+        private double _deviationTotal;
+        public double DeviationTotal
         {
-            get { return _desviationTotal; }
-            set { SetProperty(ref _desviationTotal, value); }
+            get { return _deviationTotal; }
+            set { SetProperty(ref _deviationTotal, value); }
         }
 
         /// <summary>
@@ -82,14 +82,6 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         }
         #endregion
 
-        #region EventOnEditItem
-        public DelegateCommand<object> OnEditItemCommand => new DelegateCommand<object>((obj) => { OnEditItem((TimesheetForDay)obj); });
-        protected void OnEditItem(TimesheetForDay from)
-        {
-
-        }
-        #endregion
-
         #region EventOnAddItem
         public DelegateCommand OnAddItemCommand => new DelegateCommand(() => OnAddItem());
         protected async void OnAddItem()
@@ -100,7 +92,17 @@ namespace AppTokiota.Users.Components.ManageImputedDay
                 CurrentTimesheet = _currentTimesheetForDay
             };
             navigationParameters.Add(Imputed.Tag, imputedContext);
-            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters, false, true);
+            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters, false, true);           
+        }
+        #endregion
+
+        #region EventOnInfoActivityItemCommand
+        public DelegateCommand<object> OnInfoActivityItemCommand => new DelegateCommand<object>((obj) => { OnInfoActivityItem((ActivityDay)obj); });
+        protected void OnInfoActivityItem(ActivityDay from)
+        {
+            var navigationParameters = new NavigationParameters();
+            navigationParameters.Add(ActivityDay.Tag, from);
+            BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<InfoActivityPopUpPage>(), navigationParameters, true, true);
         }
         #endregion
 
@@ -108,31 +110,25 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         {
             var keyContains = parameters.ContainsKey(TimesheetForDay.Tag);
             if(keyContains) {
-                _currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
-                UpdateDayOfTimesheet(_currentTimesheetForDay);
-                Title = _currentTimesheetForDay.Day.Date.ToString("yyyy-MM-dd");
+                var currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
+                UpdateDayOfTimesheet(currentTimesheetForDay);
+                Title = currentTimesheetForDay.Day.Date.ToString("yyyy-MM-dd");
             }
         }
 
-        public override void OnNavigatedFrom(NavigationParameters parameters)
-        {
-
-        }
-
         private void UpdateDayOfTimesheet(TimesheetForDay timesheet)
-        {          
-            IsBusy = true;
-            Device.BeginInvokeOnMainThread(() => {
+        {
+            _currentTimesheetForDay = timesheet;
+
+            Device.BeginInvokeOnMainThread(() =>
+            {
                 Activities = new ObservableCollection<ActivityDay>(timesheet.Activities);
                 ImputedTotal = Activities.Sum(x => x.Imputed);
-                DesviationTotal = Activities.Sum(x => x.Deviation);
-                _currentTimesheetForDay = timesheet;
-                IsEnable = !_currentTimesheetForDay.Day.IsClosed;
-                IsBusy = false;
-            });
-            
-        }
+                DeviationTotal = Activities.Sum(x => x.Deviation);
 
+                IsEnabled = !_currentTimesheetForDay.Day.IsClosed;
+            });
+        }
 
     }
 }

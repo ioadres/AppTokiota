@@ -161,8 +161,8 @@
                     <Image Source="suma.png" Aspect="AspectFill" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center"/>
 
                     <StackLayout Grid.Row="0" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" Padding="5">
-                        <Label Text="TOTAL DESVIATION" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center"></Label>
-                        <Label Text="{Binding Desviation, Converter={StaticResource cnvFormatTimeMinutesToStringEntry}}" Style="{StaticResource TitleH2Style}" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="TOTAL DEVIATION" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="{Binding Deviation, Converter={StaticResource cnvFormatTimeMinutesToStringEntry}}" Style="{StaticResource TitleH2Style}" HorizontalTextAlignment="Center"></Label>
                     </StackLayout>
 
                     <StackLayout Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" Padding="5">
@@ -173,8 +173,8 @@
                     <Image Source="Clock.png" Aspect="AspectFill" Grid.Row="1" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center"/>
 
                     <StackLayout Grid.Row="1" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" Padding="5">
-                        <Label Text="DESVIATION TIME" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center"></Label>
-                        <Label Text="{Binding Context.Desviation, Converter={StaticResource cnvFormatTimeEntry}}" Style="{StaticResource TitleH2Style}" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="DEVIATION TIME" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="{Binding Context.Deviation, Converter={StaticResource cnvFormatTimeEntry}}" Style="{StaticResource TitleH2Style}" HorizontalTextAlignment="Center"></Label>
                     </StackLayout>
 
                 </Grid>

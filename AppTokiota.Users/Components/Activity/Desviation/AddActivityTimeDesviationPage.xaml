@@ -110,7 +110,7 @@
                         <RowDefinition Height="7*"/>
                     </Grid.RowDefinitions>
                     
-                    <Label Grid.Row="0" Style="{StaticResource TitleH2Style}" Text="Please select the Desviation Time" HorizontalTextAlignment="Center"></Label>
+                    <Label Grid.Row="0" Style="{StaticResource TitleH2Style}" Text="Please select the Deviation Time" HorizontalTextAlignment="Center"></Label>
                     <Button Grid.Row="2" Style="{StaticResource ButtonSecundary}" WidthRequest="150" Text="Select Time" Command="{Binding TimeImputedOpenCommand}" VerticalOptions="Center" HorizontalOptions="Center"></Button>
 
                     <BoxView Grid.Row="3" VerticalOptions="FillAndExpand"></BoxView>

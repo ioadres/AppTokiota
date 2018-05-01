@@ -43,11 +43,11 @@ namespace AppTokiota.Users.Components.Activity
             set { SetProperty(ref _timeTitleImputationEntryVisibility, value); }
         }
 
-        private bool _timeDesviationEntryVisibility;
-        public bool TimeDesviationEntryVisibility
+        private bool _timeDeviationEntryVisibility;
+        public bool TimeDeviationEntryVisibility
         {
-            get { return _timeDesviationEntryVisibility; }
-            set { SetProperty(ref _timeDesviationEntryVisibility, value); }
+            get { return _timeDeviationEntryVisibility; }
+            set { SetProperty(ref _timeDeviationEntryVisibility, value); }
         }
 
         private string _timeSelectedImputation;
@@ -57,11 +57,11 @@ namespace AppTokiota.Users.Components.Activity
             set { SetProperty(ref _timeSelectedImputation, value); }
         }
 
-        private string _timeSelectedDesviation;
-        public string TimeSelectedDesviation
+        private string _timeSelectedDeviation;
+        public string TimeSelectedDeviation
         {
-            get { return _timeSelectedDesviation; }
-            set { SetProperty(ref _timeSelectedDesviation, value); }
+            get { return _timeSelectedDeviation; }
+            set { SetProperty(ref _timeSelectedDeviation, value); }
         }
 
 
@@ -69,9 +69,9 @@ namespace AppTokiota.Users.Components.Activity
         public DelegateCommand<Dictionary<string, string>> TimeImputationCommand => new DelegateCommand<Dictionary<string, string>>(TimeImputationAction);
         protected void TimeImputationAction(Dictionary<string, string> response)
         {
-            Context.Desviation.Minute = float.Parse(response["Minute"]);
-            Context.Desviation.Hour = float.Parse(response["Hour"]);
-            TimeSelectedImputation = Context.Desviation.ToString();
+            Context.Deviation.Minute = float.Parse(response["Minute"]);
+            Context.Deviation.Hour = float.Parse(response["Hour"]);
+            TimeSelectedImputation = Context.Deviation.ToString();
             TimeTitleImputationEntryVisibility = true;
         }
         #endregion
@@ -118,14 +118,14 @@ namespace AppTokiota.Users.Components.Activity
         public AddActivityTimeDesviationPageViewModel(IViewModelBaseModule baseModule, IAddActivityModule addActivityModule) : base(baseModule)
         {
             _addActivityModule = addActivityModule;
-            Title = "Select Desviation";
+            Title = "Select Deviation";
             TimeTitleImputationEntryVisibility = true;
         }
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
             _context = parameters.GetValue<Imputed>(Imputed.Tag);
-            TimeSelectedImputation = Context.Desviation.ToString();
+            TimeSelectedImputation = Context.Deviation.ToString();
         }
 
         public override void OnNavigatedFrom(NavigationParameters parameters)

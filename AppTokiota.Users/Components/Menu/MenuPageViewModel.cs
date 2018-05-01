@@ -14,6 +14,7 @@ using AppTokiota.Users.Components.Master;
 using AppTokiota.Users.Components.Timesheet;
 using AppTokiota.Users.Components;
 using AppTokiota.Users.Components.DashBoard;
+using AppTokiota.Users.Components.Review;
 
 namespace AppTokiota.Users.Components.Menu
 {
@@ -81,6 +82,12 @@ namespace AppTokiota.Users.Components.Menu
                 Icon = "\uf073",
                 Title = "Timesheet",
                 PageName = MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<TimesheetPage>())
+            });
+            MenuList.Add(new MenuItem()
+            {
+                Icon = "\uf06e",
+                Title = "Review",
+                PageName = MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<ReviewPage>())
             });
             MenuList.Add(new MenuItem()
             {

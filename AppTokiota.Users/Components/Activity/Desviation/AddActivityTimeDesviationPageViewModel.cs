@@ -16,10 +16,10 @@ namespace AppTokiota.Users.Components.Activity
         protected readonly IAddActivityModule _addActivityModule;
         #endregion
 
-        private Models.TimesheetForDay _currentTimesheetForDay;
-        public Models.TimesheetForDay CurrentTimesheetForDay
+        private Models.Imputed _context;
+        public Models.Imputed Context
         {
-            get { return _currentTimesheetForDay; }
+            get { return _context; }
         }
 
         private bool _timeImputationEntryVisibility;
@@ -43,11 +43,11 @@ namespace AppTokiota.Users.Components.Activity
             set { SetProperty(ref _timeTitleImputationEntryVisibility, value); }
         }
 
-        private bool _timeDesviationEntryVisibility;
-        public bool TimeDesviationEntryVisibility
+        private bool _timeDeviationEntryVisibility;
+        public bool TimeDeviationEntryVisibility
         {
-            get { return _timeDesviationEntryVisibility; }
-            set { SetProperty(ref _timeDesviationEntryVisibility, value); }
+            get { return _timeDeviationEntryVisibility; }
+            set { SetProperty(ref _timeDeviationEntryVisibility, value); }
         }
 
         private string _timeSelectedImputation;
@@ -57,11 +57,11 @@ namespace AppTokiota.Users.Components.Activity
             set { SetProperty(ref _timeSelectedImputation, value); }
         }
 
-        private string _timeSelectedDesviation;
-        public string TimeSelectedDesviation
+        private string _timeSelectedDeviation;
+        public string TimeSelectedDeviation
         {
-            get { return _timeSelectedDesviation; }
-            set { SetProperty(ref _timeSelectedDesviation, value); }
+            get { return _timeSelectedDeviation; }
+            set { SetProperty(ref _timeSelectedDeviation, value); }
         }
 
 
@@ -69,7 +69,9 @@ namespace AppTokiota.Users.Components.Activity
         public DelegateCommand<Dictionary<string, string>> TimeImputationCommand => new DelegateCommand<Dictionary<string, string>>(TimeImputationAction);
         protected void TimeImputationAction(Dictionary<string, string> response)
         {
-            TimeSelectedImputation = response["Format"];
+            Context.Deviation.Minute = float.Parse(response["Minute"]);
+            Context.Deviation.Hour = float.Parse(response["Hour"]);
+            TimeSelectedImputation = Context.Deviation.ToString();
             TimeTitleImputationEntryVisibility = true;
         }
         #endregion
@@ -78,30 +80,52 @@ namespace AppTokiota.Users.Components.Activity
         public DelegateCommand TimeImputedOpenCommand => new DelegateCommand(TimeImputedOpen);
         protected void TimeImputedOpen()
         {
+
+            TimeTitleImputationEntryVisibility = false;
             TimeImputationEntryVisibility = !TimeImputationEntryVisibility;
         }
         #endregion
-        #region CloseAction
-        public DelegateCommand ClosePopupCommand => new DelegateCommand(ClosePopup);
-        protected void ClosePopup()
+
+        #region GoBack
+        public DelegateCommand GoBackCommand => new DelegateCommand(GoBack);
+        protected void GoBack()
         {
-            PopupNavigation.PopAllAsync();
+            var navigationParameters = new NavigationParameters();
+            navigationParameters.Add(Imputed.Tag, Context);
+            BaseModule.NavigationService.NavigateAsync($"../{PageRoutes.GetKey<AddActivityPage>()}",navigationParameters,false, false);
+        }
+        #endregion
+
+        #region CloseAction
+        public DelegateCommand CloseCommand => new DelegateCommand(Close);
+        protected void Close()
+        {
             BaseModule.NavigationService.GoBackAsync();
         }
+        #endregion
+
+        #region NextAction
+        public DelegateCommand NextCommand => new DelegateCommand(Next);
+        protected async void Next()
+        {
+            var navigationParameters = new NavigationParameters();
+            navigationParameters.Add(Imputed.Tag, Context);
+            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityProjectPage>(), navigationParameters, false, false);
+        }
+
         #endregion
 
         public AddActivityTimeDesviationPageViewModel(IViewModelBaseModule baseModule, IAddActivityModule addActivityModule) : base(baseModule)
         {
             _addActivityModule = addActivityModule;
-
-            Title = "New Activity";
+            Title = "Select Deviation";
+            TimeTitleImputationEntryVisibility = true;
         }
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
-            _currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
-            Title = _currentTimesheetForDay.Day.Date.ToString("dd-MM-yyyy");
-            
+            _context = parameters.GetValue<Imputed>(Imputed.Tag);
+            TimeSelectedImputation = Context.Deviation.ToString();
         }
 
         public override void OnNavigatedFrom(NavigationParameters parameters)

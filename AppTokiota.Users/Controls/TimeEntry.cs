@@ -22,7 +22,10 @@ namespace AppTokiota.Users.Controls
         public ICommand SelectedTimeCommand
         {
             get { return (ICommand)GetValue(SelectedTimeCommandProperty); }
-            set { SetValue(SelectedTimeCommandProperty, value); }
+            set
+            {
+                SetValue(SelectedTimeCommandProperty, value);
+            }
         }
 
         #endregion
@@ -33,16 +36,19 @@ namespace AppTokiota.Users.Controls
             BindableProperty.Create(nameof(ContentViewVisible), typeof(bool), typeof(TimeEntry), false, BindingMode.TwoWay,
                                     propertyChanged: (bindable, oldValue, newValue) =>
                                     {
-                                    (bindable as TimeEntry).ChangeContentViewVisibleProperty((bool)newValue, (bool)oldValue);
+                                        (bindable as TimeEntry).ChangeContentViewVisibleProperty((bool)newValue, (bool)oldValue);
                                     });
 
         protected void ChangeContentViewVisibleProperty(bool newValue, bool oldValue)
         {
-            if(newValue == false) {
+            if (newValue == false)
+            {
                 Content = null;
                 MainView.Children.Clear();
                 Content = MainView;
-            } else {
+            }
+            else
+            {
                 ChangeOptionImputation(MainHours);
             }
         }
@@ -74,10 +80,10 @@ namespace AppTokiota.Users.Controls
             Response = new Dictionary<string, string>();
             Response.Add("Hour", "");
             Response.Add("Minute", "");
-            Response.Add("Format", "");
 
             CreatedHours();
             CreatedMinutes();
+            DefaultHourAndMinuteSelected();
 
             MainView = new StackLayout
             {
@@ -89,6 +95,14 @@ namespace AppTokiota.Users.Controls
             this.Content = MainView;
         }
 
+        private void DefaultHourAndMinuteSelected()
+        {
+            SelectedHour = (ButtonTimeTask)MainHours.Children.FirstOrDefault();
+            SelectedHour.BackgroundColor = Color.LightGreen;
+
+            SelectedMinute = (ButtonTimeTask)MainMinutes.Children.FirstOrDefault();
+            SelectedMinute.BackgroundColor = Color.LightGreen;
+        }
 
         protected void CreatedHours()
         {
@@ -105,14 +119,14 @@ namespace AppTokiota.Users.Controls
                 ColumnSpacing = GridSpace
             };
 
-            MainHours.ColumnDefinitions = new ColumnDefinitionCollection { columDef, columDef, columDef, columDef, columDef, columDef };
+            MainHours.ColumnDefinitions = new ColumnDefinitionCollection { columDef, columDef, columDef, columDef, columDef };
             MainHours.RowDefinitions = new RowDefinitionCollection { rowDef, rowDef, rowDef, rowDef };
 
             ButtonsHour = new List<ButtonTimeTask>();
 
-            for (var fila = 0; fila < 4; fila++)
+            for (var fila = 0; fila < 5; fila++)
             {
-                for (var i = 1; i <= 6; i++)
+                for (var i = 0; i <= 4; i++)
                 {
                     ButtonsHour.Add(new ButtonTimeTask()
                     {
@@ -122,15 +136,15 @@ namespace AppTokiota.Users.Controls
                         FontSize = 10,
                         BackgroundColor = Color.Transparent,
                         TextColor = Color.DarkSalmon,
-                        Text = $"{i + (fila * 6)} h",
+                        Text = $"{i + (fila * 5)} h",
                         WidthRequest = 50,
                         HeightRequest = 35,
-                        Value = (i + (fila * 6)).ToString(),
+                        Value = (i + (fila * 5)).ToString(),
                     });
                     var b = ButtonsHour.Last();
                     b.Clicked += HourClickedEvent;
 
-                    MainHours.Children.Add(b, i - 1, fila);
+                    MainHours.Children.Add(b, i, fila);
                 }
             }
         }
@@ -179,6 +193,15 @@ namespace AppTokiota.Users.Controls
             }
         }
 
+        public void ExecuteSelectedHandle()
+        {
+            ContentViewVisible = false;
+
+            Response["Hour"] = SelectedHour.Value;
+            Response["Minute"] = SelectedMinute.Value;
+
+            SelectedTimeCommand?.Execute(Response);
+        }
 
         protected void MinuteClickedEvent(object s, EventArgs a)
         {
@@ -192,15 +215,7 @@ namespace AppTokiota.Users.Controls
                 selected.BackgroundColor = Color.LightGreen;
                 SelectedMinute = selected;
 
-                ContentViewVisible = false;
-
-
-                Response["Hour"] = SelectedHour.Value;
-                Response["Minute"] = SelectedMinute.Value;
-                Response["Format"] = SelectedHour.Value + "h "+ SelectedMinute.Value + "m";
-
-
-                SelectedTimeCommand?.Execute(Response);
+                ExecuteSelectedHandle();
             });
         }
 
@@ -217,11 +232,12 @@ namespace AppTokiota.Users.Controls
                 SelectedHour = selectedHour;
 
                 ChangeOptionImputation(MainMinutes);
-                });
+            });
         }
 
-        protected void ChangeOptionImputation(Grid  panel) {
-            
+        protected void ChangeOptionImputation(Grid panel)
+        {
+
             Device.BeginInvokeOnMainThread(() =>
             {
                 Content = null;

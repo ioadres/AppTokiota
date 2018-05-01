@@ -20,11 +20,7 @@
             <Image Grid.Row="0" Source="login_background.png" Aspect="AspectFill" />
             <BoxView Grid.Row="0" BackgroundColor="{StaticResource DarkColor}" Opacity="0.4" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
             <Image Grid.Row="0" Source="logo_horizontal.png" WidthRequest="200" TranslationY="-70" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" />
-            
-            <ActivityIndicator 
-                Color="{StaticResource RedColor}"
-                IsRunning="True" 
-                IsVisible="True" />
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>

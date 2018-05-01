@@ -14,7 +14,7 @@
     Title="{Binding Title}"
     >
     <ContentPage.ToolbarItems> 
-        <ToolbarItem Text="Add" IsEnabled="{Binding IsEnable}" Command="{Binding OnAddItemCommand}"/>
+        <ToolbarItem Text="Add" IsEnabled="{Binding IsEnabled}" Command="{Binding OnAddItemCommand}" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.Resources>
@@ -73,7 +73,7 @@
                     <ColumnDefinition Width="1.5*" />
                     <ColumnDefinition Width="1.5*" />
                 </Grid.ColumnDefinitions>
-                    <Label Text="Desviation" Grid.Column="2" Style="{StaticResource HeaderTextStyle}" />
+                    <Label Text="Deviation" Grid.Column="2" Style="{StaticResource HeaderTextStyle}" />
                     <Label Text="Imputed" Grid.Column="3" Style="{StaticResource HeaderTextStyle}"/>
              </Grid>
 
@@ -85,11 +85,11 @@
                 </Grid.ColumnDefinitions>
                 <StackLayout Grid.Column="0" Padding="10" >
                     <Label Text="Imputed" Style="{StaticResource FooterTextStyle}" />
-                    <Label Text="Desviation" Style="{StaticResource FooterTextStyle}"/>
+                    <Label Text="Deviation" Style="{StaticResource FooterTextStyle}"/>
                 </StackLayout>
                 <StackLayout Grid.Column="1" Padding="10">
                     <Label Text="{Binding ImputedTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
-                    <Label Text="{Binding DesviationTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
+                    <Label Text="{Binding DeviationTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
                 </StackLayout>
            </Grid>
         
@@ -103,16 +103,18 @@
                      BackgroundColor="{StaticResource WhiteColor}"
                      SeparatorColor="{StaticResource GrayColor}"
                      ItemsSource="{Binding Activities}" 
-                     IsEnabled="{Binding IsEnable}"
                      >
               <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell >
+                        <ViewCell StyleId="disclosure-button">
                             <ViewCell.ContextActions >
-                                <MenuItem Command="{Binding Source={x:Reference this}, Path=BindingContext.OnDeleteItemCommand}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
-                                <MenuItem Command="{Binding OnEditItemCommand}" CommandParameter="{Binding .}" Text="Edit" IsDestructive="false" />
+                                <MenuItem Command="{Binding Source={x:Reference this}, Path=BindingContext.OnDeleteItemCommand}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" IsEnabled="{Binding Source={x:Reference this}, Path=BindingContext.IsEnabled}"/>
                             </ViewCell.ContextActions>
+                            
                           <Grid Padding="10">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OnInfoActivityItemCommand}" CommandParameter="{Binding .}" NumberOfTapsRequired="2" />
+                                </Grid.GestureRecognizers>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
@@ -136,6 +138,6 @@
                 </DataTemplate>
               </ListView.ItemTemplate>
             </ListView>
-        </Grid>
+            </Grid>
     </ContentPage.Content>
 </ContentPage>

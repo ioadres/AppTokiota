@@ -229,9 +229,6 @@
     <Reference Include="Rg.Plugins.Popup.Platform">
       <HintPath>..\packages\Rg.Plugins.Popup.1.0.4\lib\Xamarin.IOS\Rg.Plugins.Popup.Platform.dll</HintPath>
     </Reference>
-    <Reference Include="Prism.Plugin.Popups.Unity">
-      <HintPath>..\packages\Prism.Plugin.Popups.Unity.1.1.0\lib\portable45-net45+win8+wp8+wpa81\Prism.Plugin.Popups.Unity.dll</HintPath>
-    </Reference>
     <Reference Include="System.Reactive.Interfaces">
       <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\portable-windows8+net45+wp8\System.Reactive.Interfaces.dll</HintPath>
     </Reference>
@@ -305,7 +302,6 @@
     </BundleResource>
     <BundleResource Include="Resources\icon.png" />
     <BundleResource Include="Resources\login_background.png" />
-    <BundleResource Include="Resources\login_background_menu.png" />
     <BundleResource Include="Resources\logo.png" />
     <BundleResource Include="Resources\logo_horizontal.png" />
     <BundleResource Include="..\CommonResources\Fonts\FontAwesome\fa-regular-400.ttf">
@@ -319,12 +315,35 @@
     <BundleResource Include="Resources\ball_right.png" />
     <BundleResource Include="Resources\ball.png" />
     <BundleResource Include="Resources\selected.png" />
+    <BundleResource Include="Resources\login_background_menu.png" />
+    <BundleResource Include="Resources\login_background_menu%402x.png" />
+    <BundleResource Include="Resources\login_background_menu%403x.png" />
+    <BundleResource Include="Resources\login_background%402x.png" />
+    <BundleResource Include="Resources\login_background%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppTokiota.Users\AppTokiota.Users.csproj">
       <Project>{49D9F9C9-9524-4730-BC2B-A2E49EB4FA2A}</Project>
       <Name>AppTokiota.Users</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\suma.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\suma%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\suma%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Clock%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Clock%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets')" />

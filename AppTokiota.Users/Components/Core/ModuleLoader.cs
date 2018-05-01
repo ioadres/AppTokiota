@@ -60,13 +60,19 @@ namespace AppTokiota.Users.Components.Core
             containerRegistry.RegisterForNavigation<ManageImputedDayPage>();
             PageRoutes.AddKey<ManageImputedDayPage>(nameof(ManageImputedDayPage));
 
+            containerRegistry.RegisterForNavigation<InfoActivityPopUpPage>();
+            PageRoutes.AddKey<InfoActivityPopUpPage>($"{nameof(InfoActivityPopUpPage)}");
+
+
             containerRegistry.Register<IAddActivityModule, AddActivityModule>();
             containerRegistry.RegisterForNavigation<AddActivityPage>();
             PageRoutes.AddKey<AddActivityPage>($"{nameof(AddActivityPage)}");
 
             containerRegistry.RegisterForNavigation<AddActivityTimeDesviationPage>();
-            PageRoutes.AddKey<AddActivityTimeDesviationPage>($"{nameof(AddActivityTimeDesviationPage)}"); 
+            PageRoutes.AddKey<AddActivityTimeDesviationPage>($"../{nameof(AddActivityTimeDesviationPage)}");
 
+            containerRegistry.RegisterForNavigation<AddActivityProjectPage>();
+            PageRoutes.AddKey<AddActivityProjectPage>($"../{nameof(AddActivityProjectPage)}");
 
         }
 

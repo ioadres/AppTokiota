@@ -1,25 +1,23 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Forms.Internals;
 
 namespace AppTokiota.Users.Models
 {
-    public class TimesheetForDay
+    public class TimesheetImutationBase
     {
-        public static string Tag = nameof(TimesheetForDay);
-
         public List<ActivityDay> Activities { get; set; }
         public List<Project> Projects { get; set; }
-        public Day Day { get; set; }
 
-        public static List<ActivityDay> Map(Timesheet currentTimesheet, DateTime dateTime) {
+        public static List<ActivityDay> Map(Timesheet currentTimesheet, DateTime dateTime)
+        {
             var activities = new List<ActivityDay>();
 
-            try {
-                
-                foreach(var item in currentTimesheet.Activities.Where(x=>x.Value.Date.Equals(dateTime))) {
+            try
+            {
+
+                foreach (var item in currentTimesheet.Activities.Where(x => x.Value.Date.Equals(dateTime)))
+                {
                     var activity = item.Value;
                     var project = currentTimesheet.Projects.FirstOrDefault(y => y.Key.Equals(activity.ProjectId));
 
@@ -36,8 +34,10 @@ namespace AppTokiota.Users.Models
                         Task = TimesheetForDay.Map(project.Value, activity.TaskId),
                     });
                 }
-            } catch(Exception e) {
-                
+            }
+            catch (Exception e)
+            {
+
             }
 
             return activities;
@@ -56,14 +56,17 @@ namespace AppTokiota.Users.Models
                     IsClosed = Project.IsClosed,
                     IsHoliday = Project.IsHoliday
                 };
-            } catch(Exception e) {
+            }
+            catch (Exception e)
+            {
                 return new ProjectActivity();
             }
         }
 
         public static TaskActivity Map(Project Project, int taskId)
         {
-            try {
+            try
+            {
                 var task = Project.Tasks.FirstOrDefault(x => x.Key.Equals(taskId));
 
                 return new TaskActivity()
@@ -78,7 +81,9 @@ namespace AppTokiota.Users.Models
                     Scheduled = task.Value.Scheduled
                 };
 
-            } catch(Exception e) {
+            }
+            catch (Exception e)
+            {
                 return new TaskActivity();
             }
 

@@ -8,22 +8,13 @@ using System.Threading.Tasks;
 
 namespace AppTokiota.Users.Components.Activity
 {
-    public partial class AddActivityPage : PopupPage
+    public partial class AddActivityPage : ContentPage
     {
         public AddActivityPage()
         {
-            try {
-
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
-            } catch(Exception e) {
-                var t = e;
-            }
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-        }
-
-    }
+     }
 }

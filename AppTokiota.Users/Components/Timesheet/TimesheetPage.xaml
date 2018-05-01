@@ -57,7 +57,7 @@
             </Style>
 
             <Style x:Key="ColorDescriptionTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
             </Style>
             <Style x:Key="ColorBoxStyle" TargetType="BoxView">
@@ -88,12 +88,11 @@
             AutomationId="calendar">
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.8*" />
-                <RowDefinition Height="9.2*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="9*" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-                <StackLayout Orientation="Horizontal" Margin="1" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0">
+                <StackLayout Grid.Row="0" Orientation="Horizontal" Margin="1" HorizontalOptions="Center" VerticalOptions="Center">
                     <StackLayout Orientation="Horizontal" Margin="1">
                         <BoxView BackgroundColor="{StaticResource BlueColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
                         <Label Text="Selected" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
@@ -107,6 +106,12 @@
                         <BoxView BackgroundColor="{StaticResource OrangeColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
                         <Label Text="Holidays" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
                     </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <BoxView BackgroundColor="{StaticResource DarkGrayColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
+                        <Label Text="Close" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
+                    </StackLayout>
+                    
                 </StackLayout>
             
                 <Grid
@@ -171,12 +176,12 @@
                 </Grid.Triggers>
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer 
-                            Command="{Binding ManageImputedDayCommand}" />
+                            Command="{Binding ManageMultipleImputedDayCommand}" />
                     </Grid.GestureRecognizers>
                     
                      <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                         <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource IconPlusTextStyle}"/>
-                        <Label Text="Imputed a multiple selected day" Style="{StaticResource ActionSelectedTextStyle}"></Label>
+                        <Label TranslationX="2" Text="Imputed a multiple selected day" Style="{StaticResource ActionSelectedTextStyle}"></Label>
                     </StackLayout>
             </Grid>
             <Grid 
@@ -202,11 +207,11 @@
                     
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                     <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource IconPlusTextStyle}"/>
-                    <Label Text="Imputed a selected day" Style="{StaticResource ActionSelectedTextStyle}"></Label>
+                    <Label TranslationX="2" Text=" Info selected day" Style="{StaticResource ActionSelectedTextStyle}"></Label>
                 </StackLayout>
             </Grid>
 
-            <Grid Grid.Row="3" 
+            <Grid Grid.Row="2" 
                   x:Name="Footer"
                   AutomationId="Footer"
                   BackgroundColor="{StaticResource DarkColor}"
@@ -226,20 +231,15 @@
                 </Grid.ColumnDefinitions>
                 <StackLayout Grid.Column="0" Padding="10" >
                     <Label Text="Imputed" Style="{StaticResource FooterTextStyle}" />
-                    <Label Text="Desviation" Style="{StaticResource FooterTextStyle}"/>
+                    <Label Text="Deviation" Style="{StaticResource FooterTextStyle}"/>
                 </StackLayout>
                 <StackLayout Grid.Column="1" Padding="10">
                     <Label Text="{Binding ImputedTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
-                    <Label Text="{Binding DesviationTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
+                    <Label Text="{Binding DeviationTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
                 </StackLayout>
            </Grid>
                 
         </Grid>
-        <ActivityIndicator 
-                    Color="{StaticResource RedColor}"
-                    HorizontalOptions="Center"
-                    IsRunning="{Binding IsBusy}" 
-                    IsVisible="{Binding IsBusy}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

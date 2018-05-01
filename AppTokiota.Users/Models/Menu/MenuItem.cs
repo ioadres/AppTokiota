@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppTokiota.Users.Models
 {
-    public class MenuItem : ObjectCommandArg
+    public class MenuItem
     {
         public string Icon { get; set; }
         public string Title { get; set; }

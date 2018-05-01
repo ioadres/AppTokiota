@@ -14,13 +14,23 @@ namespace AppTokiota.Users.Services
             return UserDialogs.Instance.AlertAsync(message, title, buttonLabel);
         }
 
+        public void ShowLoading() {
+            UserDialogs.Instance.ShowLoading("Please Wait...", MaskType.Black);
+        }
+
+        public void HideLoading()
+        {
+            UserDialogs.Instance.HideLoading();
+        }
+
+
         public void ShowToast(string message, int duration = 5000)
         {
             var toastConfig = new ToastConfig(message);
+            toastConfig.Position = ToastPosition.Top;
             toastConfig.SetDuration(duration);            
             toastConfig.SetMessageTextColor(System.Drawing.Color.White);
             toastConfig.SetBackgroundColor(System.Drawing.Color.FromArgb(33, 44, 55));
-
             UserDialogs.Instance.Toast(toastConfig);
         }
 

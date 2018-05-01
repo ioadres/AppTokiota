@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage  xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="AppTokiota.Users.Components.Activity.AddActivityProjectPage"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:utils="clr-namespace:AppTokiota.Users.Utils;assembly=AppTokiota.Users"  
+    xmlns:controls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
+    xmlns:animations="clr-namespace:AppTokiota.Users.Animations;assembly=AppTokiota.Users"
+    xmlns:converters="clr-namespace:AppTokiota.Users.Converters;assembly=AppTokiota.Users"
+    xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"                           
+    prism:ViewModelLocator.AutowireViewModel="True"              
+    BackgroundColor="{StaticResource WhiteColor}"
+    Title="{Binding Title}"
+    x:Name="this">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TitleH4Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
+            </Style>
+            <Style x:Key="TitleH3Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
+            <Style x:Key="TitleH2Style" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
+            <Style x:Key="TitleH1Style" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
+            </Style>
+            <Style x:Key="ActionSelectedTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MidLargeSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
+
+            <Style x:Key="IconTextStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}" />
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+            </Style>
+
+            <Style x:Key="IconPlusTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="90" />
+                <Setter Property="TextColor" Value="{StaticResource RedColor}"/>
+            </Style>
+
+            <xamanimation:StoryBoard 
+                x:Key="ActionSelectedTextStyleAnimation"    
+                Target="{x:Reference ImputationConfirm}">
+                <xamanimation:FadeToAnimation  Opacity="0" Duration="0" />
+                <xamanimation:TranslateToAnimation TranslateY="600" Duration="0" />
+                <xamanimation:FadeToAnimation Opacity="1" Duration="150" />
+                <xamanimation:TranslateToAnimation TranslateY="0" Easing="CubicOut" Duration="200" />
+            </xamanimation:StoryBoard>
+
+             <converters:FormatTimeEntry x:Key="cnvFormatTimeEntry"></converters:FormatTimeEntry>
+            <converters:FormatTimeMinutesToStringEntry x:Key="cnvFormatTimeMinutesToStringEntry"></converters:FormatTimeMinutesToStringEntry>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <Grid BackgroundColor="{StaticResource GrayColor}" RowSpacing="15" ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource WhiteColor}">
+                <StackLayout.Padding>
+                    <OnPlatform x:TypeArguments="Thickness">
+                       <On Platform="iOS" Value="15,35,15,35" />
+                       <On Platform="Android" Value="15,15,15,15" />
+                   </OnPlatform>
+                </StackLayout.Padding>
+                <Grid HorizontalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Style="{StaticResource IconTextStyle}" Text="&#xf0d9;" Grid.Column="0" HorizontalTextAlignment="Center" IsVisible="true">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label  Style="{StaticResource TitleH4Style}" Text="{Binding Title}"  Grid.Column="1" HorizontalTextAlignment="Center"></Label>
+                    <Label Style="{StaticResource IconTextStyle}" Text="&#xf00d;" Grid.Column="2" HorizontalTextAlignment="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CloseCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+                <ProgressBar x:Name="progress" Progress="0.75" Scale="2"></ProgressBar>
+            </StackLayout>
+
+            <StackLayout Grid.Row="1"   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource WhiteColor}">
+                <Grid Padding="10,10,0,0" >
+                    <Grid.RowDefinitions>
+                    <RowDefinition Height="2.5*"/>
+                    <RowDefinition Height="2.5*"/>
+                    <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    
+                        <Picker Grid.Row="0" Title="Projects" HorizontalOptions="FillAndExpand" 
+                                ItemsSource="{Binding Projects}" 
+                                ItemDisplayBinding="{Binding DisplayName}"
+                                SelectedItem="{Binding SelectedProject}"
+                                TextColor="{StaticResource SecondaryTextColor}">
+                        </Picker>
+
+                        <Picker Grid.Row="1" Title="Tasks" HorizontalOptions="FillAndExpand" 
+                                ItemsSource="{Binding Tasks}"                                 
+                                ItemDisplayBinding="{Binding DisplayName}"
+                                SelectedItem="{Binding SelectedTask}"
+                                TextColor="{StaticResource SecondaryTextColor}"
+                                IsEnabled="{Binding ProjectSelected}">
+                        </Picker>
+
+                        <controls:ExtendedEditor Grid.Row="2"
+                                                 VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                                                 x:Name="Description" 
+                                                 Placeholder="Description"
+                                                 PlaceholderColor="{StaticResource GrayColor}"
+                                                 AutomationId="Description" 
+                                                 TextColor="{StaticResource SecondaryTextColor}">
+                        </controls:ExtendedEditor>
+             
+                </Grid>
+            </StackLayout>
+
+            <StackLayout Grid.Row="2"   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource WhiteColor}">
+                <Grid Padding="10,10,10,10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="{StaticResource DarkGrayColor}" VerticalOptions="FillAndExpand"></BoxView>
+                    <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="{StaticResource DarkGrayColor}" VerticalOptions="FillAndExpand"></BoxView>
+                    <BoxView Grid.Row="0" Grid.Column="2" BackgroundColor="{StaticResource DarkGrayColor}" VerticalOptions="FillAndExpand"></BoxView>
+                    <BoxView Grid.Row="1" Grid.Column="0" BackgroundColor="{StaticResource RedDarkColor}" VerticalOptions="FillAndExpand"></BoxView>
+                    <BoxView Grid.Row="1" Grid.Column="1" BackgroundColor="{StaticResource RedDarkColor}" VerticalOptions="FillAndExpand"></BoxView>
+                    <BoxView Grid.Row="1" Grid.Column="2" BackgroundColor="{StaticResource RedDarkColor}" VerticalOptions="FillAndExpand"></BoxView>
+                    
+                    <StackLayout Grid.Row="0" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" Padding="5">
+                        <Label Text="TOTAL IMPUTED" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="{Binding Consumed, Converter={StaticResource cnvFormatTimeMinutesToStringEntry}}" Style="{StaticResource TitleH2Style}" HorizontalTextAlignment="Center"></Label>
+                    </StackLayout>
+
+                    <Image Source="suma.png" Aspect="AspectFill" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center"/>
+
+                    <StackLayout Grid.Row="0" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" Padding="5">
+                        <Label Text="TOTAL DEVIATION" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="{Binding Deviation, Converter={StaticResource cnvFormatTimeMinutesToStringEntry}}" Style="{StaticResource TitleH2Style}" HorizontalTextAlignment="Center"></Label>
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" Padding="5">
+                        <Label Text="IMPUTED TIME" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="{Binding Context.Consumed, Converter={StaticResource cnvFormatTimeEntry}}" Style="{StaticResource TitleH2Style}" HorizontalTextAlignment="Center"></Label>
+                    </StackLayout>                    
+
+                    <Image Source="Clock.png" Aspect="AspectFill" Grid.Row="1" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center"/>
+
+                    <StackLayout Grid.Row="1" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" Padding="5">
+                        <Label Text="DEVIATION TIME" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="{Binding Context.Deviation, Converter={StaticResource cnvFormatTimeEntry}}" Style="{StaticResource TitleH2Style}" HorizontalTextAlignment="Center"></Label>
+                    </StackLayout>
+
+                </Grid>
+            </StackLayout>
+
+
+            <Grid 
+                AutomationId="ImputationConfirm"
+                x:Name="ImputationConfirm"
+                Grid.Row="3"
+                IsVisible="{Binding ConfirmVisibility, Mode=TwoWay}"
+                BackgroundColor="{StaticResource RedColor}"
+                Padding="20"
+                >
+                <Grid.Triggers>
+                    <Trigger TargetType="Grid" Property="Grid.IsVisible" Value="True">
+                        <Trigger.EnterActions>
+                            <xamanimation:BeginAnimation
+                                Animation="{StaticResource ActionSelectedTextStyleAnimation}" />
+                        </Trigger.EnterActions>
+                    </Trigger>
+                </Grid.Triggers>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NextCommand}" />
+                </Grid.GestureRecognizers>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Confirm" Style="{StaticResource ActionSelectedTextStyle}"></Label>
+                </StackLayout>
+
+            </Grid>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

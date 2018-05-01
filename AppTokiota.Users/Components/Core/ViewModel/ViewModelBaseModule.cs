@@ -15,7 +15,7 @@ namespace AppTokiota.Users.Components.Core
         private readonly IAuthenticationService _authenticationService;
         private readonly ICacheEntity _cacheEntity;
         private readonly IDialogService _dialogService;
-        protected readonly INavigationService _navigationService;
+        private readonly INavigationService _navigationService;
 
         public IAuthenticationService AuthenticationService => _authenticationService;
         public ICacheEntity CacheEntity => _cacheEntity;

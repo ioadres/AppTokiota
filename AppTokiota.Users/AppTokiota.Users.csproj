@@ -9,8 +9,6 @@
     <PackageReference Include="akavache" Version="5.0.0" />
     <PackageReference Include="modernhttpclient" Version="2.4.2" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
-    <PackageReference Include="Prism.Core" Version="7.0.0.396" />
-    <PackageReference Include="Prism.Forms" Version="7.0.0.396" />
     <PackageReference Include="Prism.Unity.Forms" Version="7.0.0.396" />
     <PackageReference Include="Xam.Plugin.Connectivity" Version="3.1.1" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
@@ -21,7 +19,6 @@
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
     
     <PackageReference Include="Unity" Version="5.7.3" />
-    <PackageReference Include="Prism.Plugin.Popups.Unity" Version="1.1.0" />
   </ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Update="App.xaml">
@@ -37,10 +34,15 @@
 
 	<ItemGroup>
 	  <Folder Include="Components\ManageImputedDay\" />
-	  <Folder Include="Models\Timesheet\ByDay\" />
+	  <Folder Include="Models\Timesheet\AddImputation\" />
 	  <Folder Include="Components\Core\Module\Base\" />
 	  <Folder Include="Components\Core\ViewModel\" />
 	  <Folder Include="Animations\" />
+	  <Folder Include="Models\Timesheet\ApiTimesheet\" />
+	  <Folder Include="Models\Oauth\" />
+	  <Folder Include="Models\Login\" />
+	  <Folder Include="Models\Menu\" />
+	  <Folder Include="Components\ManageImputedDay\InfoActivity\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Components\Activity\NavigationPage\ActivityNavigationPage.xaml.cs">

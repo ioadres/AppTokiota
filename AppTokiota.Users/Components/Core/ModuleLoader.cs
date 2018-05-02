@@ -8,6 +8,7 @@ using AppTokiota.Users.Components.Master;
 using AppTokiota.Users.Components.BaseNavigation;
 using AppTokiota.Users.Components.Timesheet;
 using AppTokiota.Users.Components.Connection;
+using AppTokiota.Users.Components.Review;
 using Prism.Unity;
 using Unity;
 using AppTokiota.Users.Components.DashBoard;
@@ -59,6 +60,10 @@ namespace AppTokiota.Users.Components.Core
             containerRegistry.Register<IManageImputedDayModule, ManageImputedDayModule>();
             containerRegistry.RegisterForNavigation<ManageImputedDayPage>();
             PageRoutes.AddKey<ManageImputedDayPage>(nameof(ManageImputedDayPage));
+
+            containerRegistry.Register<IReviewModule, ReviewModule>();
+            containerRegistry.RegisterForNavigation<ReviewPage>();
+            PageRoutes.AddKey<ReviewPage>(nameof(ReviewPage));
 
             containerRegistry.RegisterForNavigation<InfoActivityPopUpPage>();
             PageRoutes.AddKey<InfoActivityPopUpPage>($"{nameof(InfoActivityPopUpPage)}");

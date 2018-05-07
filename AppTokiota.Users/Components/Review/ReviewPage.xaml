@@ -9,7 +9,83 @@
              xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"   
              xmlns:b="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
              xmlns:utils="clr-namespace:AppTokiota.Users.Utils;assembly=AppTokiota.Users"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              utils:NavigationBarAttachedProperty.BackgroundColor="{StaticResource RedColor}"
              utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}"        
              Title="{Binding Title}">
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Padding="10" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Column="0" Padding="10" >
+                    <DatePicker VerticalOptions="CenterAndExpand" Date="{x:Static sys:DateTime.Now}">
+                        <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                        <DatePicker.MinimumDate>
+                            <sys:DateTime x:FactoryMethod="Parse">
+                                <x:Arguments>
+                                    <x:String>Jan 1 2000</x:String>
+                                </x:Arguments>
+                            </sys:DateTime>
+                        </DatePicker.MinimumDate>
+                        <DatePicker.MaximumDate>
+                            <sys:DateTime x:FactoryMethod="Parse">
+                                <x:Arguments>
+                                    <x:String>Dec 31 2050</x:String>
+                                </x:Arguments>
+                            </sys:DateTime>
+                        </DatePicker.MaximumDate>
+                    </DatePicker>
+                </StackLayout>
+            </Grid>
+
+            <ListView x:Name="lstContatos" HasUnevenRows="True" Grid.Row="1" SeparatorColor="Black" ItemsSource="{Binding Contatos, Source={x:Reference MyPage}}"
+                  VerticalOptions="Fill">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="5*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0" Text="{Binding userId}"></Label>
+                                        <Label Grid.Column="1" Text="{Binding id}"></Label>
+                                        <Label Grid.Column="2" Text="{Binding title}"></Label>
+                                        <Label Grid.Column="3" Text="{Binding body}"></Label>
+
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+
+
+            <Grid Padding="10" Grid.Row="2" BackgroundColor="{StaticResource DarkColor}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Column="0">
+                    <Label>Hello</Label>
+                </StackLayout>
+            </Grid>
+            
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>

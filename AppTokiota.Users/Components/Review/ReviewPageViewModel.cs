@@ -39,7 +39,7 @@ namespace AppTokiota.Users.Components.Review
             _specialDates = new ObservableCollection<SpecialDate>();
 
             var from = new DateTime(date.Year, date.Month, 1);
-            var lstContatos = new List<Contacto>();
+            lstContatos = new List<Contacto>();
             lstContatos.Add(new Contacto
             { id = 1,userId = 1, body="Descripcion1",title= "Titulo1"
             });
@@ -58,7 +58,7 @@ namespace AppTokiota.Users.Components.Review
             get { return _currentTimesheetForDay; }
         }
         #endregion
-        public ObservableCollection<Contacto> Contatos { get; }
+        public ObservableCollection<Contacto> lstContactos { get; }
         private ObservableCollection<DateTime> _dates;
         public ObservableCollection<DateTime> Dates
         {

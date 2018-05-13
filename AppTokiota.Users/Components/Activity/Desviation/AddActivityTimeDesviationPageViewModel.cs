@@ -124,8 +124,10 @@ namespace AppTokiota.Users.Components.Activity
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
-            _context = parameters.GetValue<Imputed>(Imputed.Tag);
-            TimeSelectedImputation = Context.Deviation.ToString();
+			if(parameters.ContainsKey(Imputed.Tag)) {
+                _context = parameters.GetValue<Imputed>(Imputed.Tag);
+                TimeSelectedImputation = Context.Deviation.ToString();
+			}
         }
 
         public override void OnNavigatedFrom(NavigationParameters parameters)

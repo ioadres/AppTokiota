@@ -126,6 +126,7 @@ namespace AppTokiota.Users.Services
 
             return false;
         }
+        
 
         public Task Logout()
         {

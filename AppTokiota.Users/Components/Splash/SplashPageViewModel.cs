@@ -30,22 +30,15 @@ namespace AppTokiota.Users.Components.Splash
                 return false;
             });
         }
+        
 
-
-        private async void AuthenticationRun()
+        private void AuthenticationRun()
         {
-            if (CrossConnectivity.Current.IsConnected)
+			if (AppSettings.AuthenticatedUserResponse != null)
             {
-                if (await BaseModule.AuthenticationService.UserIsAuthenticatedAndValidAsync())
-                {
-                    NavigateCommand.Execute(MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<DashBoardPage>()));
-                }
-                else
-                {
-                    NavigateCommand.Execute(PageRoutes.GetKey<LoginPage>());
-                }
+				NavigateCommand.Execute(MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<DashBoardPage>()));
             } else {
-                NavigateCommand.Execute(PageRoutes.GetKey<ConnectionPage>());
+			    NavigateCommand.Execute(PageRoutes.GetKey<LoginPage>());
             }     
         }
     }

@@ -6,6 +6,7 @@
     prism:ViewModelLocator.AutowireViewModel="True"
     xmlns:converters="clr-namespace:AppTokiota.Users.Converters;assembly=AppTokiota.Users"
     xmlns:controls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
+    xmlns:controlsRefractored="clr-namespace:Refractored.XamForms.PullToRefresh;assembly=Refractored.XamForms.PullToRefresh"
     xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"   
     xmlns:b="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
     xmlns:utils="clr-namespace:AppTokiota.Users.Utils;assembly=AppTokiota.Users"
@@ -84,8 +85,15 @@
         </EventTrigger>
     </ContentPage.Triggers>
     <ContentPage.Content>
-        <Grid    
-            AutomationId="calendar">
+         <controlsRefractored:PullToRefreshLayout
+          IsPullToRefreshEnabled="True"
+          RefreshCommand="{Binding RefreshCommand}"
+          IsRefreshing="{Binding IsBusy}"
+          RefreshColor="{StaticResource RedDarkColor}"> 
+          <ScrollView
+          HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand">
+                
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
@@ -137,6 +145,7 @@
                         DisabledBackgroundColor="{StaticResource DarkGrayColor}"
                         DisabledFontSize="{StaticResource LittleSize }"
                         DisabledBorderWidth="6"
+                            DisableAllDates="{Binding DisableAllDates}"
                     
                         DatesBackgroundColor="{StaticResource WhiteColor}"
                         TitleLeftArrowTextColor="{StaticResource DarkGrayColor}"
@@ -148,12 +157,13 @@
                         SelectedBorderColor="{StaticResource BlueColor}"
                         SelectedBackgroundColor="{StaticResource BlueColor}"
 
-                        BorderWidth="1"
+                        BorderWidth="0"
                         BorderColor="{StaticResource DarkColor}"
                     
                         RightArrowCommand="{Binding DateChosen}"
                         LeftArrowCommand="{Binding DateChosen}"
                         MonthYearButtonCommand="{Binding DateChosen}"
+
                         HorizontalOptions="Center">
                 </controls:Calendar>
                 </Grid>
@@ -240,6 +250,7 @@
            </Grid>
                 
         </Grid>
-        </Grid>
+       </ScrollView>
+   </controlsRefractored:PullToRefreshLayout>
     </ContentPage.Content>
 </ContentPage>

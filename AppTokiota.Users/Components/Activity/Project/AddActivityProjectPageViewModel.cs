@@ -137,12 +137,18 @@ namespace AppTokiota.Users.Components.Activity
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
-            Context = parameters.GetValue<Imputed>(Imputed.Tag);
-            if(Context.CurrentTimesheet == null){
-                Projects = Context.CurrentTimesheetMultipleDay.Projects;
-            } else {
-                Projects = Context.CurrentTimesheet.Projects;
-            }
+			if (parameters.ContainsKey(Imputed.Tag))
+            {
+				Context = parameters.GetValue<Imputed>(Imputed.Tag);
+                if (Context.CurrentTimesheet == null)
+                {
+                    Projects = Context.CurrentTimesheetMultipleDay.Projects;
+                }
+                else
+                {
+                    Projects = Context.CurrentTimesheet.Projects;
+                }
+            }            
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using AppTokiota.Users.Components.Core;
 using AppTokiota.Users.Components.Core.Module;
+using AppTokiota.Users.Components.DashBoard;
+using AppTokiota.Users.Components.Master;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
@@ -19,9 +21,11 @@ namespace AppTokiota.Users.Components.Connection
 
 		#region Close
 		public DelegateCommand CloseCommand => new DelegateCommand(Close);
-        protected async void Close()
+        protected void Close()
         {
-			await BaseModule.NavigationService.GoBackAsync();
+			if(IsInternetAndCloseModal()) {
+                NavigateCommand.Execute(MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<DashBoardPage>()));
+			}
         }
         #endregion
     }

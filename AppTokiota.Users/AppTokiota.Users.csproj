@@ -44,6 +44,7 @@
 	  <Folder Include="Models\Menu\" />
 	  <Folder Include="Components\ManageImputedDay\InfoActivity\" />
 	  <Folder Include="Services\Network\" />
+	  <Folder Include="Services\DialogError\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Components\Activity\NavigationPage\ActivityNavigationPage.xaml.cs">

@@ -55,7 +55,7 @@ namespace AppTokiota.Users.Services
                     }
                     else
                     {
-                        state.Message = "Error : Usuario y/o contraseña incorrecta.";
+                        state.Message = "Error : User or password invalid.";
                     }
 
                     state.Success = response.IsSuccessStatusCode;

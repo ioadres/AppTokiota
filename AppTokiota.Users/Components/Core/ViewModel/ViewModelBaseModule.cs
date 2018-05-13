@@ -16,6 +16,7 @@ namespace AppTokiota.Users.Components.Core
 		private readonly INetworkConnectionService _networkConnectionService;
         private readonly ICacheEntity _cacheEntity;
         private readonly IDialogService _dialogService;
+		private readonly IDialogErrorCustomService _dialogErrorCustomService;
         private readonly INavigationService _navigationService;
 
         public IAuthenticationService AuthenticationService => _authenticationService;
@@ -24,13 +25,16 @@ namespace AppTokiota.Users.Components.Core
         public INavigationService NavigationService => _navigationService;
 		public INetworkConnectionService NetworkConnectionService => _networkConnectionService;
 
-		public ViewModelBaseModule(INavigationService navigationService, IAuthenticationService authenticationService, IDialogService dialogService, ICacheEntity cacheEntity,INetworkConnectionService networkConnectionService)
+		public IDialogErrorCustomService DialogErrorCustomService => _dialogErrorCustomService;
+
+		public ViewModelBaseModule(INavigationService navigationService, IAuthenticationService authenticationService, IDialogService dialogService, ICacheEntity cacheEntity,INetworkConnectionService networkConnectionService, IDialogErrorCustomService dialogErrorCustom)
         {
             _navigationService = navigationService;
             _authenticationService = authenticationService;
             _dialogService = dialogService;
             _cacheEntity = cacheEntity;
 			_networkConnectionService = networkConnectionService;
+			_dialogErrorCustomService = dialogErrorCustom;
         }
     }
 }

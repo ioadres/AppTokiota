@@ -43,7 +43,7 @@
                    VerticalTextAlignment="Center"
                    HorizontalTextAlignment="Center"
                     Style="{StaticResource HeaderStatusTextStyle}" />
-            <Button Text="Close" Command="{Binding Command}" Style="{StaticResource ButtonSecundary}" HorizontalOptions="Center" VerticalOptions="End" Margin="15"></Button>
+            <Button Text="Close" Command="{Binding CloseCommand}" Style="{StaticResource ButtonSecundary}" HorizontalOptions="Center" VerticalOptions="End" Margin="15"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

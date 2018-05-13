@@ -36,7 +36,7 @@ namespace AppTokiota.Users.Models
             return Time.DateTimeFormatInfo(Hour, Minute);
 		}
 
-        public float GetMimutes()
+        public float GetMinutes()
         {
             return Hour * 60 + Minute;
         }

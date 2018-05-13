@@ -57,16 +57,6 @@ namespace AppTokiota.Users.Components.Timesheet
             }
         }
 
-        /// <summary>
-        /// Gets if is a multipleSelection
-        /// </summary>
-        /// <value>If is multile</value>
-        private StackOrientation _orientation = StackOrientation.Vertical;
-        public StackOrientation Orientation
-        {
-            get { return _orientation; }
-            set { SetProperty(ref _orientation, value); }
-        }
         
         /// <summary>
         /// Gets if is a multipleSelection
@@ -167,14 +157,12 @@ namespace AppTokiota.Users.Components.Timesheet
         public DelegateCommand ManageImputedDayCommand => new DelegateCommand(ManageImputedDay);
         protected async void ManageImputedDay()
         {
-			if (this.IsInternet())
+			if (this.IsInternetAndCloseModal())
 			{
 				var selectedDateTimesheet = _timesheetModule.TimesheetService.GetTimesheetByDate(_currentTimesheet, Dates.FirstOrDefault());
 				var navigationParameters = new NavigationParameters();
 				navigationParameters.Add(TimesheetForDay.Tag, selectedDateTimesheet);
 				await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<ManageImputedDayPage>(), navigationParameters);
-			} else{
-				BaseModule.DialogService.ShowToast("Check your internet connection and try again");
 			}
         }
         #endregion
@@ -183,7 +171,7 @@ namespace AppTokiota.Users.Components.Timesheet
         public DelegateCommand ManageMultipleImputedDayCommand => new DelegateCommand(ManageMultipleImputedDay);
         protected async void ManageMultipleImputedDay()
         {
-			if (this.IsInternet())
+			if (this.IsInternetAndCloseModal())
 			{
 				var selectedDateTimesheet = _timesheetModule.TimesheetService.GetTimesheetByDates(_currentTimesheet, Dates.ToList());
 
@@ -202,8 +190,6 @@ namespace AppTokiota.Users.Components.Timesheet
 				{
 					BaseModule.DialogService.ShowToast("The all days selected is closed");
 				}
-			} else {
-				BaseModule.DialogService.ShowToast("Check your internet connection and try again");
 			}      
         }
         #endregion
@@ -212,42 +198,27 @@ namespace AppTokiota.Users.Components.Timesheet
         protected void LoadSpecialDatesAsync(DateTime from, DateTime to)
         {
 			IsBusy = true;
+			Dates.Clear();
 			Device.BeginInvokeOnMainThread( async() =>
 			{
 				try
-				{
-					if (this.IsInternet())
+				{                    
+					if (this.IsInternetAndCloseModal())
 					{
-						Dates.Clear();
 						_currentTimesheet = await _timesheetModule.TimesheetService.GetTimesheetBeetweenDates(from, to);
 						var specialDates = await _timesheetModule.CalendarService.GetSpecialDatesBeetweenDatesAsync(_currentTimesheet);
 						specialDates.ForEach(x => SpecialDates.Add(x));
 						IsBusy = false;
 					}
-					else
-					{
-						Dates.Clear();
-						IsBusy = false;
-						await BaseModule.DialogService.ShowAlertAsync(
-							"Check your internet connection and try again",
-							"Timeout",
-							"Ok");
-					}
-
 				}
 				catch (Exception ex)
 				{
 					IsBusy = false;
+					BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();               
 					Debug.WriteLine($"[Booking] Error: {ex}");
-
-					await BaseModule.DialogService.ShowAlertAsync(
-						"An error ocurred, try again",
-						"Error",
-						"Ok");
 				}
 
-			});
-            
+			});            
             
         }
 		#endregion

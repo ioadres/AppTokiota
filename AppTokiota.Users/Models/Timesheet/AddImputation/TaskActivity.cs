@@ -11,6 +11,20 @@ namespace AppTokiota.Users.Models
         public int AssignementId { get; set; }
         public bool IsClosed { get; set; }
         public bool IsChargeable { get; set; }
+
+		public static TaskActivity Map(TaskT taskT) {
+			return new TaskActivity()
+			{
+				Id = taskT.Id,
+				DisplayName = taskT.DisplayName,
+				Scheduled = taskT.Scheduled,
+				Consumed = taskT.Consumed,
+				Deviation = taskT.Deviation,
+				AssignementId = taskT.AssignementId,
+				IsClosed = taskT.IsClosed,
+				IsChargeable = taskT.IsChargeable
+			};
+		}
     }
 
 }

@@ -26,8 +26,24 @@ namespace AppTokiota.Users.Services
 
         public async Task<Timesheet> GetTimesheetBeetweenDates(DateTime from, DateTime to)
         {
-            var url = $"{AppSettings.TimesheetUrlEndPoint}from={from.ToString("yyyy-MM-dd")}&to={to.ToString("yyyy-MM-dd")}";
+            var url = $"{AppSettings.TimesheetUrlEndPoint}?from={from.ToString("yyyy-MM-dd")}&to={to.ToString("yyyy-MM-dd")}";
             var timesheet = await _requestService.GetAsync<Timesheet>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
+            return timesheet;
+        }
+        
+		public async Task<Activity> PostActivity(TimesheetAddActivity timesheetAddActivity, DateTime from)
+        {
+			var url = $"{AppSettings.TimesheetUrlEndPoint}/{from.ToString("yyyy")}/{from.ToString("MM")}/{from.ToString("dd")}";
+			var timesheet = await _requestService.PostAsync<TimesheetAddActivity,Activity>(url,timesheetAddActivity, AppSettings.AuthenticatedUserResponse.AccessToken);
+			timesheet.ProjectId = timesheetAddActivity.ProjectId;
+			timesheet.TaskId = timesheetAddActivity.TaskId;
+            return timesheet;
+        }
+
+		public async Task<List<Activity>> BatchActivity(List<TimesheetAddActivityBatch> timesheetAddActivityBatch)
+        {
+            var url = $"{AppSettings.TimesheetUrlEndPoint}/batch";
+			var timesheet = await _requestService.PostAsync<List < TimesheetAddActivityBatch >, List<Activity>>(url, timesheetAddActivityBatch, AppSettings.AuthenticatedUserResponse.AccessToken);
             return timesheet;
         }
     }

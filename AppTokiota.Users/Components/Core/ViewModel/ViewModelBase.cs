@@ -98,5 +98,16 @@ namespace AppTokiota.Users.Components.Core
         {
 			return BaseModule.NetworkConnectionService.IsAvailable();
         }
+
+		public virtual bool IsInternetAndCloseModal()
+        {
+			var isInternet = IsInternet();
+			if(!isInternet) {
+				IsBusy = false;
+                BaseModule.DialogErrorCustomService.DialogErrorConnection();
+			}
+
+			return isInternet;
+        }
     }
 }

@@ -114,6 +114,14 @@ namespace AppTokiota.Users.Components.ManageImputedDay
                 UpdateDayOfTimesheet(currentTimesheetForDay);
                 Title = currentTimesheetForDay.Day.Date.ToString("yyyy-MM-dd");
             }
+
+			keyContains = parameters.ContainsKey(Models.ActivityDay.Tag);
+			if (keyContains)
+            {
+				var activity = parameters.GetValue<Models.ActivityDay>(Models.ActivityDay.Tag);
+				_currentTimesheetForDay.Activities.Add(activity);
+				UpdateDayOfTimesheet(_currentTimesheetForDay);
+            }
         }
 
         private void UpdateDayOfTimesheet(TimesheetForDay timesheet)

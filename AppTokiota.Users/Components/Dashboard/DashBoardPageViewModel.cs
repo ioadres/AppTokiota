@@ -18,7 +18,7 @@ namespace AppTokiota.Users.Components.DashBoard
         {
             Title = "Dashboard";
             _dashBoardModule = dashBoardModule;
-			IsInternet();
+			IsInternetWithModal();
         }
 
 

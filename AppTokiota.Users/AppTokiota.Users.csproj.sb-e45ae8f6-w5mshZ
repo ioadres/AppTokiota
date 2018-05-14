@@ -18,7 +18,6 @@
     <PackageReference Include="Rg.Plugins.Popup" Version="1.0.4" />
     <PackageReference Include="Unity" Version="5.7.3" />
     <PackageReference Include="Xamarin.Forms" Version="3.0.0.446417" />
-    <PackageReference Include="Refractored.XamForms.PullToRefresh" Version="2.2.1" />
   </ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Update="App.xaml">
@@ -44,7 +43,6 @@
 	  <Folder Include="Models\Menu\" />
 	  <Folder Include="Components\ManageImputedDay\InfoActivity\" />
 	  <Folder Include="Services\Network\" />
-	  <Folder Include="Services\DialogError\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Components\Activity\NavigationPage\ActivityNavigationPage.xaml.cs">
@@ -54,4 +52,9 @@
 	    <DependentUpon>AddActivityTimeDesviationPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
-	</Project>
+	<ItemGroup>
+	  <Reference Include="System">
+	    <HintPath>..\..\..\..\..\Library\Frameworks\Xamarin.iOS.framework\Versions\Current\lib\mono\Xamarin.iOS\System.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+</Project>

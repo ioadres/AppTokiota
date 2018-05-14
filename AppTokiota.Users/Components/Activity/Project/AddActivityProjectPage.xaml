@@ -128,6 +128,7 @@
                                                  Placeholder="Description"
                                                  PlaceholderColor="{StaticResource GrayColor}"
                                                  AutomationId="Description" 
+                                                 Text="{Binding Description}"
                                                  TextColor="{StaticResource SecondaryTextColor}">
                         </controls:ExtendedEditor>
              
@@ -198,7 +199,7 @@
                     </Trigger>
                 </Grid.Triggers>
                 <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NextCommand}" />
+                    <TapGestureRecognizer Command="{Binding EndCommand}" />
                 </Grid.GestureRecognizers>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">

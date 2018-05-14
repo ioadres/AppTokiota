@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 namespace AppTokiota.Users.Models
 {
     [DataContract]
-    public class Activity
-    {
+	public class Activity
+    {      
+		public static string Tag = nameof(Activity);
+
         [DataMember(Name = "id")]
         public int Id { get; set; }
 

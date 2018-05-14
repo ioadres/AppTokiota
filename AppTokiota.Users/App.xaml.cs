@@ -7,12 +7,8 @@ using AppTokiota.Users.Components.Core;
 using AppTokiota.Users.Components.Splash;
 using Akavache;
 using System;
-using Plugin.Connectivity;
 using AppTokiota.Users.Components.Login;
-using AppTokiota.Users.Components.Connection;
-using AppTokiota.Users.Components.Master;
 using System.Threading.Tasks;
-using AppTokiota.Users.Components.DashBoard;
 
 namespace AppTokiota.Users
 {
@@ -49,33 +45,18 @@ namespace AppTokiota.Users
 
         protected override void OnStart()
         {
-            CrossConnectivity.Current.ConnectivityChanged += TaskScheduler_OnConnectivityChanged;
         }
 
         protected override void OnSleep()
         {
-            CrossConnectivity.Current.ConnectivityChanged -= TaskScheduler_OnConnectivityChanged;
         }
 
         protected override void OnResume()
         {
-            CrossConnectivity.Current.ConnectivityChanged += TaskScheduler_OnConnectivityChanged;
             AuthenticationRun();           
-        }
-
-        async void TaskScheduler_OnConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
-        {
-            if (e.IsConnected == true)
-            {
-                AuthenticationRun(true);
-            }
-            else
-            {
-                await NavigationService.NavigateAsync(PageRoutes.GetKey<ConnectionPage>());
-            }
-        }
-
-        async void AuthenticationRun(bool isConnectivityChange = false) 
+        }      
+        
+        async void AuthenticationRun() 
         {
             try
             {    
@@ -84,11 +65,7 @@ namespace AppTokiota.Users
                 if (!result)
                 {
                     await NavigationService.NavigateAsync(PageRoutes.GetKey<LoginPage>());
-                } else {
-                    if(authenticationService.IsAuthenticated && isConnectivityChange) {
-                        await NavigationService.NavigateAsync(MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<DashBoardPage>()));
-                    } 
-                }
+                } 
             }
             catch (Exception ex)
             {

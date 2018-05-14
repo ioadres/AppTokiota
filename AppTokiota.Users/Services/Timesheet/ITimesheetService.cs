@@ -13,5 +13,7 @@ namespace AppTokiota.Users.Services
         Task<Timesheet> GetTimesheetBeetweenDates(DateTime from, DateTime To);
         TimesheetForDay GetTimesheetByDate(Timesheet currentTimesheet, DateTime dateTime);
         TimesheetForMultipleDay GetTimesheetByDates(Timesheet currentTimesheet, List<DateTime> dateTimes);
+		Task<Activity> PostActivity(TimesheetAddActivity timesheetAddActivity, DateTime dateTime);
+		Task<List<Activity>> BatchActivity(List<TimesheetAddActivityBatch> timesheetAddActivityBatch);
 	}
 }

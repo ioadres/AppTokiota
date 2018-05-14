@@ -14,9 +14,24 @@ namespace AppTokiota.Users.Services
 {
     public class FakeTimesheetService : TimesheetServiceBase, ITimesheetService
     {
-        public async Task<Timesheet> GetTimesheetBeetweenDates(DateTime from, DateTime To)
+		public Task<Activity> BatchActivity(List<TimesheetAddActivityBatch> timesheetAddActivityBatch)
+		{
+			throw new NotImplementedException();
+		}
+
+		public async Task<Timesheet> GetTimesheetBeetweenDates(DateTime from, DateTime To)
         {
             return await Task.Run(() => JsonConvert.DeserializeObject<Timesheet>(FakeTimesheetData.Timesheet));
         }
-    }
+
+		public Task<Activity> PostActivity(TimesheetAddActivity timesheetAddActivity, DateTime dateTime)
+		{
+			throw new NotImplementedException();
+		}
+
+		Task<List<Activity>> ITimesheetService.BatchActivity(List<TimesheetAddActivityBatch> timesheetAddActivityBatch)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

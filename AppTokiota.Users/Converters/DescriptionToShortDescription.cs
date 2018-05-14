@@ -14,7 +14,7 @@ namespace AppTokiota.Users.Converters
         {
             var endMessage = "...";
             var message = "No Description!";
-            if (value.ToString().Trim().Length > 0)
+            if (value?.ToString().Trim().Length > 0)
             {
                 if (value.ToString().Trim().Length < MAXSTRING)
                 {

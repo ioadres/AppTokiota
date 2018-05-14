@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Prism.Navigation;
+using AppTokiota.Users.Components.Connection;
 
 namespace AppTokiota.Users.Components.DashBoard
 {
@@ -17,6 +18,10 @@ namespace AppTokiota.Users.Components.DashBoard
         {
             Title = "Dashboard";
             _dashBoardModule = dashBoardModule;
+			IsInternetWithModal();
         }
+
+
+
     }
 }

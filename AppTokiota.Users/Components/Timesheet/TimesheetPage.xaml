@@ -87,7 +87,7 @@
     <ContentPage.Content>
          <controlsRefractored:PullToRefreshLayout
           IsPullToRefreshEnabled="True"
-          RefreshCommand="{Binding RefreshCommand}"
+          RefreshCommand="{Binding ReloadDataCalendarCommand}"
           IsRefreshing="{Binding IsBusy}"
           RefreshColor="{StaticResource RedDarkColor}"> 
           <ScrollView
@@ -134,7 +134,7 @@
                         SelectRange="False"
                         StartDay="Monday" 
                         DatesFontSize="{StaticResource MidMediumSize }"
-                        TitleLabelFontSize="{StaticResource MidMediumSize }"
+                        TitleLabelFontSize="{StaticResource MediumSize }"
                         EnableTitleMonthYearView="True"
                         WeekdaysShow="True"
                         WeekdaysFontSize="{StaticResource LittleSize }"
@@ -145,8 +145,7 @@
                         DisabledBackgroundColor="{StaticResource DarkGrayColor}"
                         DisabledFontSize="{StaticResource LittleSize }"
                         DisabledBorderWidth="6"
-                            DisableAllDates="{Binding DisableAllDates}"
-                    
+
                         DatesBackgroundColor="{StaticResource WhiteColor}"
                         TitleLeftArrowTextColor="{StaticResource DarkGrayColor}"
                         TitleRightArrowTextColor="{StaticResource DarkGrayColor}"

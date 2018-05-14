@@ -15,7 +15,7 @@ namespace AppTokiota.Users.Services
 		public bool IsAvailable() {
 			var task = Task.Run(() =>
 			{
-				return CrossConnectivity.Current.IsConnected;//IsReachable(AppSettings.TimesheetDomain, 1000);
+				return CrossConnectivity.Current.IsConnected;
 			});
 
 			task.Wait();

@@ -21,18 +21,6 @@
     <PackageReference Include="Refractored.XamForms.PullToRefresh" Version="2.2.1" />
   </ItemGroup>
 	<ItemGroup>
-	  <EmbeddedResource Update="App.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Components\Login\LoginPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Components\Timesheet\TimesheetPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Folder Include="Components\ManageImputedDay\" />
 	  <Folder Include="Models\Timesheet\AddImputation\" />
 	  <Folder Include="Components\Core\Module\Base\" />

@@ -223,6 +223,7 @@ namespace AppTokiota.Users.Components.Timesheet
 					{
 						_currentTimesheet = await _timesheetModule.TimesheetService.GetTimesheetBeetweenDates(from, to);
 						var specialDates = await _timesheetModule.CalendarService.GetSpecialDatesBeetweenDatesAsync(_currentTimesheet);
+						SpecialDates.Clear();
 						specialDates.ForEach(x => SpecialDates.Add(x));
 						IsBusy = false;
 					}

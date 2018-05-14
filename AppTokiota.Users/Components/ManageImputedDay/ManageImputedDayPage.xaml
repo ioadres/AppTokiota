@@ -14,7 +14,7 @@
     Title="{Binding Title}"
     >
     <ContentPage.ToolbarItems> 
-        <ToolbarItem Text="Add" IsEnabled="{Binding IsEnabled}" Command="{Binding OnAddItemCommand}" />
+        <ToolbarItem Text="Add" IsEnabled="{Binding IsEnabled, Mode=TwoWay}" Command="{Binding OnAddItemCommand}" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.Resources>

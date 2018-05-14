@@ -17,5 +17,9 @@ namespace AppTokiota.Users.Services
         Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "");
 
         Task<TResult> PutAsync<TRequest, TResult>(string uri, TRequest data, string token = "");
+
+		Task<TResult> DeleteAsync<TResult>(string uri, string token = "");
+  
+
     }
 }

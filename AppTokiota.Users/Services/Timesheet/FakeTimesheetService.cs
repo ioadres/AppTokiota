@@ -19,6 +19,11 @@ namespace AppTokiota.Users.Services
 			throw new NotImplementedException();
 		}
 
+		public Task<TimesheetDeleteActivity> DeleteActivityTimesheet(DateTime from, int idActivity)
+		{
+			throw new NotImplementedException();
+		}
+
 		public async Task<Timesheet> GetTimesheetBeetweenDates(DateTime from, DateTime To)
         {
             return await Task.Run(() => JsonConvert.DeserializeObject<Timesheet>(FakeTimesheetData.Timesheet));

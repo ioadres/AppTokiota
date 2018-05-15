@@ -33,6 +33,7 @@
 	  <Folder Include="Components\ManageImputedDay\InfoActivity\" />
 	  <Folder Include="Services\Network\" />
 	  <Folder Include="Services\DialogError\" />
+	  <Folder Include="Components\Configuration\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Components\Activity\NavigationPage\ActivityNavigationPage.xaml.cs">

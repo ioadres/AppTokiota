@@ -16,26 +16,47 @@ namespace AppTokiota.Users.Services
     {
         private IRequestService _requestService;
         private ICacheEntity _cacheService;
+		private IAuthenticationService _authenticationService;
 
-        public TimesheetService(IRequestService requestService, ICacheEntity cacheService)
+		public TimesheetService(IRequestService requestService, ICacheEntity cacheService, IAuthenticationService authentication)
           
         {
             _cacheService = cacheService;
             _requestService = requestService;
+			_authenticationService = authentication;
         }
 
         public async Task<Timesheet> GetTimesheetBeetweenDates(DateTime from, DateTime to)
         {
-            var url = $"{AppSettings.TimesheetUrlEndPoint}?from={from.ToString("yyyy-MM-dd")}&to={to.ToString("yyyy-MM-dd")}";
-            var timesheet = await _requestService.GetAsync<Timesheet>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
-			return timesheet;
+			for (var i = 0; i < 2; i++)
+			{
+				try
+				{
+					if (await _authenticationService.UserIsAuthenticatedAndValidAsync())
+					{
+						var url = $"{AppSettings.TimesheetUrlEndPoint}?from={from.ToString("yyyy-MM-dd")}&to={to.ToString("yyyy-MM-dd")}";
+						var timesheet = await _requestService.GetAsync<Timesheet>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
+						return timesheet;
+					}
+					else {
+						throw new UnauthorizedAccessException();
+					}
+				}
+				catch (Exception e)
+				{
+					i++;
+					AppSettings.AuthenticatedUserResponse = null;
+				}               
+			}
+			throw new UnauthorizedAccessException();
+               
         }
 
 		public async Task<TimesheetDeleteActivity> DeleteActivityTimesheet(DateTime from, int idActivity)
         {
 			var url = $"{AppSettings.TimesheetUrlEndPoint}/{from.ToString("yyyy")}/{from.ToString("MM")}/{idActivity}";
 			var timesheet = await _requestService.DeleteAsync<TimesheetDeleteActivity>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
-            return timesheet;
+            return timesheet;         
         }
         
 		public async Task<Activity> PostActivity(TimesheetAddActivity timesheetAddActivity, DateTime from)

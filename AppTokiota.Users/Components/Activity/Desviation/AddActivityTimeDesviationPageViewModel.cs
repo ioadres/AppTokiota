@@ -109,7 +109,7 @@ namespace AppTokiota.Users.Components.Activity
         protected async void Next()
         {
             var navigationParameters = new NavigationParameters();
-            navigationParameters.Add(Imputed.Tag, Context);
+			navigationParameters.Add(Imputed.Tag, Context);
             await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityProjectPage>(), navigationParameters, false, false);
         }
 

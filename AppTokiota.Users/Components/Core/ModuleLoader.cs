@@ -15,6 +15,7 @@ using AppTokiota.Users.Components.DashBoard;
 using AppTokiota.Users.Components.Activity;
 using AppTokiota.Users.Components.ManageImputedDay;
 using System;
+using AppTokiota.Users.Components.Configuration;
 
 namespace AppTokiota.Users.Components.Core
 {
@@ -32,6 +33,11 @@ namespace AppTokiota.Users.Components.Core
             containerRegistry.Register<IDashBoardModule, DashBoardModule>();
             containerRegistry.RegisterForNavigation<DashBoardPage>();
             PageRoutes.AddKey<DashBoardPage>(nameof(DashBoardPage));
+
+			containerRegistry.Register<IConfigurationModule, ConfigurationModule>();
+			containerRegistry.RegisterForNavigation<ConfigurationPage>();
+			PageRoutes.AddKey<ConfigurationPage>(nameof(ConfigurationPage));
+
 
             containerRegistry.Register<ISplashModule, SplashModule>();
             containerRegistry.RegisterForNavigation<SplashPage>();

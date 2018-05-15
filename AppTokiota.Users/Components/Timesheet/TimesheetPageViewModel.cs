@@ -148,7 +148,7 @@ namespace AppTokiota.Users.Components.Timesheet
 		public DelegateCommand ReloadDataCalendarCommand => new DelegateCommand(ReloadDataCalendar);
 		protected void ReloadDataCalendar()
         {
-			ChangeDateCalendar(_currentDayMonthYear, false);
+			ChangeDateCalendar(_currentDayMonthYear);
         }
         #endregion
 

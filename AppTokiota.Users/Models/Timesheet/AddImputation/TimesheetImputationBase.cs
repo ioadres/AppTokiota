@@ -31,7 +31,7 @@ namespace AppTokiota.Users.Models
                         Deviation = activity.Deviation,
                         UserId = activity.UserId,
                         Imputed = activity.Imputed,
-                        Task = TimesheetForDay.Map(project.Value, activity.TaskId),
+                        Task = TimesheetForDay.Map(project.Value, activity.TaskId)
                     });
                 }
             }

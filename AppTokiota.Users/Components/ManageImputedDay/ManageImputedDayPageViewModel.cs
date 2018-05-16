@@ -77,8 +77,26 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         public DelegateCommand<object> OnDeleteItemCommand => new DelegateCommand<object>((obj) => { OnDeleteItem((ActivityDay)obj); });
         protected void OnDeleteItem(ActivityDay activity)
         {
-            _currentTimesheetForDay.Activities.Remove(activity);
-            UpdateDayOfTimesheet(_currentTimesheetForDay);
+			IsBusy = true;
+			if (IsInternetWithModal())
+			{
+				Device.BeginInvokeOnMainThread(async () =>
+				{
+					var result = await _manageImputedDayModule.TimesheetService.DeleteActivityTimesheet(activity.Date, activity.Id);
+					if (result != null)
+					{
+						
+						_currentTimesheetForDay.Activities.Remove(activity);
+						UpdateDayOfTimesheet(_currentTimesheetForDay);
+						IsBusy = false;
+					}
+					else
+					{
+						IsBusy = false;
+						BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+					}
+				});
+			}
         }
         #endregion
 

@@ -26,7 +26,10 @@ namespace AppTokiota.Users.Models
 				Deviation = activity.Deviation,
 				Imputed = activity.Imputed,
 				Project = ProjectActivity.Map(project),
-				Task = TaskActivity.Map(task)
+				Task = TaskActivity.Map(task),
+				UserId = activity.UserId,
+				Date = activity.Date,
+				Id = activity.Id
 			};
 		}
     }

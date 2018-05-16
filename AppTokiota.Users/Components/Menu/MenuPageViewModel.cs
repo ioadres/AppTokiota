@@ -15,6 +15,7 @@ using AppTokiota.Users.Components.Timesheet;
 using AppTokiota.Users.Components;
 using AppTokiota.Users.Components.DashBoard;
 using AppTokiota.Users.Components.Review;
+using AppTokiota.Users.Components.Configuration;
 
 namespace AppTokiota.Users.Components.Menu
 {
@@ -92,7 +93,8 @@ namespace AppTokiota.Users.Components.Menu
             MenuList.Add(new MenuItem()
             {
                 Icon = "\uf085",
-                Title = "Configuration"
+                Title = "Configuration",
+				PageName = MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<ConfigurationPage>())
             });
         }
     }

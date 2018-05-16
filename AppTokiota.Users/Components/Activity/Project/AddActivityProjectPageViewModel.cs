@@ -126,7 +126,21 @@ namespace AppTokiota.Users.Components.Activity
 				if(IsInternetAndCloseModal()) {
 					if (Context.CurrentTimesheet == null)
                     {
-                        //await _addActivityModule.TimesheetService.BatchActivity(Context.CurrentTimesheetMultipleDay.Activities);
+						var multiplesDay = Context.CurrentTimesheetMultipleDay.Days?.Select(x => new TimesheetAddActivityBatch()
+						{
+							Day = int.Parse(x.Date.ToString("dd")),
+							Month = int.Parse(x.Date.ToString("MM")),
+							Year = int.Parse(x.Date.ToString("yyyy")),
+							AssignementId = SelectedTask.AssignementId,
+                            ProjectId = SelectedProject.Id,
+                            Description = Description,
+                            Deviation = Convert.ToInt16(Context.Deviation.GetMinutes()),
+                            Imputed = Convert.ToInt16(Context.Consumed.GetMinutes()),
+                            TaskId = SelectedTask.Id
+						});
+						await _addActivityModule.TimesheetService.BatchActivity(multiplesDay.ToList());
+						IsBusy = false;
+						CloseCommand.Execute();
                     }
                     else
                     {

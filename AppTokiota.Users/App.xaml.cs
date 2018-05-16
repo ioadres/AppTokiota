@@ -26,10 +26,11 @@ namespace AppTokiota.Users
 
         protected override async void OnInitialized()
         {
-            InitializeComponent();
-
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
             BlobCache.ApplicationName = AppSettings.IdAppCache;
+
+            InitializeComponent();
+
             await NavigationService.NavigateAsync(PageRoutes.GetKey<SplashPage>());
         }
 

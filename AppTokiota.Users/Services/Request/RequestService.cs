@@ -59,6 +59,18 @@ namespace AppTokiota.Users.Services
             return await Task.Run(() => JsonConvert.DeserializeObject<TResult>(responseData, _serializerSettings));
         }
 
+		public async Task<TResult> DeleteAsync<TResult>(string uri, string token = "")
+        {
+			HttpClient httpClient = CreateHttpClient(token);
+            HttpResponseMessage response = await httpClient.DeleteAsync(uri);
+
+            await HandleResponse(response);
+
+            string responseData = await response.Content.ReadAsStringAsync();
+
+            return await Task.Run(() => JsonConvert.DeserializeObject<TResult>(responseData, _serializerSettings));
+        }
+
         public Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "")
         {
             return PutAsync<TResult, TResult>(uri, data, token);

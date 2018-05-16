@@ -55,23 +55,23 @@ namespace AppTokiota.Users.Components.Login
         {
 			IsBusy = true;
 			Device.BeginInvokeOnMainThread(async () =>
-		   {
+		    {
 			   try
 			   {
 				   if (Validate())
-				   {
+					{
 						if (this.IsInternetAndCloseModal())
-					   {
-						   var responseRequest = await BaseModule.AuthenticationService.Login(_email.Value, _password.Value);
-						   if (responseRequest.Success)
-						   {
-							   NavigateCommand.Execute(MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<DashBoardPage>()));
-						   }
-						   else
-						   {
-							   IsBusy = false;
+					    {
+							var responseRequest = await BaseModule.AuthenticationService.Login(_email.Value, _password.Value);
+							IsBusy = false;
+							if (responseRequest.Success)
+						    {
+							    NavigateCommand.Execute(MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<DashBoardPage>()));
+						    }
+						    else
+						    {							  
 							   await BaseModule.DialogService.ShowAlertAsync(responseRequest.Message, "Login error", "Ok");
-						   }
+						    }
 						}
 				   }
 			   }

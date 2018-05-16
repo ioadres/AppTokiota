@@ -147,9 +147,9 @@
                         <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
                     
-                    <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="{StaticResource DarkGrayColor}" VerticalOptions="FillAndExpand"></BoxView>
-                    <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="{StaticResource DarkGrayColor}" VerticalOptions="FillAndExpand"></BoxView>
-                    <BoxView Grid.Row="0" Grid.Column="2" BackgroundColor="{StaticResource DarkGrayColor}" VerticalOptions="FillAndExpand"></BoxView>
+                    <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="{StaticResource DarkColor}" VerticalOptions="FillAndExpand"></BoxView>
+                    <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="{StaticResource DarkColor}" VerticalOptions="FillAndExpand"></BoxView>
+                    <BoxView Grid.Row="0" Grid.Column="2" BackgroundColor="{StaticResource DarkColor}" VerticalOptions="FillAndExpand"></BoxView>
                     <BoxView Grid.Row="1" Grid.Column="0" BackgroundColor="{StaticResource RedDarkColor}" VerticalOptions="FillAndExpand"></BoxView>
                     <BoxView Grid.Row="1" Grid.Column="1" BackgroundColor="{StaticResource RedDarkColor}" VerticalOptions="FillAndExpand"></BoxView>
                     <BoxView Grid.Row="1" Grid.Column="2" BackgroundColor="{StaticResource RedDarkColor}" VerticalOptions="FillAndExpand"></BoxView>

@@ -93,6 +93,12 @@
     <Reference Include="Prism.Unity.Forms, Version=7.0.0.396, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Unity.Forms.7.0.0.396\lib\netstandard2.0\Prism.Unity.Forms.dll</HintPath>
     </Reference>
+    <Reference Include="Refractored.XamForms.PullToRefresh, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Refractored.XamForms.PullToRefresh.2.2.1\lib\MonoAndroid10\Refractored.XamForms.PullToRefresh.dll</HintPath>
+    </Reference>
+    <Reference Include="Refractored.XamForms.PullToRefresh.Droid, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Refractored.XamForms.PullToRefresh.2.2.1\lib\MonoAndroid10\Refractored.XamForms.PullToRefresh.Droid.dll</HintPath>
+    </Reference>
     <Reference Include="Rg.Plugins.Popup, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rg.Plugins.Popup.1.0.4\lib\MonoAndroid\Rg.Plugins.Popup.dll</HintPath>
     </Reference>

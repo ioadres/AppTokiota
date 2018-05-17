@@ -28,19 +28,20 @@ namespace AppTokiota.Users.Components.Timesheet
         public TimesheetPageViewModel(IViewModelBaseModule baseModule, ITimesheetModule timesheetModule) : base(baseModule)
         {
             _timesheetModule = timesheetModule;
-           
+			ModeLoadingPopUp = false;
+
             Title = "Timesheet";
 
             DateTime date = DateTime.Now;
             _dates = new ObservableCollection<DateTime>();
             _specialDates = new ObservableCollection<SpecialDate>();
 
-            var from = new DateTime(date.Year, date.Month, 1);
-            DateChosen.Execute(from);
+			_currentDayMonthYear = new DateTime(date.Year, date.Month, 1);
         }
         #endregion
 
         private Models.Timesheet _currentTimesheet;
+		private DateTime _currentDayMonthYear;
 
         /// <summary>
         /// Gets or sets the selection collection dates 
@@ -55,17 +56,7 @@ namespace AppTokiota.Users.Components.Timesheet
             }
         }
 
-        /// <summary>
-        /// Gets if is a multipleSelection
-        /// </summary>
-        /// <value>If is multile</value>
-        private StackOrientation _orientation = StackOrientation.Vertical;
-        public StackOrientation Orientation
-        {
-            get { return _orientation; }
-            set { SetProperty(ref _orientation, value); }
-        }
-
+        
         /// <summary>
         /// Gets if is a multipleSelection
         /// </summary>
@@ -136,10 +127,28 @@ namespace AppTokiota.Users.Components.Timesheet
 
         #region EventChangeDateMonthOfCalendar
         public Command DateChosen => new Command((obj) => { ChangeDateCalendar((DateTime)obj); });
-        protected void ChangeDateCalendar(DateTime from)
+        protected void ChangeDateCalendar(DateTime from, bool removeOldDates = true)
         {
+			if (removeOldDates)
+			{
+				var itemsDate = Dates.ToList();
+				itemsDate.ForEach(x => Dates.Remove(x));
+				itemsDate = null;
+			}
+
+			ReloadData();
+
+			_currentDayMonthYear = from;
             var to = from.AddMonths(1).AddDays(10);
             LoadSpecialDatesAsync(from.AddDays(-7), to);
+        }
+		#endregion
+
+		#region EventReloadDataCalendar
+		public DelegateCommand ReloadDataCalendarCommand => new DelegateCommand(ReloadDataCalendar);
+		protected void ReloadDataCalendar()
+        {
+			ChangeDateCalendar(_currentDayMonthYear);
         }
         #endregion
 
@@ -150,13 +159,7 @@ namespace AppTokiota.Users.Components.Timesheet
             if (date == null)
                 return;
 
-            IsMultiple = Dates.Count() > 1;
-            IsNotMultiple = Dates.Count() == 1;
-            IsVisibleFooter = Dates.Count() == 0;
-
-            if (Dates.Any())
-            {
-            }
+			ReloadData();
         }
         #endregion
 
@@ -164,10 +167,19 @@ namespace AppTokiota.Users.Components.Timesheet
         public DelegateCommand ManageImputedDayCommand => new DelegateCommand(ManageImputedDay);
         protected async void ManageImputedDay()
         {
-            var selectedDateTimesheet = _timesheetModule.TimesheetService.GetTimesheetByDate(_currentTimesheet, Dates.FirstOrDefault());
-            var navigationParameters = new NavigationParameters();
-            navigationParameters.Add(TimesheetForDay.Tag, selectedDateTimesheet);
-            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<ManageImputedDayPage>(), navigationParameters);
+			if (this.IsInternetAndCloseModal())
+			{
+				var selectedDateTimesheet = _timesheetModule.TimesheetService.GetTimesheetByDate(_currentTimesheet, Dates.FirstOrDefault());
+				if (selectedDateTimesheet.Day != null)
+				{
+					var navigationParameters = new NavigationParameters();
+					navigationParameters.Add(TimesheetForDay.Tag, selectedDateTimesheet);
+					await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<ManageImputedDayPage>(), navigationParameters);
+				} else {
+					BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+					ChangeDateCalendar(_currentDayMonthYear, false);
+                }
+			}
         }
         #endregion
 
@@ -175,62 +187,77 @@ namespace AppTokiota.Users.Components.Timesheet
         public DelegateCommand ManageMultipleImputedDayCommand => new DelegateCommand(ManageMultipleImputedDay);
         protected async void ManageMultipleImputedDay()
         {
-            var selectedDateTimesheet = _timesheetModule.TimesheetService.GetTimesheetByDates(_currentTimesheet, Dates.ToList());
+			if (this.IsInternetAndCloseModal())
+			{
+				var selectedDateTimesheet = _timesheetModule.TimesheetService.GetTimesheetByDates(_currentTimesheet, Dates.ToList());
 
-            if(selectedDateTimesheet.Days.Any()) {
-                var imputed = new Imputed()
-                {
-                    CurrentTimesheetMultipleDay = selectedDateTimesheet
-                };
+				if (selectedDateTimesheet.Days.Any())
+				{
+					var imputed = new Imputed()
+					{
+						CurrentTimesheetMultipleDay = selectedDateTimesheet
+					};
 
-                var navigationParameters = new NavigationParameters();
-                navigationParameters.Add(Imputed.Tag, imputed);
-                await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters);
-            } else {
-                BaseModule.DialogService.ShowToast("The all days selected is closed");
-            }           
+					var navigationParameters = new NavigationParameters();
+					navigationParameters.Add(Imputed.Tag, imputed);
+					await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters);
+				}
+				else
+				{
+					BaseModule.DialogService.ShowToast("The all days selected is closed or failed load the month. The month will be load again");
+					ChangeDateCalendar(_currentDayMonthYear, false);
+				}
+			}      
         }
         #endregion
 
         #region MethodToLoadSpecialDatesFromTheSelectionMonthInCalendar
         protected void LoadSpecialDatesAsync(DateTime from, DateTime to)
         {
-            IsBusy = true;
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                try
-                {
-                    Dates.Clear();
-                    _currentTimesheet = await _timesheetModule.TimesheetService.GetTimesheetBeetweenDates(from, to);
-                    var specialDates = await _timesheetModule.CalendarService.GetSpecialDatesBeetweenDatesAsync(_currentTimesheet);
-                    specialDates.ForEach(x => SpecialDates.Add(x));
-                    IsBusy = false;
-                }
-                catch (Exception ex)
-                {
-                    IsBusy = false;
-                    Debug.WriteLine($"[Booking] Error: {ex}");
+			IsBusy = true;
+			Device.BeginInvokeOnMainThread( async() =>
+			{
+				try
+				{                    
+					if (this.IsInternetAndCloseModal())
+					{
+						_currentTimesheet = await _timesheetModule.TimesheetService.GetTimesheetBeetweenDates(from, to);
+						var specialDates = await _timesheetModule.CalendarService.GetSpecialDatesBeetweenDatesAsync(_currentTimesheet);
+						SpecialDates.Clear();
+						specialDates.ForEach(x => SpecialDates.Add(x));
+						IsBusy = false;
+					}
+				}
+				catch (Exception ex)
+				{
+					IsBusy = false;
+					BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();               
+					Debug.WriteLine($"[Booking] Error: {ex}");
+				}
 
-                    await BaseModule.DialogService.ShowAlertAsync(
-                        "An error ocurred, try again",
-                        "Error",
-                        "Ok");
-                }
-            });
+			});            
+            
         }
-        #endregion
+		#endregion
 
-
-        public override void OnNavigatedTo(NavigationParameters parameters)
+		      
+		public override void OnNavigatedTo(NavigationParameters parameters)
         {
-            IsMultiple = Dates.Count() > 1;
+			if(_currentDayMonthYear != null) {
+				ChangeDateCalendar(_currentDayMonthYear, false);
+			}
+        }
+
+
+		private void ReloadData() {
+			IsMultiple = Dates.Count() > 1;
             IsNotMultiple = Dates.Count() == 1;
             IsVisibleFooter = Dates.Count() == 0;
 
             if (Dates.Any())
             {
             }
-        }
+		}
 
 	}
 }

@@ -4,6 +4,7 @@ using AppTokiota.Users.Controls;
 using Foundation;
 using Prism;
 using Prism.Ioc;
+using Refractored.XamForms.PullToRefresh.iOS;
 using UIKit;
 
 namespace AppTokiota.iOS
@@ -15,6 +16,7 @@ namespace AppTokiota.iOS
         {
         global::Xamarin.Forms.Forms.Init();
            
+			PullToRefreshLayoutRenderer.Init();
             LoadApplication(new App(new iOSInitializer()));
 
  

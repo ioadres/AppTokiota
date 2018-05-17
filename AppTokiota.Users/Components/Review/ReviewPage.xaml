@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTokiota.Users.Components.Review.ReviewPage"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:converters="clr-namespace:AppTokiota.Users.Converters;assembly=AppTokiota.Users"
+             Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
+            <converters:MinutesToHourConverter x:Key="cnvMinutesToHour"></converters:MinutesToHourConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Padding="10" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Padding="10">
+                    <!--<Picker x:Name="pickerYear"
+                            Title="Select Date"
+                            ItemsSource="{Binding MonthYearPicker}"
+                            />-->
+                    <Picker Grid.Row="0" Grid.Column="0" x:Name="pickerMonth"
+                            Title="Month"
+                            ItemsSource="{Binding MonthPicker}"
+                            VerticalOptions="Center"
+                            />
+                    <Picker Grid.Row="0" Grid.Column="1" x:Name="pickerYear"
+                            Title="Year"
+                            ItemsSource="{Binding YearPicker}"
+                            VerticalOptions="Center"
+                            SelectedItem="{Binding myYearPicker}"
+                            />
+                </StackLayout>
+            </Grid>
+            <!--ItemDisplayBinding="{Binding MonthYearPickerID}"
+                            SelectedItem="{Binding myMonthYearPicker, Mode=TwoWay}"
+            <ListView x:Name="LstContactos" HasUnevenRows="True" Grid.Row="1" SeparatorColor="Black" ItemsSource="{Binding LstContactos, Source={x:Reference MyPage}}"-->
+            <ListView x:Name="LstReview" HasUnevenRows="True" Grid.Row="1" SeparatorColor="Black" ItemsSource="{Binding LstReview}"
+                  VerticalOptions="Fill">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="4*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Column="0" Text="{Binding id}"></Label>
+                                    <Label Grid.Column="1" Text="{Binding project}"></Label>
+                                    <Label Grid.Column="2" Text="{Binding task}"></Label>
+                                    <Label Grid.Column="3" Text="{Binding description}"></Label>
+                                    <Label Grid.Column="4" Text="{Binding schedule}"></Label>
+                                    <Label Grid.Column="5" Text="{Binding consumed}"></Label>
+                                    <Label Grid.Column="6" Text="{Binding deviate}"></Label>
+                                    <Label Grid.Column="7" Text="{Binding imputation}"></Label>
+                                    <Label Grid.Column="8" Text="{Binding deviation}"></Label>
+
+                                </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+
+
+            <Grid Grid.Row="2" BackgroundColor="{StaticResource DarkColor}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Column="0" Padding="10" >
+                    <Label Text="Imputed" Style="{StaticResource FooterTextStyle}" />
+                    <Label Text="Deviation" Style="{StaticResource FooterTextStyle}"/>
+                </StackLayout>
+                <StackLayout Grid.Column="1" Padding="10">
+                    <Label Text="{Binding ImputedTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
+                    <Label Text="{Binding DeviationTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
+                </StackLayout>
+                <StackLayout Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Button Style="{StaticResource ButtonPrimary}" Text="Send"/>
+                </StackLayout>
+            </Grid>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

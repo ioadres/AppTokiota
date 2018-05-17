@@ -51,38 +51,36 @@ namespace AppTokiota.Users.Components.Login
         }
 
         public DelegateCommand SignInCommand => new DelegateCommand(SignIn);
-        private async void SignIn()
+        private void SignIn()
         {
-            try
-            {
-                IsBusy = true;
-                if (Validate())
-                {
-                    var responseRequest = await BaseModule.AuthenticationService.Login(_email.Value, _password.Value);
-                    if (responseRequest.Success)
-                    {
-                        NavigateCommand.Execute(MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<DashBoardPage>()));
-                    }
-                    else
-                    {
-                        IsBusy = false;
-                        await BaseModule.DialogService.ShowAlertAsync(responseRequest.Message, "Login error", "Ok");
-                    }
-                }
-
-            }
-            catch (ServiceAuthenticationException)
-            {
-                await BaseModule.DialogService.ShowAlertAsync("Please, try again", "Login error", "Ok");
-            }
-            catch (Exception)
-            {
-                await BaseModule.DialogService.ShowAlertAsync("An error occurred, try again", "Error", "Ok");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+			IsBusy = true;
+			Device.BeginInvokeOnMainThread(async () =>
+		    {
+			   try
+			   {
+				   if (Validate())
+					{
+						if (this.IsInternetAndCloseModal())
+					    {
+							var responseRequest = await BaseModule.AuthenticationService.Login(_email.Value, _password.Value);
+							IsBusy = false;
+							if (responseRequest.Success)
+						    {
+							    NavigateCommand.Execute(MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<DashBoardPage>()));
+						    }
+						    else
+						    {							  
+							   await BaseModule.DialogService.ShowAlertAsync(responseRequest.Message, "Login error", "Ok");
+						    }
+						}
+				   }
+			   }
+			   catch (Exception)
+			   {
+				   IsBusy = false;
+				   BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+			   }
+		   });
         }
 
         private void AddValidations()

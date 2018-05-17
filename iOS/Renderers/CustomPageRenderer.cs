@@ -21,6 +21,8 @@ namespace AppTokiota.iOS.Renderers
 
             var background = NavigationBarAttachedProperty.GetBackgroundColor(Element);
             NavigationBarAttachedProperty.SetBackgroundColor(Element, background);
+
         }
+
     }
 }

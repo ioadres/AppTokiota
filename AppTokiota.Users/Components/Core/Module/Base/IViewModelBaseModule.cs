@@ -11,8 +11,10 @@ namespace AppTokiota.Users.Components.Core.Module
 {
    public interface IViewModelBaseModule : IBaseModule
     {
+		INetworkConnectionService NetworkConnectionService { get; }
         IAuthenticationService AuthenticationService { get; }
         IDialogService DialogService { get; }
+		IDialogErrorCustomService DialogErrorCustomService { get; }
         INavigationService NavigationService { get; }
         ICacheEntity CacheEntity { get; }
     }

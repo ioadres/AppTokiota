@@ -14,7 +14,7 @@
     Title="{Binding Title}"
     >
     <ContentPage.ToolbarItems> 
-        <ToolbarItem Text="Add" IsEnabled="{Binding IsEnabled}" Command="{Binding OnAddItemCommand}" />
+        <ToolbarItem Text="Add" IsEnabled="{Binding IsEnabled, Mode=TwoWay}" Command="{Binding OnAddItemCommand}" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.Resources>
@@ -100,17 +100,18 @@
                      CachingStrategy="RecycleElement"
                      VerticalOptions="FillAndExpand" 
                      HorizontalOptions="FillAndExpand" 
+
                      BackgroundColor="{StaticResource WhiteColor}"
-                     SeparatorColor="{StaticResource GrayColor}"
+                     SeparatorColor="{StaticResource RedDarkColor}"
                      ItemsSource="{Binding Activities}" 
+                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                      >
-              <ListView.ItemTemplate>
+                <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell StyleId="disclosure-button">
-                            <ViewCell.ContextActions >
-                                <MenuItem Command="{Binding Source={x:Reference this}, Path=BindingContext.OnDeleteItemCommand}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" IsEnabled="{Binding Source={x:Reference this}, Path=BindingContext.IsEnabled}"/>
+                            <ViewCell.ContextActions>
+                                <MenuItem Command="{Binding Source={x:Reference this}, Path=BindingContext.OnDeleteItemCommand}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True"/>
                             </ViewCell.ContextActions>
-                            
                           <Grid Padding="10">
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OnInfoActivityItemCommand}" CommandParameter="{Binding .}" NumberOfTapsRequired="2" />

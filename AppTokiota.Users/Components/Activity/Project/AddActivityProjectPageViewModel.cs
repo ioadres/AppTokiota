@@ -68,13 +68,13 @@ namespace AppTokiota.Users.Components.Activity
                     ConfirmVisibility = false; 
                 }
                 if(_selectedTask != null && Context.CurrentTimesheet != null) {
-                    Consumed = _selectedTask.Consumed + Context.Consumed.GetMimutes();
-                    Deviation = _selectedTask.Deviation + Context.Deviation.GetMimutes();
+                    Consumed = _selectedTask.Consumed + Context.Consumed.GetMinutes();
+					Deviation = _selectedTask.Deviation + Context.Deviation.GetMinutes();
                 }
                 if (_selectedTask != null && Context.CurrentTimesheetMultipleDay != null)
                 {
-                    Consumed = _selectedTask.Consumed + (Context.Consumed.GetMimutes() * Context.CurrentTimesheetMultipleDay.Days.Count());
-                    Deviation = _selectedTask.Deviation + (Context.Deviation.GetMimutes() * Context.CurrentTimesheetMultipleDay.Days.Count());
+					Consumed = _selectedTask.Consumed + (Context.Consumed.GetMinutes() * Context.CurrentTimesheetMultipleDay.Days.Count());
+					Deviation = _selectedTask.Deviation + (Context.Deviation.GetMinutes() * Context.CurrentTimesheetMultipleDay.Days.Count());
                 }
             }
         }
@@ -95,6 +95,14 @@ namespace AppTokiota.Users.Components.Activity
             set { SetProperty(ref _deviation, value); }
         }
 
+		public string _description;
+		public string Description
+        {
+			get { return _description; }
+
+			set { SetProperty(ref _description, value); }
+        }
+
         private bool _confirmVisibility;
         public bool ConfirmVisibility
         {
@@ -109,7 +117,57 @@ namespace AppTokiota.Users.Components.Activity
             set { SetProperty(ref _projectSelected, value); }
         }
         
+		#region GoBack
+		public DelegateCommand EndCommand => new DelegateCommand(End);
+		public async void End()
+        {
+			IsBusy = true;
+			try {
+				if(IsInternetAndCloseModal()) {
+					if (Context.CurrentTimesheet == null)
+                    {
+						var multiplesDay = Context.CurrentTimesheetMultipleDay.Days?.Select(x => new TimesheetAddActivityBatch()
+						{
+							Day = int.Parse(x.Date.ToString("dd")),
+							Month = int.Parse(x.Date.ToString("MM")),
+							Year = int.Parse(x.Date.ToString("yyyy")),
+							AssignementId = SelectedTask.AssignementId,
+                            ProjectId = SelectedProject.Id,
+                            Description = Description,
+                            Deviation = Convert.ToInt16(Context.Deviation.GetMinutes()),
+                            Imputed = Convert.ToInt16(Context.Consumed.GetMinutes()),
+                            TaskId = SelectedTask.Id
+						});
+						await _addActivityModule.TimesheetService.BatchActivity(multiplesDay.ToList());
+						IsBusy = false;
+						CloseCommand.Execute();
+                    }
+                    else
+                    {
+                        var response = await _addActivityModule.TimesheetService.PostActivity(new TimesheetAddActivity()
+                        {
+							AssignementId = SelectedTask.AssignementId,
+                            ProjectId = SelectedProject.Id,
+                            Description = Description,
+                            Deviation = Convert.ToInt16(Context.Deviation.GetMinutes()),
+                            Imputed = Convert.ToInt16(Context.Consumed.GetMinutes()),
+							TaskId = SelectedTask.Id
+                        }, Context.CurrentTimesheet.Day.Date);
 
+						var activityDay = ActivityDay.Map(response,Context.CurrentTimesheet);
+                        var navigationParameters = new NavigationParameters();
+						navigationParameters.Add(AppTokiota.Users.Models.ActivityDay.Tag, activityDay);
+						IsBusy = false;
+                        await BaseModule.NavigationService.GoBackAsync(navigationParameters);
+                    }
+				}
+			} catch(Exception e) {
+				IsBusy = false;
+			}
+            
+        }
+        #endregion
+        
         #region GoBack
         public DelegateCommand GoBackCommand => new DelegateCommand(GoBack);
         protected void GoBack()
@@ -137,12 +195,18 @@ namespace AppTokiota.Users.Components.Activity
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
-            Context = parameters.GetValue<Imputed>(Imputed.Tag);
-            if(Context.CurrentTimesheet == null){
-                Projects = Context.CurrentTimesheetMultipleDay.Projects;
-            } else {
-                Projects = Context.CurrentTimesheet.Projects;
-            }
+			if (parameters.ContainsKey(Imputed.Tag))
+            {
+				Context = parameters.GetValue<Imputed>(Imputed.Tag);
+                if (Context.CurrentTimesheet == null)
+                {
+                    Projects = Context.CurrentTimesheetMultipleDay.Projects;
+                }
+                else
+                {
+                    Projects = Context.CurrentTimesheet.Projects;
+                }
+            }            
         }
     }
 }

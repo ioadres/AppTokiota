@@ -12,15 +12,20 @@ namespace AppTokiota.Users.Services
          
             if (AppSettings.UseFakeServices)
             {
+                containerRegistry.RegisterSingleton<INetworkConnectionService, FakeNetworkConnectionService>();
                 containerRegistry.RegisterSingleton<IAuthenticationService, FakeAuthenticationService>();
                 containerRegistry.RegisterSingleton<ITimesheetService, FakeTimesheetService>();
+                containerRegistry.RegisterSingleton<IReviewService, FakeReviewService>();
             } else
             {
                 containerRegistry.RegisterSingleton<IAuthenticationService, AuthenticationService>();
                 containerRegistry.RegisterSingleton<ITimesheetService, TimesheetService>();
+                containerRegistry.RegisterSingleton<INetworkConnectionService, NetworkConnectionService>();
+                containerRegistry.RegisterSingleton<IReviewService, ReviewService>();
             }
 
             containerRegistry.RegisterSingleton<IDialogService, DialogService>();
+			containerRegistry.RegisterSingleton<IDialogErrorCustomService, DialogErrorCustomService>();
             containerRegistry.RegisterSingleton<ICacheEntity, AkavacheEntity>();
             containerRegistry.RegisterSingleton<ICalendarService, CalendarService>();
 

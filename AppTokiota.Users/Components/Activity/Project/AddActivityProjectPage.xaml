@@ -128,6 +128,7 @@
                                                  Placeholder="Description"
                                                  PlaceholderColor="{StaticResource GrayColor}"
                                                  AutomationId="Description" 
+                                                 Text="{Binding Description}"
                                                  TextColor="{StaticResource SecondaryTextColor}">
                         </controls:ExtendedEditor>
              
@@ -146,9 +147,9 @@
                         <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
                     
-                    <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="{StaticResource DarkGrayColor}" VerticalOptions="FillAndExpand"></BoxView>
-                    <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="{StaticResource DarkGrayColor}" VerticalOptions="FillAndExpand"></BoxView>
-                    <BoxView Grid.Row="0" Grid.Column="2" BackgroundColor="{StaticResource DarkGrayColor}" VerticalOptions="FillAndExpand"></BoxView>
+                    <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="{StaticResource DarkColor}" VerticalOptions="FillAndExpand"></BoxView>
+                    <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="{StaticResource DarkColor}" VerticalOptions="FillAndExpand"></BoxView>
+                    <BoxView Grid.Row="0" Grid.Column="2" BackgroundColor="{StaticResource DarkColor}" VerticalOptions="FillAndExpand"></BoxView>
                     <BoxView Grid.Row="1" Grid.Column="0" BackgroundColor="{StaticResource RedDarkColor}" VerticalOptions="FillAndExpand"></BoxView>
                     <BoxView Grid.Row="1" Grid.Column="1" BackgroundColor="{StaticResource RedDarkColor}" VerticalOptions="FillAndExpand"></BoxView>
                     <BoxView Grid.Row="1" Grid.Column="2" BackgroundColor="{StaticResource RedDarkColor}" VerticalOptions="FillAndExpand"></BoxView>
@@ -198,7 +199,7 @@
                     </Trigger>
                 </Grid.Triggers>
                 <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NextCommand}" />
+                    <TapGestureRecognizer Command="{Binding EndCommand}" />
                 </Grid.GestureRecognizers>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">

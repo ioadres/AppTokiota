@@ -78,12 +78,13 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Style="{StaticResource IconTextStyle}" Text="&#xf0d9;" Grid.Column="0" HorizontalTextAlignment="Center" IsVisible="true">
+                    <Label  Style="{StaticResource TitleH4Style}" Text="{Binding Title}"  Grid.Column="1" VerticalOptions="Center" HorizontalTextAlignment="Center"></Label>
+
+                    <Label Style="{StaticResource IconTextStyle}" Text="&#xf00d;" Grid.Column="2" HorizontalTextAlignment="Center" IsVisible="true">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ClosePopupCommand}" />
                         </Label.GestureRecognizers>
                     </Label>
-                    <Label  Style="{StaticResource TitleH4Style}" Text="{Binding Title}"  Grid.Column="1" VerticalOptions="Center" HorizontalTextAlignment="Center"></Label>
                 </Grid>
 
             </StackLayout>

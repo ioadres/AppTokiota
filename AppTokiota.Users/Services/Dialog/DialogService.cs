@@ -14,13 +14,15 @@ namespace AppTokiota.Users.Services
             return UserDialogs.Instance.AlertAsync(message, title, buttonLabel);
         }
 
-        public void ShowLoading() {
-            UserDialogs.Instance.ShowLoading("Please Wait...", MaskType.Black);
+        public async void ShowLoading() {
+			UserDialogs.Instance.ShowLoading("Please Wait...", MaskType.Black);
+			await Task.FromResult(true);
         }
 
-        public void HideLoading()
+		public async void HideLoading()
         {
             UserDialogs.Instance.HideLoading();
+			await Task.FromResult(true);
         }
 
 

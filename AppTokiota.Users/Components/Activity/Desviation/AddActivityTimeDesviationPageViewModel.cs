@@ -109,7 +109,7 @@ namespace AppTokiota.Users.Components.Activity
         protected async void Next()
         {
             var navigationParameters = new NavigationParameters();
-            navigationParameters.Add(Imputed.Tag, Context);
+			navigationParameters.Add(Imputed.Tag, Context);
             await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityProjectPage>(), navigationParameters, false, false);
         }
 
@@ -124,8 +124,10 @@ namespace AppTokiota.Users.Components.Activity
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
-            _context = parameters.GetValue<Imputed>(Imputed.Tag);
-            TimeSelectedImputation = Context.Deviation.ToString();
+			if(parameters.ContainsKey(Imputed.Tag)) {
+                _context = parameters.GetValue<Imputed>(Imputed.Tag);
+                TimeSelectedImputation = Context.Deviation.ToString();
+			}
         }
 
         public override void OnNavigatedFrom(NavigationParameters parameters)

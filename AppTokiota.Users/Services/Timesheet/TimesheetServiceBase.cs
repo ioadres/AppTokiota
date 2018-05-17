@@ -21,7 +21,15 @@ namespace AppTokiota.Users.Services
             var timesheetForDay = new TimesheetForMultipleDay();
             timesheetForDay.Days = currentTimesheet.Days.Where(x => x.IsClosed == false && dateTimes.Any(y => y.Date.Equals(x.Date))).ToList();
             timesheetForDay.Projects = currentTimesheet.Projects.Values.ToList();
-            timesheetForDay.Activities = null;
+			timesheetForDay.Activities = currentTimesheet.Activities.Values.Select(x=> new ActivityDay() {
+				AssignementId = x.AssignementId,
+				Date = x.Date,
+				Description = x.Description,
+				Deviation = x.Deviation,
+				Id = x.Id,
+				Imputed = x.Imputed,
+				UserId = x.UserId
+			}).ToList();
             return timesheetForDay;
         }
     }

@@ -44,11 +44,6 @@
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
             </Style>
 
-            <Style x:Key="IconPlusTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="45" />
-                <Setter Property="TextColor" Value="{StaticResource RedColor}"/>
-            </Style>
-
 
             <converters:FormatTimeMinutesToStringEntry x:Key="cnvFormatTimeMinutesToStringEntry"></converters:FormatTimeMinutesToStringEntry>
 

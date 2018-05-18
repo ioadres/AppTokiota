@@ -38,7 +38,7 @@
             </Style>
 
             <Style x:Key="IconTextStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}" />
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
             </Style>
@@ -84,7 +84,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Style="{StaticResource IconTextStyle}" Text="&#xf0d9;" Grid.Column="0" HorizontalTextAlignment="Center" IsVisible="false"></Label>
-                    <Label  Style="{StaticResource TitleH4Style}" Text="{Binding Title}"  Grid.Column="1" HorizontalTextAlignment="Center"></Label>
+                    <Label  Style="{StaticResource TitleH4Style}" Text="{Binding Title}"  Grid.Column="1" HorizontalTextAlignment="Center" TranslationY="5"></Label>
                     <Label Style="{StaticResource IconTextStyle}" Text="&#xf00d;" Grid.Column="2" HorizontalTextAlignment="Center">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ClosePopupCommand}" />
@@ -109,7 +109,7 @@
                     <Label Grid.Row="0" Style="{StaticResource TitleH2Style}" Text="Please select the imputation Time" HorizontalTextAlignment="Center"></Label>
                     <Button Grid.Row="2" Style="{StaticResource ButtonSecundary}" WidthRequest="150" Text="Select Time" Command="{Binding TimeImputedOpenCommand}" VerticalOptions="Center" HorizontalOptions="Center"></Button>
 
-                    <StackLayout Grid.Row="4" HorizontalOptions="Fill" IsVisible="{Binding TimeTitleImputationEntryVisibility, Mode=TwoWay}"  VerticalOptions="Center">
+                    <StackLayout Grid.Row="4" HorizontalOptions="Center" IsVisible="{Binding TimeTitleImputationEntryVisibility, Mode=TwoWay}"  VerticalOptions="Center">
 
                         <controls:AwesomeLabelControl Text="&#xf017;"
                                         Style="{StaticResource IconPlusTextStyle}" 

@@ -58,7 +58,7 @@ namespace AppTokiota.Users.Controls
 		}
 
 		public static readonly BindableProperty SelectedDatesProperty = 
-            BindableProperty.Create(nameof(SelectedDates), typeof(IList<DateTime>), typeof(Calendar), null,
+            BindableProperty.Create(nameof(SelectedDates), typeof(IList<DateTime>), typeof(Calendar), null, BindingMode.TwoWay,
                 propertyChanged: (bindable, oldValue, newValue) =>
                 {
                     if (newValue != null)
@@ -67,6 +67,10 @@ namespace AppTokiota.Users.Controls
                         foreach (var date in (bindable as Calendar).SelectedDates)
                         {
                             (bindable as Calendar).ChangeSelectedDate(date);
+                        }
+                        if(!(bindable as Calendar).SelectedDates.Any())
+                        {
+                            (bindable as Calendar).ChangeButtonDisabledSelected();
                         }
                     }
                 });

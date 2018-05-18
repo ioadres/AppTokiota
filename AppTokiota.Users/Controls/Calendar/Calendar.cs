@@ -516,6 +516,12 @@ namespace AppTokiota.Users.Controls
 			ChangeCalendar(CalandarChanges.All);
 		}
 
+        protected void ChangeButtonDisabledSelected()
+        {
+            var temp = buttons.FindAll(b => b.IsSelected);
+            temp.ForEach(x => ResetButton(x));
+        }
+
         protected void ChangeCalendar(CalandarChanges changes)
         {
 			Device.BeginInvokeOnMainThread(() =>

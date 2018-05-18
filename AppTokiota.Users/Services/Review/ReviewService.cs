@@ -19,16 +19,28 @@ namespace AppTokiota.Users.Services
             _requestService = requestService;
         }
 
-        public async Task<Review> GetReviewForMonth (DateTime year, DateTime month)
-        {
-            //Todo 
-            var url = $"{AppSettings.TimesheetUrlEndPoint}/{year}/{month}/review";
-            var review = await _requestService.GetAsync<Review>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
+        public async Task<Review> GetReview (int year, int month)
+        {           
+            Review review = await _cacheService.GetObjectAsync<Review>($"/{year}/{month}/review");
+
+            if (review == null)
+            {
+                var nowLess3Month = DateTime.Now.AddMonths(-3);
+                var requestDate = new DateTime(year,month,1);
+
+                var url = $"{AppSettings.TimesheetUrlEndPoint}/{year}/{month}/review";
+                review = await _requestService.GetAsync<Review>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
+                if (requestDate < nowLess3Month)
+                {
+                    await _cacheService.InsertObjectAsync($"/{year}/{month}/review", review);
+                }
+            }
+
             return review;
         }
 
         //TODO
-        //public async Task<Review> PutReviewForMonth(DateTime from, DateTime to)
+        //public async Task<Review> PutReview(int year, int month)
         //{
 
         //}

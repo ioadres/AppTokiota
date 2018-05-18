@@ -8,6 +8,6 @@ namespace AppTokiota.Users.Services
 {
     public interface IReviewService
     {
-        Task<Review> GetReviewForMonth(DateTime from, DateTime To);
+        Task<Review> GetReview(int from, int To);
     }
 }

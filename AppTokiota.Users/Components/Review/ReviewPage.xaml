@@ -32,12 +32,13 @@
                             Title="Month"
                             ItemsSource="{Binding MonthPicker}"
                             VerticalOptions="Center"
+                            SelectedItem ="{Binding MyMonthPicker, Mode=TwoWay}"
                             />
                     <Picker Grid.Row="0" Grid.Column="1" x:Name="pickerYear"
                             Title="Year"
                             ItemsSource="{Binding YearPicker}"
                             VerticalOptions="Center"
-                            SelectedItem="{Binding myYearPicker}"
+                            SelectedItem="{Binding MyYearPicker, Mode=TwoWay}"
                             />
                 </StackLayout>
             </Grid>

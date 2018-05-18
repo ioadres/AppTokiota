@@ -53,9 +53,25 @@ namespace AppTokiota.Users.Components.Review
             set { monthPicker = value; RaisePropertyChanged("Selected"); }
         }
 
+
+        public int myYearPicker { get; set; }
+        public int myMonthPicker { get; set; }
+
+        public int MyYearPicker
+        {
+            get { return myYearPicker; }
+            set { myYearPicker = value; RaisePropertyChanged("Selected"); }
+        }
+        public int MyMonthPicker
+        {
+            get { return myMonthPicker; }
+            set { myMonthPicker = value; RaisePropertyChanged("Selected"); }
+        }
+
+
         #endregion datapicker
 
-        
+
 
         /// <summary>
         /// Gets or sets the Total DeviationTotal 
@@ -99,14 +115,18 @@ namespace AppTokiota.Users.Components.Review
 
             DateTime MyDate = DateTime.Now;
 
-            MonthPicker = new ObservableCollection<object>();
-            YearPicker = new ObservableCollection<object>();
-
-            LoadDataPicker();
+            MyMonthPicker = MyDate.Month;
+            MyYearPicker = MyDate.Year;
 
             //LstReview = new ObservableCollection<Review>();
             //LstReview.Add(new Review { id = 1, project = "Proyecto1", task = "Task1", description = "description1", schedule=new Time {Hour= 2, Minute = 20 },consumed=50,deviate= 3, imputation = new Time { Hour = 2, Minute = 20 }, deviation = new Time { Hour = 2, Minute = 20 } });
             //LstReview.Add(new Review { id = 2, project = "Proyecto2", task = "Task2", description = "description2", schedule = new Time { Hour = 2, Minute = 20 }, consumed=20,  deviate=5, imputation = new Time { Hour = 2, Minute = 20 }, deviation = new Time { Hour = 2, Minute = 20 } });
+        }
+
+        public override void OnNavigatedTo(NavigationParameters parameters)
+        {
+            LoadDataPicker();
+            LoadDataReview(MyYearPicker, MyMonthPicker ); 
         }
 
         private async void LoadDataPicker()

@@ -126,7 +126,7 @@ namespace AppTokiota.Users.Components.Timesheet
 
         #region EventChangeDateMonthOfCalendar
         public Command DateChosen => new Command((obj) => { ChangeDateCalendar((DateTime)obj); });
-        protected void ChangeDateCalendar(DateTime from)
+        protected async void ChangeDateCalendar(DateTime from)
         {
             Dates = new ObservableCollection<DateTime>();         
 
@@ -135,6 +135,7 @@ namespace AppTokiota.Users.Components.Timesheet
 			_currentDayMonthYear = from;
             var to = from.AddMonths(1).AddDays(10);
             LoadSpecialDatesAsync(from.AddDays(-7), to);
+            await Task.FromResult(true);
         }
 		#endregion
 

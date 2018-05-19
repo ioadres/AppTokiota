@@ -9,6 +9,8 @@ using AppTokiota.Users.Helpers;
 using AppTokiota.Users.Models.Calendar;
 using AppTokiota.Users.Services.Cache;
 using Prism.Navigation;
+using System.Diagnostics;
+
 namespace AppTokiota.Users.Services
 {
 
@@ -42,10 +44,11 @@ namespace AppTokiota.Users.Services
 						throw new UnauthorizedAccessException();
 					}
 				}
-				catch (Exception e)
+				catch (Exception ex)
 				{
 					i++;
 					AppSettings.AuthenticatedUserResponse = null;
+					Debug.WriteLine(ex);
 				}               
 			}
 			throw new UnauthorizedAccessException();

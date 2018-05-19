@@ -70,7 +70,7 @@ namespace AppTokiota.Users.Controls
                         }
                         if(!(bindable as Calendar).SelectedDates.Any())
                         {
-                            (bindable as Calendar).ChangeButtonDisabledSelected();
+					        (bindable as Calendar).ForceDeselectButtons();
                         }
                     }
                 });

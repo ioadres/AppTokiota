@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace AppTokiota.Users.Models
@@ -35,9 +36,9 @@ namespace AppTokiota.Users.Models
                     });
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
+				Debug.WriteLine(ex);
             }
 
             return activities;
@@ -57,8 +58,9 @@ namespace AppTokiota.Users.Models
                     IsHoliday = Project.IsHoliday
                 };
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+				Debug.WriteLine(ex);
                 return new ProjectActivity();
             }
         }
@@ -82,8 +84,9 @@ namespace AppTokiota.Users.Models
                 };
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+				Debug.WriteLine(ex);
                 return new TaskActivity();
             }
 

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AppTokiota.Users.Services;
 
 namespace AppTokiota.Users.Components.Core.Module
 {
     public interface IReviewModule: IBaseModule
     {
+        IReviewService ReviewService { get; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Rg.Plugins.Popup.Pages;
 using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace AppTokiota.Users.Components.Activity
@@ -16,9 +16,9 @@ namespace AppTokiota.Users.Components.Activity
                 NavigationPage.SetHasNavigationBar(this, false);
                 InitializeComponent();
 
-            } catch(Exception e)
+            } catch(Exception ex)
             {
-
+				Debug.WriteLine(ex);
             }
         }
 

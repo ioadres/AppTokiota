@@ -130,7 +130,7 @@ namespace AppTokiota.Users.Controls
                 {
                     ButtonsHour.Add(new ButtonTimeTask()
                     {
-                        BorderRadius = 0,
+						CornerRadius = 0,
                         BorderWidth = 1,
                         BorderColor = Color.Gray,
                         FontSize = 10,
@@ -174,7 +174,7 @@ namespace AppTokiota.Users.Controls
             {
                 ButtonsMinutes.Add(new ButtonTimeTask()
                 {
-                    BorderRadius = 0,
+					CornerRadius = 0,
                     BorderWidth = 1,
                     BorderColor = Color.Gray,
                     FontSize = 10,

@@ -9,7 +9,7 @@ namespace AppTokiota.Users.Services
 {
     class FakeReviewService: IReviewService
     {
-        public async Task<Review> GetReviewForMonth(DateTime from, DateTime to)
+        public async Task<Review> GetReview(int mont, int year)
         {
             return await Task.Run(() => JsonConvert.DeserializeObject<Review>(FakeReviewData.Review));
         }

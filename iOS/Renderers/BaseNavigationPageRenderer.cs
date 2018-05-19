@@ -13,8 +13,10 @@ namespace AppTokiota.iOS.Renderers
 
     public class BaseNavigationPageRenderer : NavigationRenderer
     {
-        public BaseNavigationPageRenderer()
+		public BaseNavigationPageRenderer(): base()
         {
+			NavigationBar.SetBackgroundImage(new UIImage(), UIBarMetrics.Default);
+            NavigationBar.ShadowImage = new UIImage();
         }
 
         public override void ViewDidLoad()

@@ -56,7 +56,17 @@ namespace AppTokiota.Users.Components.Timesheet
             }
         }
 
-        
+        /// <summary>
+        /// Gets or sets the special collection dates 
+        /// </summary>
+        /// <value>The special dates</value>
+        private ObservableCollection<SpecialDate> _specialDates;
+        public ObservableCollection<SpecialDate> SpecialDates
+        {
+            get { return _specialDates; }
+            set { SetProperty(ref _specialDates, value); }
+        }
+
         /// <summary>
         /// Gets if is a multipleSelection
         /// </summary>
@@ -89,18 +99,7 @@ namespace AppTokiota.Users.Components.Timesheet
             get { return _isVisibleFooter; }
             set { SetProperty(ref _isVisibleFooter, value); }
         }
-
-
-        /// <summary>
-        /// Gets or sets the special collection dates 
-        /// </summary>
-        /// <value>The special dates</value>
-        private ObservableCollection<SpecialDate> _specialDates;
-        public ObservableCollection<SpecialDate> SpecialDates
-        {
-            get { return _specialDates; }
-            set { SetProperty(ref _specialDates, value); }
-        }
+            
 
 
         /// <summary>
@@ -127,20 +126,16 @@ namespace AppTokiota.Users.Components.Timesheet
 
         #region EventChangeDateMonthOfCalendar
         public Command DateChosen => new Command((obj) => { ChangeDateCalendar((DateTime)obj); });
-        protected void ChangeDateCalendar(DateTime from, bool removeOldDates = true)
+        protected async void ChangeDateCalendar(DateTime from)
         {
-			if (removeOldDates)
-			{
-				var itemsDate = Dates.ToList();
-				itemsDate.ForEach(x => Dates.Remove(x));
-				itemsDate = null;
-			}
+            Dates = new ObservableCollection<DateTime>();         
 
 			ReloadData();
 
 			_currentDayMonthYear = from;
             var to = from.AddMonths(1).AddDays(10);
             LoadSpecialDatesAsync(from.AddDays(-7), to);
+            await Task.FromResult(true);
         }
 		#endregion
 
@@ -177,7 +172,7 @@ namespace AppTokiota.Users.Components.Timesheet
 					await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<ManageImputedDayPage>(), navigationParameters);
 				} else {
 					BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-					ChangeDateCalendar(_currentDayMonthYear, false);
+					ChangeDateCalendar(_currentDayMonthYear);
                 }
 			}
         }
@@ -205,7 +200,7 @@ namespace AppTokiota.Users.Components.Timesheet
 				else
 				{
 					BaseModule.DialogService.ShowToast("The all days selected is closed or failed load the month. The month will be load again");
-					ChangeDateCalendar(_currentDayMonthYear, false);
+					ChangeDateCalendar(_currentDayMonthYear);
 				}
 			}      
         }
@@ -225,6 +220,15 @@ namespace AppTokiota.Users.Components.Timesheet
 						var specialDates = await _timesheetModule.CalendarService.GetSpecialDatesBeetweenDatesAsync(_currentTimesheet);
 						SpecialDates.Clear();
 						specialDates.ForEach(x => SpecialDates.Add(x));
+                        
+						var now = _currentDayMonthYear;
+						var minMonth = new DateTime(now.Year, now.Month, 1);
+						var maxMonth = minMonth.AddMonths(1).AddDays(-1);
+						var calculateActivities = _currentTimesheet.Activities.Where(x => x.Value.Date >= minMonth && x.Value.Date <= maxMonth);
+
+						ImputedTotal = calculateActivities.Sum(x => x.Value.Imputed);
+						DeviationTotal = calculateActivities.Sum(x => x.Value.Deviation);
+
 						IsBusy = false;
 					}
 				}
@@ -244,7 +248,7 @@ namespace AppTokiota.Users.Components.Timesheet
 		public override void OnNavigatedTo(NavigationParameters parameters)
         {
 			if(_currentDayMonthYear != null) {
-				ChangeDateCalendar(_currentDayMonthYear, false);
+				ChangeDateCalendar(_currentDayMonthYear);
 			}
         }
 

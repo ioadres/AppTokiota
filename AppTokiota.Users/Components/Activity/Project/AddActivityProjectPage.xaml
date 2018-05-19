@@ -36,8 +36,14 @@
             </Style>
 
             <Style x:Key="IconTextStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}" />
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+            </Style>
+
+            <Style x:Key="IconTextPanelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
             </Style>
 
@@ -89,7 +95,7 @@
                             <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                         </Label.GestureRecognizers>
                     </Label>
-                    <Label  Style="{StaticResource TitleH4Style}" Text="{Binding Title}"  Grid.Column="1" HorizontalTextAlignment="Center"></Label>
+                    <Label  Style="{StaticResource TitleH4Style}" Text="{Binding Title}"  Grid.Column="1" HorizontalTextAlignment="Center" TranslationY="5"></Label>
                     <Label Style="{StaticResource IconTextStyle}" Text="&#xf00d;" Grid.Column="2" HorizontalTextAlignment="Center">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding CloseCommand}" />
@@ -169,9 +175,11 @@
                     <StackLayout Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" Padding="5">
                         <Label Text="IMPUTED TIME" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center"></Label>
                         <Label Text="{Binding Context.Consumed, Converter={StaticResource cnvFormatTimeEntry}}" Style="{StaticResource TitleH2Style}" HorizontalTextAlignment="Center"></Label>
-                    </StackLayout>                    
-
-                    <Image Source="Clock.png" Aspect="AspectFill" Grid.Row="1" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center"/>
+                    </StackLayout>
+                    
+                    <Label Style="{StaticResource IconTextPanelStyle}" Text="&#xf017;" Grid.Row="1" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" IsVisible="true">
+                       
+                    </Label>
 
                     <StackLayout Grid.Row="1" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" Padding="5">
                         <Label Text="DEVIATION TIME" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center"></Label>

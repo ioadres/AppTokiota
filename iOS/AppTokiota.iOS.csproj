@@ -285,7 +285,7 @@
     <Compile Include="Renderers\NavigationRenderer.cs" />
     <Compile Include="Renderers\CalendarButtonRenderer.cs" />
     <Compile Include="Renderers\ExtendedEditorRenderer.cs" />
-    <Compile Include="Renderers\ActivityNavigationRenderer.cs" />
+    <Compile Include="Renderers\BaseNavigationPageRenderer.cs" />
     <Compile Include="Renderers\CustomPageRenderer.cs" />
     <Compile Include="AkavacheSqliteLinkerOverride.cs" />
   </ItemGroup>
@@ -329,6 +329,8 @@
     <BundleResource Include="Resources\login_background_menu%403x.png" />
     <BundleResource Include="Resources\login_background%402x.png" />
     <BundleResource Include="Resources\login_background%403x.png" />
+    <BundleResource Include="Resources\logo_xs.png" />
+    <BundleResource Include="Resources\logo_v.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppTokiota.Users\AppTokiota.Users.csproj">

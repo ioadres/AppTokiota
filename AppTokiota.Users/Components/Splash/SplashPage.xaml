@@ -7,7 +7,6 @@
     <ContentPage.BackgroundColor>
         <OnPlatform x:TypeArguments="Color">
             <On Platform="Android" Value="Transparent" />
-            <On Platform="UWP" Value="{StaticResource BackgroundColor}" />
         </OnPlatform>
     </ContentPage.BackgroundColor>
     <ContentPage.Content>

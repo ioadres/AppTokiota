@@ -4,8 +4,6 @@
 <dict>
 	<key>CFBundleDisplayName</key>
 	<string>AppTokiota</string>
-	<key>CFBundleName</key>
-	<string>AppTokiota</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.tokiota.AppTokiota</string>
 	<key>CFBundleShortVersionString</key>
@@ -30,8 +28,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -59,5 +55,7 @@
 		<string>fonts/Poppins-Light.ttf</string>
 		<string>fonts/fontawesome.ttf</string>
 	</array>
+	<key>CFBundleName</key>
+	<string>Tokiota</string>
 </dict>
 </plist>

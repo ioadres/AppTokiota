@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reactive.Linq;
+using System.Diagnostics;
 
 namespace AppTokiota.Users.Services.Cache
 {
@@ -18,8 +19,9 @@ namespace AppTokiota.Users.Services.Cache
                 var res = await BlobCache.UserAccount.GetObject<T>(key);
                 return res;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+				Debug.WriteLine(ex);
                 return default(T);
             }
         }

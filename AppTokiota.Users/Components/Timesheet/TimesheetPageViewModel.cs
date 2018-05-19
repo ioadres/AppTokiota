@@ -220,6 +220,15 @@ namespace AppTokiota.Users.Components.Timesheet
 						var specialDates = await _timesheetModule.CalendarService.GetSpecialDatesBeetweenDatesAsync(_currentTimesheet);
 						SpecialDates.Clear();
 						specialDates.ForEach(x => SpecialDates.Add(x));
+                        
+						var now = _currentDayMonthYear;
+						var minMonth = new DateTime(now.Year, now.Month, 1);
+						var maxMonth = minMonth.AddMonths(1).AddDays(-1);
+						var calculateActivities = _currentTimesheet.Activities.Where(x => x.Value.Date >= minMonth && x.Value.Date <= maxMonth);
+
+						ImputedTotal = calculateActivities.Sum(x => x.Value.Imputed);
+						DeviationTotal = calculateActivities.Sum(x => x.Value.Deviation);
+
 						IsBusy = false;
 					}
 				}

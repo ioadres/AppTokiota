@@ -126,7 +126,7 @@
                     Grid.Row="1">
                 <controls:Calendar 
                         x:Name="Calendar"                    
-                        TranslationY="350"
+                        TranslationY="400"
                         DateCommand="{Binding SelectedDateCommand}"
                         SelectedDates="{Binding Dates, Mode=TwoWay}"
                         SpecialDates="{Binding SpecialDates, Mode=TwoWay}"

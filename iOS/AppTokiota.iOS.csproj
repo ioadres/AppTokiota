@@ -330,6 +330,7 @@
     <BundleResource Include="Resources\login_background%402x.png" />
     <BundleResource Include="Resources\login_background%403x.png" />
     <BundleResource Include="Resources\logo_xs.png" />
+    <BundleResource Include="Resources\logo_v.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppTokiota.Users\AppTokiota.Users.csproj">

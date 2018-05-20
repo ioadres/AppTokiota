@@ -7,5 +7,7 @@ namespace AppTokiota.Users.Components.Core.Module
 {
     public interface IDashBoardModule : IBaseModule
     {
+		ITimesheetService TimesheetService { get; }
+		IChartService ChartService { get; }
     }
 }

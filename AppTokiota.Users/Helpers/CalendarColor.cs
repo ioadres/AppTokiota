@@ -37,10 +37,10 @@ namespace AppTokiota.Users.Helpers
         {
             return new DayStyle()
             {
-                BackgroundColor = Orange,
-                BorderColor = Orange,
+				BackgroundColor = Orange,
+				BorderColor = Orange,
                 TextColor = White,
-                BackgroundPattern = new Pattern { WidthPercent = 1f, HightPercent = 0.25f, Color = Orange }
+				BackgroundPattern = new Pattern { WidthPercent = 1f, HightPercent = 0.25f, Color = Orange}
             };
         }
 

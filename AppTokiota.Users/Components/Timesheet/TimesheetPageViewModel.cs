@@ -15,6 +15,7 @@ using AppTokiota.Users.Components;
 using AppTokiota.Users.Models;
 using AppTokiota.Users.Components.ManageImputedDay;
 using AppTokiota.Users.Components.Activity;
+using System.Collections.Generic;
 
 namespace AppTokiota.Users.Components.Timesheet
 {
@@ -129,6 +130,7 @@ namespace AppTokiota.Users.Components.Timesheet
         protected async void ChangeDateCalendar(DateTime from)
         {
             Dates = new ObservableCollection<DateTime>();         
+			SpecialDates = new ObservableCollection<SpecialDate>();
 
 			ReloadData();
 
@@ -218,8 +220,16 @@ namespace AppTokiota.Users.Components.Timesheet
 					{
 						_currentTimesheet = await _timesheetModule.TimesheetService.GetTimesheetBeetweenDates(from, to);
 						var specialDates = await _timesheetModule.CalendarService.GetSpecialDatesBeetweenDatesAsync(_currentTimesheet);
-						SpecialDates.Clear();
 						specialDates.ForEach(x => SpecialDates.Add(x));
+                        
+						var now = _currentDayMonthYear;
+						var minMonth = new DateTime(now.Year, now.Month, 1);
+						var maxMonth = minMonth.AddMonths(1).AddDays(-1);
+						var calculateActivities = _currentTimesheet.Activities.Where(x => x.Value.Date >= minMonth && x.Value.Date <= maxMonth);
+
+						ImputedTotal = calculateActivities.Sum(x => x.Value.Imputed);
+						DeviationTotal = calculateActivities.Sum(x => x.Value.Deviation);
+
 						IsBusy = false;
 					}
 				}

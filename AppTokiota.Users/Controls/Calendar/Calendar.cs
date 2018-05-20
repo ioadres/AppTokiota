@@ -21,7 +21,6 @@ namespace AppTokiota.Users.Controls
 			{
                 FontAttributes = FontAttributes.None,
                 BackgroundColor = Color.Transparent,
-                BackgroundImage = FileImageSource.FromFile((Device.RuntimePlatform == Device.UWP) ? "Assets/ic_arrow_left_normal.png" : "ic_arrow_left_normal") as FileImageSource,
                 HeightRequest = 28,
                 WidthRequest = 28,
                 Margin = new Thickness(24, 0, 0, 0),
@@ -48,7 +47,6 @@ namespace AppTokiota.Users.Controls
                 HeightRequest = 28,
                 WidthRequest = 28,
                 Margin = new Thickness(0, 0, 24, 0),
-                BackgroundImage = FileImageSource.FromFile((Device.RuntimePlatform == Device.UWP) ? "Assets/ic_arrow_right_normal.png" : "ic_arrow_right_normal") as FileImageSource,
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Start
 			};
@@ -418,20 +416,25 @@ namespace AppTokiota.Users.Controls
 			base.OnParentSet();
 			ChangeCalendar(CalandarChanges.All);
 		}
-
+        
 		protected Task FillCalendar()
 		{
-			return Task.Factory.StartNew(() =>
+			return Task.Run(async() =>
 			{
 				FillCalendarWindows();
+				return await Task.FromResult(true);
 			});
 		}
 
 		protected void FillCalendarWindows()
 		{
-			CreateWeeknumbers();
-			CreateButtons();
-			ShowHideElements();
+			Task.Run(async () =>
+            {
+                CreateWeeknumbers();
+				CreateButtons();
+				ShowHideElements();
+                await Task.FromResult(true);
+            });
 		}
 
 		protected void CreateWeeknumbers()
@@ -440,30 +443,35 @@ namespace AppTokiota.Users.Controls
 			WeekNumbers.Clear();
 			if (!ShowNumberOfWeek) return;
 
+			var columDef = new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) };
+            var rowDef = new RowDefinition { Height = new GridLength(1, GridUnitType.Star) };
+
+            var grid = new Grid { VerticalOptions = LayoutOptions.FillAndExpand, HorizontalOptions = LayoutOptions.Start, RowSpacing = 0, ColumnSpacing = 0, Padding = new Thickness(0, 0, 0, 0) };         
+			var columnDefinition = new ColumnDefinitionCollection { columDef };
+			var rowDefinition = new RowDefinitionCollection { rowDef, rowDef, rowDef, rowDef, rowDef, rowDef };
+			var numberOfWeekFontSize = NumberOfWeekFontSize * (Device.RuntimePlatform == Device.iOS ? 1.5 : 2.5);
 			for (var i = 0; i < ShowNumOfMonths; i++)
 			{
-				var columDef = new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) };
-				var rowDef = new RowDefinition { Height = new GridLength(1, GridUnitType.Star) };
-				var weekNumbers = new Grid { VerticalOptions = LayoutOptions.FillAndExpand, HorizontalOptions = LayoutOptions.Start, RowSpacing = 0, ColumnSpacing = 0, Padding = new Thickness(0, 0, 0, 0) };
-				weekNumbers.ColumnDefinitions = new ColumnDefinitionCollection { columDef };
-				weekNumbers.RowDefinitions = new RowDefinitionCollection { rowDef, rowDef, rowDef, rowDef, rowDef, rowDef };
-				weekNumbers.WidthRequest = NumberOfWeekFontSize * (Device.RuntimePlatform == Device.iOS ? 1.5 : 2.5);
+				var weekNumbers = grid;
+				weekNumbers.ColumnDefinitions = columnDefinition;
+				weekNumbers.RowDefinitions = rowDefinition;
+				weekNumbers.WidthRequest = numberOfWeekFontSize;
 
 				for (int r = 0; r < 6; r++)
 				{
 
 					weekNumberLabels.Add(new Label
-					{
-						HorizontalOptions = LayoutOptions.FillAndExpand,
-						VerticalOptions = LayoutOptions.FillAndExpand,
-						TextColor = NumberOfWeekTextColor,
-						BackgroundColor = NumberOfWeekBackgroundColor,
-						VerticalTextAlignment = TextAlignment.Center,
-						HorizontalTextAlignment = TextAlignment.Center,
-						FontSize = NumberOfWeekFontSize,
-						FontAttributes = NumberOfWeekFontAttributes,
-						FontFamily = NumberOfWeekFontFamily
-					});
+                    {
+                        HorizontalOptions = LayoutOptions.FillAndExpand,
+                        VerticalOptions = LayoutOptions.FillAndExpand,
+                        TextColor = NumberOfWeekTextColor,
+                        BackgroundColor = NumberOfWeekBackgroundColor,
+                        VerticalTextAlignment = TextAlignment.Center,
+                        HorizontalTextAlignment = TextAlignment.Center,
+                        FontSize = NumberOfWeekFontSize,
+                        FontAttributes = NumberOfWeekFontAttributes,
+                        FontFamily = NumberOfWeekFontFamily
+                    });
 
 					weekNumbers.Children.Add(weekNumberLabels.Last(), 0, r);
 				}
@@ -475,32 +483,37 @@ namespace AppTokiota.Users.Controls
 		{
 			var columDef = new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) };
 			var rowDef = new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) };
+
 			buttons.Clear();
 			MainCalendars.Clear();
-
+            
+			var grid = new Grid { VerticalOptions = LayoutOptions.FillAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand, RowSpacing = GridSpace, ColumnSpacing = GridSpace, Padding = 1, BackgroundColor = BorderColor };
+			var columnDefinition = new ColumnDefinitionCollection { columDef, columDef, columDef, columDef, columDef, columDef, columDef };
+			var rowDefinition = new RowDefinitionCollection { rowDef, rowDef, rowDef, rowDef, rowDef, rowDef };
+		
 			for (var i = 0; i < ShowNumOfMonths; i++)
 			{
-				var mainCalendar = new Grid { VerticalOptions = LayoutOptions.FillAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand, RowSpacing = GridSpace, ColumnSpacing = GridSpace, Padding = 1, BackgroundColor = BorderColor };
-                mainCalendar.ColumnDefinitions = new ColumnDefinitionCollection { columDef, columDef, columDef, columDef, columDef, columDef, columDef };
-				mainCalendar.RowDefinitions = new RowDefinitionCollection { rowDef, rowDef, rowDef, rowDef, rowDef, rowDef };
+				var mainCalendar = grid;
+				mainCalendar.ColumnDefinitions = columnDefinition;
+				mainCalendar.RowDefinitions = rowDefinition;
 
 				for (int r = 0; r < 5; r++)
 				{
 					for (int c = 0; c < 7; c++)
 					{
 						buttons.Add(new CalendarButton
-						{
-							BorderRadius = 0,
-							BorderWidth = BorderWidth,
-							BorderColor = BorderColor,
-							FontSize = DatesFontSize,
-							BackgroundColor = DatesBackgroundColor,
-							TextColor = DatesTextColor,
-							FontAttributes = DatesFontAttributes,
-							FontFamily = DatesFontFamily,
-							HorizontalOptions = LayoutOptions.FillAndExpand,
-							VerticalOptions = LayoutOptions.FillAndExpand
-						});
+                        {
+                            CornerRadius = 0,
+                            BorderWidth = BorderWidth,
+                            BorderColor = BorderColor,
+                            FontSize = DatesFontSize,
+                            BackgroundColor = DatesBackgroundColor,
+                            TextColor = DatesTextColor,
+                            FontAttributes = DatesFontAttributes,
+                            FontFamily = DatesFontFamily,
+                            HorizontalOptions = LayoutOptions.FillAndExpand,
+                            VerticalOptions = LayoutOptions.FillAndExpand
+                        });
 
 						var b = buttons.Last();
 						b.Clicked += DateClickedEvent;
@@ -516,7 +529,7 @@ namespace AppTokiota.Users.Controls
 			ChangeCalendar(CalandarChanges.All);
 		}
 
-        protected void ChangeButtonDisabledSelected()
+		protected void ForceDeselectButtons()
         {
             var temp = buttons.FindAll(b => b.IsSelected);
             temp.ForEach(x => ResetButton(x));

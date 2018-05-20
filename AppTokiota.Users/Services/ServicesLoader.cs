@@ -28,6 +28,7 @@ namespace AppTokiota.Users.Services
 			containerRegistry.RegisterSingleton<IDialogErrorCustomService, DialogErrorCustomService>();
             containerRegistry.RegisterSingleton<ICacheEntity, AkavacheEntity>();
             containerRegistry.RegisterSingleton<ICalendarService, CalendarService>();
+			containerRegistry.RegisterSingleton<IChartService, ChartService>();
 
             containerRegistry.Register<IRequestService, RequestService>();
         }

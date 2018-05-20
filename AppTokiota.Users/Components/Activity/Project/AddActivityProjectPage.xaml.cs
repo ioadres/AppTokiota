@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,14 +17,13 @@ namespace AppTokiota.Users.Components.Activity
 		{
             try
             {
-
                 NavigationPage.SetHasNavigationBar(this, false);
                 InitializeComponent();
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
+				Debug.WriteLine(ex);
             }
         }
 	}

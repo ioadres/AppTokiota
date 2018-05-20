@@ -5,7 +5,7 @@
             xmlns:ctrls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
             prism:ViewModelLocator.AutowireViewModel="True"
             xmlns:utils="clr-namespace:AppTokiota.Users.Utils;assembly=AppTokiota.Users"  
-            utils:NavigationBarAttachedProperty.BackgroundColor="{StaticResource DarkColor}"
+            utils:NavigationBarAttachedProperty.BackgroundColor="{StaticResource RedColor}"
             utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}"                  
              x:Class="AppTokiota.Users.Components.Configuration.ConfigurationPage">
     <ContentPage.Resources>
@@ -18,26 +18,23 @@
                 <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
-            <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
-            <Style x:Key="FooterSubTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+             <Style x:Key="IconTextStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}" />
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid VerticalOptions="Fill" HorizontalOptions="Fill" RowSpacing="0" ColumnSpacing="0" BackgroundColor="{StaticResource DarkColor}">
+        <Grid VerticalOptions="Fill" HorizontalOptions="Fill" RowSpacing="0" ColumnSpacing="0" BackgroundColor="{StaticResource RedColor}">
         <Grid.RowDefinitions>
-                <RowDefinition Height="3*"></RowDefinition>
-                <RowDefinition Height="7*"></RowDefinition>
+                <RowDefinition Height="2.5*"></RowDefinition>
+                <RowDefinition Height="7.5*"></RowDefinition>
         </Grid.RowDefinitions>
 
-            <StackLayout Grid.Row="0" Padding="10" HorizontalOptions="Center" VerticalOptions="FillAndExpand">
-                <BoxView WidthRequest="50" HeightRequest="50" BackgroundColor="White" HorizontalOptions="Center" Margin="5"></BoxView>
-                <StackLayout HorizontalOptions="FillAndExpand">
+            <StackLayout Grid.Row="0" Padding="10" HorizontalOptions="Center" VerticalOptions="EndAndExpand">
+                <Label Style="{StaticResource IconTextStyle}" Text="&#xf2bd;" HorizontalTextAlignment="Center" TextColor="White"  Margin="5"></Label>
+                <StackLayout HorizontalOptions="FillAndExpand" Padding="2">
                     <Label Text="Setting" Style="{StaticResource HeaderTextStyle}" HorizontalTextAlignment="Center"></Label>
                     <Label Text="Settings apply to this account only" Style="{StaticResource SubHeaderTextStyle}" HorizontalTextAlignment="Center"></Label>
                 </StackLayout>

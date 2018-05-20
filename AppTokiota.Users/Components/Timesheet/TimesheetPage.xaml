@@ -69,10 +69,6 @@
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
-             <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
 
              <converters:MinutesToHourConverter x:Key="cnvMinutesToHour"></converters:MinutesToHourConverter>
             
@@ -126,7 +122,7 @@
                     Grid.Row="1">
                 <controls:Calendar 
                         x:Name="Calendar"                    
-                        TranslationY="350"
+                        TranslationY="400"
                         DateCommand="{Binding SelectedDateCommand}"
                         SelectedDates="{Binding Dates, Mode=TwoWay}"
                         SpecialDates="{Binding SpecialDates, Mode=TwoWay}"

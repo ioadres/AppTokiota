@@ -256,6 +256,24 @@
     <Reference Include="Refractored.XamForms.PullToRefresh.iOS">
       <HintPath>..\packages\Refractored.XamForms.PullToRefresh.2.2.1\lib\Xamarin.iOS10\Refractored.XamForms.PullToRefresh.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="SkiaSharp">
+      <HintPath>..\packages\SkiaSharp.1.59.1\lib\XamariniOS\SkiaSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.iOS">
+      <HintPath>..\packages\SkiaSharp.Views.1.59.1.1\lib\XamariniOS\SkiaSharp.Views.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.Forms">
+      <HintPath>..\packages\SkiaSharp.Views.Forms.1.59.1.1\lib\XamariniOS\SkiaSharp.Views.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microcharts.Forms">
+      <HintPath>..\packages\Microcharts.Forms.0.7.1\lib\netstandard1.4\Microcharts.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microcharts">
+      <HintPath>..\packages\Microcharts.0.7.1\lib\Xamarin.iOS10\Microcharts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microcharts.iOS">
+      <HintPath>..\packages\Microcharts.0.7.1\lib\Xamarin.iOS10\Microcharts.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -285,7 +303,7 @@
     <Compile Include="Renderers\NavigationRenderer.cs" />
     <Compile Include="Renderers\CalendarButtonRenderer.cs" />
     <Compile Include="Renderers\ExtendedEditorRenderer.cs" />
-    <Compile Include="Renderers\ActivityNavigationRenderer.cs" />
+    <Compile Include="Renderers\BaseNavigationPageRenderer.cs" />
     <Compile Include="Renderers\CustomPageRenderer.cs" />
     <Compile Include="AkavacheSqliteLinkerOverride.cs" />
   </ItemGroup>
@@ -329,6 +347,8 @@
     <BundleResource Include="Resources\login_background_menu%403x.png" />
     <BundleResource Include="Resources\login_background%402x.png" />
     <BundleResource Include="Resources\login_background%403x.png" />
+    <BundleResource Include="Resources\logo_xs.png" />
+    <BundleResource Include="Resources\logo_v.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppTokiota.Users\AppTokiota.Users.csproj">

@@ -63,14 +63,15 @@ namespace AppTokiota.Users.Services
             {
                 var specialDay = new SpecialDate(item.Date, true);
                 var dayStyle = new List<DayStyle>();
-                if (item.IsWeekend)
-                {
-                    dayStyle.Add(CalendarColors.GetWeekend());
-                }
+                
                 if (item.Holiday != null)
                 {
                     dayStyle.Add(CalendarColors.GetHoliday());
-                }               
+                }
+				if (item.IsWeekend && item.Holiday == null)
+                {
+                    dayStyle.Add(CalendarColors.GetWeekend());
+                }
 
                 listSpecialDate.Add(CalendarColors.GetSpecialDay(specialDay, item.Date, dayStyle));
             }

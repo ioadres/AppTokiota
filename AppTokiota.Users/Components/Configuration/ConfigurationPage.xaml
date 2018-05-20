@@ -18,14 +18,6 @@
                 <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
-            <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
-            <Style x:Key="FooterSubTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
              <Style x:Key="IconTextStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}" />

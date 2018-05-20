@@ -5,9 +5,11 @@
             xmlns:ctrls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
             prism:ViewModelLocator.AutowireViewModel="True"
             x:Class="AppTokiota.Users.Components.DashBoard.DashBoardPage"
+
+            xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms" 
             xmlns:utils="clr-namespace:AppTokiota.Users.Utils;assembly=AppTokiota.Users"
-             utils:NavigationBarAttachedProperty.BackgroundColor="{StaticResource RedColor}"
-             utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}"        
+            utils:NavigationBarAttachedProperty.BackgroundColor="{StaticResource RedDarkColor}"
+            utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}"        
             Title="{Binding Title}">
 
      <ContentPage.Resources>
@@ -20,10 +22,11 @@
                 <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
-            <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
+            <Style x:Key="FooterSummaryTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
+            
             <Style x:Key="FooterSubTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
@@ -50,9 +53,25 @@
             <Button Text="Review" Style="{StaticResource ButtonPrimary}" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Center" TranslationX="-15"></Button>
             
             <BoxView Grid.Row="1" BackgroundColor="{StaticResource GrayColor}"></BoxView>
+            <ScrollView Grid.Row="1"  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    
+                    <Label Text="Tasks Imputed" Style="{StaticResource TitleH2Style}" Margin="5,15,5,5"></Label>
+                    
+                    <microcharts:ChartView x:Name="chartProjectsImputed" Chart="{Binding ChartProjectsImputed}" HeightRequest="150" />
+
+                    <Label Text="Imputed VS Deviation" Style="{StaticResource TitleH2Style}" Margin="5,15,5,5"></Label>
+                    <microcharts:ChartView x:Name="chartImputedVsDeviation" Chart="{Binding ChartImputedVsDeviation}" HeightRequest="150" />
+
+                    <Label Text="Consumed VS Hours of work per month" Style="{StaticResource TitleH2Style}" Margin="5,15,5,5"></Label>
+                    <microcharts:ChartView x:Name="chartConsumedMonthVsHourMonthExpected" Chart="{Binding ChartConsumedMonthVsHourMonthExpected}" HeightRequest="150"/>
+                </StackLayout>
+                 
+                
+            </ScrollView>
 
             <StackLayout Grid.Row="2" Padding="15" BackgroundColor="{StaticResource RedColor}">
-                <Label Text="My Holidays" Style="{StaticResource FooterTextStyle}"></Label>
+                <Label Text="My Holidays" Style="{StaticResource FooterSummaryTextStyle}"></Label>
                 <Label Text="Tomorrow a deserved rest!" Style="{StaticResource FooterSubTextStyle}"></Label>
             </StackLayout>
         </Grid>

@@ -2,6 +2,8 @@
 using System.Collections.Specialized;
 using System.Linq;
 using Xamarin.Forms;
+using System.Diagnostics;
+using System;
 
 namespace AppTokiota.Users.Controls
 {
@@ -11,7 +13,7 @@ namespace AppTokiota.Users.Controls
         #region SpecialDates
 
         public static readonly BindableProperty SpecialDatesProperty =
-            BindableProperty.Create(nameof(SpecialDates), typeof(IEnumerable<SpecialDate>), typeof(Calendar), null,
+			                        BindableProperty.Create(nameof(SpecialDates), typeof(IEnumerable<SpecialDate>), typeof(Calendar), null,BindingMode.TwoWay,
                 propertyChanged: (bindable, oldValue, newValue) =>
                 {
                     if (oldValue != null)
@@ -46,10 +48,20 @@ namespace AppTokiota.Users.Controls
                     }
                     if (newValue != null)
                     {
+				
                         var observableCollection = newValue as INotifyCollectionChanged;
 
                         if (observableCollection != null)
                         {
+        					try {
+        						foreach (var btn in (bindable as Calendar).buttons.Where(d => d.Date.HasValue))
+                                {
+                                    (bindable as Calendar).ResetButton(btn);
+                                }
+        					} catch(Exception e) {
+								Debug.WriteLine(e);
+        					}
+
                             observableCollection.CollectionChanged += (s, e) =>
                             {
                                 var newItems = e.NewItems;

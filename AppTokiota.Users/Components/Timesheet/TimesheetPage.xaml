@@ -69,10 +69,6 @@
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
-             <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
 
              <converters:MinutesToHourConverter x:Key="cnvMinutesToHour"></converters:MinutesToHourConverter>
             

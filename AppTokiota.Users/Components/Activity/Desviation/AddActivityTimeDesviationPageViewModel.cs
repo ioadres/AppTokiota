@@ -108,9 +108,12 @@ namespace AppTokiota.Users.Components.Activity
         public DelegateCommand NextCommand => new DelegateCommand(Next);
         protected async void Next()
         {
-            var navigationParameters = new NavigationParameters();
-			navigationParameters.Add(Imputed.Tag, Context);
-            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityProjectPage>(), navigationParameters, false, false);
+			if (IsInternetAndCloseModal())
+			{
+				var navigationParameters = new NavigationParameters();
+				navigationParameters.Add(Imputed.Tag, Context);
+				await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityProjectPage>(), navigationParameters, false, false);
+			}
         }
 
         #endregion

@@ -73,7 +73,9 @@ namespace AppTokiota.Users.Components.Login
 							   await BaseModule.DialogService.ShowAlertAsync(responseRequest.Message, "Login error", "Ok");
 						    }
 						}
-				   }
+					} else {
+						IsBusy = false;
+					}
 			   }
 			   catch (Exception)
 			   {

@@ -3,6 +3,7 @@
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                         xmlns:ctrls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
                         xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
+                        xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"   
                         x:Class="AppTokiota.Users.App">
     <prism:PrismApplication.Resources>
         <ResourceDictionary>
@@ -239,7 +240,41 @@
                 <Setter Property="WidthRequest" Value="100" />
                 <Setter Property="FontFamily"  Value="{StaticResource PoppinsSemiBold}" />
             </Style>
-           
+
+             <Style x:Key="TitleH5Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
+            </Style>
+
+            <Style x:Key="TitleH4Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
+            </Style>
+            <Style x:Key="TitleH3Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
+            </Style>
+            <Style x:Key="TitleH2Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
+            </Style>
+            <Style x:Key="TitleH1Style" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
+            </Style>
+
+
+             <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+            </Style>
+
+
+            <Style x:Key="IconTextStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}" />
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+            </Style>
 
             <Style TargetType="ActivityIndicator">
                 <Setter Property="VerticalOptions" Value="Center" />
@@ -253,12 +288,10 @@
                 </Setter>
             </Style>
 
-            <!-- Styles -->
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource RedColor}"/>
                 <Setter Property="BarTextColor" Value="White"/>
             </Style>
-            <!-- Styles -->
 
             <Style x:Key="MenuLabelItem" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}" />

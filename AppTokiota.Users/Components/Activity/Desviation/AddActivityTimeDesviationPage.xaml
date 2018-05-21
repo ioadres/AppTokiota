@@ -16,31 +16,10 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="TitleH4Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
-                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
-            </Style>
-            <Style x:Key="TitleH3Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
-                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
-            </Style>
-            <Style x:Key="TitleH2Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
-                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
-            </Style>
-            <Style x:Key="TitleH1Style" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
-                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
-            </Style>
+           
             <Style x:Key="ActionSelectedTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource MidLargeSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
-
-            <Style x:Key="IconTextStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
-                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}" />
-                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
             </Style>
 
             <Style x:Key="IconPlusTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">

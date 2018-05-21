@@ -12,13 +12,17 @@ namespace AppTokiota.Users.Components.DashBoard
 {
     public class DashBoardModule : IDashBoardModule
     {
-        private readonly IAuthenticationService _authenticationService;
+		private readonly ITimesheetService _timesheetService;
+		private readonly IChartService _chartService;
 
-        public IAuthenticationService AuthenticationService => _authenticationService;
+		public ITimesheetService TimesheetService => _timesheetService;
 
-        public DashBoardModule(IAuthenticationService authenticationService)
+		public IChartService ChartService => _chartService;
+
+		public DashBoardModule(ITimesheetService timesheetService, IChartService chartService)
         {
-            _authenticationService = authenticationService; 
+			_timesheetService = timesheetService;
+			_chartService = chartService;
         }
     }
 }

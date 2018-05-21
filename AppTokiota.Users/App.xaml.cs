@@ -16,7 +16,10 @@ namespace AppTokiota.Users
     [XamlCompilation(XamlCompilationOptions.Compile)]
 
     public partial class App : PrismApplication
-    {        
+    {
+		private INetworkConnectionService _network;
+		private IAuthenticationService _authenticationService;
+
         public App(IPlatformInitializer initializer = null) : base(initializer) { }
 
         protected override async void OnInitialized()
@@ -41,6 +44,8 @@ namespace AppTokiota.Users
 
         protected override void OnStart()
         {
+			_network = Container.Resolve<INetworkConnectionService>();
+			_authenticationService = Container.Resolve<IAuthenticationService>();
         }
 
         protected override void OnSleep()
@@ -49,15 +54,16 @@ namespace AppTokiota.Users
 
         protected override void OnResume()
         {
-            AuthenticationRun();           
+			if(_network.IsAvailable()) {
+				AuthenticationRun();
+			}		             
         }      
         
         async void AuthenticationRun() 
         {
             try
             {    
-                var authenticationService = Container.Resolve<IAuthenticationService>();
-                var result = await authenticationService.UserIsAuthenticatedAndValidAsync();
+				var result = await _authenticationService.UserIsAuthenticatedAndValidAsync();
                 if (!result)
                 {
                     await NavigationService.NavigateAsync(PageRoutes.GetKey<LoginPage>());

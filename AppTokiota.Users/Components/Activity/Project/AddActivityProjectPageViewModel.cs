@@ -122,8 +122,8 @@ namespace AppTokiota.Users.Components.Activity
 		public DelegateCommand EndCommand => new DelegateCommand(End);
 		public async void End()
         {
-			IsBusy = true;
 			try {
+				IsBusy = true;
 				if(IsInternetAndCloseModal()) {
 					if (Context.CurrentTimesheet == null)
                     {
@@ -162,9 +162,10 @@ namespace AppTokiota.Users.Components.Activity
                         await BaseModule.NavigationService.GoBackAsync(navigationParameters);
                     }
 				}
-			} catch(Exception e) {
-				IsBusy = false;
-				Debug.WriteLine(e);
+			} catch(Exception ex) {
+				IsBusy = false;              
+				BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+				Debug.WriteLine($"[PostActivity] Error: {ex}");
 			}
             
         }

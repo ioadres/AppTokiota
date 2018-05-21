@@ -14,42 +14,16 @@
     x:Name="this">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="TitleH4Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
-                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
-            </Style>
-            <Style x:Key="TitleH3Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
-            <Style x:Key="TitleH2Style" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
-            <Style x:Key="TitleH1Style" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
-                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
-            </Style>
+            
             <Style x:Key="ActionSelectedTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource MidLargeSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
-
-            <Style x:Key="IconTextStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
-                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}" />
-                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
             </Style>
 
             <Style x:Key="IconTextPanelStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
-            </Style>
-
-            <Style x:Key="IconPlusTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="90" />
-                <Setter Property="TextColor" Value="{StaticResource RedColor}"/>
             </Style>
 
             <xamanimation:StoryBoard 
@@ -161,29 +135,28 @@
                     <BoxView Grid.Row="1" Grid.Column="2" BackgroundColor="{StaticResource RedDarkColor}" VerticalOptions="FillAndExpand"></BoxView>
                     
                     <StackLayout Grid.Row="0" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" Padding="5">
-                        <Label Text="TOTAL IMPUTED" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center"></Label>
-                        <Label Text="{Binding Consumed, Converter={StaticResource cnvFormatTimeMinutesToStringEntry}}" Style="{StaticResource TitleH2Style}" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="TOTAL IMPUTED" Style="{StaticResource TitleH3Style}" TextColor="{StaticResource WhiteColor}" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="{Binding Consumed, Converter={StaticResource cnvFormatTimeMinutesToStringEntry}}" Style="{StaticResource TitleH2Style}" TextColor="{StaticResource WhiteColor}" HorizontalTextAlignment="Center"></Label>
                     </StackLayout>
 
                     <Image Source="suma.png" Aspect="AspectFill" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center"/>
 
                     <StackLayout Grid.Row="0" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" Padding="5">
-                        <Label Text="TOTAL DEVIATION" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center"></Label>
-                        <Label Text="{Binding Deviation, Converter={StaticResource cnvFormatTimeMinutesToStringEntry}}" Style="{StaticResource TitleH2Style}" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="TOTAL DEVIATION" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center" TextColor="{StaticResource WhiteColor}"></Label>
+                        <Label Text="{Binding Deviation, Converter={StaticResource cnvFormatTimeMinutesToStringEntry}}" Style="{StaticResource TitleH2Style}" TextColor="{StaticResource WhiteColor}" HorizontalTextAlignment="Center"></Label>
                     </StackLayout>
 
                     <StackLayout Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" Padding="5">
-                        <Label Text="IMPUTED TIME" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center"></Label>
-                        <Label Text="{Binding Context.Consumed, Converter={StaticResource cnvFormatTimeEntry}}" Style="{StaticResource TitleH2Style}" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="IMPUTED TIME" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center" TextColor="{StaticResource WhiteColor}"></Label>
+                        <Label Text="{Binding Context.Consumed, Converter={StaticResource cnvFormatTimeEntry}}" Style="{StaticResource TitleH2Style}" TextColor="{StaticResource WhiteColor}" HorizontalTextAlignment="Center"></Label>
                     </StackLayout>
                     
                     <Label Style="{StaticResource IconTextPanelStyle}" Text="&#xf017;" Grid.Row="1" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" IsVisible="true">
-                       
                     </Label>
 
                     <StackLayout Grid.Row="1" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" Padding="5">
-                        <Label Text="DEVIATION TIME" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center"></Label>
-                        <Label Text="{Binding Context.Deviation, Converter={StaticResource cnvFormatTimeEntry}}" Style="{StaticResource TitleH2Style}" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="DEVIATION TIME" Style="{StaticResource TitleH3Style}" TextColor="{StaticResource WhiteColor}" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="{Binding Context.Deviation, Converter={StaticResource cnvFormatTimeEntry}}" TextColor="{StaticResource WhiteColor}" Style="{StaticResource TitleH2Style}" HorizontalTextAlignment="Center"></Label>
                     </StackLayout>
 
                 </Grid>

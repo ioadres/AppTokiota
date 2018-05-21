@@ -19,6 +19,8 @@
     <PackageReference Include="Unity" Version="5.7.3" />
     <PackageReference Include="Xamarin.Forms" Version="3.0.0.446417" />
     <PackageReference Include="Refractored.XamForms.PullToRefresh" Version="2.2.1" />
+    <PackageReference Include="Microcharts.Forms" Version="0.7.1" />
+    <PackageReference Include="Microcharts" Version="0.7.1" />
   </ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Components\ManageImputedDay\" />
@@ -34,6 +36,7 @@
 	  <Folder Include="Services\Network\" />
 	  <Folder Include="Services\DialogError\" />
 	  <Folder Include="Components\Configuration\" />
+	  <Folder Include="Services\Chart\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Components\Activity\NavigationPage\ActivityNavigationPage.xaml.cs">

@@ -21,7 +21,7 @@ namespace AppTokiota.Users.Models
         [DataMember(Name = "isValidated")]
         public bool IsValidated { get; set; }
         [DataMember(Name = "monthWorkableHours")]
-        public int MonthWorkableHours{ get; set; }
+        public double MonthWorkableHours{ get; set; }
         [DataMember(Name = "pendingProjects")]
         public Dictionary<int, Project> PendingProjects { get; set; }
     }

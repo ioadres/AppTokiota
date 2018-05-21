@@ -147,7 +147,7 @@
                     </StackLayout>
 
                     <StackLayout Grid.Row="1" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" Padding="5">
-                        <Label Text="IMPUTED TIME" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center"></Label>
+                        <Label Text="IMPUTED TIME" Style="{StaticResource TitleH3Style}" HorizontalTextAlignment="Center" TextColor="{StaticResource WhiteColor}"></Label>
                         <Label Text="{Binding Context.Consumed, Converter={StaticResource cnvFormatTimeEntry}}" Style="{StaticResource TitleH2Style}" TextColor="{StaticResource WhiteColor}" HorizontalTextAlignment="Center"></Label>
                     </StackLayout>
                     

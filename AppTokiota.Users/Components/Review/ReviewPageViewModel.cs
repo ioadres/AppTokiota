@@ -109,9 +109,10 @@ namespace AppTokiota.Users.Components.Review
             YearPicker = new ObservableCollection<int>();
             MonthPicker = new ObservableCollection<string>();
 
-            LstReview = new ObservableCollection<Review>();
-            LstReview.Add(new Review { id = 1, project = "Proyecto1", task = "Task1", description = "description1", schedule = new Time { Hour = 2, Minute = 20 }, consumed = 50, deviate = 3, imputation = new Time { Hour = 2, Minute = 20 }, deviation = new Time { Hour = 2, Minute = 20 } });
-            LstReview.Add(new Review { id = 2, project = "Proyecto2", task = "Task2", description = "description2", schedule = new Time { Hour = 2, Minute = 20 }, consumed = 20, deviate = 5, imputation = new Time { Hour = 2, Minute = 20 }, deviation = new Time { Hour = 2, Minute = 20 } });
+            lstReview = new ObservableCollection<TimesheetForDay>();
+            LstReview = new ObservableCollection<TimesheetForDay>();
+            //LstReview.Add(new Review { id = 1, project = "Proyecto1", task = "Task1", description = "description1", schedule = new Time { Hour = 2, Minute = 20 }, consumed = 50, deviate = 3, imputation = new Time { Hour = 2, Minute = 20 }, deviation = new Time { Hour = 2, Minute = 20 } });
+            //LstReview.Add(new Review { id = 2, project = "Proyecto2", task = "Task2", description = "description2", schedule = new Time { Hour = 2, Minute = 20 }, consumed = 20, deviate = 5, imputation = new Time { Hour = 2, Minute = 20 }, deviation = new Time { Hour = 2, Minute = 20 } });
         }
 
         public override void OnNavigatedTo(NavigationParameters parameters)
@@ -145,8 +146,8 @@ namespace AppTokiota.Users.Components.Review
 
         //private Models.Review _currentReview;
 
-        private ObservableCollection<Review> lstReview;
-        public ObservableCollection<Review> LstReview
+        private ObservableCollection<TimesheetForDay> lstReview;
+        public ObservableCollection<TimesheetForDay> LstReview
         {
             get { return lstReview; }
             set { SetProperty(ref lstReview, value); }
@@ -170,6 +171,8 @@ namespace AppTokiota.Users.Components.Review
                     if (this.IsInternetAndCloseModal())
                     {
                         _currentReview = await _reviewModule.ReviewService.GetReview(year, month);
+                        var lstReviewDates = await _reviewModule.TimeLineService.GetListTimesheetForDay(_currentReview);
+                        lstReviewDates.ForEach(x => LstReview.Add(x));
                         IsBusy = false;
                     }
                 }

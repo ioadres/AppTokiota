@@ -3,12 +3,14 @@ using System.Collections.Generic;
 
 using AppTokiota.Users.Models;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
-namespace AppTokiota.Users.Services.Timeline
+namespace AppTokiota.Users.Services
 {
-    public class TimelineService : ITimeLineService
+    public class TimeLineService : ITimeLineService
     {
-        public IList<TimesheetForDay> GetListTimesheetForDay(Review review)
+        public async Task<IList<TimesheetForDay>> GetListTimesheetForDay(Review review)
         {
             var listTimesheetForDay = new List<TimesheetForDay>();
 
@@ -28,7 +30,7 @@ namespace AppTokiota.Users.Services.Timeline
             foreach (var ts in listTimesheetForDay) {
                 ts.Activities = MapActivities(ts.Day.Date, review);
             }
-            return listTimesheetForDay;
+            return await Task.FromResult(listTimesheetForDay);
 
         }
 

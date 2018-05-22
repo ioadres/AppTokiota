@@ -39,33 +39,33 @@ namespace AppTokiota.Users.Components.Review
         #endregion
 
         #region Datapicker
-        public ObservableCollection<int> yearPicker;
-        public ObservableCollection<string> monthPicker;
+        public ObservableCollection<PickerItem> yearPicker;
+        public ObservableCollection<PickerItem> monthPicker;
 
-        public ObservableCollection<int> YearPicker
+        public ObservableCollection<PickerItem> YearPicker
         {
             get { return yearPicker; }
             set { SetProperty(ref yearPicker, value); }
         }
-        public ObservableCollection<string> MonthPicker
+        public ObservableCollection<PickerItem> MonthPicker
         {
             get { return monthPicker; }
             set { SetProperty(ref monthPicker, value); }
         }
 
 
-        private int myIndexYearPicker;
-        private int myIndexMonthPicker;
+        private PickerItem myYearPicker;
+        private PickerItem myMonthPicker;
 
-        public int MyIndexYearPicker
+        public PickerItem MyYearPicker
         {
-            get { return myIndexYearPicker; }
-            set { SetProperty(ref myIndexYearPicker, value); }
+            get { return myYearPicker; }
+            set { SetProperty(ref myYearPicker, value); }
         }
-        public int MyIndexMonthPicker
+        public PickerItem MyMonthPicker
         {
-            get { return myIndexMonthPicker; }
-            set { SetProperty(ref myIndexMonthPicker, value); }
+            get { return myMonthPicker; }
+            set { SetProperty(ref myMonthPicker, value); }
         }
 
         #endregion datapicker
@@ -104,10 +104,14 @@ namespace AppTokiota.Users.Components.Review
         public ReviewPageViewModel(IViewModelBaseModule baseModule, IReviewModule reviewModule) : base(baseModule)
         {
             _reviewModule = reviewModule;
+            DateTime MyDate = DateTime.Now;
 
             Title = "Review";
-            YearPicker = new ObservableCollection<int>();
-            MonthPicker = new ObservableCollection<string>();
+            YearPicker = new ObservableCollection<PickerItem>();
+            MonthPicker = new ObservableCollection<PickerItem>();
+
+            MyMonthPicker = new PickerItem { Value = MyDate.Month, DisplayName = dtinfo.GetMonthName(MyDate.Month) };
+            MyYearPicker = new PickerItem { Value = MyDate.Year, DisplayName = MyDate.Year.ToString()};
 
             lstReview = new ObservableCollection<TimesheetForDay>();
             LstReview = new ObservableCollection<TimesheetForDay>();
@@ -117,30 +121,35 @@ namespace AppTokiota.Users.Components.Review
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
-            LoadDataPicker();
-            //LoadDataReview(YearPicker.ElementAt(MyIndexYearPicker), MonthPicker.ElementAt(MyIndexMonthPicker)); 
-            LoadDataReview(2018, 05);
+            LoadDataPicker(); 
+            LoadDataReview(MyYearPicker.Value, MyMonthPicker.Value);
         }
 
         private async void LoadDataPicker()
         {
-            DateTime MyDate = DateTime.Now;
+            
             for (int iyear = DateTime.Now.Year - 1; iyear <= (DateTime.Now.Year + 1); iyear++)
             {
-                YearPicker.Add(iyear);
+                YearPicker.Add(new PickerItem { Value = iyear, DisplayName = iyear.ToString() });
             }
 
             for (int imes = DateTime.MinValue.Month; imes < DateTime.MaxValue.Month + 1; imes++)
             {
 
-                MonthPicker.Add(dtinfo.GetMonthName(imes));
+                MonthPicker.Add(new PickerItem { Value = imes, DisplayName = dtinfo.GetMonthName(imes) });
             }
-
-            MyIndexMonthPicker = MonthPicker.IndexOf(dtinfo.GetMonthName(MyDate.Month));
-            MyIndexYearPicker = YearPicker.IndexOf(MyDate.Year);
+            //GetDefaultValues();
 
             await Task.FromResult(true);
         }
+
+        //private void GetDefaultValues()
+        //{
+            
+
+        //    MyMonthPicker = dtinfo.GetMonthName(MyDate.Month);
+        //    MyYearPicker = MyDate.Year;
+        //}
 
         #endregion constructor
 

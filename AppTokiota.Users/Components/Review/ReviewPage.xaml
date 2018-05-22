@@ -49,18 +49,18 @@
                             Title="Month" WidthRequest="100"
                             ItemsSource="{Binding MonthPicker}"
                             VerticalOptions="Center" HorizontalOptions="Center"
-                            SelectedIndex="{Binding MyIndexMonthPicker, Mode=TwoWay}"/>
+                            SelectedItem="{Binding MyMonthPicker, Mode=TwoWay}"/>
 
                     <Picker Grid.Row="0" Grid.Column="1" x:Name="pickerYear"
                             Title="Year" WidthRequest="100"
                             ItemsSource="{Binding YearPicker}"
                             VerticalOptions="Center" HorizontalOptions="Center"
-                            SelectedIndex="{Binding MyIndexYearPicker, Mode=TwoWay}"/>
+                            SelectedItem="{Binding MyYearPicker, Mode=TwoWay}"/>
 
                 </StackLayout>
             </Grid>
 
-            <ListView x:Name="lstReview" HasUnevenRows="True" Grid.Row="1" ItemsSource="{Binding LstReview}"
+            <!--<ListView x:Name="lstReview" HasUnevenRows="True" Grid.Row="1" ItemsSource="{Binding LstReview}"
                   VerticalOptions="Fill" SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -97,7 +97,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </ListView>-->
 
 
 

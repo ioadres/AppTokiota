@@ -32,42 +32,41 @@ namespace AppTokiota.Users.Components.Review
 
     }
 
-    public class ReviewPageViewModel :ViewModelBase, INotifyPropertyChanged
+    public class ReviewPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
         #region Services
         protected readonly IReviewModule _reviewModule;
         #endregion
 
         #region Datapicker
-        public ObservableCollection<object> yearPicker { get; set; }
-        public ObservableCollection<object> monthPicker { get; set; }
+        public ObservableCollection<int> yearPicker;
+        public ObservableCollection<string> monthPicker;
 
-        public ObservableCollection<object> YearPicker
+        public ObservableCollection<int> YearPicker
         {
             get { return yearPicker; }
-            set { yearPicker = value; RaisePropertyChanged("Selected"); }
+            set { SetProperty(ref yearPicker, value); }
         }
-        public ObservableCollection<object> MonthPicker
+        public ObservableCollection<string> MonthPicker
         {
             get { return monthPicker; }
-            set { monthPicker = value; RaisePropertyChanged("Selected"); }
+            set { SetProperty(ref monthPicker, value); }
         }
 
 
-        public int myYearPicker { get; set; }
-        public int myMonthPicker { get; set; }
+        private int myIndexYearPicker;
+        private int myIndexMonthPicker;
 
-        public int MyYearPicker
+        public int MyIndexYearPicker
         {
-            get { return myYearPicker; }
-            set { myYearPicker = value; RaisePropertyChanged("Selected"); }
+            get { return myIndexYearPicker; }
+            set { SetProperty(ref myIndexYearPicker, value); }
         }
-        public int MyMonthPicker
+        public int MyIndexMonthPicker
         {
-            get { return myMonthPicker; }
-            set { myMonthPicker = value; RaisePropertyChanged("Selected"); }
+            get { return myIndexMonthPicker; }
+            set { SetProperty(ref myIndexMonthPicker, value); }
         }
-
 
         #endregion datapicker
 
@@ -94,14 +93,9 @@ namespace AppTokiota.Users.Components.Review
             get { return _imputedTotal; }
             set { SetProperty(ref _imputedTotal, value); }
         }
-       
 
-        private ObservableCollection<Review> lstReview;
-        public ObservableCollection<Review> LstReview
-        {
-            get { return lstReview; }
-            set { SetProperty(ref lstReview, value); }
-        }
+
+
 
         //Todo Sacar a settings
         DateTimeFormatInfo dtinfo = new CultureInfo("en").DateTimeFormat;
@@ -112,25 +106,24 @@ namespace AppTokiota.Users.Components.Review
             _reviewModule = reviewModule;
 
             Title = "Review";
+            YearPicker = new ObservableCollection<int>();
+            MonthPicker = new ObservableCollection<string>();
 
-            DateTime MyDate = DateTime.Now;
-
-            MyMonthPicker = MyDate.Month;
-            MyYearPicker = MyDate.Year;
-
-            //LstReview = new ObservableCollection<Review>();
-            //LstReview.Add(new Review { id = 1, project = "Proyecto1", task = "Task1", description = "description1", schedule=new Time {Hour= 2, Minute = 20 },consumed=50,deviate= 3, imputation = new Time { Hour = 2, Minute = 20 }, deviation = new Time { Hour = 2, Minute = 20 } });
-            //LstReview.Add(new Review { id = 2, project = "Proyecto2", task = "Task2", description = "description2", schedule = new Time { Hour = 2, Minute = 20 }, consumed=20,  deviate=5, imputation = new Time { Hour = 2, Minute = 20 }, deviation = new Time { Hour = 2, Minute = 20 } });
+            LstReview = new ObservableCollection<Review>();
+            LstReview.Add(new Review { id = 1, project = "Proyecto1", task = "Task1", description = "description1", schedule = new Time { Hour = 2, Minute = 20 }, consumed = 50, deviate = 3, imputation = new Time { Hour = 2, Minute = 20 }, deviation = new Time { Hour = 2, Minute = 20 } });
+            LstReview.Add(new Review { id = 2, project = "Proyecto2", task = "Task2", description = "description2", schedule = new Time { Hour = 2, Minute = 20 }, consumed = 20, deviate = 5, imputation = new Time { Hour = 2, Minute = 20 }, deviation = new Time { Hour = 2, Minute = 20 } });
         }
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
             LoadDataPicker();
-            LoadDataReview(MyYearPicker, MyMonthPicker ); 
+            //LoadDataReview(YearPicker.ElementAt(MyIndexYearPicker), MonthPicker.ElementAt(MyIndexMonthPicker)); 
+            LoadDataReview(2018, 05);
         }
 
         private async void LoadDataPicker()
         {
+            DateTime MyDate = DateTime.Now;
             for (int iyear = DateTime.Now.Year - 1; iyear <= (DateTime.Now.Year + 1); iyear++)
             {
                 YearPicker.Add(iyear);
@@ -141,12 +134,30 @@ namespace AppTokiota.Users.Components.Review
 
                 MonthPicker.Add(dtinfo.GetMonthName(imes));
             }
+
+            MyIndexMonthPicker = MonthPicker.IndexOf(dtinfo.GetMonthName(MyDate.Month));
+            MyIndexYearPicker = YearPicker.IndexOf(MyDate.Year);
+
             await Task.FromResult(true);
         }
 
         #endregion constructor
 
+        //private Models.Review _currentReview;
+
+        private ObservableCollection<Review> lstReview;
+        public ObservableCollection<Review> LstReview
+        {
+            get { return lstReview; }
+            set { SetProperty(ref lstReview, value); }
+        }
+
         private Models.Review _currentReview;
+        public Models.Review CurrentReview
+        {
+            get { return _currentReview; }
+            //set { SetProperty(ref _currentReview, value); }
+        }
 
         #region LoadDataReviewFromDatesPicker
         protected void LoadDataReview(int year, int month)
@@ -173,12 +184,6 @@ namespace AppTokiota.Users.Components.Review
 
         }
         #endregion LoadDataReviewFromDatesPicker
-
-        //public void RaisePropertyChanged(string name)
-        //{
-        //    if (PropertyChanged != null)
-        //        PropertyChanged(this, new PropertyChangedEventArgs(name));
-        //}
 
     }
 }

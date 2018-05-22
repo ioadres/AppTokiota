@@ -20,10 +20,15 @@ namespace AppTokiota.Users.Services
                 timesheetForDay.Day = new Day {
                     Date = TsDay.Date, 
                     IsClosed = TsDay.IsClosed,
-                    Holiday = new Holiday { IsHolyday = TsDay.Holiday.IsHolyday, Name = TsDay.Holiday.Name },
+                    Holiday = new Holiday(),
                     name = TsDay.name,
                     IsWeekend = TsDay.IsWeekend
                 };
+                if (TsDay.Holiday != null)
+                {
+                    timesheetForDay.Day.Holiday.IsHolyday = TsDay.Holiday.IsHolyday;
+                    timesheetForDay.Day.Holiday.Name = TsDay.Holiday.Name;
+                } 
                 listTimesheetForDay.Add(timesheetForDay);
             }
 

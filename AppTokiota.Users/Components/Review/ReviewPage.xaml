@@ -49,19 +49,21 @@
                             Title="Month" WidthRequest="100"
                             ItemsSource="{Binding MonthPicker}"
                             VerticalOptions="Center" HorizontalOptions="Center"
-                            SelectedItem="{Binding MyMonthPicker, Mode=TwoWay}"/>
+                            SelectedItem="{Binding MyMonthPicker, Mode=TwoWay}"
+                            ItemDisplayBinding="{Binding DisplayName}"/>
 
                     <Picker Grid.Row="0" Grid.Column="1" x:Name="pickerYear"
                             Title="Year" WidthRequest="100"
                             ItemsSource="{Binding YearPicker}"
                             VerticalOptions="Center" HorizontalOptions="Center"
-                            SelectedItem="{Binding MyYearPicker, Mode=TwoWay}"/>
+                            SelectedItem="{Binding MyYearPicker, Mode=TwoWay}"
+                            ItemDisplayBinding="{Binding DisplayName}"/>
 
                 </StackLayout>
             </Grid>
 
-            <!--<ListView x:Name="lstReview" HasUnevenRows="True" Grid.Row="1" ItemsSource="{Binding LstReview}"
-                  VerticalOptions="Fill" SeparatorVisibility="None">
+            <ListView x:Name="lstReview" HasUnevenRows="True" Grid.Row="1" ItemsSource="{Binding LstReview}"
+                  VerticalOptions="Fill" SeparatorVisibility="None" CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -77,7 +79,7 @@
                                 </Grid.RowDefinitions>
 
 
-                                <Label HorizontalOptions="Center" Text="{Binding id}" Grid.Column="0" Style ="{StaticResource DayTextStyle}" />
+                                <Label HorizontalOptions="Center" Text="{Binding Day.Name}" Grid.Column="0" Style ="{StaticResource DayTextStyle}" />
                                 <Label Style="{StaticResource TimeLineSimbolStyle}" Text="&#xf157;" Grid.Row ="0" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="End"></Label>
                                 <Label Grid.Column="2" Text="{Binding project}" Style="{StaticResource ProjectTextStyle}"/>
 
@@ -97,7 +99,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>-->
+            </ListView>
 
 
 

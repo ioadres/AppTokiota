@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>AppTokiota.Droid</RootNamespace>
     <AssemblyName>AppTokiota.Droid</AssemblyName>
-    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -63,6 +63,15 @@
       <HintPath>..\packages\EngineIoClientDotNet.1.0.3\lib\netstandard1.3\EngineIoClientDotNet.dll</HintPath>
     </Reference>
     <Reference Include="Java.Interop" />
+    <Reference Include="Microcharts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microcharts.0.8.3-pre\lib\MonoAndroid10\Microcharts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microcharts.Droid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microcharts.0.8.3-pre\lib\MonoAndroid10\Microcharts.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Microcharts.Forms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microcharts.Forms.0.7.1\lib\netstandard1.4\Microcharts.Forms.dll</HintPath>
+    </Reference>
     <Reference Include="ModernHttpClient, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\modernhttpclient.2.4.2\lib\MonoAndroid\ModernHttpClient.dll</HintPath>
     </Reference>
@@ -107,6 +116,15 @@
     </Reference>
     <Reference Include="Rg.Plugins.Popup.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rg.Plugins.Popup.1.0.4\lib\MonoAndroid\Rg.Plugins.Popup.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp, Version=1.59.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.1.59.1\lib\MonoAndroid\SkiaSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.Android, Version=1.59.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.Views.1.59.1.1\lib\MonoAndroid\SkiaSharp.Views.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.Forms, Version=1.59.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.Views.Forms.1.59.1.1\lib\MonoAndroid\SkiaSharp.Views.Forms.dll</HintPath>
     </Reference>
     <Reference Include="SocketIoClientDotNet, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SocketIoClientDotNet.1.0.3\lib\netstandard1.3\SocketIoClientDotNet.dll</HintPath>

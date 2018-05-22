@@ -241,8 +241,13 @@
                 <Setter Property="FontFamily"  Value="{StaticResource PoppinsSemiBold}" />
             </Style>
 
+             <Style x:Key="TitleH5Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
+            </Style>
+
             <Style x:Key="TitleH4Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
             </Style>
             <Style x:Key="TitleH3Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">

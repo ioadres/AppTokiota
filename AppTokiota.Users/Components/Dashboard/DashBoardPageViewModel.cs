@@ -71,7 +71,7 @@ namespace AppTokiota.Users.Components.DashBoard
             {
                 IsBusy = false;
                 BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                Debug.WriteLine($"[Booking] Error: {ex}");
+                Debug.WriteLine($"[GetTimesheet] Error: {ex}");
             }
         }
         #endregion

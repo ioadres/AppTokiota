@@ -127,24 +127,24 @@ namespace AppTokiota.Users.Components.Timesheet
 
         #region EventChangeDateMonthOfCalendar
         public Command DateChosen => new Command((obj) => { ChangeDateCalendar((DateTime)obj); });
-        protected async void ChangeDateCalendar(DateTime from)
+        protected void ChangeDateCalendar(DateTime from)
         {
             Dates = new ObservableCollection<DateTime>();         
 			SpecialDates = new ObservableCollection<SpecialDate>();
+			_currentTimesheet = null;
 
 			ReloadData();
 
 			_currentDayMonthYear = from;
             var to = from.AddMonths(1).AddDays(10);
             LoadSpecialDatesAsync(from.AddDays(-7), to);
-            await Task.FromResult(true);
         }
 		#endregion
 
 		#region EventReloadDataCalendar
 		public DelegateCommand ReloadDataCalendarCommand => new DelegateCommand(ReloadDataCalendar);
 		protected void ReloadDataCalendar()
-        {
+		{
 			ChangeDateCalendar(_currentDayMonthYear);
         }
         #endregion
@@ -166,14 +166,19 @@ namespace AppTokiota.Users.Components.Timesheet
         {
 			if (this.IsInternetAndCloseModal())
 			{
-				var selectedDateTimesheet = _timesheetModule.TimesheetService.GetTimesheetByDate(_currentTimesheet, Dates.FirstOrDefault());
-				if (selectedDateTimesheet.Day != null)
+				try
 				{
-					var navigationParameters = new NavigationParameters();
-					navigationParameters.Add(TimesheetForDay.Tag, selectedDateTimesheet);
-					await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<ManageImputedDayPage>(), navigationParameters);
-				} else {
-					BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+					var selectedDateTimesheet = _timesheetModule.TimesheetService.GetTimesheetByDate(_currentTimesheet, Dates.FirstOrDefault());
+					if (selectedDateTimesheet.Day != null)
+					{
+						var navigationParameters = new NavigationParameters();
+						navigationParameters.Add(TimesheetForDay.Tag, selectedDateTimesheet);
+						await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<ManageImputedDayPage>(), navigationParameters);
+					} else {
+                        throw new ArgumentNullException();
+                    }
+				} catch(Exception e) {
+					BaseModule.DialogService.ShowToast("The all days selected is closed or failed load the month. The month will be load again");
 					ChangeDateCalendar(_currentDayMonthYear);
                 }
 			}
@@ -186,20 +191,26 @@ namespace AppTokiota.Users.Components.Timesheet
         {
 			if (this.IsInternetAndCloseModal())
 			{
-				var selectedDateTimesheet = _timesheetModule.TimesheetService.GetTimesheetByDates(_currentTimesheet, Dates.ToList());
-
-				if (selectedDateTimesheet.Days.Any())
+				try
 				{
-					var imputed = new Imputed()
-					{
-						CurrentTimesheetMultipleDay = selectedDateTimesheet
-					};
+					var selectedDateTimesheet = _timesheetModule.TimesheetService.GetTimesheetByDates(_currentTimesheet, Dates.ToList());
 
-					var navigationParameters = new NavigationParameters();
-					navigationParameters.Add(Imputed.Tag, imputed);
-					await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters);
-				}
-				else
+					if (selectedDateTimesheet.Days.Any())
+					{
+						var imputed = new Imputed()
+						{
+							CurrentTimesheetMultipleDay = selectedDateTimesheet
+						};
+
+						var navigationParameters = new NavigationParameters();
+						navigationParameters.Add(Imputed.Tag, imputed);
+						await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters);
+
+					} else {
+						throw new ArgumentNullException();
+					}
+
+				} catch(Exception e) 
 				{
 					BaseModule.DialogService.ShowToast("The all days selected is closed or failed load the month. The month will be load again");
 					ChangeDateCalendar(_currentDayMonthYear);
@@ -212,16 +223,16 @@ namespace AppTokiota.Users.Components.Timesheet
         protected void LoadSpecialDatesAsync(DateTime from, DateTime to)
         {
 			IsBusy = true;
-			Device.BeginInvokeOnMainThread( async() =>
+			Device.BeginInvokeOnMainThread(async() =>
 			{
 				try
-				{                    
+				{
 					if (this.IsInternetAndCloseModal())
 					{
 						_currentTimesheet = await _timesheetModule.TimesheetService.GetTimesheetBeetweenDates(from, to);
 						var specialDates = await _timesheetModule.CalendarService.GetSpecialDatesBeetweenDatesAsync(_currentTimesheet);
 						specialDates.ForEach(x => SpecialDates.Add(x));
-                        
+
 						var now = _currentDayMonthYear;
 						var minMonth = new DateTime(now.Year, now.Month, 1);
 						var maxMonth = minMonth.AddMonths(1).AddDays(-1);
@@ -229,19 +240,16 @@ namespace AppTokiota.Users.Components.Timesheet
 
 						ImputedTotal = calculateActivities.Sum(x => x.Value.Imputed);
 						DeviationTotal = calculateActivities.Sum(x => x.Value.Deviation);
-
-						IsBusy = false;
 					}
+					IsBusy = false;
 				}
 				catch (Exception ex)
 				{
 					IsBusy = false;
-					BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();               
-					Debug.WriteLine($"[Booking] Error: {ex}");
+					BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+					Debug.WriteLine($"[GetTimesheet] Error: {ex}");
 				}
-
-			});            
-            
+			});  
         }
 		#endregion
 

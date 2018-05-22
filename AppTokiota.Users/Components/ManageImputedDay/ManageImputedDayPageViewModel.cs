@@ -11,6 +11,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using AppTokiota.Users.Components.Activity;
 using Rg.Plugins.Popup.Services;
+using System.Diagnostics;
 
 namespace AppTokiota.Users.Components.ManageImputedDay
 {
@@ -78,21 +79,28 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         protected void OnDeleteItem(ActivityDay activity)
         {
 			IsBusy = true;
-			if (IsInternetWithModal())
+			if (IsInternetAndCloseModal())
 			{
 				Device.BeginInvokeOnMainThread(async () =>
 				{
-					var result = await _manageImputedDayModule.TimesheetService.DeleteActivityTimesheet(activity.Date, activity.Id);
-					if (result != null)
+					try
 					{
-						
-						_currentTimesheetForDay.Activities.Remove(activity);
-						UpdateDayOfTimesheet(_currentTimesheetForDay);
+						var result = await _manageImputedDayModule.TimesheetService.DeleteActivityTimesheet(activity.Date, activity.Id);
+						if (result != null)
+						{
+
+							_currentTimesheetForDay.Activities.Remove(activity);
+							UpdateDayOfTimesheet(_currentTimesheetForDay);
+							IsBusy = false;
+						}
+						else
+						{
+							IsBusy = false;
+							BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+						}
+					} catch(Exception e) {
 						IsBusy = false;
-					}
-					else
-					{
-						IsBusy = false;
+						Debug.WriteLine(e);
 						BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
 					}
 				});

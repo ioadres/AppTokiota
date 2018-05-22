@@ -60,7 +60,7 @@ namespace AppTokiota.Users.Services
 				Color = GenerateColors.GetColor(3),
 				TextColor = GenerateColors.GetColor(3),
                 Label = "Pending",
-				ValueLabel = TimeFormat.Format(consumed)
+				ValueLabel = TimeFormat.Format(pending)
             });
 			return entries;
         }

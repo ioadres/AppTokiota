@@ -46,8 +46,6 @@ namespace AppTokiota.Users.Services
 				}
 				catch (Exception ex)
 				{
-					i++;
-					AppSettings.AuthenticatedUserResponse = null;
 					Debug.WriteLine(ex);
 				}               
 			}
@@ -57,25 +55,79 @@ namespace AppTokiota.Users.Services
 
 		public async Task<TimesheetDeleteActivity> DeleteActivityTimesheet(DateTime from, int idActivity)
         {
-			var url = $"{AppSettings.TimesheetUrlEndPoint}/{from.ToString("yyyy")}/{from.ToString("MM")}/{idActivity}";
-			var timesheet = await _requestService.DeleteAsync<TimesheetDeleteActivity>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
-            return timesheet;         
+			for (var i = 0; i < 2; i++)
+            {
+                try
+                {
+                    if (await _authenticationService.UserIsAuthenticatedAndValidAsync())
+                    {
+            			var url = $"{AppSettings.TimesheetUrlEndPoint}/{from.ToString("yyyy")}/{from.ToString("MM")}/{idActivity}";
+            			var timesheet = await _requestService.DeleteAsync<TimesheetDeleteActivity>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
+						return timesheet;   
+					}
+                    else
+                    {
+                        throw new UnauthorizedAccessException();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+            }
+            throw new UnauthorizedAccessException();      
         }
         
 		public async Task<Activity> PostActivity(TimesheetAddActivity timesheetAddActivity, DateTime from)
         {
-			var url = $"{AppSettings.TimesheetUrlEndPoint}/{from.ToString("yyyy")}/{from.ToString("MM")}/{from.ToString("dd")}";
-			var timesheet = await _requestService.PostAsync<TimesheetAddActivity,Activity>(url,timesheetAddActivity, AppSettings.AuthenticatedUserResponse.AccessToken);
-			timesheet.ProjectId = timesheetAddActivity.ProjectId;
-			timesheet.TaskId = timesheetAddActivity.TaskId;
-            return timesheet;
+			for (var i = 0; i < 2; i++)
+            {
+                try
+                {
+                    if (await _authenticationService.UserIsAuthenticatedAndValidAsync())
+                    {
+            			var url = $"{AppSettings.TimesheetUrlEndPoint}/{from.ToString("yyyy")}/{from.ToString("MM")}/{from.ToString("dd")}";
+            			var timesheet = await _requestService.PostAsync<TimesheetAddActivity,Activity>(url,timesheetAddActivity, AppSettings.AuthenticatedUserResponse.AccessToken);
+            			timesheet.ProjectId = timesheetAddActivity.ProjectId;
+            			timesheet.TaskId = timesheetAddActivity.TaskId;
+        				return timesheet;
+					}
+                    else
+                    {
+                        throw new UnauthorizedAccessException();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+            }
+            throw new UnauthorizedAccessException();
         }
 
 		public async Task<List<Activity>> BatchActivity(List<TimesheetAddActivityBatch> timesheetAddActivityBatch)
-        {
-            var url = $"{AppSettings.TimesheetUrlEndPoint}/batch";
-			var timesheet = await _requestService.PostAsync<List < TimesheetAddActivityBatch >, List<Activity>>(url, timesheetAddActivityBatch, AppSettings.AuthenticatedUserResponse.AccessToken);
-            return timesheet;
+		{
+			for (var i = 0; i < 2; i++)
+            {
+                try
+                {
+                    if (await _authenticationService.UserIsAuthenticatedAndValidAsync())
+                    {
+                        var url = $"{AppSettings.TimesheetUrlEndPoint}/batch";
+            			var timesheet = await _requestService.PostAsync<List < TimesheetAddActivityBatch >, List<Activity>>(url, timesheetAddActivityBatch, AppSettings.AuthenticatedUserResponse.AccessToken);
+                        return timesheet;
+            		}
+                    else
+                    {
+                        throw new UnauthorizedAccessException();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+            }
+            throw new UnauthorizedAccessException();
         }
     }
 }

@@ -32,46 +32,58 @@ namespace AppTokiota.Users.Components.Review
 
     }
 
-    public class ReviewPageViewModel :ViewModelBase, INotifyPropertyChanged
+    public class ReviewPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
         #region Services
         protected readonly IReviewModule _reviewModule;
         #endregion
 
         #region Datapicker
-        public ObservableCollection<object> yearPicker { get; set; }
-        public ObservableCollection<object> monthPicker { get; set; }
+        public ObservableCollection<PickerItem> yearPicker;
+        public ObservableCollection<PickerItem> monthPicker;
 
-        public ObservableCollection<object> YearPicker
+        public ObservableCollection<PickerItem> YearPicker
         {
             get { return yearPicker; }
-            set { yearPicker = value; RaisePropertyChanged("Selected"); }
+            set { SetProperty(ref yearPicker, value); }
         }
-        public ObservableCollection<object> MonthPicker
+        public ObservableCollection<PickerItem> MonthPicker
         {
             get { return monthPicker; }
-            set { monthPicker = value; RaisePropertyChanged("Selected"); }
+            set { SetProperty(ref monthPicker, value); }
         }
 
 
-        public int myYearPicker { get; set; }
-        public int myMonthPicker { get; set; }
+        private PickerItem myYearPicker;
+        private PickerItem myMonthPicker;
 
-        public int MyYearPicker
+        public PickerItem MyYearPicker
         {
             get { return myYearPicker; }
-            set { myYearPicker = value; RaisePropertyChanged("Selected"); }
+            set { SetProperty(ref myYearPicker, value); }
         }
-        public int MyMonthPicker
+        public PickerItem MyMonthPicker
         {
             get { return myMonthPicker; }
-            set { myMonthPicker = value; RaisePropertyChanged("Selected"); }
+            set { SetProperty(ref myMonthPicker, value); }
         }
-
 
         #endregion datapicker
 
-
+        #region DataReview
+        private ObservableCollection<TimesheetForDay> lstReview;
+        public ObservableCollection<TimesheetForDay> LstReview
+        {
+            get { return lstReview; }
+            set { SetProperty(ref lstReview, value); }
+        }
+        private Models.Review _currentReview;
+        public Models.Review CurrentReview
+        {
+            get { return _currentReview; }
+            //set { SetProperty(ref _currentReview, value); }
+        }
+        #endregion DataReview
 
         /// <summary>
         /// Gets or sets the Total DeviationTotal 
@@ -94,14 +106,6 @@ namespace AppTokiota.Users.Components.Review
             get { return _imputedTotal; }
             set { SetProperty(ref _imputedTotal, value); }
         }
-       
-
-        private ObservableCollection<Review> lstReview;
-        public ObservableCollection<Review> LstReview
-        {
-            get { return lstReview; }
-            set { SetProperty(ref lstReview, value); }
-        }
 
         //Todo Sacar a settings
         DateTimeFormatInfo dtinfo = new CultureInfo("en").DateTimeFormat;
@@ -110,46 +114,87 @@ namespace AppTokiota.Users.Components.Review
         public ReviewPageViewModel(IViewModelBaseModule baseModule, IReviewModule reviewModule) : base(baseModule)
         {
             _reviewModule = reviewModule;
+            
 
             Title = "Review";
+            MyMonthPicker = new PickerItem();
+            MyYearPicker = new PickerItem();
 
-            DateTime MyDate = DateTime.Now;
+            YearPicker = new ObservableCollection<PickerItem>();
+            MonthPicker = new ObservableCollection<PickerItem>();
 
-            MyMonthPicker = MyDate.Month;
-            MyYearPicker = MyDate.Year;
 
-            //LstReview = new ObservableCollection<Review>();
-            //LstReview.Add(new Review { id = 1, project = "Proyecto1", task = "Task1", description = "description1", schedule=new Time {Hour= 2, Minute = 20 },consumed=50,deviate= 3, imputation = new Time { Hour = 2, Minute = 20 }, deviation = new Time { Hour = 2, Minute = 20 } });
-            //LstReview.Add(new Review { id = 2, project = "Proyecto2", task = "Task2", description = "description2", schedule = new Time { Hour = 2, Minute = 20 }, consumed=20,  deviate=5, imputation = new Time { Hour = 2, Minute = 20 }, deviation = new Time { Hour = 2, Minute = 20 } });
+
+            //lstReview = new ObservableCollection<TimesheetForDay>();
+            LstReview = new ObservableCollection<TimesheetForDay>();
+            //LstReview.Add(new Review { id = 1, project = "Proyecto1", task = "Task1", description = "description1", schedule = new Time { Hour = 2, Minute = 20 }, consumed = 50, deviate = 3, imputation = new Time { Hour = 2, Minute = 20 }, deviation = new Time { Hour = 2, Minute = 20 } });
+            //LstReview.Add(new Review { id = 2, project = "Proyecto2", task = "Task2", description = "description2", schedule = new Time { Hour = 2, Minute = 20 }, consumed = 20, deviate = 5, imputation = new Time { Hour = 2, Minute = 20 }, deviation = new Time { Hour = 2, Minute = 20 } });
         }
-
-        public override void OnNavigatedTo(NavigationParameters parameters)
-        {
-            LoadDataPicker();
-            LoadDataReview(MyYearPicker, MyMonthPicker ); 
-        }
-
-        private async void LoadDataPicker()
-        {
-            for (int iyear = DateTime.Now.Year - 1; iyear <= (DateTime.Now.Year + 1); iyear++)
-            {
-                YearPicker.Add(iyear);
-            }
-
-            for (int imes = DateTime.MinValue.Month; imes < DateTime.MaxValue.Month + 1; imes++)
-            {
-
-                MonthPicker.Add(dtinfo.GetMonthName(imes));
-            }
-            await Task.FromResult(true);
-        }
-
         #endregion constructor
 
-        private Models.Review _currentReview;
+        #region LoadPickersListViewData
+        
+        public override void OnNavigatedTo(NavigationParameters parameters)
+        {
+            LoadDataAsync();
+        }
 
-        #region LoadDataReviewFromDatesPicker
-        protected void LoadDataReview(int year, int month)
+        protected async void LoadDataAsync()
+        {
+            IsBusy = true;
+            try
+            {
+                if (this.IsInternetAndCloseModal())
+                {
+                    await LoadDataPickerAsync();
+                    LoadDataReviewAsync(MyYearPicker.Value, MyMonthPicker.Value);
+                }
+                IsBusy = false;
+            }
+            catch (Exception ex)
+            {
+                IsBusy = false;
+                BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                Debug.WriteLine($"[GetTimesheet] Error: {ex}");
+            }
+        }
+        private async Task LoadDataPickerAsync()
+        {
+            DateTime MyDate = DateTime.Now;
+
+            await Task.Run(() =>
+            {
+                for (int iyear = DateTime.Now.Year - 1; iyear <= (DateTime.Now.Year + 1); iyear++)
+                {
+                    YearPicker.Add(new PickerItem { Value = iyear, DisplayName = iyear.ToString() });
+                }
+                MyMonthPicker.Value = MyDate.Month;
+                MyMonthPicker.DisplayName = dtinfo.GetMonthName(MyDate.Month);
+
+                for (int imes = DateTime.MinValue.Month; imes < DateTime.MaxValue.Month + 1; imes++)
+                {
+
+                    MonthPicker.Add(new PickerItem { Value = imes, DisplayName = dtinfo.GetMonthName(imes) });
+                }
+                MyYearPicker.Value = MyDate.Year;
+                MyYearPicker.DisplayName = MyDate.Year.ToString();
+                //GetDefaultValues();
+            });
+
+
+
+
+            //await Task.FromResult(true);
+        }
+        private void GetDefaultValues()
+        {
+            DateTime MyDate = DateTime.Now;
+            MyMonthPicker.Value = MyDate.Month;
+            MyMonthPicker.DisplayName = dtinfo.GetMonthName(MyDate.Month);
+            MyYearPicker.Value = MyDate.Year;
+            MyYearPicker.DisplayName = MyDate.Year.ToString();
+        }
+        protected void LoadDataReviewAsync(int year, int month)
         {
             IsBusy = true;
             Device.BeginInvokeOnMainThread(async () =>
@@ -159,6 +204,8 @@ namespace AppTokiota.Users.Components.Review
                     if (this.IsInternetAndCloseModal())
                     {
                         _currentReview = await _reviewModule.ReviewService.GetReview(year, month);
+                        var lstReviewDates = await _reviewModule.TimeLineService.GetListTimesheetForDay(_currentReview);
+                        lstReviewDates.ForEach(x => LstReview.Add(x));
                         IsBusy = false;
                     }
                 }
@@ -170,15 +217,9 @@ namespace AppTokiota.Users.Components.Review
                 }
 
             });
-
         }
-        #endregion LoadDataReviewFromDatesPicker
-
-        //public void RaisePropertyChanged(string name)
-        //{
-        //    if (PropertyChanged != null)
-        //        PropertyChanged(this, new PropertyChangedEventArgs(name));
-        //}
+        
+        #endregion LoadPickersListViewData
 
     }
 }

@@ -11,6 +11,23 @@
                 <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
+            <Style x:Key="TimeLineSimbolStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+                <Setter Property="FontSize" Value="{StaticResource BigSize}"/>
+            </Style>
+            <Style x:Key="DayTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+                <Setter Property="FontSize" Value="{StaticResource BigSize}"/>
+                <Setter Property="TextColor" Value="{StaticResource AccentColor}"/>
+            </Style>
+            <Style x:Key="TaskTextStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}"/>
+            </Style>
+            <Style x:Key="ProjectTextStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}"/>
+            </Style>
             <converters:MinutesToHourConverter x:Key="cnvMinutesToHour"></converters:MinutesToHourConverter>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -22,64 +39,67 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Grid Padding="10" Grid.Row="0">
+            <Grid Padding="10" Grid.Row="0" HorizontalOptions="CenterAndExpand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Padding="10">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center"  Padding="10">
                     <Picker Grid.Row="0" Grid.Column="0" x:Name="pickerMonth"
-                            Title="Month"
+                            Title="Month" WidthRequest="100"
                             ItemsSource="{Binding MonthPicker}"
-                            VerticalOptions="Center"
-                            SelectedItem ="{Binding MyMonthPicker, Mode=TwoWay}"
-                            />
+                            VerticalOptions="Center" HorizontalOptions="Center"
+                            SelectedItem="{Binding MyMonthPicker, Mode=TwoWay}"
+                            ItemDisplayBinding="{Binding DisplayName}"/>
+
                     <Picker Grid.Row="0" Grid.Column="1" x:Name="pickerYear"
-                            Title="Year"
+                            Title="Year" WidthRequest="100"
                             ItemsSource="{Binding YearPicker}"
-                            VerticalOptions="Center"
+                            VerticalOptions="Center" HorizontalOptions="Center"
                             SelectedItem="{Binding MyYearPicker, Mode=TwoWay}"
-                            />
+                            ItemDisplayBinding="{Binding DisplayName}"/>
+
                 </StackLayout>
             </Grid>
-            <!--ItemDisplayBinding="{Binding MonthYearPickerID}"
-                            SelectedItem="{Binding myMonthYearPicker, Mode=TwoWay}"
-            <ListView x:Name="LstContactos" HasUnevenRows="True" Grid.Row="1" SeparatorColor="Black" ItemsSource="{Binding LstContactos, Source={x:Reference MyPage}}"-->
-            <ListView x:Name="LstReview" HasUnevenRows="True" Grid.Row="1" SeparatorColor="Black" ItemsSource="{Binding LstReview}"
-                  VerticalOptions="Fill">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.View>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1*"/>
-                                            <ColumnDefinition Width="2*"/>
-                                            <ColumnDefinition Width="3*"/>
-                                            <ColumnDefinition Width="4*"/>
-                                            <ColumnDefinition Width="1*"/>
-                                            <ColumnDefinition Width="1*"/>
-                                            <ColumnDefinition Width="1*"/>
-                                            <ColumnDefinition Width="1*"/>
-                                            <ColumnDefinition Width="1*"/>
-                                    </Grid.ColumnDefinitions>
 
-                                    <Label Grid.Column="0" Text="{Binding id}"></Label>
-                                    <Label Grid.Column="1" Text="{Binding project}"></Label>
-                                    <Label Grid.Column="2" Text="{Binding task}"></Label>
-                                    <Label Grid.Column="3" Text="{Binding description}"></Label>
-                                    <Label Grid.Column="4" Text="{Binding schedule}"></Label>
-                                    <Label Grid.Column="5" Text="{Binding consumed}"></Label>
-                                    <Label Grid.Column="6" Text="{Binding deviate}"></Label>
-                                    <Label Grid.Column="7" Text="{Binding imputation}"></Label>
-                                    <Label Grid.Column="8" Text="{Binding deviation}"></Label>
+            <ListView x:Name="lstReview" HasUnevenRows="True" Grid.Row="1" ItemsSource="{Binding LstReview}"
+                  VerticalOptions="Fill" SeparatorVisibility="None" CachingStrategy="RecycleElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid ColumnSpacing="0" RowSpacing="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
 
-                                </Grid>
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+
+                                <Label HorizontalOptions="Center" Text="{Binding Day.Name}" Grid.Column="0" Style ="{StaticResource DayTextStyle}" />
+                                <Label Style="{StaticResource TimeLineSimbolStyle}" Text="&#xf157;" Grid.Row ="0" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="End"></Label>
+                                <Label Grid.Column="2" Text="{Binding project}" Style="{StaticResource ProjectTextStyle}"/>
+
+                                <BoxView
+                                     Grid.Row ="1"
+                                         Grid.RowSpan="2"
+                                         Grid.Column="1"
+                                         HorizontalOptions="CenterAndExpand"
+                                         VerticalOptions="Fill"
+                                         WidthRequest="3"
+                                         BackgroundColor="{StaticResource RedDarkColor}"/>
+                                <Label
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        Text="{Binding task}" Style="{StaticResource TaskTextStyle}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
 
 

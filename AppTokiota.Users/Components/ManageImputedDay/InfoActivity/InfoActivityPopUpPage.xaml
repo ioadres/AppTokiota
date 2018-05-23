@@ -19,7 +19,7 @@
         <ResourceDictionary>
           
             <Style x:Key="IconTextStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
+                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}" />
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
             </Style>
@@ -51,7 +51,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label  Style="{StaticResource TitleH4Style}" Text="{Binding Title}"  Grid.Column="1" VerticalOptions="Center" HorizontalTextAlignment="Center"></Label>
+                    <Label  Style="{StaticResource TitleH3Style}" Text="{Binding Title}"  Grid.Column="1" VerticalOptions="Center" HorizontalTextAlignment="Center"></Label>
 
                     <Label Style="{StaticResource IconTextStyle}" Text="&#xf00d;" Grid.Column="2" HorizontalTextAlignment="Center" IsVisible="true">
                         <Label.GestureRecognizers>
@@ -86,14 +86,16 @@
                         <Label 
                                Style="{StaticResource TitleH1Style}" 
                                Margin="0,0,0,5"  
-                               Text="{Binding Context.Imputed, Converter={StaticResource cnvFormatTimeMinutesToStringEntry}}" 
+                               Text="{Binding Context.Imputed, Converter={StaticResource cnvFormatTimeMinutesToStringEntry}}"
+                               TextColor="{StaticResource WhiteColor}"
                                HorizontalTextAlignment="Center">
                             
                         </Label>
 
                         <Label 
                                Style="{StaticResource TitleH3Style}" 
-                               Text="Consumed" 
+                               Text="Consumed"
+                               TextColor="{StaticResource WhiteColor}"
                                HorizontalTextAlignment="Center">
                             
                         </Label>
@@ -106,6 +108,7 @@
                                Style="{StaticResource TitleH1Style}" 
                                 Margin="0,0,0,5"    
                                Text="{Binding Context.Deviation, Converter={StaticResource cnvFormatTimeMinutesToStringEntry}}" 
+                               TextColor="{StaticResource WhiteColor}"
                                HorizontalTextAlignment="Center">
                             
                         </Label>
@@ -113,6 +116,7 @@
                         <Label 
                                Style="{StaticResource TitleH3Style}" 
                                Text="Deviation" 
+                               TextColor="{StaticResource WhiteColor}"
                                HorizontalTextAlignment="Center">
                             
                         </Label>
@@ -123,7 +127,8 @@
                         <Label 
                                Style="{StaticResource TitleH2Style}" 
                                Margin="15"  
-                               Text="{Binding Context.Project.DisplayName}" 
+                               Text="{Binding Context.Project.DisplayName}"
+                               TextColor="{StaticResource WhiteColor}"
                                HorizontalTextAlignment="Center">
                             
                         </Label>
@@ -131,7 +136,8 @@
                         <Label 
                                Style="{StaticResource TitleH2Style}" 
                                Margin="15"  
-                               Text="{Binding Context.Task.DisplayName}" 
+                               Text="{Binding Context.Task.DisplayName}"
+                               TextColor="{StaticResource WhiteColor}"
                                HorizontalTextAlignment="Center">
                             
                         </Label>
@@ -139,7 +145,8 @@
                         <Label 
                                Style="{StaticResource TitleH3Style}" 
                                Margin="15"  
-                               Text="{Binding Context.Description}" 
+                               Text="{Binding Context.Description}"
+                               TextColor="{StaticResource WhiteColor}"
                                HorizontalTextAlignment="Center">
                             
                         </Label>

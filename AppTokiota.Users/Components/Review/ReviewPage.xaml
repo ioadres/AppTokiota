@@ -28,6 +28,7 @@
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}"/>
             </Style>
+            <converters:NotBooleanConverter x:Key="NotBooleanConverter"></converters:NotBooleanConverter>
             <converters:MinutesToHourConverter x:Key="cnvMinutesToHour"></converters:MinutesToHourConverter>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -90,7 +91,8 @@
                                          HorizontalOptions="CenterAndExpand"
                                          VerticalOptions="Fill"
                                          WidthRequest="3"
-                                         BackgroundColor="{StaticResource RedDarkColor}"/>
+                                         BackgroundColor="{StaticResource RedDarkColor}"
+                                         IsVisible="{Binding IsLast, Converter={StaticResource NotBooleanConverter}}"/>
                                 <Label
                                         Grid.Row="1"
                                         Grid.Column="2"

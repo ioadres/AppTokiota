@@ -185,6 +185,7 @@ namespace AppTokiota.Users.Components.Review
                         _currentReview = await _reviewModule.ReviewService.GetReview(year, month);
                         var lstReviewDates = await _reviewModule.TimeLineService.GetListTimesheetForDay(_currentReview);
                         lstReviewDates.ForEach(x => LstReview.Add(x));
+                        LstReview.Last().IsLast = true; 
                         IsBusy = false;
                     }
                 }

@@ -79,9 +79,9 @@
                                 </Grid.RowDefinitions>
 
 
-                                <Label HorizontalOptions="Center" Text="{Binding Day.Name}" Grid.Column="0" Style ="{StaticResource DayTextStyle}" />
+                                <Label HorizontalOptions="Center" Text="{Binding Day.Date}" Grid.Column="0" Style ="{StaticResource DayTextStyle}" />
                                 <Label Style="{StaticResource TimeLineSimbolStyle}" Text="&#xf157;" Grid.Row ="0" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="End"></Label>
-                                <Label Grid.Column="2" Text="{Binding project}" Style="{StaticResource ProjectTextStyle}"/>
+                                <Label Grid.Column="2" Text="{Binding Day.name}" Style="{StaticResource ProjectTextStyle}"/> <!--Project-->
 
                                 <BoxView
                                      Grid.Row ="1"
@@ -94,7 +94,7 @@
                                 <Label
                                         Grid.Row="1"
                                         Grid.Column="2"
-                                        Text="{Binding task}" Style="{StaticResource TaskTextStyle}" />
+                                        Text="{Binding Day.IsWeekend}" Style="{StaticResource TaskTextStyle}" /><!--Task-->
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

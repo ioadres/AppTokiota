@@ -122,7 +122,7 @@ namespace AppTokiota.Users.Components.Review
                     if (this.IsInternetAndCloseModal())
                     {
                         await LoadDataPickerAsync();
-                        //LoadDataReviewAsync(YearPicker.ElementAt(MyIndexYearPicker).Value,MonthPicker.ElementAt(MyIndexMonthPicker).Value);
+                        LoadDataReviewAsync(YearPicker.ElementAt(MyIndexYearPicker).Value,MonthPicker.ElementAt(MyIndexMonthPicker).Value);
                     }
                     IsBusy = false;
                 }
@@ -134,6 +134,8 @@ namespace AppTokiota.Users.Components.Review
                 }
             });
         }
+
+
         private async Task LoadDataPickerAsync()
         {
             await Task.Run(() =>

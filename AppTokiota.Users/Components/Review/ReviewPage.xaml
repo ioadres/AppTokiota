@@ -49,14 +49,14 @@
                             Title="Month" WidthRequest="100"
                             ItemsSource="{Binding MonthPicker}"
                             VerticalOptions="Center" HorizontalOptions="Center"
-                            SelectedItem="{Binding MyMonthPicker, Mode=TwoWay}"
+                            SelectedIndex="{Binding MyIndexMonthPicker}"
                             ItemDisplayBinding="{Binding DisplayName}"/>
 
                     <Picker Grid.Row="0" Grid.Column="1" x:Name="pickerYear"
                             Title="Year" WidthRequest="100"
                             ItemsSource="{Binding YearPicker}"
                             VerticalOptions="Center" HorizontalOptions="Center"
-                            SelectedItem="{Binding MyYearPicker, Mode=TwoWay}"
+                            SelectedIndex="{Binding MyIndexYearPicker}"
                             ItemDisplayBinding="{Binding DisplayName}"/>
 
                 </StackLayout>

@@ -17,7 +17,7 @@
             </Style>
             <Style x:Key="DayTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
-                <Setter Property="FontSize" Value="{StaticResource BigSize}"/>
+                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}"/>
                 <Setter Property="TextColor" Value="{StaticResource AccentColor}"/>
             </Style>
             <Style x:Key="TaskTextStyle" TargetType="Label">
@@ -28,6 +28,7 @@
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
                 <Setter Property="FontSize" Value="{StaticResource MediumSize}"/>
             </Style>
+            <converters:DateToStringConverter x:Key="DateOfWeekFormat"></converters:DateToStringConverter>
             <converters:NotBooleanConverter x:Key="NotBooleanConverter"></converters:NotBooleanConverter>
             <converters:MinutesToHourConverter x:Key="cnvMinutesToHour"></converters:MinutesToHourConverter>
         </ResourceDictionary>
@@ -80,7 +81,7 @@
                                 </Grid.RowDefinitions>
 
 
-                                <Label HorizontalOptions="Center" Text="{Binding Day.Date}" Grid.Column="0" Style ="{StaticResource DayTextStyle}" />
+                                <Label HorizontalOptions="Center" Text="{Binding Day.Date, Converter ={StaticResource DateOfWeekFormat}}"  Grid.Column="0" Style ="{StaticResource DayTextStyle}" />
                                 <Label Style="{StaticResource TimeLineSimbolStyle}" Text="&#xf157;" Grid.Row ="0" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="End"></Label>
                                 <Label Grid.Column="2" Text="{Binding Day.name}" Style="{StaticResource ProjectTextStyle}"/> <!--Project-->
 

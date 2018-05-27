@@ -51,6 +51,10 @@
                         <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Push Notifications</Label>
                         <Switch HorizontalOptions="EndAndExpand"></Switch>    
                     </StackLayout>
+                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" TranslationX="10" HorizontalOptions="FillAndExpand"></BoxView>
+                    <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
+                        <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Hours/Day </Label>
+                    </StackLayout>
                     <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" HorizontalOptions="FillAndExpand"></BoxView>
 
                     <Label Text="CACHE" Style="{StaticResource TitleH4Style}" TextColor="{StaticResource DarkColor}" Margin="10,25,5,2"></Label>

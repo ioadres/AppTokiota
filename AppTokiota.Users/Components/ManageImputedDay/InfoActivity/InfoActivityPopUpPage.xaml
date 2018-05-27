@@ -44,7 +44,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label  Style="{StaticResource TitleH3Style}" Text="{Binding Title}"  Grid.Column="1" VerticalOptions="Center" HorizontalTextAlignment="Center"></Label>
+                    <Label  Style="{StaticResource TitleH2Style}" Text="{Binding Title}"  Grid.Column="1" VerticalOptions="Center" HorizontalTextAlignment="Center"></Label>
 
                     <Label Style="{StaticResource IconTextStyle}" Text="&#xf00d;" Grid.Column="2" HorizontalTextAlignment="Center" IsVisible="true">
                         <Label.GestureRecognizers>

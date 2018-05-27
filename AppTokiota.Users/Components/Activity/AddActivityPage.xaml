@@ -22,7 +22,7 @@
             </Style>
 
             <Style x:Key="IconPlusTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
+                <Setter Property="FontSize" Value="90" />
                 <Setter Property="TextColor" Value="{StaticResource RedColor}"/>
             </Style>
 

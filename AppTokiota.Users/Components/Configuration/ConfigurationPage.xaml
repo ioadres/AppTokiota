@@ -23,6 +23,9 @@
                 <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}" />
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
             </Style>
+            <Style x:Key="ItemText" TargetType="Label" BasedOn="{StaticResource TitleH2Style}">
+                <Setter Property="TextColor" Value="{StaticResource DarkColor}" />
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -42,18 +45,49 @@
                     </StackLayout>
                 </StackLayout>
 
-                <StackLayout  Grid.Row="1" BackgroundColor="{StaticResource GrayColor}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <StackLayout  Grid.Row="1" BackgroundColor="{StaticResource GrayColor}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Spacing="0">
                     <Label Text="ACCOUNT" Style="{StaticResource TitleH4Style}" TextColor="{StaticResource DarkColor}" Margin="10,15,0,2"></Label>
-                    <BoxView HeightRequest="150" BackgroundColor="{StaticResource WhiteColor}" HorizontalOptions="FillAndExpand"></BoxView>
+                    <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
+                        <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Push Notifications</Label>
+                        <Switch HorizontalOptions="EndAndExpand"></Switch>    
+                    </StackLayout>
+                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" HorizontalOptions="FillAndExpand"></BoxView>
 
-                    <Label Text="CACHE" Style="{StaticResource TitleH4Style}" TextColor="{StaticResource DarkColor}" Margin="10,15,0,2"></Label>
-                    <BoxView HeightRequest="150" BackgroundColor="{StaticResource WhiteColor}" HorizontalOptions="FillAndExpand"></BoxView>
+                    <Label Text="CACHE" Style="{StaticResource TitleH4Style}" TextColor="{StaticResource DarkColor}" Margin="10,25,5,2"></Label>
+                    <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
+                        <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Cache Active</Label>
+                        <Switch HorizontalOptions="EndAndExpand"></Switch>    
+                    </StackLayout>
+                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" TranslationX="10" HorizontalOptions="FillAndExpand"></BoxView>
+                    <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
+                        <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Clear Cache</Label>
+                    </StackLayout>
+                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" HorizontalOptions="FillAndExpand"></BoxView>
 
-                    <Label Text="APPEARANCE" Style="{StaticResource TitleH4Style}" TextColor="{StaticResource DarkColor}" Margin="10,15,0,2"></Label>
-                    <BoxView HeightRequest="150" BackgroundColor="{StaticResource WhiteColor}" HorizontalOptions="FillAndExpand"></BoxView>
-                    
-                    <Label Text="ABOUT" Style="{StaticResource TitleH4Style}" TextColor="{StaticResource DarkColor}" Margin="10,15,0,2"></Label>
-                    <BoxView HeightRequest="150" BackgroundColor="{StaticResource WhiteColor}" HorizontalOptions="FillAndExpand"></BoxView>
+                    <Label Text="APPEARANCE" Style="{StaticResource TitleH4Style}" TextColor="{StaticResource DarkColor}" Margin="10,25,0,2"></Label>
+                    <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
+                        <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Startup View</Label>
+                    </StackLayout>
+                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" HorizontalOptions="FillAndExpand"></BoxView>
+
+                    <Label Text="ABOUT" Style="{StaticResource TitleH4Style}" TextColor="{StaticResource DarkColor}" Margin="10,25,0,2"></Label>
+                    <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
+                        <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Source Code</Label>
+                    </StackLayout>
+                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" TranslationX="10" HorizontalOptions="FillAndExpand"></BoxView>
+                     <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
+                        <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Follow in Twitter! Code</Label>
+                    </StackLayout>
+                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" TranslationX="10" HorizontalOptions="FillAndExpand"></BoxView>
+                     <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
+                        <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Follow in LinkedIn</Label>
+                    </StackLayout>
+                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" TranslationX="10" HorizontalOptions="FillAndExpand"></BoxView>
+                    <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
+                        <Label HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">App Version</Label>
+                        <Label HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">1.0.0</Label> 
+                    </StackLayout>
+                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" HorizontalOptions="FillAndExpand"></BoxView>
 
                     <Label Text="Thank you for downloading. Enjoy!" Style="{StaticResource TitleH5Style}" TextColor="{StaticResource DarkColor}" Margin="10,5,0,10"></Label>
                 </StackLayout>

@@ -298,6 +298,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Renderers\CustomAllViewCellRendereriOS.cs" />
     <Compile Include="Renderers\ExtendedEntryRenderer.cs" />
     <Compile Include="Renderers\MenuItemCellRenderer.cs" />
     <Compile Include="Renderers\NavigationRenderer.cs" />

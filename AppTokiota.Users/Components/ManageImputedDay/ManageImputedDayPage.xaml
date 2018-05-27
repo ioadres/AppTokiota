@@ -75,14 +75,12 @@
 
            <ListView x:Name="listView" 
                      Grid.Row="1"
-                     RowHeight="100"
+                     RowHeight="90"
                      HasUnevenRows="true"
                      CachingStrategy="RecycleElement"
                      VerticalOptions="FillAndExpand" 
                      HorizontalOptions="FillAndExpand" 
-
                      BackgroundColor="{StaticResource WhiteColor}"
-                     SeparatorColor="{StaticResource RedDarkColor}"
                      ItemsSource="{Binding Activities}" 
                      IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                      >
@@ -120,23 +118,21 @@
               </ListView.ItemTemplate>
             </ListView>
 
-              <Grid Grid.Row="2" BackgroundColor="{StaticResource DarkColor}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <StackLayout Grid.Column="0" Padding="10" >
-                    <Label Text="Imputed" Style="{StaticResource FooterTextStyle}" />
-                    <Label Text="Deviation" Style="{StaticResource FooterTextStyle}"/>
-                </StackLayout>
-                <StackLayout Grid.Column="1" Padding="10">
-                    <Label Text="{Binding ImputedTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
-                    <Label Text="{Binding DeviationTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
-                </StackLayout>
+           <Grid Grid.Row="2" BackgroundColor="{StaticResource DarkColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Column="0" Padding="10" >
+                <Label Text="Imputed" Style="{StaticResource FooterTextStyle}" />
+                <Label Text="Deviation" Style="{StaticResource FooterTextStyle}"/>
+            </StackLayout>
+            <StackLayout Grid.Column="1" Padding="10">
+                <Label Text="{Binding ImputedTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
+                <Label Text="{Binding DeviationTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
+            </StackLayout>
            </Grid>
-
-            
-            </Grid>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

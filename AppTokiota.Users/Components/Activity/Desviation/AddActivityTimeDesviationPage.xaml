@@ -68,7 +68,7 @@
                             <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                         </Label.GestureRecognizers>
                     </Label>
-                    <Label  Style="{StaticResource TitleH4Style}" Text="{Binding Title}"  Grid.Column="1" HorizontalTextAlignment="Center" TranslationY="5"></Label>
+                    <Label  Style="{StaticResource TitleH3Style}" Text="{Binding Title}"  Grid.Column="1" HorizontalTextAlignment="Center" TranslationY="5"></Label>
                     <Label Style="{StaticResource IconTextStyle}" Text="&#xf00d;" Grid.Column="2" HorizontalTextAlignment="Center">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding CloseCommand}" />

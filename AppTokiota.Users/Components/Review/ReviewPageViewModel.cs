@@ -18,6 +18,12 @@ using Xamarin.Forms;
 
 namespace AppTokiota.Users.Components.Review
 {
+    public class ReviewTimeLine
+    {
+        public Day Day { get; set; }
+        public bool IsLast { get; set; } = false;
+        public ActivityDay Activity { get; set; }
+    }
     public class ReviewPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
         //Todo Sacar a settings
@@ -60,12 +66,20 @@ namespace AppTokiota.Users.Components.Review
         #endregion datapicker
 
         #region DataReview
-        private ObservableCollection<TimesheetForDay> _lstReview;
-        public ObservableCollection<TimesheetForDay> LstReview
+        //private ObservableCollection<TimesheetForDay> _lstReview;
+        //public ObservableCollection<TimesheetForDay> LstReview
+        //{
+        //    get { return _lstReview; }
+        //    set { SetProperty(ref _lstReview, value); }
+        //}
+
+        private ObservableCollection<ReviewTimeLine> _lstReview;
+        public ObservableCollection<ReviewTimeLine> LstReview
         {
             get { return _lstReview; }
             set { SetProperty(ref _lstReview, value); }
         }
+
 
         private Models.Review _currentReview;
 
@@ -100,8 +114,10 @@ namespace AppTokiota.Users.Components.Review
 
             Title = "Review";
             _yearPicker = new ObservableCollection<PickerItem>();
-            _monthPicker = new ObservableCollection<PickerItem>();            
-            _lstReview = new ObservableCollection<TimesheetForDay>();
+            _monthPicker = new ObservableCollection<PickerItem>();
+            
+                _lstReview = new ObservableCollection<ReviewTimeLine>();
+            //_lstReview = new ObservableCollection<TimesheetForDay>();
         }
         #endregion constructor
 
@@ -184,8 +200,10 @@ namespace AppTokiota.Users.Components.Review
                     {
                         _currentReview = await _reviewModule.ReviewService.GetReview(year, month);
                         var lstReviewDates = await _reviewModule.TimeLineService.GetListTimesheetForDay(_currentReview);
-                        lstReviewDates.ForEach(x => LstReview.Add(x));
-                        LstReview.Last().IsLast = true; 
+                        lstReviewDates.ForEach(x => LstReview.Add(map(x)));
+                        LstReview.Last().IsLast = true;
+                        //var a = LstReview;
+                        //var b = LstReview[1].Activities[0].Description;
                         IsBusy = false;
                     }
                 }
@@ -198,7 +216,17 @@ namespace AppTokiota.Users.Components.Review
 
             });
         }
-        
+
+        private ReviewTimeLine map(TimesheetForDay x)
+        {
+            var currentTimeSheetDay = new ReviewTimeLine();
+            currentTimeSheetDay.Activity = x.Activities.FirstOrDefault();
+            currentTimeSheetDay.Day = x.Day;
+            currentTimeSheetDay.IsLast = x.IsLast; 
+            return currentTimeSheetDay; 
+
+        }
+
         #endregion LoadPickersListViewData
 
     }

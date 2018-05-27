@@ -17,20 +17,33 @@
             </Style>
             <Style x:Key="DayTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
-                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}"/>
+                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}"/>
                 <Setter Property="TextColor" Value="{StaticResource AccentColor}"/>
-            </Style>
-            <Style x:Key="TaskTextStyle" TargetType="Label">
-                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
-                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}"/>
             </Style>
             <Style x:Key="ProjectTextStyle" TargetType="Label">
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}"/>
+                <Setter Property="FontSize" Value="{StaticResource LittleSize}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
             </Style>
+
+            <Style x:Key="TaskTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
+                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
+            </Style>
+            <Style x:Key="DescriptionTextStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
+            </Style>
+
+            <converters:DescriptionToShortDescription x:Key="cnvDescriptionToShortDescription"></converters:DescriptionToShortDescription>
             <converters:DateToStringConverter x:Key="DateOfWeekFormat"></converters:DateToStringConverter>
             <converters:NotBooleanConverter x:Key="NotBooleanConverter"></converters:NotBooleanConverter>
             <converters:MinutesToHourConverter x:Key="cnvMinutesToHour"></converters:MinutesToHourConverter>
+            <converters:ActivityTypeConverter x:Key="cnvActivityType"></converters:ActivityTypeConverter>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -71,11 +84,14 @@
                         <ViewCell>
                             <Grid ColumnSpacing="0" RowSpacing="0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="80" />
                                     <ColumnDefinition Width="30" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="30" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
@@ -83,21 +99,23 @@
 
                                 <Label HorizontalOptions="Center" Text="{Binding Day.Date, Converter ={StaticResource DateOfWeekFormat}}"  Grid.Column="0" Style ="{StaticResource DayTextStyle}" />
                                 <Label Style="{StaticResource TimeLineSimbolStyle}" Text="&#xf157;" Grid.Row ="0" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="End"></Label>
-                                <Label Grid.Column="2" Text="{Binding Day.name}" Style="{StaticResource ProjectTextStyle}"/> <!--Project-->
+                                <Label Grid.Column="2" Text="{Binding Activity.Project.DisplayName, Converter ={StaticResource cnvDescriptionToShortDescription}}" Style="{StaticResource ProjectTextStyle}"/>
 
                                 <BoxView
                                      Grid.Row ="1"
-                                         Grid.RowSpan="2"
+                                         Grid.RowSpan="3"
                                          Grid.Column="1"
                                          HorizontalOptions="CenterAndExpand"
                                          VerticalOptions="Fill"
                                          WidthRequest="3"
                                          BackgroundColor="{StaticResource RedDarkColor}"
                                          IsVisible="{Binding IsLast, Converter={StaticResource NotBooleanConverter}}"/>
-                                <Label
-                                        Grid.Row="1"
-                                        Grid.Column="2"
-                                        Text="{Binding Day.IsWeekend}" Style="{StaticResource TaskTextStyle}" /><!--Task-->
+                                <Label Grid.Row="1" Grid.Column="2" Text="{Binding Activity.Task.DisplayName, Converter ={StaticResource cnvDescriptionToShortDescription}}" Style="{StaticResource TaskTextStyle}" />
+                                <Label Grid.Row="2" Grid.Column="2" Text="{Binding Activity.Description, Converter ={StaticResource cnvDescriptionToShortDescription}}" Style="{StaticResource DescriptionTextStyle}" />
+
+                                <Label Grid.Row="2" Grid.Column="3" Text="{Binding Activity.Imputed, Converter ={StaticResource cnvMinutesToHour}}" Style="{StaticResource TaskTextStyle}" />
+                                <Label Grid.Row="2" Grid.Column="4" Text="{Binding Activity.Task.Deviation, Converter ={StaticResource cnvMinutesToHour}}" Style="{StaticResource TaskTextStyle}" />
+                                
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

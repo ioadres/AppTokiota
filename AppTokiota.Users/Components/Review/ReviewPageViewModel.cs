@@ -200,10 +200,9 @@ namespace AppTokiota.Users.Components.Review
                     {
                         _currentReview = await _reviewModule.ReviewService.GetReview(year, month);
                         var lstReviewDates = await _reviewModule.TimeLineService.GetListTimesheetForDay(_currentReview);
+                        LoadTotalTime(lstReviewDates); 
                         lstReviewDates.ForEach(x => LstReview.Add(map(x)));
                         LstReview.Last().IsLast = true;
-                        //var a = LstReview;
-                        //var b = LstReview[1].Activities[0].Description;
                         IsBusy = false;
                     }
                 }
@@ -217,6 +216,15 @@ namespace AppTokiota.Users.Components.Review
             });
         }
 
+        private void LoadTotalTime(IList<TimesheetForDay> lstReviewDates)
+        {
+            foreach (var tsd in lstReviewDates)
+            {
+                ImputedTotal = ImputedTotal + tsd.Activities.Sum(x => x.Imputed);
+                DeviationTotal = DeviationTotal + tsd.Activities.Sum(x => x.Deviation);
+            }
+        }
+
         private ReviewTimeLine map(TimesheetForDay x)
         {
             var currentTimeSheetDay = new ReviewTimeLine();
@@ -224,7 +232,6 @@ namespace AppTokiota.Users.Components.Review
             currentTimeSheetDay.Day = x.Day;
             currentTimeSheetDay.IsLast = x.IsLast; 
             return currentTimeSheetDay; 
-
         }
 
         #endregion LoadPickersListViewData

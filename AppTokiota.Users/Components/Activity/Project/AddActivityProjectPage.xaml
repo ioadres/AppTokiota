@@ -21,7 +21,7 @@
             </Style>
 
             <Style x:Key="IconTextPanelStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
+                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
             </Style>
@@ -54,7 +54,7 @@
             <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource WhiteColor}">
                 <StackLayout.Padding>
                     <OnPlatform x:TypeArguments="Thickness">
-                       <On Platform="iOS" Value="15,35,15,35" />
+                       <On Platform="iOS" Value="15,35,15,15" />
                        <On Platform="Android" Value="15,15,15,15" />
                    </OnPlatform>
                 </StackLayout.Padding>

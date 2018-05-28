@@ -22,7 +22,8 @@ namespace AppTokiota.Users.Components.DashBoard
         {
             Title = "Dashboard";
             _dashBoardModule = dashBoardModule;
-
+            IsBusy = true;
+            LoadDataAsync();
         }
 
 		private Microcharts.DonutChart _chartConsumedMonthVsHourMonthExpected;
@@ -46,10 +47,23 @@ namespace AppTokiota.Users.Components.DashBoard
 			set { SetProperty(ref _chartImputedVsDeviation, value); }
         }
 
+		private string _statusMonth;
+		public string StatusMonth 
+		{
+			get { return _statusMonth; }
+			set { SetProperty(ref _statusMonth, value); }
+		}
+
+		private bool _isHolidayTomorrow;
+		public bool IsHolidayTomorrow
+        {
+			get { return _isHolidayTomorrow; }
+			set { SetProperty(ref _isHolidayTomorrow, value); }
+        }
+
 		#region MethodLoadDataAsync
 		protected async void LoadDataAsync()
         {
-           IsBusy = true;
 		   try
             {
                 if (this.IsInternetAndCloseModal())
@@ -59,11 +73,16 @@ namespace AppTokiota.Users.Components.DashBoard
                     var maxMonth = minMonth.AddMonths(1).AddDays(-1);
 
 					var timesheet = await _dashBoardModule.TimesheetService.GetTimesheetBeetweenDates(minMonth, maxMonth);
+                    
+                    IsHolidayTomorrow = false;
+					var tomorrowDate = new DateTime(now.Year, now.Month, now.AddDays(1).Day);
+					var dayTimesheet = timesheet.Days.Where(x => x.Date.Equals(tomorrowDate)).FirstOrDefault();
+					if(dayTimesheet != null && dayTimesheet.Holiday != null) {
+						IsHolidayTomorrow = dayTimesheet.Holiday.IsHolyday;
+					}
 
-					GenerateChartActivitiesImputationVsDeviation(timesheet);
-					GenerateChartImputationMonthVsHourMonthExpected(timesheet);
-					GenerateChartActivitiesImputedGroupByTaskAndProject(timesheet);
-  
+					await Task.WhenAll(GenerateChartActivitiesImputationVsDeviation(timesheet), GenerateChartImputationMonthVsHourMonthExpected(timesheet), GenerateChartActivitiesImputedGroupByTaskAndProject(timesheet));
+                      
                     IsBusy = false;
                 }
             }
@@ -76,39 +95,44 @@ namespace AppTokiota.Users.Components.DashBoard
         }
         #endregion
       
-		private async void GenerateChartActivitiesImputationVsDeviation(Models.Timesheet timesheet) {
-			ChartImputedVsDeviation = new DonutChart()
-            {
-                Entries = _dashBoardModule.ChartService.GenerateChartActivitiesImputationVsDeviation(timesheet)
-            };
+		private Task GenerateChartActivitiesImputationVsDeviation(Models.Timesheet timesheet) {
 
-            await Task.FromResult(true);
+			return Task.Run(() => {
+                ChartImputedVsDeviation = new DonutChart()
+                {
+                    Entries = _dashBoardModule.ChartService.GenerateChartActivitiesImputationVsDeviation(timesheet)
+                };
+			});             
 		}
 
-		private async void GenerateChartImputationMonthVsHourMonthExpected(Models.Timesheet timesheet)
+		private Task GenerateChartImputationMonthVsHourMonthExpected(Models.Timesheet timesheet)
         {
-			ChartConsumedMonthVsHourMonthExpected = new DonutChart()
-            {
-                Entries = _dashBoardModule.ChartService.GenerateChartImputationMonthVsHourMonthExpected(timesheet)
-            };
+			return Task.Run(() => {
+				var entries = _dashBoardModule.ChartService.GenerateChartImputationMonthVsHourMonthExpected(timesheet);
+                ChartConsumedMonthVsHourMonthExpected = new DonutChart()
+                {
+                    Entries = entries
+                };
 
-            await Task.FromResult(true);
+                var consumed = entries.FirstOrDefault();
+                var desviation = entries.LastOrDefault();
+                if (consumed != null && desviation != null)
+                {
+                    var total = consumed.Value + desviation.Value;
+                    StatusMonth = $"{(consumed.Value * 100 / total).ToString("#.##")} %";
+                }
+            });
         }
-
-		private async void GenerateChartActivitiesImputedGroupByTaskAndProject(Models.Timesheet timesheet)
+        
+		private Task GenerateChartActivitiesImputedGroupByTaskAndProject(Models.Timesheet timesheet)
         {
-            ChartProjectsImputed = new DonutChart()
-            {
-                Entries = _dashBoardModule.ChartService.GenerateChartActivitiesImputedGroupByTaskAndProject(timesheet)
-            };
+			return Task.Run(() => {
 
-            await Task.FromResult(true);
+                ChartProjectsImputed = new DonutChart()
+                {
+                    Entries = _dashBoardModule.ChartService.GenerateChartActivitiesImputedGroupByTaskAndProject(timesheet)
+                };
+            }); 
         }
-
-		public override void OnNavigatedTo(NavigationParameters parameters)
-        {
-			LoadDataAsync();
-        }
-
-    }
+   }
 }

@@ -88,10 +88,12 @@ namespace AppTokiota.Users.Services
 
             return await Task.Run(() => JsonConvert.DeserializeObject<TResult>(responseData, _serializerSettings));
         }
-
+        
         private HttpClient CreateHttpClient(string token = "")
         {
-            var httpClient = new HttpClient();
+			var httpClient = new HttpClient() {
+				Timeout = TimeSpan.FromSeconds(10) 
+			};
 
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 

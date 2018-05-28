@@ -9,6 +9,7 @@ using System;
 using Xamarin.Forms;
 using AppTokiota.Users.Components.DashBoard;
 using AppTokiota.Users.Components.Connection;
+using System.Threading.Tasks;
 
 namespace AppTokiota.Users.Components.Splash
 {
@@ -22,11 +23,11 @@ namespace AppTokiota.Users.Components.Splash
             _splashModule = splashModule;
 
             IsBusy = true;
-
-            Device.StartTimer(new TimeSpan(0, 0, 3), () =>
+                     
+            Device.StartTimer(new TimeSpan(0, 0, 2), () =>
             {
-                AuthenticationRun();
-                IsBusy = false;
+				IsBusy = false;
+                AuthenticationRun();                
                 return false;
             });
         }

@@ -45,13 +45,11 @@
             <StackLayout Grid.Row="0" Padding="15" BackgroundColor="{StaticResource SecondaryColor}">
                 <Label Text="THIS MONTH" Style="{StaticResource HeaderTextStyle}"></Label>
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="20%" Style="{StaticResource HeaderStatusTextStyle}"></Label>
+                    <Label Text="{Binding StatusMonth}" Style="{StaticResource HeaderStatusTextStyle}"></Label>
                     <Label Text="Succed" Style="{StaticResource HeaderStatusTextStyle}"></Label>
                 </StackLayout>
             </StackLayout>
-
-            <Button Text="Review" Style="{StaticResource ButtonPrimary}" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Center" TranslationX="-15"></Button>
-            
+             
             <BoxView Grid.Row="1" BackgroundColor="{StaticResource GrayColor}"></BoxView>
             <ScrollView Grid.Row="1"  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                 <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
@@ -63,14 +61,14 @@
                     <Label Text="Imputed VS Deviation" Style="{StaticResource TitleH2Style}" Margin="5,15,5,5"></Label>
                     <microcharts:ChartView x:Name="chartImputedVsDeviation" Chart="{Binding ChartImputedVsDeviation}" HeightRequest="150" />
 
-                    <Label Text="Consumed VS Hours of work per month" Style="{StaticResource TitleH2Style}" Margin="5,15,5,5"></Label>
+                    <Label Text="Consumed VS Hours/Month" Style="{StaticResource TitleH2Style}" Margin="5,15,5,5"></Label>
                     <microcharts:ChartView x:Name="chartConsumedMonthVsHourMonthExpected" Chart="{Binding ChartConsumedMonthVsHourMonthExpected}" HeightRequest="150"/>
                 </StackLayout>
                  
                 
             </ScrollView>
 
-            <StackLayout Grid.Row="2" Padding="15" BackgroundColor="{StaticResource RedColor}">
+            <StackLayout Grid.Row="2" Padding="15" BackgroundColor="{StaticResource RedColor}" IsVisible="{Binding IsHolidayTomorrow}">
                 <Label Text="My Holidays" Style="{StaticResource FooterSummaryTextStyle}"></Label>
                 <Label Text="Tomorrow a deserved rest!" Style="{StaticResource FooterSubTextStyle}"></Label>
             </StackLayout>

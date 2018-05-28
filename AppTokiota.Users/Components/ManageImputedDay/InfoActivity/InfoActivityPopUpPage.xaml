@@ -17,13 +17,6 @@
     x:Name="this">
       <ContentPage.Resources>
         <ResourceDictionary>
-          
-            <Style x:Key="IconTextStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
-                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}" />
-                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
-            </Style>
-
             <converters:FormatTimeMinutesToStringEntry x:Key="cnvFormatTimeMinutesToStringEntry"></converters:FormatTimeMinutesToStringEntry>
             
         </ResourceDictionary>
@@ -40,7 +33,7 @@
             <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource WhiteColor}">
                 <StackLayout.Padding>
                     <OnPlatform x:TypeArguments="Thickness">
-                       <On Platform="iOS" Value="15,35,15,35" />
+                       <On Platform="iOS" Value="15,35,15,20" />
                        <On Platform="Android" Value="15,15,15,15" />
                    </OnPlatform>
                 </StackLayout.Padding>
@@ -51,7 +44,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label  Style="{StaticResource TitleH3Style}" Text="{Binding Title}"  Grid.Column="1" VerticalOptions="Center" HorizontalTextAlignment="Center"></Label>
+                    <Label  Style="{StaticResource TitleH2Style}" Text="{Binding Title}"  Grid.Column="1" VerticalOptions="Center" HorizontalTextAlignment="Center"></Label>
 
                     <Label Style="{StaticResource IconTextStyle}" Text="&#xf00d;" Grid.Column="2" HorizontalTextAlignment="Center" IsVisible="true">
                         <Label.GestureRecognizers>
@@ -97,7 +90,6 @@
                                Text="Consumed"
                                TextColor="{StaticResource WhiteColor}"
                                HorizontalTextAlignment="Center">
-                            
                         </Label>
 
                     </StackLayout>

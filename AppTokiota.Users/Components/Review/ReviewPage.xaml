@@ -17,7 +17,7 @@
             </Style>
             <Style x:Key="DayTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
-                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}"/>
+                <Setter Property="FontSize" Value="{StaticResource LittleSize}"/>
                 <Setter Property="TextColor" Value="{StaticResource AccentColor}"/>
             </Style>
             <Style x:Key="ProjectTextStyle" TargetType="Label">
@@ -54,27 +54,24 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Grid Padding="10" Grid.Row="0" HorizontalOptions="CenterAndExpand">
+            <Grid Padding="5" Grid.Row="0" HorizontalOptions="CenterAndExpand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center"  Padding="10">
-                    <Picker Grid.Row="0" Grid.Column="0" x:Name="pickerMonth"
+                <Picker Grid.Row="0" Grid.Column="0" x:Name="pickerMonth"
                             Title="Month" WidthRequest="100"
                             ItemsSource="{Binding MonthPicker}"
-                            VerticalOptions="Center" HorizontalOptions="Center"
+                            VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
                             SelectedIndex="{Binding MyIndexMonthPicker}"
                             ItemDisplayBinding="{Binding DisplayName}"/>
 
-                    <Picker Grid.Row="0" Grid.Column="1" x:Name="pickerYear"
+                <Picker Grid.Row="0" Grid.Column="1" x:Name="pickerYear"
                             Title="Year" WidthRequest="100"
                             ItemsSource="{Binding YearPicker}"
-                            VerticalOptions="Center" HorizontalOptions="Center"
+                            VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
                             SelectedIndex="{Binding MyIndexYearPicker}"
                             ItemDisplayBinding="{Binding DisplayName}"/>
-
-                </StackLayout>
             </Grid>
 
             <ListView x:Name="lstReview" HasUnevenRows="True" Grid.Row="1" ItemsSource="{Binding LstReview}"
@@ -84,19 +81,20 @@
                         <ViewCell>
                             <Grid ColumnSpacing="0" RowSpacing="0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="2.5*" />
                                     <ColumnDefinition Width="30" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="30" />
-                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="5.4*" />
+                                    <ColumnDefinition Width="1.5*" />
+                                    <ColumnDefinition Width="1.5*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-
-
+                                <!--<Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OnInfoActivityItemCommand}" CommandParameter="{Binding .}" NumberOfTapsRequired="2" />
+                                </Grid.GestureRecognizers>-->
                                 <Label HorizontalOptions="Center" Text="{Binding Day.Date, Converter ={StaticResource DateOfWeekFormat}}"  Grid.Column="0" Style ="{StaticResource DayTextStyle}" />
                                 <Label Style="{StaticResource TimeLineSimbolStyle}" Text="&#xf157;" Grid.Row ="0" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="End"></Label>
                                 <Label Grid.Column="2" Text="{Binding Activity.Project.DisplayName, Converter ={StaticResource cnvDescriptionToShortDescription}}" Style="{StaticResource ProjectTextStyle}"/>

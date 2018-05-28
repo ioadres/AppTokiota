@@ -1,5 +1,6 @@
 ﻿using AppTokiota.Users.Components.Core;
 using AppTokiota.Users.Components.Core.Module;
+using AppTokiota.Users.Components.ManageImputedDay;
 using AppTokiota.Users.Controls;
 using AppTokiota.Users.Models;
 using Prism.Commands;
@@ -236,5 +237,14 @@ namespace AppTokiota.Users.Components.Review
 
         #endregion LoadPickersListViewData
 
+        #region EventOnInfoActivityItemCommand
+        public DelegateCommand<object> OnInfoActivityItemCommand => new DelegateCommand<object>((obj) => { OnInfoActivityItem((ReviewTimeLine)obj); });
+        protected void OnInfoActivityItem(ReviewTimeLine from)
+        {
+            var navigationParameters = new NavigationParameters();
+            navigationParameters.Add(ActivityDay.Tag, from.Activity);
+            BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<InfoActivityPopUpPage>(), navigationParameters, true, true);
+        }
+        #endregion
     }
 }

@@ -148,9 +148,8 @@
                                   Command="{Binding SignInCommand}" >
                     <Button.HorizontalOptions>
                         <OnIdiom
-                                x:TypeArguments="LayoutOptions" 
-                                Desktop="Center"
-                                Tablet="Center"
+                                x:TypeArguments="LayoutOptions"
+                                Tablet="EndAndExpand"
                                 Phone="FillAndExpand"/>
                     </Button.HorizontalOptions>
 
@@ -164,8 +163,7 @@
                     <Button.HorizontalOptions>
                         <OnIdiom
                                 x:TypeArguments="LayoutOptions" 
-                                Desktop="Center"
-                                Tablet="Center"
+                                Tablet="StartAndExpand"
                                 Phone="FillAndExpand"/>
                     </Button.HorizontalOptions>
                 </Button>

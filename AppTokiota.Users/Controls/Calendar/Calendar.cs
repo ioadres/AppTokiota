@@ -449,7 +449,10 @@ namespace AppTokiota.Users.Controls
             var grid = new Grid { VerticalOptions = LayoutOptions.FillAndExpand, HorizontalOptions = LayoutOptions.Start, RowSpacing = 0, ColumnSpacing = 0, Padding = new Thickness(0, 0, 0, 0) };         
 			var columnDefinition = new ColumnDefinitionCollection { columDef };
 			var rowDefinition = new RowDefinitionCollection { rowDef, rowDef, rowDef, rowDef, rowDef, rowDef };
+
 			var numberOfWeekFontSize = NumberOfWeekFontSize * (Device.RuntimePlatform == Device.iOS ? 1.5 : 2.5);
+			numberOfWeekFontSize = numberOfWeekFontSize * (Device.Idiom == TargetIdiom.Tablet ? 1.5 : 2.5);
+
 			for (var i = 0; i < ShowNumOfMonths; i++)
 			{
 				var weekNumbers = grid;
@@ -460,18 +463,20 @@ namespace AppTokiota.Users.Controls
 				for (int r = 0; r < 6; r++)
 				{
 
-					weekNumberLabels.Add(new Label
-                    {
-                        HorizontalOptions = LayoutOptions.FillAndExpand,
-                        VerticalOptions = LayoutOptions.FillAndExpand,
-                        TextColor = NumberOfWeekTextColor,
-                        BackgroundColor = NumberOfWeekBackgroundColor,
-                        VerticalTextAlignment = TextAlignment.Center,
-                        HorizontalTextAlignment = TextAlignment.Center,
-                        FontSize = NumberOfWeekFontSize,
-                        FontAttributes = NumberOfWeekFontAttributes,
-                        FontFamily = NumberOfWeekFontFamily
-                    });
+					var labelTemp = new Label
+					{
+						HorizontalOptions = LayoutOptions.FillAndExpand,
+						VerticalOptions = LayoutOptions.FillAndExpand,
+						TextColor = NumberOfWeekTextColor,
+						BackgroundColor = NumberOfWeekBackgroundColor,
+						VerticalTextAlignment = TextAlignment.Center,
+						HorizontalTextAlignment = TextAlignment.Center,
+						FontSize = NumberOfWeekFontSize,
+						FontAttributes = NumberOfWeekFontAttributes,
+						FontFamily = NumberOfWeekFontFamily,
+						WidthRequest = Device.Idiom == TargetIdiom.Tablet ? 80 : 0
+					};
+					weekNumberLabels.Add(labelTemp);
 
 					weekNumbers.Children.Add(weekNumberLabels.Last(), 0, r);
 				}

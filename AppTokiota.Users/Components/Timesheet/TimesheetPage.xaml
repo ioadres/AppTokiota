@@ -96,30 +96,30 @@
                 <RowDefinition Height="9*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-                <StackLayout Grid.Row="0" Orientation="Horizontal" Margin="1" HorizontalOptions="Center" VerticalOptions="Center">
-                    <StackLayout Orientation="Horizontal" Margin="1">
-                        <BoxView BackgroundColor="{StaticResource BlueColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
-                        <Label Text="Selected" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal" Margin="1">
-                        <BoxView BackgroundColor="{StaticResource GreenColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
-                        <Label Text="Imputed" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
-                    </StackLayout>
-
-                    <StackLayout Orientation="Horizontal">
-                        <BoxView BackgroundColor="{StaticResource OrangeColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
-                        <Label Text="Holidays" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
-                    </StackLayout>
-
-                    <StackLayout Orientation="Horizontal">
-                        <BoxView BackgroundColor="{StaticResource DarkGrayColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
-                        <Label Text="Close" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
-                    </StackLayout>
-                    
+            <StackLayout Grid.Row="0" Orientation="Horizontal" Margin="1" HorizontalOptions="Center" VerticalOptions="Center">
+                <StackLayout Orientation="Horizontal" Margin="1">
+                    <BoxView BackgroundColor="{StaticResource BlueColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
+                    <Label Text="Selected" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
                 </StackLayout>
-            
-                <Grid
-                    Grid.Row="1">
+                <StackLayout Orientation="Horizontal" Margin="1">
+                    <BoxView BackgroundColor="{StaticResource GreenColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
+                    <Label Text="Imputed" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <BoxView BackgroundColor="{StaticResource OrangeColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
+                    <Label Text="Holidays" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
+                    <Label Text="Close" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
+                </StackLayout>
+                
+            </StackLayout>
+        
+            <Grid
+                Grid.Row="1">
                 <controls:Calendar 
                         x:Name="Calendar"                    
                         TranslationY="400"
@@ -129,9 +129,11 @@
                         MultiSelectDates="True" 
                         SelectRange="False"
                         StartDay="Monday" 
+                            
                         DatesFontSize="{StaticResource MidMediumSize }"
                         TitleLabelFontSize="{StaticResource MediumSize }"
                         EnableTitleMonthYearView="True"
+                            
                         WeekdaysShow="True"
                         WeekdaysFontSize="{StaticResource LittleSize }"
                         WeekdaysTextColor ="{StaticResource DarkColor}"
@@ -160,8 +162,21 @@
                         MonthYearButtonCommand="{Binding DateChosen}"
 
                         HorizontalOptions="Center">
+                        <controls:Calendar.DatesFontSize>
+                          <OnIdiom x:TypeArguments="x:Double" Phone="{StaticResource MidMediumSize }" Tablet="{StaticResource LargeSize }" />
+                        </controls:Calendar.DatesFontSize>
+                        <controls:Calendar.WeekdaysFontSize>
+                          <OnIdiom x:TypeArguments="x:Double" Phone="{StaticResource LittleSize }" Tablet="{StaticResource MediumSize }" />
+                        </controls:Calendar.WeekdaysFontSize>
+                        <controls:Calendar.SelectedFontSize>
+                          <OnIdiom x:TypeArguments="x:Double" Phone="{StaticResource LittleSize }" Tablet="{StaticResource LargeSize }" />
+                        </controls:Calendar.SelectedFontSize>
+                            <controls:Calendar.TitleLabelFontSize>
+                          <OnIdiom x:TypeArguments="x:Double" Phone="{StaticResource MidMediumSize }" Tablet="{StaticResource LargeSize }" />
+                        </controls:Calendar.TitleLabelFontSize>
                 </controls:Calendar>
-                </Grid>
+                        
+            </Grid>
 
             <Grid 
                 AutomationId="MultipleGrid"
@@ -220,7 +235,10 @@
                   x:Name="Footer"
                   AutomationId="Footer"
                   BackgroundColor="{StaticResource DarkColor}"
-                  IsVisible="{Binding IsVisibleFooter}" >
+                  IsVisible="{Binding IsVisibleFooter}" 
+                  Padding="10"
+                  >
+                        
                 <Grid.Triggers>
                     <Trigger TargetType="Grid" Property="Grid.IsVisible" Value="True">
                         <Trigger.EnterActions>
@@ -234,11 +252,11 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <StackLayout Grid.Column="0" Padding="10" >
+                <StackLayout Grid.Column="0" >
                     <Label Text="Imputed" Style="{StaticResource FooterTextStyle}" />
                     <Label Text="Deviation" Style="{StaticResource FooterTextStyle}"/>
                 </StackLayout>
-                <StackLayout Grid.Column="1" Padding="10">
+                <StackLayout Grid.Column="1">
                     <Label Text="{Binding ImputedTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
                     <Label Text="{Binding DeviationTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
                 </StackLayout>

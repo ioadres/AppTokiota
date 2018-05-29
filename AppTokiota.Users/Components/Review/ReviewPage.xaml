@@ -7,24 +7,23 @@
              Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
+
+            <converters:CnvProjectNameOrVacances x:Key="cnvProjectOrVacances"></converters:CnvProjectNameOrVacances>
+            <converters:DescriptionToShortDescription x:Key="cnvDescriptionToShortDescription"></converters:DescriptionToShortDescription>
+            <converters:DateToStringConverter x:Key="DateOfWeekFormat"></converters:DateToStringConverter>
+            <converters:NotBooleanConverter x:Key="NotBooleanConverter"></converters:NotBooleanConverter>
+            <converters:MinutesToHourConverter x:Key="cnvMinutesToHour"></converters:MinutesToHourConverter>
+            <converters:ActivityTypeConverter x:Key="cnvActivityType"></converters:ActivityTypeConverter>
+            <converters:DisableDayConverter x:Key="cnvDisabledDay"></converters:DisableDayConverter>
+            <converters:ValueConverterGroup x:Key="cnvShortDescriptionOrVacances">
+                <converters:CnvProjectNameOrVacances/>
+                <converters:DescriptionToShortDescription/>
+            </converters:ValueConverterGroup>
+            
+
             <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
                 <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
-            <Style x:Key="TimeLineSimbolStyle" TargetType="Label">
-                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
-                <Setter Property="FontSize" Value="{StaticResource BigSize}"/>
-            </Style>
-            <Style x:Key="DayTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
-                <Setter Property="FontSize" Value="{StaticResource LittleSize}"/>
-                <Setter Property="TextColor" Value="{StaticResource AccentColor}"/>
-            </Style>
-            <Style x:Key="ProjectTextStyle" TargetType="Label">
-                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
-                <Setter Property="FontSize" Value="{StaticResource LittleSize}"/>
-                <Setter Property="VerticalTextAlignment" Value="Center" />
-                <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
             </Style>
 
             <Style x:Key="TaskTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
@@ -32,6 +31,7 @@
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
             </Style>
+            
             <Style x:Key="DescriptionTextStyle" TargetType="Label">
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
                 <Setter Property="FontSize" Value="{StaticResource MidLittleSize}"/>
@@ -39,11 +39,40 @@
                 <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
             </Style>
 
-            <converters:DescriptionToShortDescription x:Key="cnvDescriptionToShortDescription"></converters:DescriptionToShortDescription>
-            <converters:DateToStringConverter x:Key="DateOfWeekFormat"></converters:DateToStringConverter>
-            <converters:NotBooleanConverter x:Key="NotBooleanConverter"></converters:NotBooleanConverter>
-            <converters:MinutesToHourConverter x:Key="cnvMinutesToHour"></converters:MinutesToHourConverter>
-            <converters:ActivityTypeConverter x:Key="cnvActivityType"></converters:ActivityTypeConverter>
+            <Style x:Key="DayTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+                <Setter Property="FontSize" Value="{StaticResource LittleSize}"/>
+                <Setter Property="TextColor" Value="{StaticResource AccentColor}"/>
+                <Style.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Day, Converter= {StaticResource cnvDisabledDay}}" Value="True" >
+                        <Setter Property="TextColor" Value="{StaticResource DarkGrayColor}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="ProjectTextStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+                <Setter Property="FontSize" Value="{StaticResource LittleSize}"/>
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
+                <Style.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Day, Converter= {StaticResource cnvDisabledDay}}" Value="True" >
+                        <Setter Property="TextColor" Value="{StaticResource DarkGrayColor}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="TimeLineSimbolStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+                <Setter Property="FontSize" Value="{StaticResource BigSize}"/>
+                <Style.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Day, Converter= {StaticResource cnvDisabledDay}}" Value="True" >
+                        <Setter Property="TextColor" Value="{StaticResource DarkGrayColor}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -73,7 +102,7 @@
                             SelectedIndex="{Binding MyIndexYearPicker}"
                             ItemDisplayBinding="{Binding DisplayName}"/>
             </Grid>
-
+            
             <ListView x:Name="lstReview" HasUnevenRows="True" Grid.Row="1" ItemsSource="{Binding LstReview}"
                   VerticalOptions="Fill" SeparatorVisibility="None" CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
@@ -81,15 +110,15 @@
                         <ViewCell>
                             <Grid ColumnSpacing="0" RowSpacing="0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2.5*" />
+                                    <ColumnDefinition Width="2.2*" />
                                     <ColumnDefinition Width="30" />
                                     <ColumnDefinition Width="5.4*" />
-                                    <ColumnDefinition Width="1.5*" />
-                                    <ColumnDefinition Width="1.5*" />
+                                    <ColumnDefinition Width="1.2*" />
+                                    <ColumnDefinition Width="1.2*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
                                 <!--<Grid.GestureRecognizers>
@@ -97,17 +126,19 @@
                                 </Grid.GestureRecognizers>-->
                                 <Label HorizontalOptions="Center" Text="{Binding Day.Date, Converter ={StaticResource DateOfWeekFormat}}"  Grid.Column="0" Style ="{StaticResource DayTextStyle}" />
                                 <Label Style="{StaticResource TimeLineSimbolStyle}" Text="&#xf157;" Grid.Row ="0" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="End"></Label>
-                                <Label Grid.Column="2" Text="{Binding Activity.Project.DisplayName, Converter ={StaticResource cnvDescriptionToShortDescription}}" Style="{StaticResource ProjectTextStyle}"/>
-
+                                <Label IsVisible="False" x:Name="Aux" Text="{Binding Activity.Project.DisplayName}" />
+                                <Label Grid.Column="2" Text="{Binding Day, Converter ={StaticResource cnvShortDescriptionOrVacances}, ConverterParameter={x:Reference Name=Aux}}" Style="{StaticResource ProjectTextStyle}"/>
                                 <BoxView
                                      Grid.Row ="1"
                                          Grid.RowSpan="3"
                                          Grid.Column="1"
                                          HorizontalOptions="CenterAndExpand"
                                          VerticalOptions="Fill"
-                                         WidthRequest="3"
+                                         WidthRequest="2"
                                          BackgroundColor="{StaticResource RedDarkColor}"
                                          IsVisible="{Binding IsLast, Converter={StaticResource NotBooleanConverter}}"/>
+                               
+                                
                                 <Label Grid.Row="1" Grid.Column="2" Text="{Binding Activity.Task.DisplayName, Converter ={StaticResource cnvDescriptionToShortDescription}}" Style="{StaticResource TaskTextStyle}" />
                                 <Label Grid.Row="2" Grid.Column="2" Text="{Binding Activity.Description, Converter ={StaticResource cnvDescriptionToShortDescription}}" Style="{StaticResource DescriptionTextStyle}" />
 

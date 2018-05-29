@@ -19,12 +19,6 @@ using Xamarin.Forms;
 
 namespace AppTokiota.Users.Components.Review
 {
-    public class ReviewTimeLine
-    {
-        public Day Day { get; set; }
-        public bool IsLast { get; set; } = false;
-        public ActivityDay Activity { get; set; }
-    }
     public class ReviewPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
         //Todo Sacar a settings

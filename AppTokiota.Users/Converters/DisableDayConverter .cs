@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace AppTokiota.Users.Converters
 {
-    public class CellStyleConverter : IValueConverter
+    public class DisableDayConverter :  IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var day = (Day)value; 
-            if (day.IsWeekend || day.Holiday.IsHolyday)return Color.White;
-            else return Color.Green;
+            if (day.IsWeekend || day.Holiday.IsHolyday)return true;
+            else return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

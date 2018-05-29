@@ -143,16 +143,20 @@ namespace AppTokiota.Users.Components.Review
         {
             await Task.Run(() =>
             {
+				var yearPickerTemp = new ObservableCollection<PickerItem>();
                 for (int iyear = DateTime.Now.Year - 1; iyear <= (DateTime.Now.Year + 1); iyear++)
                 {
-                    YearPicker.Add(new PickerItem { Value = iyear, DisplayName = iyear.ToString() });
+					yearPickerTemp.Add(new PickerItem { Value = iyear, DisplayName = iyear.ToString() });
                 }
+				YearPicker = yearPickerTemp;
 
+				var monthPickerTemp = new ObservableCollection<PickerItem>();
                 for (int imes = DateTime.MinValue.Month; imes < DateTime.MaxValue.Month + 1; imes++)
                 {
-
-                    MonthPicker.Add(new PickerItem { Value = imes, DisplayName = dtinfo.GetMonthName(imes) });
+					monthPickerTemp.Add(new PickerItem { Value = imes, DisplayName = dtinfo.GetMonthName(imes) });
                 }
+				MonthPicker = monthPickerTemp;
+				
                 LoadDefaultValues();
             });
         }

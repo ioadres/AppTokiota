@@ -15,6 +15,8 @@
             <converters:MinutesToHourConverter x:Key="cnvMinutesToHour"></converters:MinutesToHourConverter>
             <converters:ActivityTypeConverter x:Key="cnvActivityType"></converters:ActivityTypeConverter>
             <converters:DisableDayConverter x:Key="cnvDisabledDay"></converters:DisableDayConverter>
+            <converters:EnableDayConverter x:Key="cnvEnabledDay"></converters:EnableDayConverter>
+            
             <converters:ValueConverterGroup x:Key="cnvShortDescriptionOrVacances">
                 <converters:CnvProjectNameOrVacances/>
                 <converters:DescriptionToShortDescription/>
@@ -72,7 +74,6 @@
                 </Style.Triggers>
             </Style>
 
-
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -106,8 +107,8 @@
             <ListView x:Name="lstReview" HasUnevenRows="True" Grid.Row="1" ItemsSource="{Binding LstReview}"
                   VerticalOptions="Fill" SeparatorVisibility="None" CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
+                    <DataTemplate >
+                        <ViewCell IsEnabled="{Binding Day, Converter= {StaticResource cnvEnabledDay}}">
                             <Grid ColumnSpacing="0" RowSpacing="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2.2*" />
@@ -137,8 +138,7 @@
                                          WidthRequest="2"
                                          BackgroundColor="{StaticResource RedDarkColor}"
                                          IsVisible="{Binding IsLast, Converter={StaticResource NotBooleanConverter}}"/>
-                               
-                                
+
                                 <Label Grid.Row="1" Grid.Column="2" Text="{Binding Activity.Task.DisplayName, Converter ={StaticResource cnvDescriptionToShortDescription}}" Style="{StaticResource TaskTextStyle}" />
                                 <Label Grid.Row="2" Grid.Column="2" Text="{Binding Activity.Description, Converter ={StaticResource cnvDescriptionToShortDescription}}" Style="{StaticResource DescriptionTextStyle}" />
 

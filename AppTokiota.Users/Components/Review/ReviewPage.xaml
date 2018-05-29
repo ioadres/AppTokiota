@@ -4,6 +4,7 @@
              x:Class="AppTokiota.Users.Components.Review.ReviewPage"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:converters="clr-namespace:AppTokiota.Users.Converters;assembly=AppTokiota.Users"
+             x:Name="this"
              Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -122,9 +123,9 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <!--<Grid.GestureRecognizers>
+                                <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OnInfoActivityItemCommand}" CommandParameter="{Binding .}" NumberOfTapsRequired="2" />
-                                </Grid.GestureRecognizers>-->
+                                </Grid.GestureRecognizers>
                                 <Label HorizontalOptions="Center" Text="{Binding Day.Date, Converter ={StaticResource DateOfWeekFormat}}"  Grid.Column="0" Style ="{StaticResource DayTextStyle}" />
                                 <Label Style="{StaticResource TimeLineSimbolStyle}" Text="&#xf157;" Grid.Row ="0" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="End"></Label>
                                 <Label IsVisible="False" x:Name="Aux" Text="{Binding Activity.Project.DisplayName}" />

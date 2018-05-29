@@ -61,13 +61,6 @@ namespace AppTokiota.Users.Components.Review
         #endregion datapicker
 
         #region DataReview
-        //private ObservableCollection<TimesheetForDay> _lstReview;
-        //public ObservableCollection<TimesheetForDay> LstReview
-        //{
-        //    get { return _lstReview; }
-        //    set { SetProperty(ref _lstReview, value); }
-        //}
-
         private ObservableCollection<ReviewTimeLine> _lstReview;
         public ObservableCollection<ReviewTimeLine> LstReview
         {
@@ -108,11 +101,10 @@ namespace AppTokiota.Users.Components.Review
             _reviewModule = reviewModule;           
 
             Title = "Review";
-            _yearPicker = new ObservableCollection<PickerItem>();
+            ModeLoadingPopUp = true;
+             _yearPicker = new ObservableCollection<PickerItem>();
             _monthPicker = new ObservableCollection<PickerItem>();
-            
-                _lstReview = new ObservableCollection<ReviewTimeLine>();
-            //_lstReview = new ObservableCollection<TimesheetForDay>();
+            LstReview = new ObservableCollection<ReviewTimeLine>();
         }
         #endregion constructor
 
@@ -195,9 +187,11 @@ namespace AppTokiota.Users.Components.Review
                     {
                         _currentReview = await _reviewModule.ReviewService.GetReview(year, month);
                         var lstReviewDates = await _reviewModule.TimeLineService.GetListTimesheetForDay(_currentReview);
-                        LoadTotalTime(lstReviewDates); 
-                        lstReviewDates.ForEach(x => LstReview.Add(map(x)));
-                        LstReview.Last().IsLast = true;
+                        LoadTotalTime(lstReviewDates);
+                        var listTemp = new ObservableCollection<ReviewTimeLine>();
+                        lstReviewDates.ForEach(x => listTemp.Add(map(x)));
+                        listTemp.Last().IsLast = true;
+                        LstReview = listTemp;
                         IsBusy = false;
                     }
                 }

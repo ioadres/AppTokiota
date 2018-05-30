@@ -95,6 +95,7 @@ namespace AppTokiota.Users.Components.Review
             set { SetProperty(ref _imputedTotal, value); }
         }
 
+        public bool MonthIsNotValidated { get; set; }
         #region Construct
         public ReviewPageViewModel(IViewModelBaseModule baseModule, IReviewModule reviewModule) : base(baseModule)
         {
@@ -182,6 +183,7 @@ namespace AppTokiota.Users.Components.Review
                     if (this.IsInternetAndCloseModal())
                     {
                         _currentReview = await _reviewModule.ReviewService.GetReview(year, month);
+                        MonthIsNotValidated = !_currentReview.IsValidated; 
                         var lstReviewDates = await _reviewModule.TimeLineService.GetListTimesheetForDay(_currentReview);
                         LoadTotalTime(lstReviewDates);
                         var listTemp = new ObservableCollection<ReviewTimeLine>();

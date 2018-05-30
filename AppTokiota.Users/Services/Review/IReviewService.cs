@@ -9,5 +9,6 @@ namespace AppTokiota.Users.Services
     public interface IReviewService
     {
         Task<Review> GetReview(int from, int To);
+        Task<Review> PutReview(int from, int To);
     }
 }

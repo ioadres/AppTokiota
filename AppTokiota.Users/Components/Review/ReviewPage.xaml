@@ -169,7 +169,7 @@
                     <Label Text="{Binding DeviationTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
                 </StackLayout>
                 <StackLayout Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center">
-                    <Button Style="{StaticResource ButtonPrimary}" Text="Send"/>
+                    <Button Style="{StaticResource ButtonPrimary}" Text="Send" Command="{Binding SendReviewValidateCommand}"/>
                 </StackLayout>
             </Grid>
 

@@ -230,5 +230,32 @@ namespace AppTokiota.Users.Components.Review
             BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<InfoActivityPopUpPage>(), navigationParameters, true, true);
         }
         #endregion
+
+        #region sendValidateReview
+
+        public DelegateCommand SendReviewValidateCommand => new DelegateCommand(SendReviewToValidate);
+        protected void SendReviewToValidate()
+        {
+            IsBusy = true;
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                try
+                {
+                    if (this.IsInternetAndCloseModal())
+                    {
+                        _currentReview = await _reviewModule.ReviewService.PutReview(YearPicker.ElementAt(MyIndexYearPicker).Value, MonthPicker.ElementAt(MyIndexMonthPicker).Value);
+                        IsBusy = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    IsBusy = false;
+                    BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                    Debug.WriteLine($"[Review load data] Error: {ex}");
+                }
+
+            });
+        }
+        #endregion
     }
 }

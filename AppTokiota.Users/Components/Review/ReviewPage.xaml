@@ -95,13 +95,7 @@
                             ItemsSource="{Binding MonthPicker}"
                             VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
                             SelectedIndex="{Binding MyIndexMonthPicker}"
-                            ItemDisplayBinding="{Binding DisplayName}"
-                            />
-                <Picker.Behaviors>
-                    <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
-                        <behaviors:InvokeCommandAction Command="{Binding SelectedProviderChanged}" />
-                    </behaviors:EventHandlerBehavior>
-                </Picker.Behaviors>
+                            ItemDisplayBinding="{Binding DisplayName}"/>
 
                 <Picker Grid.Row="0" Grid.Column="1" x:Name="pickerYear"
                             Title="Year" WidthRequest="100"

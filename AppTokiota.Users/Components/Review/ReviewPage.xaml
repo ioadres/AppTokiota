@@ -95,7 +95,13 @@
                             ItemsSource="{Binding MonthPicker}"
                             VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
                             SelectedIndex="{Binding MyIndexMonthPicker}"
-                            ItemDisplayBinding="{Binding DisplayName}"/>
+                            ItemDisplayBinding="{Binding DisplayName}"
+                            />
+                <Picker.Behaviors>
+                    <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
+                        <behaviors:InvokeCommandAction Command="{Binding SelectedProviderChanged}" />
+                    </behaviors:EventHandlerBehavior>
+                </Picker.Behaviors>
 
                 <Picker Grid.Row="0" Grid.Column="1" x:Name="pickerYear"
                             Title="Year" WidthRequest="100"
@@ -112,11 +118,11 @@
                         <ViewCell IsEnabled="{Binding Day, Converter= {StaticResource cnvEnabledDay}}">
                             <Grid ColumnSpacing="0" RowSpacing="0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2.2*" />
-                                    <ColumnDefinition Width="30" />
-                                    <ColumnDefinition Width="5.4*" />
-                                    <ColumnDefinition Width="1.2*" />
-                                    <ColumnDefinition Width="1.2*" />
+                                    <ColumnDefinition Width="1.3*" />
+                                    <ColumnDefinition Width="0.6*" />
+                                    <ColumnDefinition Width="5.3*" />
+                                    <ColumnDefinition Width="1.4*" />
+                                    <ColumnDefinition Width="1.4*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />

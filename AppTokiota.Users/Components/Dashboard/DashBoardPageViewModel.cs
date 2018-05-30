@@ -11,6 +11,7 @@ using SkiaSharp;
 using Microcharts;
 using System.Diagnostics;
 using Unity.Utility;
+using Xamarin.Forms;
 
 namespace AppTokiota.Users.Components.DashBoard
 {
@@ -100,6 +101,7 @@ namespace AppTokiota.Users.Components.DashBoard
 			return Task.Run(() => {
                 ChartImputedVsDeviation = new DonutChart()
                 {
+					LabelTextSize = 30,
                     Entries = _dashBoardModule.ChartService.GenerateChartActivitiesImputationVsDeviation(timesheet)
                 };
 			});             
@@ -111,6 +113,7 @@ namespace AppTokiota.Users.Components.DashBoard
 				var entries = _dashBoardModule.ChartService.GenerateChartImputationMonthVsHourMonthExpected(timesheet);
                 ChartConsumedMonthVsHourMonthExpected = new DonutChart()
                 {
+					LabelTextSize = 30,
                     Entries = entries
                 };
 
@@ -127,11 +130,16 @@ namespace AppTokiota.Users.Components.DashBoard
 		private Task GenerateChartActivitiesImputedGroupByTaskAndProject(Models.Timesheet timesheet)
         {
 			return Task.Run(() => {
-
-                ChartProjectsImputed = new DonutChart()
+                
+                var chartT = new DonutChart()
                 {
                     Entries = _dashBoardModule.ChartService.GenerateChartActivitiesImputedGroupByTaskAndProject(timesheet)
                 };
+				if (Device.Idiom == TargetIdiom.Tablet) {
+					chartT.LabelTextSize = 30;
+				}
+
+				ChartProjectsImputed = chartT;
             }); 
         }
    }

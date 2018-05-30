@@ -16,6 +16,14 @@ namespace AppTokiota.Users.Components.Master
         {
             try
             {
+				IsPresented = false;
+				MasterBehavior = MasterBehavior.Popover;
+                Appearing += (sender, e) =>
+                {
+                    this.IsPresented = false;
+					this.MasterBehavior = MasterBehavior.Popover;
+                };
+
                 InitializeComponent();
             } catch(Exception e)
             {

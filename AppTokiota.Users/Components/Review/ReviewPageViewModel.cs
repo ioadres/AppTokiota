@@ -22,7 +22,7 @@ namespace AppTokiota.Users.Components.Review
     public class ReviewPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
         //Todo Sacar a settings
-        DateTimeFormatInfo dtinfo = new CultureInfo("en").DateTimeFormat;
+        DateTimeFormatInfo dtinfo = new CultureInfo(AppSettings.CultureInfoApp).DateTimeFormat;
 
         #region Services
         protected readonly IReviewModule _reviewModule;

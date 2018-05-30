@@ -11,7 +11,7 @@ namespace AppTokiota.Users.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             // Get the en-US culture.
-            CultureInfo ci = new CultureInfo("en-US");
+            CultureInfo ci = new CultureInfo(AppSettings.CultureInfoApp);
             // Get the DateTimeFormatInfo for the en-US culture.
             DateTimeFormatInfo dtfi = ci.DateTimeFormat;
 

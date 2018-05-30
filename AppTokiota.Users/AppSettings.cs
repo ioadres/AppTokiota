@@ -3,6 +3,7 @@ using AppTokiota.Users.Models;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
 using AppTokiota.Users.Extensions;
+using System.Globalization;
 
 namespace AppTokiota
 {
@@ -105,5 +106,14 @@ namespace AppTokiota
         {
             Settings.Remove(nameof(AuthenticatedUserResponse));
         }
+
+        //Culture Info
+        public static String CultureInfoApp
+        {
+            get => Settings.GetValueOrDefault(nameof(CultureInfoApp), DefaultCultureInfoApp);
+
+            set => Settings.AddOrUpdateValue(nameof(CultureInfoApp), value);
+        }
+        
     }
 }

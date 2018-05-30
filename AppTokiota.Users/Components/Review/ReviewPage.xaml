@@ -112,11 +112,11 @@
                         <ViewCell IsEnabled="{Binding Day, Converter= {StaticResource cnvEnabledDay}}">
                             <Grid ColumnSpacing="0" RowSpacing="0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2.2*" />
-                                    <ColumnDefinition Width="30" />
-                                    <ColumnDefinition Width="5.4*" />
-                                    <ColumnDefinition Width="1.2*" />
-                                    <ColumnDefinition Width="1.2*" />
+                                    <ColumnDefinition Width="1.3*" />
+                                    <ColumnDefinition Width="0.6*" />
+                                    <ColumnDefinition Width="5.3*" />
+                                    <ColumnDefinition Width="1.4*" />
+                                    <ColumnDefinition Width="1.4*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />

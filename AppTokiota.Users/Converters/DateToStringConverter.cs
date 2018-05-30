@@ -10,8 +10,14 @@ namespace AppTokiota.Users.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            // Get the en-US culture.
+            CultureInfo ci = new CultureInfo("en-US");
+            // Get the DateTimeFormatInfo for the en-US culture.
+            DateTimeFormatInfo dtfi = ci.DateTimeFormat;
+
             var date = DateTime.Parse(value.ToString());
-            var dayOfWeek = date.DayOfWeek;
+            var dayOfWeekAux = (int)date.DayOfWeek;
+            var dayOfWeek = dtfi.AbbreviatedDayNames.GetValue(dayOfWeekAux);
             var dayOfWeekNumber = date.Day;
 
             var dayOfWeekString = dayOfWeekNumber + "-" + dayOfWeek; 

@@ -105,21 +105,17 @@ namespace AppTokiota.Users.Components.Review
              _yearPicker = new ObservableCollection<PickerItem>();
             _monthPicker = new ObservableCollection<PickerItem>();
             LstReview = new ObservableCollection<ReviewTimeLine>();
+            LoadDataAsync();
         }
         #endregion constructor
 
         #region LoadPickersListViewData
-        
-        public override void OnNavigatedTo(NavigationParameters parameters)
-        {
-            LoadDataAsync();
-        }
 
         protected void LoadDataAsync()
         {
+            IsBusy = true;
             Device.BeginInvokeOnMainThread(async () =>
             {
-                IsBusy = true;
                 try
                 {
                     if (this.IsInternetAndCloseModal())

@@ -6,9 +6,14 @@ namespace AppTokiota.Users.Controls
     public class CalendarButton : Button
     {
         public CalendarButton() : base()
-        {
-            HeightRequest = 40;
-            WidthRequest = 40;
+		{
+			if(Device.Idiom == TargetIdiom.Tablet) {
+                HeightRequest = 80;
+                WidthRequest = 80;
+			} else {
+                HeightRequest = 40;
+                WidthRequest = 40;
+			}
         }
 
 		public static readonly BindableProperty DateProperty =

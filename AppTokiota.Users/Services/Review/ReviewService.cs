@@ -60,7 +60,7 @@ namespace AppTokiota.Users.Services
 
 
         //Todo
-        public async Task<Review> PutReview(int year, int month)
+        public async Task<bool> PatchReview(int year, int month)
         {
             for (var i = 0; i < 2; i++)
             {
@@ -70,8 +70,8 @@ namespace AppTokiota.Users.Services
                     {
                         var reviewDatos = new Review(); 
                         var url = $"{AppSettings.TimesheetUrlEndPoint}/{year}/{month}/review";
-                        Review review = await _requestService.PutAsync<Review>(url, reviewDatos, AppSettings.AuthenticatedUserResponse.AccessToken);
-                        return review;
+                        var response = await _requestService.PatchAsync<bool>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
+                        return response;
                     }
                     else
                     {

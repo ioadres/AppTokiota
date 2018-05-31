@@ -374,6 +374,24 @@
   <ItemGroup>
     <BundleResource Include="Resources\Clock%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\torii_gate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\torii_gate%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\torii_gate%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\torii%40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\torii%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\torii%403x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\NETStandard.Library.2.0.2\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.2\build\netstandard2.0\NETStandard.Library.targets')" />
   <Import Project="..\packages\Xamarin.Forms.3.0.0.446417\build\netstandard2.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.3.0.0.446417\build\netstandard2.0\Xamarin.Forms.targets')" />

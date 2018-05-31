@@ -24,7 +24,5 @@ namespace AppTokiota.Users.Controls
             set { SetValue(PlaceholderColorProperty, value); }
         }
 
-
-
     }
 }

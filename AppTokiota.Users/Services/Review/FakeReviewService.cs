@@ -14,10 +14,14 @@ namespace AppTokiota.Users.Services
             return await Task.Run(() => JsonConvert.DeserializeObject<Review>(FakeReviewData.Review));
         }
 
-        //Todo
-        public async Task<Review> PutReview(int from, int To)
+        public async Task<bool> PatchReview(int from, int To)
         {
-            return await Task.Run(() => JsonConvert.DeserializeObject<Review>(FakeReviewData.Review));
+            Random gen = new Random();
+            int prob = gen.Next(100);
+            return await Task.Run(() =>
+            {
+                return prob <= 20;
+            });
         }
     }
 }

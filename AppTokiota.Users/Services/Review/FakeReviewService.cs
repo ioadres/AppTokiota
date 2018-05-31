@@ -13,5 +13,15 @@ namespace AppTokiota.Users.Services
         {
             return await Task.Run(() => JsonConvert.DeserializeObject<Review>(FakeReviewData.Review));
         }
+
+        public async Task<bool> PatchReview(int from, int To)
+        {
+            Random gen = new Random();
+            int prob = gen.Next(100);
+            return await Task.Run(() =>
+            {
+                return prob <= 20;
+            });
+        }
     }
 }

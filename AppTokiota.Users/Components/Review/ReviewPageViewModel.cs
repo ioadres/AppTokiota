@@ -22,7 +22,7 @@ namespace AppTokiota.Users.Components.Review
     public class ReviewPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
         //Todo Sacar a settings
-        DateTimeFormatInfo dtinfo = new CultureInfo("en").DateTimeFormat;
+        DateTimeFormatInfo dtinfo = new CultureInfo(AppSettings.CultureInfoApp).DateTimeFormat;
 
         #region Services
         protected readonly IReviewModule _reviewModule;
@@ -50,7 +50,7 @@ namespace AppTokiota.Users.Components.Review
             get { return _myIndexYearPicker; }
             set { SetProperty(ref _myIndexYearPicker, value); }
         }
-        
+
         private int _myIndexMonthPicker;
         public int MyIndexMonthPicker
         {
@@ -95,15 +95,22 @@ namespace AppTokiota.Users.Components.Review
             set { SetProperty(ref _imputedTotal, value); }
         }
 
+        public bool _btnSendReviewIsVisible;
+        public bool BtnSendReviewIsVisible
+        {
+            get { return _btnSendReviewIsVisible; }
+            set { SetProperty(ref _btnSendReviewIsVisible, value); }
+        }
+
         #region Construct
         public ReviewPageViewModel(IViewModelBaseModule baseModule, IReviewModule reviewModule) : base(baseModule)
         {
-            _reviewModule = reviewModule;           
+            _reviewModule = reviewModule;
+            _yearPicker = new ObservableCollection<PickerItem>();
+            _monthPicker = new ObservableCollection<PickerItem>();
 
             Title = "Review";
             ModeLoadingPopUp = true;
-             _yearPicker = new ObservableCollection<PickerItem>();
-            _monthPicker = new ObservableCollection<PickerItem>();
             LstReview = new ObservableCollection<ReviewTimeLine>();
             LoadDataAsync();
         }
@@ -121,7 +128,7 @@ namespace AppTokiota.Users.Components.Review
                     if (this.IsInternetAndCloseModal())
                     {
                         await LoadDataPickerAsync();
-                        LoadDataReviewAsync(YearPicker.ElementAt(MyIndexYearPicker).Value,MonthPicker.ElementAt(MyIndexMonthPicker).Value);
+                        LoadDataReviewByDate(YearPicker.ElementAt(MyIndexYearPicker).Value, MonthPicker.ElementAt(MyIndexMonthPicker).Value);
                     }
                     IsBusy = false;
                 }
@@ -132,6 +139,7 @@ namespace AppTokiota.Users.Components.Review
                     Debug.WriteLine($"[GetTimesheet] Error: {ex}");
                 }
             });
+
         }
 
 
@@ -164,7 +172,7 @@ namespace AppTokiota.Users.Components.Review
             {
                 Value = MyDate.Year,
                 DisplayName = MyDate.Year.ToString(),
-            } ;
+            };
 
             var InitMonthPickerItem = new PickerItem
             {
@@ -172,11 +180,11 @@ namespace AppTokiota.Users.Components.Review
                 DisplayName = dtinfo.GetMonthName(MyDate.Month),
             };
 
-            MyIndexYearPicker = YearPicker.IndexOf(YearPicker.Where(x=>x.Value == InitYearPickerItem.Value).FirstOrDefault());
-            MyIndexMonthPicker = MonthPicker.IndexOf(MonthPicker.Where(x=>x.Value == InitMonthPickerItem.Value).FirstOrDefault());
+            MyIndexYearPicker = YearPicker.IndexOf(YearPicker.Where(x => x.Value == InitYearPickerItem.Value).FirstOrDefault());
+            MyIndexMonthPicker = MonthPicker.IndexOf(MonthPicker.Where(x => x.Value == InitMonthPickerItem.Value).FirstOrDefault());
         }
 
-        protected void LoadDataReviewAsync(int year, int month)
+        protected void LoadDataReviewByDate(int year, int month)
         {
             IsBusy = true;
             Device.BeginInvokeOnMainThread(async () =>
@@ -186,13 +194,7 @@ namespace AppTokiota.Users.Components.Review
                     if (this.IsInternetAndCloseModal())
                     {
                         _currentReview = await _reviewModule.ReviewService.GetReview(year, month);
-                        var lstReviewDates = await _reviewModule.TimeLineService.GetListTimesheetForDay(_currentReview);
-                        LoadTotalTime(lstReviewDates);
-                        var listTemp = new ObservableCollection<ReviewTimeLine>();
-                        lstReviewDates.ForEach(x => listTemp.Add(map(x)));
-                        listTemp.Last().IsLast = true;
-                        LstReview = listTemp;
-                        IsBusy = false;
+                        LoadDataReviewAsync(_currentReview);
                     }
                 }
                 catch (Exception ex)
@@ -201,8 +203,28 @@ namespace AppTokiota.Users.Components.Review
                     BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
                     Debug.WriteLine($"[Review load data] Error: {ex}");
                 }
-
             });
+        }
+
+        protected async void LoadDataReviewAsync(Models.Review review)
+        {
+            try
+            {
+                BtnSendReviewIsVisible = !(review.IsValidated || review.IsClosed);
+                var lstReviewDates = await _reviewModule.TimeLineService.GetListTimesheetForDay(review);
+                LoadTotalTime(lstReviewDates);
+                var listTemp = new ObservableCollection<ReviewTimeLine>();
+                lstReviewDates.ForEach(x => listTemp.Add(map(x)));
+                listTemp.Last().IsLast = true;
+                LstReview = listTemp;
+                IsBusy = false;
+            }
+            catch (Exception ex)
+            {
+                IsBusy = false;
+                BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                Debug.WriteLine($"[Review load data] Error: {ex}");
+            }
         }
 
         private void LoadTotalTime(IList<TimesheetForDay> lstReviewDates)
@@ -219,8 +241,8 @@ namespace AppTokiota.Users.Components.Review
             var currentTimeSheetDay = new ReviewTimeLine();
             currentTimeSheetDay.Activity = x.Activities.FirstOrDefault();
             currentTimeSheetDay.Day = x.Day;
-            currentTimeSheetDay.IsLast = x.IsLast; 
-            return currentTimeSheetDay; 
+            currentTimeSheetDay.IsLast = x.IsLast;
+            return currentTimeSheetDay;
         }
 
         #endregion LoadPickersListViewData
@@ -232,6 +254,41 @@ namespace AppTokiota.Users.Components.Review
             var navigationParameters = new NavigationParameters();
             navigationParameters.Add(ActivityDay.Tag, from.Activity);
             BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<InfoActivityPopUpPage>(), navigationParameters, true, true);
+        }
+        #endregion
+
+        #region sendValidateReview
+
+        public DelegateCommand SendReviewValidateCommand => new DelegateCommand(SendReviewToValidate);
+        protected void SendReviewToValidate()
+        {
+            IsBusy = true;
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                try
+                {
+                    if (this.IsInternetAndCloseModal())
+                    {
+                        var response = await _reviewModule.ReviewService.PatchReview(YearPicker.ElementAt(MyIndexYearPicker).Value, MonthPicker.ElementAt(MyIndexMonthPicker).Value);
+                        if (response)
+                        {
+                            LoadDataReviewByDate(YearPicker.ElementAt(MyIndexYearPicker).Value, MonthPicker.ElementAt(MyIndexMonthPicker).Value);
+                        }
+                        else
+                        {
+                            BaseModule.DialogService.ShowToast("The sending review is not avaible in this moment. Please try again later.");
+                        }
+                        IsBusy = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    IsBusy = false;
+                    BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                    Debug.WriteLine($"[Review load data] Error: {ex}");
+                }
+
+            });
         }
         #endregion
     }

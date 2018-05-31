@@ -58,10 +58,32 @@ namespace AppTokiota.Users.Services
             throw new UnauthorizedAccessException();
         }
 
-        //TODO
-        //public async Task<Review> PutReview(int year, int month)
-        //{
 
-        //}
+        //Todo
+        public async Task<bool> PatchReview(int year, int month)
+        {
+            for (var i = 0; i < 2; i++)
+            {
+                try
+                {
+                    if (await _authenticationService.UserIsAuthenticatedAndValidAsync())
+                    {
+                        var reviewDatos = new Review(); 
+                        var url = $"{AppSettings.TimesheetUrlEndPoint}/{year}/{month}/review";
+                        var response = await _requestService.PatchAsync<bool>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
+                        return response;
+                    }
+                    else
+                    {
+                        throw new UnauthorizedAccessException();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+            }
+            throw new UnauthorizedAccessException();
+        }
     }
 }

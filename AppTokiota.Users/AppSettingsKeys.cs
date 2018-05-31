@@ -8,25 +8,36 @@ namespace AppTokiota
         // Endpoints
 
         private const string DefaultMicrosoftTenant = "";
+
         private const string DefaultMicrosoftApiClientId = "";
-        private const string DefaultMicrosoftGrantType = "password";
+
+        private const string DefaultMicrosoftGrantType = "";
+
         private const string DefaultMicrosoftResource = "";
+
         private const string DefaultMicrosoftAuthEndpoint = "";
 
 
+
         // Endpoint Timesheet
+
         private const string DefaultTimesheetUrlEndPoint = "";
+
         private const string DefaultTimesheetDomain = "";
 
 
 
-
         // App Config
-        private const string DefaultIdAppCache = "";
-        private const string DefaultIdAppUserCache = "";
-        private const string DefaultUrlCompany = "";
-        private const bool DefaultUseFakeServices = false;
 
+        private const string DefaultIdAppCache = "";
+
+        private const string DefaultIdAppUserCache = "";
+
+        private const string DefaultUrlCompany = "";
+
+        private const bool DefaultUseFakeServices = ;
+
+        private const string DefaultCultureInfoApp = "";
 
     }
 }

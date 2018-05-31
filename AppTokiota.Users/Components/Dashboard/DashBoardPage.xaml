@@ -15,20 +15,40 @@
      <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="HeaderTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+                <Setter Property="FontSize">
+                    <OnIdiom x:TypeArguments="x:Double" 
+                         Phone="{StaticResource LargeSize }" 
+                         Tablet="{StaticResource HugeSize }" />
+                    </Setter>
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
+            
             <Style x:Key="HeaderStatusTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+                <Setter Property="FontSize">
+                    <OnIdiom x:TypeArguments="x:Double" 
+                         Phone="{StaticResource LargeSize }" 
+                         Tablet="{StaticResource HugeSize }" />
+                    
+                    </Setter>
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
+            
             <Style x:Key="FooterSummaryTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+                <Setter Property="FontSize">
+                    <OnIdiom x:TypeArguments="x:Double" 
+                         Phone="{StaticResource LargeSize }" 
+                         Tablet="{StaticResource HugeSize }" />
+                    
+                    </Setter>
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
             
             <Style x:Key="FooterSubTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="FontSize">
+                    <OnIdiom x:TypeArguments="x:Double" 
+                         Phone="{StaticResource MediumSize }" 
+                         Tablet="{StaticResource HugeSize }" />
+                    </Setter>
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
         </ResourceDictionary>

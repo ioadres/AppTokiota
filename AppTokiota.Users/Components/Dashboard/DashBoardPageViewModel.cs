@@ -76,7 +76,9 @@ namespace AppTokiota.Users.Components.DashBoard
 					var timesheet = await _dashBoardModule.TimesheetService.GetTimesheetBeetweenDates(minMonth, maxMonth);
                     
                     IsHolidayTomorrow = false;
-					var tomorrowDate = new DateTime(now.Year, now.Month, now.AddDays(1).Day);
+					var tomorrowDate = new DateTime(now.Year, now.Month, now.Day);
+					tomorrowDate = tomorrowDate.AddDays(1);
+
 					var dayTimesheet = timesheet.Days.Where(x => x.Date.Equals(tomorrowDate)).FirstOrDefault();
 					if(dayTimesheet != null && dayTimesheet.Holiday != null) {
 						IsHolidayTomorrow = dayTimesheet.Holiday.IsHolyday;
@@ -101,7 +103,7 @@ namespace AppTokiota.Users.Components.DashBoard
 			return Task.Run(() => {
                 ChartImputedVsDeviation = new DonutChart()
                 {
-					LabelTextSize = 30,
+					LabelTextSize = Device.Idiom == TargetIdiom.Tablet? 30:20,
                     Entries = _dashBoardModule.ChartService.GenerateChartActivitiesImputationVsDeviation(timesheet)
                 };
 			});             
@@ -113,7 +115,7 @@ namespace AppTokiota.Users.Components.DashBoard
 				var entries = _dashBoardModule.ChartService.GenerateChartImputationMonthVsHourMonthExpected(timesheet);
                 ChartConsumedMonthVsHourMonthExpected = new DonutChart()
                 {
-					LabelTextSize = 30,
+					LabelTextSize = Device.Idiom == TargetIdiom.Tablet ? 30 : 20,
                     Entries = entries
                 };
 

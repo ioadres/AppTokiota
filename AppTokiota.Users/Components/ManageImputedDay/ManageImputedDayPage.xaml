@@ -21,26 +21,50 @@
         <ResourceDictionary>        
 
             <Style x:Key="HeaderTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MidLittleSize }" 
+                                 Tablet="{StaticResource LargeSize }" />
+                    </Setter.Value>
+                </Setter>
                  <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
 
             <Style x:Key="CellHeaderStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}" />
+                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}" >
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MidLittleSize }" 
+                                 Tablet="{StaticResource LargeSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
             </Style>
             <Style x:Key="CellTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}" />
+                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MidLittleSize }" 
+                                 Tablet="{StaticResource MidLargeSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
             </Style>
 
             <Style x:Key="CellIcontStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource LittleSize }" 
+                                 Tablet="{StaticResource BigSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
                 <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
@@ -75,7 +99,6 @@
 
            <ListView x:Name="listView" 
                      Grid.Row="1"
-                     RowHeight="90"
                      HasUnevenRows="true"
                      CachingStrategy="RecycleElement"
                      VerticalOptions="FillAndExpand" 
@@ -96,6 +119,7 @@
                                 </Grid.GestureRecognizers>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="10"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
@@ -108,10 +132,10 @@
                                     <Label Text="{Binding Project.DisplayName}" Style="{StaticResource CellHeaderStyle}"></Label>
                                     <Label Text="{Binding Task.DisplayName}" Style="{StaticResource CellHeaderStyle}"></Label>
                                 </StackLayout>
-                                <Label Grid.Row="1" Text="{Binding Project.IsHoliday, Converter={StaticResource cnvActivityType}}" Grid.Column="0" Style="{StaticResource CellIcontStyle}"/>
-                                <Label Grid.Row="1" Text="{Binding Description, Converter={StaticResource cnvDescriptionToShortDescription}}" Grid.Column="1" Style="{StaticResource CellTextStyle}"/>
-                                <Label Grid.Row="1" Text="{Binding Deviation, Converter={StaticResource cnvMinutesToHour}}" Grid.Column="2" Style="{StaticResource CellTextStyle}"/>
-                                <Label Grid.Row="1" Text="{Binding Imputed, Converter={StaticResource cnvMinutesToHour}}" Grid.Column="3" Style="{StaticResource CellTextStyle}"/>
+                                <Label Grid.Row="2" Text="{Binding Project.IsHoliday, Converter={StaticResource cnvActivityType}}" Grid.Column="0" Style="{StaticResource CellIcontStyle}"/>
+                                <Label Grid.Row="2" Text="{Binding Description, Converter={StaticResource cnvDescriptionToShortDescription}}" Grid.Column="1" Style="{StaticResource CellTextStyle}"/>
+                                <Label Grid.Row="2" Text="{Binding Deviation, Converter={StaticResource cnvMinutesToHour}}" Grid.Column="2" Style="{StaticResource CellTextStyle}"/>
+                                <Label Grid.Row="2" Text="{Binding Imputed, Converter={StaticResource cnvMinutesToHour}}" Grid.Column="3" Style="{StaticResource CellTextStyle}"/>
                             </Grid>
                         </ViewCell>
                 </DataTemplate>

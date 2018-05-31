@@ -56,13 +56,25 @@
                     
                     <Label Text="Tasks Imputed" Style="{StaticResource TitleH2Style}" Margin="5,15,5,5"></Label>
                     
-                    <microcharts:ChartView x:Name="chartProjectsImputed" Chart="{Binding ChartProjectsImputed}" HeightRequest="150" />
+                    <microcharts:ChartView x:Name="chartProjectsImputed" Chart="{Binding ChartProjectsImputed}" HeightRequest="150">
+                     <microcharts:ChartView.HeightRequest>
+                        <OnIdiom x:TypeArguments="x:Double" Phone="150" Tablet="250" />
+                     </microcharts:ChartView.HeightRequest>
+                    </microcharts:ChartView>
 
                     <Label Text="Imputed VS Deviation" Style="{StaticResource TitleH2Style}" Margin="5,15,5,5"></Label>
-                    <microcharts:ChartView x:Name="chartImputedVsDeviation" Chart="{Binding ChartImputedVsDeviation}" HeightRequest="150" />
+                    <microcharts:ChartView x:Name="chartImputedVsDeviation" Chart="{Binding ChartImputedVsDeviation}" HeightRequest="150">
+                        <microcharts:ChartView.HeightRequest>
+                        <OnIdiom x:TypeArguments="x:Double" Phone="150" Tablet="250" />
+                     </microcharts:ChartView.HeightRequest>
+                    </microcharts:ChartView>
 
                     <Label Text="Consumed VS Hours/Month" Style="{StaticResource TitleH2Style}" Margin="5,15,5,5"></Label>
-                    <microcharts:ChartView x:Name="chartConsumedMonthVsHourMonthExpected" Chart="{Binding ChartConsumedMonthVsHourMonthExpected}" HeightRequest="150"/>
+                    <microcharts:ChartView x:Name="chartConsumedMonthVsHourMonthExpected" Chart="{Binding ChartConsumedMonthVsHourMonthExpected}" HeightRequest="150">
+                    <microcharts:ChartView.HeightRequest>
+                        <OnIdiom x:TypeArguments="x:Double" Phone="150" Tablet="250" />
+                     </microcharts:ChartView.HeightRequest>
+                    </microcharts:ChartView>
                 </StackLayout>
                  
                 

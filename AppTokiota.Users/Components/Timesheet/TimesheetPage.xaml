@@ -52,7 +52,7 @@
                 <xamanimation:TranslateToAnimation TranslateY="0" Easing="CubicOut" Duration="200" />
             </xamanimation:StoryBoard>
             
-            <Style x:Key="CustomIconPlusTextStyle" TargetType="controls:AwesomeLabelControl" BasedOn="{StaticResource IconPlusTextStyle}">
+            <Style x:Key="CustomIconPlusTextStyle" TargetType="controls:AwesomeLabelControl" BasedOn="{StaticResource IconPlusMidTextStyle}">
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
 

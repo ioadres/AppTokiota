@@ -330,11 +330,13 @@
                     <Setter.Value>
                         <OnIdiom x:TypeArguments="x:Double" 
                                  Phone="{StaticResource HugeSize}" 
-                                 Tablet="{StaticResource XHugeSize }" />
+                                 Tablet="{StaticResource XXXHugeSize }" />
                     </Setter.Value>
                 </Setter>
                 <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
             </Style>
+
+            
 
             <!-- END H -->
 
@@ -366,12 +368,23 @@
                 <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}" />
             </Style>
 
+            <Style x:Key="IconPlusMidTextStyle" TargetType="ctrls:AwesomeLabelControl">
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource HugeSize}" 
+                                 Tablet="110" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="TextColor" Value="{StaticResource RedColor}" />
+            </Style>
+            
             <Style x:Key="IconPlusTextStyle" TargetType="ctrls:AwesomeLabelControl">
                 <Setter Property="FontSize">
                     <Setter.Value>
                         <OnIdiom x:TypeArguments="x:Double" 
-                                 Phone="{StaticResource HugeSize }" 
-                                 Tablet="110" />
+                                 Phone="110" 
+                                 Tablet="130" />
                     </Setter.Value>
                 </Setter>
                 <Setter Property="TextColor" Value="{StaticResource RedColor}" />

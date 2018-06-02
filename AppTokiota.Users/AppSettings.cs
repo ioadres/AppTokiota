@@ -85,9 +85,45 @@ namespace AppTokiota
             set => Settings.AddOrUpdateValue(nameof(TimesheetDomain), value);
         }
 
+        public static int HoursDay
+        {
+            get => Settings.GetValueOrDefault(nameof(HoursDay), DefaultHoursDay);
+
+            set => Settings.AddOrUpdateValue(nameof(HoursDay), value);
+        }
+
+        public static string StartupView
+        {
+            get => Settings.GetValueOrDefault(nameof(StartupView), DefaultStartupView);
+
+            set => Settings.AddOrUpdateValue(nameof(StartupView), value);
+        }
+
+
         public static string UrlCompany
         {
             get => Settings.GetValueOrDefault(nameof(UrlCompany), DefaultUrlCompany);
+
+            set => Settings.AddOrUpdateValue(nameof(UrlCompany), value);
+        }
+
+        public static string UrlTwitterCompany
+        {
+            get => Settings.GetValueOrDefault(nameof(UrlCompany), DefaultUrlTwitterCompany);
+
+            set => Settings.AddOrUpdateValue(nameof(UrlCompany), value);
+        }
+
+        public static string UrlLinkedinCompany
+        {
+            get => Settings.GetValueOrDefault(nameof(UrlCompany), DefaultUrlLinkedinCompany);
+
+            set => Settings.AddOrUpdateValue(nameof(UrlCompany), value);
+        }
+
+        public static string UrlCodeCompany
+        {
+            get => Settings.GetValueOrDefault(nameof(UrlCompany), DefaultUrlCodeCompany);
 
             set => Settings.AddOrUpdateValue(nameof(UrlCompany), value);
         }
@@ -114,6 +150,24 @@ namespace AppTokiota
 
             set => Settings.AddOrUpdateValue(nameof(CultureInfoApp), value);
         }
-        
+
+
+        public static bool IsEnableNotification
+        {
+            get => Settings.GetValueOrDefault(nameof(IsEnableNotification), DefaultIsEnableNotification);
+
+            set => Settings.AddOrUpdateValue(nameof(IsEnableNotification), value);
+        }
+
+        public static bool IsEnableCache
+        {
+            get => Settings.GetValueOrDefault(nameof(IsEnableCache), DefaultIsEnableCache);
+
+            set => Settings.AddOrUpdateValue(nameof(IsEnableCache), value);
+        }
+
+
+
+
     }
 }

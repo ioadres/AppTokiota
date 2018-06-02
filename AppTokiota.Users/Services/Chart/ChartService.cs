@@ -40,7 +40,7 @@ namespace AppTokiota.Users.Services
 		public List<Entry> GenerateChartImputationMonthVsHourMonthExpected(Models.Timesheet timesheet)
         {
             var entries = new List<Microcharts.Entry>();
-            var totalHoursMonth = (8 * timesheet.Days.Where(x => x.IsClosed == false && x.IsWeekend == false && (x.Holiday == null || x.Holiday?.IsHolyday == false)).Count()) * 60;
+            var totalHoursMonth = (AppSettings.HoursDay * timesheet.Days.Where(x => x.IsClosed == false && x.IsWeekend == false && (x.Holiday == null || x.Holiday?.IsHolyday == false)).Count()) * 60;
 
             var consumed = timesheet.Activities.Sum(x => x.Value.Imputed);
             var pending = totalHoursMonth - consumed;

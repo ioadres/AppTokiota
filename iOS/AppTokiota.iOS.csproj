@@ -78,6 +78,7 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
     <CodesignProvision>iOS Team Provisioning Profile: com.tokiota.AppTokiota</CodesignProvision>
+<MtouchSdkVersion>11.3</MtouchSdkVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Acr.Support.iOS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -349,6 +350,9 @@
     <BundleResource Include="Resources\login_background%403x.png" />
     <BundleResource Include="Resources\logo_xs.png" />
     <BundleResource Include="Resources\logo_v.png" />
+    <BundleResource Include="Resources\menu.png" />
+    <BundleResource Include="Resources\menu%402x.png" />
+    <BundleResource Include="Resources\menu%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppTokiota.Users\AppTokiota.Users.csproj">

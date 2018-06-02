@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>AppTokiota.Droid</RootNamespace>
     <AssemblyName>AppTokiota.Droid</AssemblyName>
-    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -346,6 +346,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\login_background_menu.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\login_background_menu.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\login_background_menu.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\menu.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\menu.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\menu.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\menu.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\menu.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppTokiota.Users\AppTokiota.Users.csproj">

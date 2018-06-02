@@ -21,6 +21,7 @@
     <PackageReference Include="Refractored.XamForms.PullToRefresh" Version="2.2.1" />
     <PackageReference Include="Microcharts.Forms" Version="0.7.1" />
     <PackageReference Include="Microcharts" Version="0.7.1" />
+    <PackageReference Include="Xam.Plugins.Notifier" Version="2.1.0" />
   </ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Components\ManageImputedDay\" />

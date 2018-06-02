@@ -155,7 +155,7 @@ namespace AppTokiota.Users.Components.DashBoard
 					Entries = entries
                 };
 
-				chartT.LabelTextSize = Device.Idiom == TargetIdiom.Tablet ? 30 : 25;
+				chartT.LabelTextSize = Device.Idiom == TargetIdiom.Tablet ? 30 : 20;
 
 
 				ChartProjectsImputed = chartT;

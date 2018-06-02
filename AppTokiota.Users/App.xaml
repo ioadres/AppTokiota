@@ -404,8 +404,8 @@
                 <Setter Property="TitleLabelFontSize">
                     <Setter.Value>
                         <OnIdiom x:TypeArguments="x:Double" 
-                                 Phone="{StaticResource MidMediumSize }" 
-                                 Tablet="{StaticResource LargeSize }" />
+                                 Phone="{StaticResource LargeSize }" 
+                                 Tablet="{StaticResource BigSize }" />
                     </Setter.Value>
                 </Setter>
 

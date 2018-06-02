@@ -30,15 +30,28 @@ namespace AppTokiota.Users.Services
 
         public async Task<Timesheet> GetTimesheetBeetweenDates(DateTime from, DateTime to)
         {
+            var timesheet = await _cacheService.GetLocalObjectAsync<Timesheet>($"/{from.ToString("yyyyMMdd")}/{to.ToString("yyyyMMdd")}/timesheet");
+
 			for (var i = 0; i < 2; i++)
 			{
 				try
 				{
 					if (await _authenticationService.UserIsAuthenticatedAndValidAsync())
 					{
-						var url = $"{AppSettings.TimesheetUrlEndPoint}?from={from.ToString("yyyy-MM-dd")}&to={to.ToString("yyyy-MM-dd")}";
-						var timesheet = await _requestService.GetAsync<Timesheet>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
-						return timesheet;
+                        if (timesheet == null || AppSettings.IsEnableCache == false)
+                        {
+                            var nowLess3Month = DateTime.Now.AddMonths(-3);
+
+                            var url = $"{AppSettings.TimesheetUrlEndPoint}?from={from.ToString("yyyy-MM-dd")}&to={to.ToString("yyyy-MM-dd")}";
+                            timesheet = await _requestService.GetAsync<Timesheet>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
+                            if (to < nowLess3Month)
+                            {
+                                await _cacheService.InsertLocalObjectAsync($"/{from.ToString("yyyyMMdd")}/{to.ToString("yyyyMMdd")}/timesheet",timesheet);
+                            }
+
+                        }
+
+                        return timesheet;
 					}
 					else {
 						throw new UnauthorizedAccessException();

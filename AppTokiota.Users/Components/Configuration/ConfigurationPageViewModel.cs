@@ -6,6 +6,7 @@ using AppTokiota.Users.Components.Core.Module;
 using AppTokiota.Users.Components.DashBoard;
 using AppTokiota.Users.Components.Review;
 using AppTokiota.Users.Components.Timesheet;
+using Plugin.LocalNotifications;
 using Prism.Commands;
 using Xamarin.Forms;
 
@@ -24,6 +25,15 @@ namespace AppTokiota.Users.Components.Configuration
             set { 
                 AppSettings.IsEnableNotification = value;
                 SetProperty(ref _isEnableNotification, value); 
+
+                if (AppSettings.IsEnableNotification)
+                {
+                    var dateNow = DateTime.Now;
+                    var limitDate = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, 16, 0, 0);
+                    CrossLocalNotifications.Current.Show("Tokiota :: Timesheet", "Remember check your timesheet", 1, limitDate);
+                } else {
+                    CrossLocalNotifications.Current.Cancel(1);
+                }
             }
         }
 
@@ -76,8 +86,8 @@ namespace AppTokiota.Users.Components.Configuration
         public DelegateCommand ClearCacheCommand { get; set; }
         private void ClearCache()
         {
-            BaseModule.CacheEntity.DeleteAll();
-            BaseModule.DialogService.ShowToast("Action remove cache is success");
+            BaseModule.CacheEntity.DeleteLocalAll();
+            BaseModule.DialogService.ShowToast("Action remove cache is success!!");
         }
 
         public DelegateCommand OpenHoursViewCommand { get; set; }
@@ -91,9 +101,12 @@ namespace AppTokiota.Users.Components.Configuration
                     list.Add(i.ToString());
                 }
                 var result = await BaseModule.DialogService.SelectActionAsync("Select the Hours/Day", "Default Hours/Day", list);
-                var value = int.Parse(result);
-                AppSettings.HoursDay = value;
-                HoursText = value;
+                if (!result.Equals("Cancel"))
+                {
+                    var value = int.Parse(result);
+                    AppSettings.HoursDay = value;
+                    HoursText = value;
+                }
             } catch(Exception ex) {
                 Debug.WriteLine($"[ConfigurationPage] Error: {ex}");
             }
@@ -110,8 +123,11 @@ namespace AppTokiota.Users.Components.Configuration
                 list.Add(PageRoutes.GetKey<ReviewPage>());
 
                 var result = await BaseModule.DialogService.SelectActionAsync("Select the startup view", "Default Startup View", list);
-                AppSettings.StartupView = result;
-                StartupViewText = result;
+                if (!result.Equals("Cancel"))
+                {
+                    AppSettings.StartupView = result;
+                    StartupViewText = result;
+                }
             }
             catch(Exception ex)
             {

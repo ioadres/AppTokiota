@@ -12,5 +12,9 @@ namespace AppTokiota.Users.Services.Cache
         Task RemoveObjectAsync<T>(string key);
         Task InsertObjectAsync<T>(string idAppCache, T v, DateTimeOffset dateTimeOffset);
         Task DeleteAll();
+
+        Task<T> GetLocalObjectAsync<T>(string key);
+        Task DeleteLocalAll();
+        Task InsertLocalObjectAsync<T>(string key, T value);
     }
 }

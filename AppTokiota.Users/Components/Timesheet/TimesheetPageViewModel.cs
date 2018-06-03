@@ -17,6 +17,7 @@ using AppTokiota.Users.Components.ManageImputedDay;
 using AppTokiota.Users.Components.Activity;
 using System.Collections.Generic;
 using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter.Analytics;
 
 namespace AppTokiota.Users.Components.Timesheet
 {
@@ -206,6 +207,7 @@ namespace AppTokiota.Users.Components.Timesheet
 						var navigationParameters = new NavigationParameters();
 						navigationParameters.Add(Imputed.Tag, imputed);
 						await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters);
+                        Analytics.TrackEvent("[Activity] :: Add :: Multilple :: Timesheet");
 
 					} else {
 						throw new ArgumentNullException();

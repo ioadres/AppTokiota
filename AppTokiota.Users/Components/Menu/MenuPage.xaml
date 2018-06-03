@@ -68,16 +68,15 @@
                       JustifyContent="SpaceBetween"
                       Grid.Row="0"
                     >
-                <BoxView HeightRequest="100"
+                <BoxView HeightRequest="110"
                          FlexLayout.Shrink="0"
                          BackgroundColor="Transparent"/>    
                         
                 <ListView x:Name="menuItemsListView"
                           SeparatorVisibility="None"
                           BackgroundColor="Transparent"
-                          HeightRequest="360"
-
-                          HasUnevenRows="false"
+                          HeightRequest="450"
+                          HasUnevenRows="true"
                           FlexLayout.Shrink="0"
                           ItemsSource="{Binding MenuList}">
                             
@@ -96,9 +95,9 @@
                                         <StackLayout.Padding>
                                             <OnIdiom x:TypeArguments="Thickness">
                                                 <OnIdiom.Phone>50,10,0,10</OnIdiom.Phone>
-                                                <OnIdiom.Tablet>50,20,0,10</OnIdiom.Tablet>
+                                                <OnIdiom.Tablet>50,20,0,20</OnIdiom.Tablet>
                                             </OnIdiom>
-                                            </StackLayout.Padding>
+                                        </StackLayout.Padding>
 
                                     <Label VerticalOptions="Center" Style="{StaticResource ItemsIconTextStyle}" Text="{Binding Icon}"></Label>
                                     <Label VerticalOptions="Center" Style="{StaticResource ItemsTextStyle}" Text="{Binding Title}">

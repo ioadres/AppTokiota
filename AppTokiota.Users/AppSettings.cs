@@ -32,6 +32,13 @@ namespace AppTokiota
             set => Settings.AddOrUpdateValue(nameof(IdAppUserCache), value);
         }
 
+        public static string AppCenter
+        {
+            get => Settings.GetValueOrDefault(nameof(AppCenter), DefaultAppCenter);
+
+            set => Settings.AddOrUpdateValue(nameof(AppCenter), value);
+        }
+
         // API Endpoints
         public static string MicrosoftAuthEndpoint
         {

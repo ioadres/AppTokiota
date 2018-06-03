@@ -113,15 +113,19 @@
                                 IsEnabled="{Binding ProjectSelected}">
                         </Picker>
 
-                        <controls:ExtendedEditor Grid.Row="2"
-                                                 VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
-                                                 x:Name="Description" 
-                                                 Placeholder="Description"
-                                                 PlaceholderColor="{StaticResource GrayColor}"
-                                                 AutomationId="Description" 
-                                                 Text="{Binding Description}"
-                                                 TextColor="{StaticResource SecondaryTextColor}">
+                    <StackLayout Grid.Row="2" VerticalOptions="FillAndExpand">
+                         <controls:ExtendedEditor 
+                             VerticalOptions="FillAndExpand"
+                             HorizontalOptions="FillAndExpand"
+                             x:Name="Description" 
+                             Placeholder="Description"
+                             PlaceholderColor="{StaticResource GrayColor}"
+                             AutomationId="Description" 
+                             Text="{Binding Description}"
+                             TextColor="{StaticResource SecondaryTextColor}">
                         </controls:ExtendedEditor>
+                    </StackLayout>
+                       
              
                 </Grid>
             </StackLayout>

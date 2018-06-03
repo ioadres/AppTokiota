@@ -130,7 +130,7 @@ namespace AppTokiota.Users.Components.Activity
                      
 					if (Context.CurrentTimesheet == null)
                     {
-                        Analytics.TrackEvent("[BatchActivity] :: START");
+                        Analytics.TrackEvent("[BatchActivity] :: Start");
 						var multiplesDay = Context.CurrentTimesheetMultipleDay.Days?.Select(x => new TimesheetAddActivityBatch()
 						{
 							Day = int.Parse(x.Date.ToString("dd")),
@@ -151,7 +151,7 @@ namespace AppTokiota.Users.Components.Activity
                     else
                     {
 
-                        Analytics.TrackEvent("[PostActivity] :: START");
+                        Analytics.TrackEvent("[PostActivity] :: Start");
                         var response = await _addActivityModule.TimesheetService.PostActivity(new TimesheetAddActivity()
                         {
 							AssignementId = SelectedTask.AssignementId,

@@ -5,18 +5,18 @@ namespace AppTokiota
 {
     public static partial class AppSettings
     {
-		// Endpoints
+        // Endpoints
 
         private const string DefaultMicrosoftTenant = "";
         private const string DefaultMicrosoftApiClientId = "";
         private const string DefaultMicrosoftGrantType = "";
         private const string DefaultMicrosoftResource = "";
         private const string DefaultMicrosoftAuthEndpoint = "";
-
+        private const string DefaultAppCenter = "";
 
         // Endpoint Timesheet
         private const string DefaultTimesheetUrlEndPoint = "";
-        private const string DefaultTimesheetDomain = "";
+        private const string DefaultTimesheetDomain = ";
 
         // App Config
         private const string DefaultIdAppCache = "TokiotaApp";

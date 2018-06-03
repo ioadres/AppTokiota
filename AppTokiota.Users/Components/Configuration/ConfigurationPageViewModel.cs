@@ -6,6 +6,7 @@ using AppTokiota.Users.Components.Core.Module;
 using AppTokiota.Users.Components.DashBoard;
 using AppTokiota.Users.Components.Review;
 using AppTokiota.Users.Components.Timesheet;
+using Microsoft.AppCenter.Crashes;
 using Plugin.LocalNotifications;
 using Prism.Commands;
 using Xamarin.Forms;
@@ -108,7 +109,7 @@ namespace AppTokiota.Users.Components.Configuration
                     HoursText = value;
                 }
             } catch(Exception ex) {
-                Debug.WriteLine($"[ConfigurationPage] Error: {ex}");
+                Crashes.TrackError(ex);
             }
         }
 
@@ -131,7 +132,7 @@ namespace AppTokiota.Users.Components.Configuration
             }
             catch(Exception ex)
             {
-                Debug.WriteLine($"[ConfigurationPage] Error: {ex}");
+                Crashes.TrackError(ex);
             }
         }
 

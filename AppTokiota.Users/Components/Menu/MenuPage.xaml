@@ -13,21 +13,45 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="ItemsTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MediumSize }" 
+                                 Tablet="{StaticResource ExtraBigSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
             </Style>
             <Style x:Key="ItemsIconTextStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MediumSize }" 
+                                 Tablet="{StaticResource ExtraBigSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
             </Style>
             <Style x:Key="UserTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MidMediumSize }" 
+                                 Tablet="{StaticResource BigSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
             </Style>
 
             <Style x:Key="LogoutTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsLightLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LargeSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource LargeSize }" 
+                                 Tablet="{StaticResource BigSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
             </Style>
         </ResourceDictionary>
@@ -52,6 +76,7 @@
                           SeparatorVisibility="None"
                           BackgroundColor="Transparent"
                           HeightRequest="360"
+
                           HasUnevenRows="false"
                           FlexLayout.Shrink="0"
                           ItemsSource="{Binding MenuList}">
@@ -65,9 +90,16 @@
 
                   <ListView.ItemTemplate>
                     <DataTemplate>
-                        <control:MenuItemCell BackgroundColorSelected="{StaticResource RedDarkColor}">
+                        <control:MenuItemCell BackgroundColorSelected="{StaticResource RedDarkColor}" >
                             <ViewCell.View>
-                                <StackLayout Padding="50,10,0,0" HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                        <StackLayout.Padding>
+                                            <OnIdiom x:TypeArguments="Thickness">
+                                                <OnIdiom.Phone>50,10,0,10</OnIdiom.Phone>
+                                                <OnIdiom.Tablet>50,20,0,10</OnIdiom.Tablet>
+                                            </OnIdiom>
+                                            </StackLayout.Padding>
+
                                     <Label VerticalOptions="Center" Style="{StaticResource ItemsIconTextStyle}" Text="{Binding Icon}"></Label>
                                     <Label VerticalOptions="Center" Style="{StaticResource ItemsTextStyle}" Text="{Binding Title}">
                                     </Label>
@@ -80,7 +112,7 @@
 
                 <ContentView Margin="50" 
                              FlexLayout.Shrink="0"
-                             FlexLayout.AlignSelf="Start">
+                             FlexLayout.AlignSelf="End">
                     
                      <StackLayout HorizontalOptions="EndAndExpand" Padding="15">
                             <Label Text="{Binding Email}" Style="{StaticResource UserTextStyle}" HorizontalTextAlignment="End"></Label>

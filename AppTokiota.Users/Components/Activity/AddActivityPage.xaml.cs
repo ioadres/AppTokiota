@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using Rg.Plugins.Popup.Pages;
 using Xamarin.Forms.Xaml;
 using System.Threading.Tasks;
+using Microsoft.AppCenter.Crashes;
 
 namespace AppTokiota.Users.Components.Activity
 {
@@ -12,8 +13,19 @@ namespace AppTokiota.Users.Components.Activity
     {
         public AddActivityPage()
         {
-            NavigationPage.SetHasNavigationBar(this, false);
-            InitializeComponent();
+            try
+            {
+                NavigationPage.SetHasNavigationBar(this, false);
+                InitializeComponent();
+
+            }
+            catch (Exception e)
+            {
+                var dic = new Dictionary<string, string>();
+                dic.Add("Page", "AddActivityPage");
+
+                Crashes.TrackError(e, dic);
+            }
         }
 
      }

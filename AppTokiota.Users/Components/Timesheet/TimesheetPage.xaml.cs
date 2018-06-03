@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AppTokiota.Users.Components.Core;
+using Microsoft.AppCenter.Crashes;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,7 +15,18 @@ namespace AppTokiota.Users.Components.Timesheet
 	{
 		public TimesheetPage ()
 		{
-			InitializeComponent ();
+            try
+            {
+                InitializeComponent();
+
+            }
+            catch (Exception e)
+            {
+                var dic = new Dictionary<string, string>();
+                dic.Add("Page", "TimesheetPage");
+
+                Crashes.TrackError(e, dic);
+            }
 		}
   
 	}

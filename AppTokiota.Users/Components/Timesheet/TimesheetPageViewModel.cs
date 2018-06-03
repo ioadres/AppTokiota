@@ -16,6 +16,7 @@ using AppTokiota.Users.Models;
 using AppTokiota.Users.Components.ManageImputedDay;
 using AppTokiota.Users.Components.Activity;
 using System.Collections.Generic;
+using Microsoft.AppCenter.Crashes;
 
 namespace AppTokiota.Users.Components.Timesheet
 {
@@ -177,7 +178,7 @@ namespace AppTokiota.Users.Components.Timesheet
 					} else {
                         throw new ArgumentNullException();
                     }
-				} catch(Exception e) {
+				} catch(Exception) {
 					BaseModule.DialogService.ShowToast("The all days selected is closed or failed load the month. The month will be load again");
 					ChangeDateCalendar(_currentDayMonthYear);
                 }
@@ -210,7 +211,7 @@ namespace AppTokiota.Users.Components.Timesheet
 						throw new ArgumentNullException();
 					}
 
-				} catch(Exception e) 
+				} catch(Exception) 
 				{
 					BaseModule.DialogService.ShowToast("The all days selected is closed or failed load the month. The month will be load again");
 					ChangeDateCalendar(_currentDayMonthYear);
@@ -247,7 +248,7 @@ namespace AppTokiota.Users.Components.Timesheet
 				{
 					IsBusy = false;
 					BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-					Debug.WriteLine($"[GetTimesheet] Error: {ex}");
+                    Crashes.TrackError(ex);
 				}
 			});  
         }

@@ -11,6 +11,9 @@ using AppTokiota.Users.Components.Login;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Plugin.LocalNotifications;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter;
 
 namespace AppTokiota.Users
 {
@@ -47,6 +50,10 @@ namespace AppTokiota.Users
         {
 			_network = Container.Resolve<INetworkConnectionService>();
 			_authenticationService = Container.Resolve<IAuthenticationService>();
+
+            // Handle when your app starts
+            AppCenter.Start("ios=0a951cf0-dd56-4345-9c3f-6d4b8b31704d;" + "android=40b5c075-e36b-4f98-8829-3c952b6f89bb", typeof(Analytics), typeof(Crashes));
+        
 
             if (AppSettings.IsEnableNotification)
             {

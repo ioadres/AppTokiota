@@ -12,6 +12,7 @@ using Xamarin.Forms;
 using AppTokiota.Users.Components.Activity;
 using Rg.Plugins.Popup.Services;
 using System.Diagnostics;
+using Microsoft.AppCenter.Crashes;
 
 namespace AppTokiota.Users.Components.ManageImputedDay
 {
@@ -100,8 +101,8 @@ namespace AppTokiota.Users.Components.ManageImputedDay
 						}
 					} catch(Exception e) {
 						IsBusy = false;
-						Debug.WriteLine(e);
-						BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                        BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                        Crashes.TrackError(e);
 					}
 				});
 			}

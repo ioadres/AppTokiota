@@ -12,6 +12,7 @@ using Microcharts;
 using System.Diagnostics;
 using Unity.Utility;
 using Xamarin.Forms;
+using Microsoft.AppCenter.Crashes;
 
 namespace AppTokiota.Users.Components.DashBoard
 {
@@ -108,7 +109,7 @@ namespace AppTokiota.Users.Components.DashBoard
             {
                 IsBusy = false;
                 BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                Debug.WriteLine($"[GetTimesheet] Error: {ex}");
+                Crashes.TrackError(ex);
             }
         }
         #endregion

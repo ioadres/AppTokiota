@@ -1,4 +1,5 @@
-﻿using Rg.Plugins.Popup.Pages;
+﻿using Microsoft.AppCenter.Crashes;
+using Rg.Plugins.Popup.Pages;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,13 +13,16 @@ namespace AppTokiota.Users.Components.Activity
         {
             try
             {
-
                 NavigationPage.SetHasNavigationBar(this, false);
                 InitializeComponent();
 
-            } catch(Exception ex)
+            }
+            catch (Exception e)
             {
-				Debug.WriteLine(ex);
+                var dic = new Dictionary<string, string>();
+                dic.Add("Page", "AddActivityTimeDesviationPage");
+
+                Crashes.TrackError(e, dic);
             }
         }
 

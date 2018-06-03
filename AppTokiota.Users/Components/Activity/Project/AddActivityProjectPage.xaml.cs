@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Microsoft.AppCenter.Crashes;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,9 +21,12 @@ namespace AppTokiota.Users.Components.Activity
                 InitializeComponent();
 
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-				Debug.WriteLine(ex);
+                var dic = new Dictionary<string, string>();
+                dic.Add("Page", "AddActivityProjectPage");
+
+                Crashes.TrackError(e, dic);
             }
         }
 	}

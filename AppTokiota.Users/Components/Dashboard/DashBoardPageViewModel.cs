@@ -12,6 +12,7 @@ using Microcharts;
 using System.Diagnostics;
 using Unity.Utility;
 using Xamarin.Forms;
+using Microsoft.AppCenter.Crashes;
 
 namespace AppTokiota.Users.Components.DashBoard
 {
@@ -24,21 +25,36 @@ namespace AppTokiota.Users.Components.DashBoard
             Title = "Dashboard";
             _dashBoardModule = dashBoardModule;
             IsBusy = true;
+			ChartProjectsImputedIsVisible = true;
+			ChartImputedVsDeviationIsVisible = true;
             LoadDataAsync();
         }
-
+        
 		private Microcharts.DonutChart _chartConsumedMonthVsHourMonthExpected;
         public Microcharts.DonutChart ChartConsumedMonthVsHourMonthExpected
         {
 			get { return _chartConsumedMonthVsHourMonthExpected; }
 			set { SetProperty(ref _chartConsumedMonthVsHourMonthExpected, value); }
         }
+		private bool _chartProjectsImputedIsVisible;
+		public bool ChartProjectsImputedIsVisible
+        {
+			get { return _chartProjectsImputedIsVisible; }
+			set { SetProperty(ref _chartProjectsImputedIsVisible, value); }
+        }
+
 
 		private Microcharts.DonutChart _chartProjectsImputed;
 		public Microcharts.DonutChart ChartProjectsImputed
         {
 			get { return _chartProjectsImputed; }
 			set { SetProperty(ref _chartProjectsImputed, value); }
+        }
+		private bool _chartImputedVsDeviationIsVisible;
+		public bool ChartImputedVsDeviationIsVisible
+        {
+			get { return _chartImputedVsDeviationIsVisible; }
+			set { SetProperty(ref _chartImputedVsDeviationIsVisible, value); }
         }
 
 		private Microcharts.DonutChart _chartImputedVsDeviation;
@@ -76,7 +92,9 @@ namespace AppTokiota.Users.Components.DashBoard
 					var timesheet = await _dashBoardModule.TimesheetService.GetTimesheetBeetweenDates(minMonth, maxMonth);
                     
                     IsHolidayTomorrow = false;
-					var tomorrowDate = new DateTime(now.Year, now.Month, now.AddDays(1).Day);
+					var tomorrowDate = new DateTime(now.Year, now.Month, now.Day);
+					tomorrowDate = tomorrowDate.AddDays(1);
+
 					var dayTimesheet = timesheet.Days.Where(x => x.Date.Equals(tomorrowDate)).FirstOrDefault();
 					if(dayTimesheet != null && dayTimesheet.Holiday != null) {
 						IsHolidayTomorrow = dayTimesheet.Holiday.IsHolyday;
@@ -91,7 +109,7 @@ namespace AppTokiota.Users.Components.DashBoard
             {
                 IsBusy = false;
                 BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                Debug.WriteLine($"[GetTimesheet] Error: {ex}");
+                Crashes.TrackError(ex);
             }
         }
         #endregion
@@ -99,11 +117,13 @@ namespace AppTokiota.Users.Components.DashBoard
 		private Task GenerateChartActivitiesImputationVsDeviation(Models.Timesheet timesheet) {
 
 			return Task.Run(() => {
+				var entries = _dashBoardModule.ChartService.GenerateChartActivitiesImputationVsDeviation(timesheet);
                 ChartImputedVsDeviation = new DonutChart()
                 {
-					LabelTextSize = 30,
-                    Entries = _dashBoardModule.ChartService.GenerateChartActivitiesImputationVsDeviation(timesheet)
+					LabelTextSize = Device.Idiom == TargetIdiom.Tablet? 30:25,
+					Entries = entries
                 };
+				ChartImputedVsDeviationIsVisible = entries != null && entries.Sum(x=>x.Value) > 0 ? true : false;
 			});             
 		}
 
@@ -113,8 +133,8 @@ namespace AppTokiota.Users.Components.DashBoard
 				var entries = _dashBoardModule.ChartService.GenerateChartImputationMonthVsHourMonthExpected(timesheet);
                 ChartConsumedMonthVsHourMonthExpected = new DonutChart()
                 {
-					LabelTextSize = 30,
-                    Entries = entries
+					LabelTextSize = Device.Idiom == TargetIdiom.Tablet ? 30 : 25,
+                    Entries = entries,
                 };
 
                 var consumed = entries.FirstOrDefault();
@@ -122,7 +142,7 @@ namespace AppTokiota.Users.Components.DashBoard
                 if (consumed != null && desviation != null)
                 {
                     var total = consumed.Value + desviation.Value;
-                    StatusMonth = $"{(consumed.Value * 100 / total).ToString("#.##")} %";
+					StatusMonth = $"{(consumed.Value * 100 / total).ToString("0.00")} %";
                 }
             });
         }
@@ -130,16 +150,18 @@ namespace AppTokiota.Users.Components.DashBoard
 		private Task GenerateChartActivitiesImputedGroupByTaskAndProject(Models.Timesheet timesheet)
         {
 			return Task.Run(() => {
-                
+				var entries = _dashBoardModule.ChartService.GenerateChartActivitiesImputedGroupByTaskAndProject(timesheet);
                 var chartT = new DonutChart()
                 {
-                    Entries = _dashBoardModule.ChartService.GenerateChartActivitiesImputedGroupByTaskAndProject(timesheet)
+					Entries = entries
                 };
-				if (Device.Idiom == TargetIdiom.Tablet) {
-					chartT.LabelTextSize = 30;
-				}
+
+				chartT.LabelTextSize = Device.Idiom == TargetIdiom.Tablet ? 30 : 20;
+
 
 				ChartProjectsImputed = chartT;
+
+				ChartProjectsImputedIsVisible = entries != null && entries.Sum(x => x.Value) > 0 ? true : false;
             }); 
         }
    }

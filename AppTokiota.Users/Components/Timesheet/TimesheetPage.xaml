@@ -52,21 +52,29 @@
                 <xamanimation:TranslateToAnimation TranslateY="0" Easing="CubicOut" Duration="200" />
             </xamanimation:StoryBoard>
             
-            <Style x:Key="IconPlusTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource BigSize}" />
+            <Style x:Key="CustomIconPlusTextStyle" TargetType="controls:AwesomeLabelControl" BasedOn="{StaticResource IconPlusMidTextStyle}">
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
 
             <Style x:Key="ColorDescriptionTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="FontSize">
+                    <OnIdiom x:TypeArguments="x:Double" 
+                         Phone="{StaticResource MediumSize }" 
+                         Tablet="{StaticResource ExtraBigSize }" />
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
             </Style>
+            
             <Style x:Key="ColorBoxStyle" TargetType="BoxView">
                 <Setter Property="WidthRequest" Value="5" />
                 <Setter Property="HeightRequest" Value="2"/>
             </Style>
             <Style x:Key="ActionSelectedTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}">
+                    <OnIdiom x:TypeArguments="x:Double" 
+                         Phone="{StaticResource MediumSize }" 
+                         Tablet="{StaticResource XHugeSize }" />
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
 
@@ -121,59 +129,22 @@
             <Grid
                 Grid.Row="1">
                 <controls:Calendar 
-                        x:Name="Calendar"                    
+                        x:Name="Calendar" 
+                        Style="{StaticResource Calendar}"
                         TranslationY="400"
                         DateCommand="{Binding SelectedDateCommand}"
                         SelectedDates="{Binding Dates, Mode=TwoWay}"
                         SpecialDates="{Binding SpecialDates, Mode=TwoWay}"
                         MultiSelectDates="True" 
                         SelectRange="False"
-                        StartDay="Monday" 
-                            
-                        DatesFontSize="{StaticResource MidMediumSize }"
-                        TitleLabelFontSize="{StaticResource MediumSize }"
+                        StartDay="Monday"
                         EnableTitleMonthYearView="True"
-                            
                         WeekdaysShow="True"
-                        WeekdaysFontSize="{StaticResource LittleSize }"
-                        WeekdaysTextColor ="{StaticResource DarkColor}"
-                        WeekdaysFontAttributes="Bold"
-
-                        DisabledBorderColor="{StaticResource DarkGrayColor}"
-                        DisabledBackgroundColor="{StaticResource DarkGrayColor}"
-                        DisabledFontSize="{StaticResource LittleSize }"
-                        DisabledBorderWidth="6"
-
-                        DatesBackgroundColor="{StaticResource WhiteColor}"
-                        TitleLeftArrowTextColor="{StaticResource DarkGrayColor}"
-                        TitleRightArrowTextColor="{StaticResource DarkGrayColor}"
-                  
-                        SelectedFontSize="{StaticResource LittleSize }"
-                        SelectedBorderWidth="1"
-                        SelectedTextColor="{StaticResource DarkColor}"
-                        SelectedBorderColor="{StaticResource BlueColor}"
-                        SelectedBackgroundColor="{StaticResource BlueColor}"
-
-                        BorderWidth="0"
-                        BorderColor="{StaticResource DarkColor}"
-                    
                         RightArrowCommand="{Binding DateChosen}"
                         LeftArrowCommand="{Binding DateChosen}"
                         MonthYearButtonCommand="{Binding DateChosen}"
-
                         HorizontalOptions="Center">
-                        <controls:Calendar.DatesFontSize>
-                          <OnIdiom x:TypeArguments="x:Double" Phone="{StaticResource MidMediumSize }" Tablet="{StaticResource LargeSize }" />
-                        </controls:Calendar.DatesFontSize>
-                        <controls:Calendar.WeekdaysFontSize>
-                          <OnIdiom x:TypeArguments="x:Double" Phone="{StaticResource LittleSize }" Tablet="{StaticResource MediumSize }" />
-                        </controls:Calendar.WeekdaysFontSize>
-                        <controls:Calendar.SelectedFontSize>
-                          <OnIdiom x:TypeArguments="x:Double" Phone="{StaticResource LittleSize }" Tablet="{StaticResource LargeSize }" />
-                        </controls:Calendar.SelectedFontSize>
-                            <controls:Calendar.TitleLabelFontSize>
-                          <OnIdiom x:TypeArguments="x:Double" Phone="{StaticResource MidMediumSize }" Tablet="{StaticResource LargeSize }" />
-                        </controls:Calendar.TitleLabelFontSize>
+                            
                 </controls:Calendar>
                         
             </Grid>
@@ -199,9 +170,9 @@
                             Command="{Binding ManageMultipleImputedDayCommand}" />
                     </Grid.GestureRecognizers>
                     
-                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                        <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource IconPlusTextStyle}"/>
-                        <Label TranslationX="2" Text="Imputed a multiple selected day" Style="{StaticResource ActionSelectedTextStyle}"></Label>
+                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="FillAndExpand">
+                        <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource CustomIconPlusTextStyle}"/>
+                        <Label TranslationX="10" Text="Multiple Entry" Style="{StaticResource ActionSelectedTextStyle}" VerticalTextAlignment="Center"></Label>
                     </StackLayout>
             </Grid>
             <Grid 
@@ -225,9 +196,8 @@
                         Command="{Binding ManageImputedDayCommand}" />
                 </Grid.GestureRecognizers>
                     
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                    <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource IconPlusTextStyle}"/>
-                    <Label TranslationX="2" Text=" Info selected day" Style="{StaticResource ActionSelectedTextStyle}"></Label>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="FillAndExpand">
+                    <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource CustomIconPlusTextStyle}"/>
                 </StackLayout>
             </Grid>
 

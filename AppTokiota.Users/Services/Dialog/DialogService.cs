@@ -26,10 +26,10 @@ namespace AppTokiota.Users.Services
         }
 
 
-        public void ShowToast(string message, int duration = 5000)
+        public void ShowToast(string message, int duration = 2000)
         {
             var toastConfig = new ToastConfig(message);
-            toastConfig.Position = ToastPosition.Top;
+			toastConfig.Position = ToastPosition.Top;
             toastConfig.SetDuration(duration);            
             toastConfig.SetMessageTextColor(System.Drawing.Color.White);
             toastConfig.SetBackgroundColor(System.Drawing.Color.FromArgb(33, 44, 55));

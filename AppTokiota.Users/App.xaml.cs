@@ -10,6 +10,10 @@ using System;
 using AppTokiota.Users.Components.Login;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Plugin.LocalNotifications;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter;
 
 namespace AppTokiota.Users
 {
@@ -46,17 +50,35 @@ namespace AppTokiota.Users
         {
 			_network = Container.Resolve<INetworkConnectionService>();
 			_authenticationService = Container.Resolve<IAuthenticationService>();
+
+            // Handle when your app starts
+            AppCenter.Start(AppSettings.AppCenter, typeof(Analytics), typeof(Crashes));
+        
+
+            if (AppSettings.IsEnableNotification)
+            {
+                var dateNow = DateTime.Now;
+                var limitDate = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, 16, 0, 0);
+                CrossLocalNotifications.Current.Show("Tokiota :: Timesheet", "Remember input your timesheet", 1, dateNow.AddSeconds(10));
+            }
         }
 
         protected override void OnSleep()
         {
+            CrossLocalNotifications.Current.Cancel(1);
         }
 
         protected override void OnResume()
         {
 			if(_network.IsAvailable()) {
 				AuthenticationRun();
-			}		             
+			}
+            if (AppSettings.IsEnableNotification)
+            {
+                var dateNow = DateTime.Now;
+                var limitDate = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, 16, 0, 0);
+                CrossLocalNotifications.Current.Show("Tokiota :: Timesheet", "Remember input your timesheet", 1, dateNow.AddSeconds(10));
+            }
         }      
         
         async void AuthenticationRun() 

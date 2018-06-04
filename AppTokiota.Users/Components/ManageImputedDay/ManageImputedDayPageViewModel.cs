@@ -6,12 +6,10 @@ using AppTokiota.Users.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Prism.Commands;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 using AppTokiota.Users.Components.Activity;
-using Rg.Plugins.Popup.Services;
-using System.Diagnostics;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter.Analytics;
 
 namespace AppTokiota.Users.Components.ManageImputedDay
 {
@@ -85,23 +83,25 @@ namespace AppTokiota.Users.Components.ManageImputedDay
 				{
 					try
 					{
+                        Analytics.TrackEvent("[DeleteActivity] :: Start");
 						var result = await _manageImputedDayModule.TimesheetService.DeleteActivityTimesheet(activity.Date, activity.Id);
 						if (result != null)
 						{
-
 							_currentTimesheetForDay.Activities.Remove(activity);
 							UpdateDayOfTimesheet(_currentTimesheetForDay);
 							IsBusy = false;
+                            Analytics.TrackEvent("[DeleteActivity] :: Success");
 						}
 						else
 						{
 							IsBusy = false;
 							BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                            Analytics.TrackEvent("[DeleteActivity] :: Error");
 						}
 					} catch(Exception e) {
 						IsBusy = false;
-						Debug.WriteLine(e);
-						BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                        BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                        Crashes.TrackError(e);
 					}
 				});
 			}
@@ -118,7 +118,8 @@ namespace AppTokiota.Users.Components.ManageImputedDay
                 CurrentTimesheet = _currentTimesheetForDay
             };
             navigationParameters.Add(Imputed.Tag, imputedContext);
-            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters, false, true);           
+            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters, false, true);   
+            Analytics.TrackEvent("[Activity] :: Add :: ManageImputedDay");
         }
         #endregion
 

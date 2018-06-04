@@ -16,7 +16,7 @@ namespace AppTokiota.Users.Services
         {
             var specialDates = new List<SpecialDate>();
             var modelDay = GetSpecialDaysByModelDay(timesheet.Days).ToList();
-            var modelImputed = GetSpecialDaysByModelInputed(timesheet.Activities).ToList();
+            var modelImputed = GetSpecialDaysByModelImputed(timesheet.Activities).ToList();
             var modelDayClose = GetSpecialDaysByCloseDay(timesheet.Days);          
 
             specialDates.AddRange(modelDayClose);
@@ -36,12 +36,12 @@ namespace AppTokiota.Users.Services
             return await Task.FromResult(specialDates);
         }
 
-        private List<SpecialDate> GetSpecialDaysByModelInputed(Dictionary<int, Activity> activities)
+        private List<SpecialDate> GetSpecialDaysByModelImputed(Dictionary<int, Activity> activities)
         {
             var listSpecialDate = new List<SpecialDate>();
             try
             {
-                var dayStyle = new List<DayStyle>() { CalendarColors.GetInputed() };
+                var dayStyle = new List<DayStyle>() { CalendarColors.GetImputed() };
                 foreach (var item in activities)
                 {
                     var specialDay = new SpecialDate(item.Value.Date, true);

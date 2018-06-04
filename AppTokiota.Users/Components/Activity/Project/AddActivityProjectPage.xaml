@@ -16,14 +16,25 @@
         <ResourceDictionary>
             
             <Style x:Key="ActionSelectedTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidLargeSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MidLargeSize }" 
+                                 Tablet="{StaticResource XHugeSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
 
-            <Style x:Key="IconTextPanelStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
+            <Style x:Key="IconTextPanelStyle" TargetType="Label" BasedOn="{StaticResource IconFontBaseStyle}">
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource HugeSize }" 
+                                 Tablet="{StaticResource XHugeSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
-                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
             </Style>
 
             <xamanimation:StoryBoard 
@@ -102,15 +113,19 @@
                                 IsEnabled="{Binding ProjectSelected}">
                         </Picker>
 
-                        <controls:ExtendedEditor Grid.Row="2"
-                                                 VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
-                                                 x:Name="Description" 
-                                                 Placeholder="Description"
-                                                 PlaceholderColor="{StaticResource GrayColor}"
-                                                 AutomationId="Description" 
-                                                 Text="{Binding Description}"
-                                                 TextColor="{StaticResource SecondaryTextColor}">
+                    <StackLayout Grid.Row="2" VerticalOptions="FillAndExpand">
+                         <controls:ExtendedEditor 
+                             VerticalOptions="FillAndExpand"
+                             HorizontalOptions="FillAndExpand"
+                             x:Name="Description" 
+                             Placeholder="Description"
+                             PlaceholderColor="{StaticResource GrayColor}"
+                             AutomationId="Description" 
+                             Text="{Binding Description}"
+                             TextColor="{StaticResource SecondaryTextColor}">
                         </controls:ExtendedEditor>
+                    </StackLayout>
+                       
              
                 </Grid>
             </StackLayout>

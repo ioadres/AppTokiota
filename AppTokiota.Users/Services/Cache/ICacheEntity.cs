@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppTokiota.Users.Services.Cache
+namespace AppTokiota.Users.Services
 {
     public interface ICacheEntity
     {

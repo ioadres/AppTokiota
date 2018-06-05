@@ -7,7 +7,6 @@ using ModernHttpClient;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using AppTokiota.Users.Utils;
-using AppTokiota.Users.Services.Cache;
 using Akavache;
 
 namespace AppTokiota.Users.Services
@@ -39,7 +38,8 @@ namespace AppTokiota.Users.Services
                         {"client_id", AppSettings.MicrosoftApiClientId},
                         {"resource", AppSettings.MicrosoftResource},
                         {"username", email },
-                        {"password", password }
+                        {"password", password },
+                        {"redirect_uri", "urn:ietf:wg:oauth:2.0:oob"}
                     });
                     var response = await client.PostAsync(url, content);
                     var json = await response.Content.ReadAsStringAsync();
@@ -104,17 +104,21 @@ namespace AppTokiota.Users.Services
             }
         }
 
-        public async Task<bool> UserIsAuthenticatedAndValidAsync()
-        {            
-            if (!IsAuthenticated)
+        public async Task<bool> UserIsAuthenticatedAndValidAsync(bool forceRefresh = false)
+        {
+            if (!forceRefresh)
             {
-                return false;
+                if (!IsAuthenticated)
+                {
+                    return false;
+                }
             }
+
             try
             {
                 var keyToken = AppSettings.IdAppCache;
                 var exist = await _cacheEntity.GetObjectAsync<bool>(keyToken);
-                if(!exist) {
+                if(!exist || forceRefresh == true) {
                     exist = await RefreshToken();
                 }
                 return exist;

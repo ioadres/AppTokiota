@@ -1,8 +1,6 @@
 ﻿using AppTokiota.Users.Components.Core;
 using AppTokiota.Users.Components.Core.Module;
 using AppTokiota.Users.Models;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -130,7 +128,7 @@ namespace AppTokiota.Users.Components.Activity
                      
 					if (Context.CurrentTimesheet == null)
                     {
-                        Analytics.TrackEvent("[BatchActivity] :: Start");
+                        BaseModule.AnalyticsService.TrackEvent("[BatchActivity] :: Start");
 						var multiplesDay = Context.CurrentTimesheetMultipleDay.Days?.Select(x => new TimesheetAddActivityBatch()
 						{
 							Day = int.Parse(x.Date.ToString("dd")),
@@ -146,12 +144,12 @@ namespace AppTokiota.Users.Components.Activity
 						await _addActivityModule.TimesheetService.BatchActivity(multiplesDay.ToList());
 						IsBusy = false;
 						CloseCommand.Execute();
-                        Analytics.TrackEvent("[BatchActivity] :: Success");
+                        BaseModule.AnalyticsService.TrackEvent("[BatchActivity] :: Success");
                     }
                     else
                     {
 
-                        Analytics.TrackEvent("[PostActivity] :: Start");
+                        BaseModule.AnalyticsService.TrackEvent("[PostActivity] :: Start");
                         var response = await _addActivityModule.TimesheetService.PostActivity(new TimesheetAddActivity()
                         {
 							AssignementId = SelectedTask.AssignementId,
@@ -167,13 +165,12 @@ namespace AppTokiota.Users.Components.Activity
 						navigationParameters.Add(AppTokiota.Users.Models.ActivityDay.Tag, activityDay);
 						IsBusy = false;
                         await BaseModule.NavigationService.GoBackAsync(navigationParameters);
-                        Analytics.TrackEvent("[PostActivity] :: Success");
+                        BaseModule.AnalyticsService.TrackEvent("[PostActivity] :: Success");
                     }
 				}
-			} catch(Exception ex) {
+			} catch(Exception) {
 				IsBusy = false;              
 				BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                Crashes.TrackError(ex);
 			}
             
         }

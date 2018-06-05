@@ -14,6 +14,8 @@ using Plugin.LocalNotifications;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter;
+using Xamarin.Forms;
+using Plugin.Connectivity;
 
 namespace AppTokiota.Users
 {
@@ -53,7 +55,7 @@ namespace AppTokiota.Users
 
             // Handle when your app starts
             AppCenter.Start(AppSettings.AppCenter, typeof(Analytics), typeof(Crashes));
-        
+            OnAppearing();
 
             if (AppSettings.IsEnableNotification)
             {
@@ -68,10 +70,10 @@ namespace AppTokiota.Users
             CrossLocalNotifications.Current.Cancel(1);
         }
 
-        protected override void OnResume()
+        protected override async void OnResume()
         {
 			if(_network.IsAvailable()) {
-				AuthenticationRun();
+				await AuthenticationRun();
 			}
             if (AppSettings.IsEnableNotification)
             {
@@ -79,13 +81,31 @@ namespace AppTokiota.Users
                 var limitDate = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, 16, 0, 0);
                 CrossLocalNotifications.Current.Show("Tokiota :: Timesheet", "Remember input your timesheet", 1, dateNow.AddSeconds(10));
             }
-        }      
+        }  
+
+        protected void OnDisappearing()
+        {
+            MessagingCenter.Unsubscribe<App>(this, "UnauthorizedAccessException");
+        }
+
+        protected void OnAppearing()
+        {
+            MessagingCenter.Subscribe<ISubscribeMessagingCenter>(this, nameof(UnauthorizedAccessException), async (app) =>
+            {
+                if (CrossConnectivity.Current.IsConnected)
+                {
+                    Debug.WriteLine("sdsadasd --" + nameof(UnauthorizedAccessException));
+                    await AuthenticationRun(true);
+                }
+            });
+        }
+
         
-        async void AuthenticationRun() 
+        async Task AuthenticationRun(bool forceRefresh = false) 
         {
             try
             {    
-				var result = await _authenticationService.UserIsAuthenticatedAndValidAsync();
+                var result = await _authenticationService.UserIsAuthenticatedAndValidAsync(forceRefresh);
                 if (!result)
                 {
                     await NavigationService.NavigateAsync(PageRoutes.GetKey<LoginPage>());

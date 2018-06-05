@@ -74,37 +74,35 @@ namespace AppTokiota.Users.Components.ManageImputedDay
 
         #region EventOnDeleteItem
         public DelegateCommand<object> OnDeleteItemCommand => new DelegateCommand<object>((obj) => { OnDeleteItem((ActivityDay)obj); });
-        protected void OnDeleteItem(ActivityDay activity)
+        protected async void OnDeleteItem(ActivityDay activity)
         {
 			IsBusy = true;
-			if (IsInternetAndCloseModal())
-			{
-				Device.BeginInvokeOnMainThread(async () =>
-				{
-					try
-					{
-                        Analytics.TrackEvent("[DeleteActivity] :: Start");
-						var result = await _manageImputedDayModule.TimesheetService.DeleteActivityTimesheet(activity.Date, activity.Id);
-						if (result != null)
-						{
-							_currentTimesheetForDay.Activities.Remove(activity);
-							UpdateDayOfTimesheet(_currentTimesheetForDay);
-							IsBusy = false;
-                            Analytics.TrackEvent("[DeleteActivity] :: Success");
-						}
-						else
-						{
-							IsBusy = false;
-							BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                            Analytics.TrackEvent("[DeleteActivity] :: Error");
-						}
-					} catch(Exception e) {
-						IsBusy = false;
+            if (IsInternetAndCloseModal())
+            {
+                try
+                {
+                    BaseModule.AnalyticsService.TrackEvent("[DeleteActivity] :: Start");
+                    var result = await _manageImputedDayModule.TimesheetService.DeleteActivityTimesheet(activity.Date, activity.Id);
+                    if (result != null)
+                    {
+                        _currentTimesheetForDay.Activities.Remove(activity);
+                        UpdateDayOfTimesheet(_currentTimesheetForDay);
+                        IsBusy = false;
+                        BaseModule.AnalyticsService.TrackEvent("[DeleteActivity] :: Success");
+                    }
+                    else
+                    {
+                        IsBusy = false;
                         BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                        Crashes.TrackError(e);
-					}
-				});
-			}
+                        BaseModule.AnalyticsService.TrackEvent("[DeleteActivity] :: Error");
+                    }
+                }
+                catch (Exception)
+                {
+                    IsBusy = false;
+                    BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                }
+            }			
         }
         #endregion
 
@@ -119,7 +117,7 @@ namespace AppTokiota.Users.Components.ManageImputedDay
             };
             navigationParameters.Add(Imputed.Tag, imputedContext);
             await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters, false, true);   
-            Analytics.TrackEvent("[Activity] :: Add :: ManageImputedDay");
+            BaseModule.AnalyticsService.TrackEvent("[Activity] :: Add :: Single :: ManageImputedDay");
         }
         #endregion
 

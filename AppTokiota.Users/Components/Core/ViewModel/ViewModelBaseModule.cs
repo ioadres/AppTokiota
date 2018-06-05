@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AppTokiota.Users.Services.Cache;
 
 namespace AppTokiota.Users.Components.Core
 {
@@ -18,7 +17,9 @@ namespace AppTokiota.Users.Components.Core
         private readonly IDialogService _dialogService;
 		private readonly IDialogErrorCustomService _dialogErrorCustomService;
         private readonly INavigationService _navigationService;
+        private readonly IAnalyticsService _analytics;
 
+        public IAnalyticsService AnalyticsService => _analytics;
         public IAuthenticationService AuthenticationService => _authenticationService;
         public ICacheEntity CacheEntity => _cacheEntity;
         public IDialogService DialogService => _dialogService;
@@ -27,8 +28,9 @@ namespace AppTokiota.Users.Components.Core
 
 		public IDialogErrorCustomService DialogErrorCustomService => _dialogErrorCustomService;
 
-		public ViewModelBaseModule(INavigationService navigationService, IAuthenticationService authenticationService, IDialogService dialogService, ICacheEntity cacheEntity,INetworkConnectionService networkConnectionService, IDialogErrorCustomService dialogErrorCustom)
+        public ViewModelBaseModule(IAnalyticsService analytics ,INavigationService navigationService, IAuthenticationService authenticationService, IDialogService dialogService, ICacheEntity cacheEntity,INetworkConnectionService networkConnectionService, IDialogErrorCustomService dialogErrorCustom)
         {
+            _analytics = analytics;
             _navigationService = navigationService;
             _authenticationService = authenticationService;
             _dialogService = dialogService;

@@ -10,6 +10,7 @@ namespace AppTokiota.Users.Controls
     {
         private const string holiday = "\uf072";
         private const string weekend = "\uf118";
+        private const string edit  = "f303"; //"\f044"; 
         private const int MAXSTRING = 100;
 
         public static readonly BindableProperty DayProperty =
@@ -53,8 +54,13 @@ namespace AppTokiota.Users.Controls
                         this.Text = value.ToString().Substring(0, MAXSTRING) + endMessage;
                     }
                 }
-                
+
             }
+            else
+            {
+                this.Text = edit + "  Not imputed!!";
+            }
+
         }
 
         public string ProjectDescription

@@ -7,14 +7,15 @@ using AppTokiota.Users.Controls;
 using AppTokiota.Users.Models;
 using AppTokiota.Users.Helpers;
 using AppTokiota.Users.Models.Calendar;
-using AppTokiota.Users.Services.Cache;
 using Prism.Navigation;
 using System.Diagnostics;
+using Xamarin.Forms;
+using Microsoft.AppCenter.Crashes;
 
 namespace AppTokiota.Users.Services
 {
 
-    public class TimesheetService : TimesheetServiceBase, ITimesheetService
+    public class TimesheetService : TimesheetServiceBase, ITimesheetService, ISubscribeMessagingCenter
     {
         private IRequestService _requestService;
         private ICacheEntity _cacheService;
@@ -30,117 +31,79 @@ namespace AppTokiota.Users.Services
 
         public async Task<Timesheet> GetTimesheetBeetweenDates(DateTime from, DateTime to)
         {
-            var timesheet = await _cacheService.GetLocalObjectAsync<Timesheet>($"/{from.ToString("yyyyMMdd")}/{to.ToString("yyyyMMdd")}/timesheet");
+            try
+            {
+                var timesheet = await _cacheService.GetLocalObjectAsync<Timesheet>($"/{from.ToString("yyyyMMdd")}/{to.ToString("yyyyMMdd")}/timesheet");
 
-			for (var i = 0; i < 2; i++)
-			{
-				try
-				{
-					if (await _authenticationService.UserIsAuthenticatedAndValidAsync())
-					{
-                        if (timesheet == null || AppSettings.IsEnableCache == false)
-                        {
-                            var nowLess3Month = DateTime.Now.AddMonths(-3);
+                if (timesheet == null || AppSettings.IsEnableCache == false)
+                {
+                    var nowLess3Month = DateTime.Now.AddMonths(-3);
 
-                            var url = $"{AppSettings.TimesheetUrlEndPoint}?from={from.ToString("yyyy-MM-dd")}&to={to.ToString("yyyy-MM-dd")}";
-                            timesheet = await _requestService.GetAsync<Timesheet>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
-                            if (to < nowLess3Month)
-                            {
-                                await _cacheService.InsertLocalObjectAsync($"/{from.ToString("yyyyMMdd")}/{to.ToString("yyyyMMdd")}/timesheet",timesheet);
-                            }
+                    var url = $"{AppSettings.TimesheetUrlEndPoint}?from={from.ToString("yyyy-MM-dd")}&to={to.ToString("yyyy-MM-dd")}";
+                    timesheet = await _requestService.GetAsync<Timesheet>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
+                    if (to < nowLess3Month)
+                    {
+                        await _cacheService.InsertLocalObjectAsync($"/{from.ToString("yyyyMMdd")}/{to.ToString("yyyyMMdd")}/timesheet",timesheet);
+                    }
 
-                        }
-
-                        return timesheet;
-					}
-					else {
-						throw new UnauthorizedAccessException();
-					}
-				}
-				catch (Exception ex)
-				{
-					Debug.WriteLine(ex);
-				}               
-			}
-			throw new UnauthorizedAccessException();
-               
+                }
+                return timesheet;
+            }            
+            catch (Exception e)
+            {
+                MessagingCenter.Send<ISubscribeMessagingCenter>(this,nameof(UnauthorizedAccessException));
+                Crashes.TrackError(e);
+                throw e;
+            }			
         }
 
 		public async Task<TimesheetDeleteActivity> DeleteActivityTimesheet(DateTime from, int idActivity)
         {
-			for (var i = 0; i < 2; i++)
+            try {
+                var url = $"{AppSettings.TimesheetUrlEndPoint}/{from.ToString("yyyy")}/{from.ToString("MM")}/{idActivity}";
+                var timesheet = await _requestService.DeleteAsync<TimesheetDeleteActivity>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
+                return timesheet;
+            } 
+            catch (Exception e)
             {
-                try
-                {
-                    if (await _authenticationService.UserIsAuthenticatedAndValidAsync())
-                    {
-            			var url = $"{AppSettings.TimesheetUrlEndPoint}/{from.ToString("yyyy")}/{from.ToString("MM")}/{idActivity}";
-            			var timesheet = await _requestService.DeleteAsync<TimesheetDeleteActivity>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
-						return timesheet;   
-					}
-                    else
-                    {
-                        throw new UnauthorizedAccessException();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
-                }
-            }
-            throw new UnauthorizedAccessException();      
+                MessagingCenter.Send<ISubscribeMessagingCenter>(this, nameof(UnauthorizedAccessException));
+                Crashes.TrackError(e);
+                throw e;
+            }   
         }
         
 		public async Task<Activity> PostActivity(TimesheetAddActivity timesheetAddActivity, DateTime from)
         {
-			for (var i = 0; i < 2; i++)
+            try
+            {               
+    			var url = $"{AppSettings.TimesheetUrlEndPoint}/{from.ToString("yyyy")}/{from.ToString("MM")}/{from.ToString("dd")}";
+    			var timesheet = await _requestService.PostAsync<TimesheetAddActivity,Activity>(url,timesheetAddActivity, AppSettings.AuthenticatedUserResponse.AccessToken);
+    			timesheet.ProjectId = timesheetAddActivity.ProjectId;
+    			timesheet.TaskId = timesheetAddActivity.TaskId;
+    			return timesheet;				
+            } 
+            catch (Exception e)
             {
-                try
-                {
-                    if (await _authenticationService.UserIsAuthenticatedAndValidAsync())
-                    {
-            			var url = $"{AppSettings.TimesheetUrlEndPoint}/{from.ToString("yyyy")}/{from.ToString("MM")}/{from.ToString("dd")}";
-            			var timesheet = await _requestService.PostAsync<TimesheetAddActivity,Activity>(url,timesheetAddActivity, AppSettings.AuthenticatedUserResponse.AccessToken);
-            			timesheet.ProjectId = timesheetAddActivity.ProjectId;
-            			timesheet.TaskId = timesheetAddActivity.TaskId;
-        				return timesheet;
-					}
-                    else
-                    {
-                        throw new UnauthorizedAccessException();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
-                }
-            }
-            throw new UnauthorizedAccessException();
+                MessagingCenter.Send<ISubscribeMessagingCenter>(this, nameof(UnauthorizedAccessException));
+                Crashes.TrackError(e);
+                throw e;
+            }  
         }
 
 		public async Task<List<Activity>> BatchActivity(List<TimesheetAddActivityBatch> timesheetAddActivityBatch)
 		{
-			for (var i = 0; i < 2; i++)
+            try
             {
-                try
-                {
-                    if (await _authenticationService.UserIsAuthenticatedAndValidAsync())
-                    {
-                        var url = $"{AppSettings.TimesheetUrlEndPoint}/batch";
-            			var timesheet = await _requestService.PostAsync<List < TimesheetAddActivityBatch >, List<Activity>>(url, timesheetAddActivityBatch, AppSettings.AuthenticatedUserResponse.AccessToken);
-                        return timesheet;
-            		}
-                    else
-                    {
-                        throw new UnauthorizedAccessException();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
-                }
+                var url = $"{AppSettings.TimesheetUrlEndPoint}/batch";
+    			var timesheet = await _requestService.PostAsync<List < TimesheetAddActivityBatch >, List<Activity>>(url, timesheetAddActivityBatch, AppSettings.AuthenticatedUserResponse.AccessToken);
+                return timesheet;    		
             }
-            throw new UnauthorizedAccessException();
+            catch (Exception e)
+            {
+                MessagingCenter.Send<ISubscribeMessagingCenter>(this, nameof(UnauthorizedAccessException));
+                Crashes.TrackError(e);
+                throw e;
+            }
         }
     }
 }

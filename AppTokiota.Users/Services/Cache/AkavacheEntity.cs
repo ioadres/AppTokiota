@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Reactive.Linq;
 using System.Diagnostics;
 
-namespace AppTokiota.Users.Services.Cache
+namespace AppTokiota.Users.Services
 {
     public class AkavacheEntity : ICacheEntity
     {

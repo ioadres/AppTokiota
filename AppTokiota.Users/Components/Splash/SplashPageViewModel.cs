@@ -37,7 +37,7 @@ namespace AppTokiota.Users.Components.Splash
         {
 			if (AppSettings.AuthenticatedUserResponse != null)
             {
-                NavigateCommand.Execute(MasterModule.GetMasterNavigationPage(AppSettings.StartupView));
+                BaseModule.NavigationService.NavigateAsync(MasterModule.GetMasterNavigationPage(AppSettings.StartupView));
             } else {
 			    NavigateCommand.Execute(PageRoutes.GetKey<LoginPage>());
             }     

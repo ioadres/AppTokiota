@@ -68,9 +68,17 @@
                       JustifyContent="SpaceBetween"
                       Grid.Row="0"
                     >
-                <BoxView HeightRequest="110"
-                         FlexLayout.Shrink="0"
-                         BackgroundColor="Transparent"/>    
+
+                <StackLayout VerticalOptions="Fill" 
+                             HorizontalOptions="Fill"  
+                             Padding="40" 
+                             FlexLayout.Shrink="0">
+                    <Image VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="200">
+                        <Image.Source>
+                            <FileImageSource File="logo_horizontal.png" />
+                        </Image.Source>
+                    </Image>
+                </StackLayout>
                         
                 <ListView x:Name="menuItemsListView"
                           SeparatorVisibility="None"
@@ -109,7 +117,7 @@
                   </ListView.ItemTemplate>
                 </ListView>
 
-                <ContentView Margin="50" 
+                <ContentView 
                              FlexLayout.Shrink="0"
                              FlexLayout.AlignSelf="End">
                     

@@ -22,7 +22,6 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         public ManageImputedDayPageViewModel(IViewModelBaseModule baseModule, IManageImputedDayModule manageImputedDayModule) : base(baseModule)
         {
             _manageImputedDayModule = manageImputedDayModule;
-
             Title = "Imputed Day";
         }
 
@@ -59,6 +58,17 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         {
             get { return _deviationTotal; }
             set { SetProperty(ref _deviationTotal, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the Total DeviationTotal 
+        /// </summary>
+        /// <value>The Total DeviationTotal</value>
+        private bool _anyActivities;
+        public bool AnyActivities
+        {
+            get { return _anyActivities; }
+            set { SetProperty(ref _anyActivities, value); }
         }
 
         /// <summary>
@@ -158,7 +168,7 @@ namespace AppTokiota.Users.Components.ManageImputedDay
                 Activities = new ObservableCollection<ActivityDay>(timesheet.Activities);
                 ImputedTotal = Activities.Sum(x => x.Imputed);
                 DeviationTotal = Activities.Sum(x => x.Deviation);
-
+                AnyActivities = timesheet.Activities.Any();
                 IsEnabled = !_currentTimesheetForDay.Day.IsClosed;
             });
         }

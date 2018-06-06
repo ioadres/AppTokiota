@@ -350,6 +350,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <AndroidAsset Include="Assets\no-data-add.json" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />

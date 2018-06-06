@@ -41,6 +41,13 @@ namespace AppTokiota.Users.Components.ManageImputedDay
             set { SetProperty(ref _isEnabled, value); }
         }
 
+        private bool _isVisibleButtonAdd = true;
+        public bool IsVisibleButtonAdd
+        {
+            get { return _isVisibleButtonAdd; }
+            set { SetProperty(ref _isVisibleButtonAdd, value); }
+        }
+
         /// <summary>
         /// Gets or sets the activities collection dates 
         /// </summary>
@@ -147,6 +154,12 @@ namespace AppTokiota.Users.Components.ManageImputedDay
 				var activity = parameters.GetValue<Models.ActivityDay>(Models.ActivityDay.Tag);
 				_currentTimesheetForDay.Activities.Add(activity);
 				UpdateDayOfTimesheet(_currentTimesheetForDay);
+            }
+
+            keyContains = parameters.ContainsKey("IsVisibleButtonAdd");
+            if (keyContains)
+            {
+                IsVisibleButtonAdd = parameters.GetValue<bool>("IsVisibleButtonAdd");
             }
         }
 

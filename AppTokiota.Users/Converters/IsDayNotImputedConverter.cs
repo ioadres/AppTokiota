@@ -12,9 +12,12 @@ namespace AppTokiota.Users.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var day = (Day)value;
-            var result = day;
-            return result;
+            if (value != null)
+            {
+                var numProject = (int)value;
+                if (numProject == 0) return true; 
+            }
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

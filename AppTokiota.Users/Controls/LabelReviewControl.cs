@@ -34,38 +34,22 @@ namespace AppTokiota.Users.Controls
         }
 
         public static readonly BindableProperty ProjectDescriptionProperty =
-           BindableProperty.Create("ProjectDescription", typeof(string), typeof(LabelReviewControl), string.Empty,
+           BindableProperty.Create("ProjectDescription", typeof(int), typeof(LabelReviewControl), 0,
                propertyChanged: (bindable, oldValue, newValue) => (bindable as LabelReviewControl).ChangeProjectDescription(newValue));
 
         private void ChangeProjectDescription(object newValue)
         {
-            var endMessage = "...";
-            var value = (string)newValue;
-            if (!string.IsNullOrEmpty(value))
-            {
-                if (value?.ToString().Trim().Length > 0)
-                {
-                    if (value.ToString().Trim().Length < MAXSTRING)
-                    {
-                        this.Text = value;
-                    }
-                    else
-                    {
-                        this.Text = value.ToString().Substring(0, MAXSTRING) + endMessage;
-                    }
-                }
-
-            }
-            else
-            {
+            var value = (int)newValue;
+            if (value == 0)
+            { 
                 this.Text = edit + "  Not imputed!!";
             }
 
         }
 
-        public string ProjectDescription
+        public int ProjectDescription
         {
-            get { return (string)GetValue(ProjectDescriptionProperty); }
+            get { return (int)GetValue(ProjectDescriptionProperty); }
             set { SetValue(ProjectDescriptionProperty, value); }
         }
 

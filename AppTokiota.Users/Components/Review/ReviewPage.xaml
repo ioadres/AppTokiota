@@ -62,6 +62,7 @@
                 <Style.Triggers>
                     <DataTrigger TargetType="Label" Binding="{Binding Day, Converter= {StaticResource cnvDisabledDay}}" Value="True" >
                         <Setter Property="TextColor" Value="{StaticResource DarkGrayColor}"/>
+                        <Setter Property="FontSize" Value="{StaticResource LargeSize}"/>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
@@ -88,22 +89,27 @@
 
             <Grid Padding="5" Grid.Row="0" HorizontalOptions="CenterAndExpand">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <controls:BindablePickerControl Grid.Row="0" Grid.Column="0" x:Name="pickerMonth"
+                <Picker Grid.Row="0" Grid.Column="0" x:Name="pickerMonth"
                             Title="Month" WidthRequest="100"
                             ItemsSource="{Binding MonthPicker}"
                             VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
                             SelectedItem="{Binding MyItemMonthPicker,Mode=TwoWay}"                        
-                            DisplayProperty="{Binding DisplayName }"/>
+                            ItemDisplayBinding="{Binding DisplayName }"/>
 
-                <controls:BindablePickerControl Grid.Row="0" Grid.Column="1" x:Name="pickerYear"
+                <Picker Grid.Row="0" Grid.Column="1" x:Name="pickerYear"
                             Title="Year" WidthRequest="100"
                             ItemsSource="{Binding YearPicker}"
                             VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
                             SelectedItem="{Binding MyItemYearPicker, Mode=TwoWay }"
-                            DisplayProperty="{Binding DisplayName}"/>
+                            ItemDisplayBinding="{Binding DisplayName}"/>
+                
+                <StackLayout Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Button Style="{StaticResource ButtonSecundary}"  Text="Search" Command="{Binding LoadDataReviewByDateCommand}"></Button>
+                </StackLayout>
             </Grid>
             
             <ListView x:Name="lstReview" HasUnevenRows="True" Grid.Row="1" ItemsSource="{Binding LstReview}"
@@ -129,9 +135,9 @@
                                 </Grid.GestureRecognizers>
                                 <Label  Grid.Column="0" HorizontalOptions="Center" Text="{Binding Day.Date, Converter ={StaticResource DateOfWeekFormat}}" Style ="{StaticResource DayTextStyle}" />
 
-                                <StackLayout  Grid.Row ="0" Grid.Column="2" VerticalOptions="FillAndExpand" IsVisible="{Binding Day, Converter= {StaticResource cnvDisabledDay}}" HeightRequest="40">
-                                    <controls:LabelReviewControl ProjectDescription="{Binding Activity.Project.DisplayName}" Day="{Binding Day}" Style="{StaticResource ProjectTextStyle}" ></controls:LabelReviewControl>
-                                </StackLayout>
+                                <!--<StackLayout  Grid.Row ="0" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="4" VerticalOptions="CenterAndExpand" IsVisible="{Binding Day, Converter= {StaticResource cnvDisabledDay}}">
+                                    <controls:LabelReviewControl ProjectDescription="{Binding ProjectsForDay}" Day="{Binding Day}" Style="{StaticResource ProjectTextStyle}" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"></controls:LabelReviewControl>
+                                 </StackLayout>-->
 
                                 <StackLayout  Grid.Row ="1" Grid.Column="1">
                                     <BoxView
@@ -189,7 +195,7 @@
                     <Label Text="{Binding DeviationTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
                 </StackLayout>
                 <StackLayout Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center">
-                    <Button Style="{StaticResource ButtonPrimary}"  Text="Send" IsVisible="{Binding BtnSendReviewIsVisible}"></Button>
+                    <Button Style="{StaticResource ButtonPrimary}"  Text="Send" IsVisible="{Binding BtnSendReviewIsVisible}" Command="{Binding SendReviewValidateCommand}"></Button>
                 </StackLayout>
             </Grid>
 

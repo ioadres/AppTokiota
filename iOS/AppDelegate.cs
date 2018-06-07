@@ -2,6 +2,7 @@
 using AppTokiota.Users;
 using AppTokiota.Users.Controls;
 using Foundation;
+using Lottie.Forms.iOS.Renderers;
 using Prism;
 using Prism.Ioc;
 using Refractored.XamForms.PullToRefresh.iOS;
@@ -34,7 +35,7 @@ namespace AppTokiota.iOS
             }
 
             global::Xamarin.Forms.Forms.Init();
-
+            AnimationViewRenderer.Init();
             PullToRefreshLayoutRenderer.Init();
 
             LoadApplication(new App(new iOSInitializer()));

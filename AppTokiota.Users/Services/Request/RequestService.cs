@@ -130,7 +130,7 @@ namespace AppTokiota.Users.Services
 
                 if (response.StatusCode == HttpStatusCode.Forbidden || response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    throw new Exception(content);
+                    throw new UnauthorizedAccessException(content);
                 }
 
                 throw new HttpRequestException(content);

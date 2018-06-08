@@ -6,12 +6,10 @@ using AppTokiota.Users.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Prism.Commands;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 using AppTokiota.Users.Components.Activity;
-using Rg.Plugins.Popup.Services;
-using System.Diagnostics;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter.Analytics;
 
 namespace AppTokiota.Users.Components.ManageImputedDay
 {
@@ -24,7 +22,6 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         public ManageImputedDayPageViewModel(IViewModelBaseModule baseModule, IManageImputedDayModule manageImputedDayModule) : base(baseModule)
         {
             _manageImputedDayModule = manageImputedDayModule;
-
             Title = "Imputed Day";
         }
 
@@ -71,6 +68,17 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         }
 
         /// <summary>
+        /// Gets or sets the Total DeviationTotal 
+        /// </summary>
+        /// <value>The Total DeviationTotal</value>
+        private bool _anyActivities;
+        public bool AnyActivities
+        {
+            get { return _anyActivities; }
+            set { SetProperty(ref _anyActivities, value); }
+        }
+
+        /// <summary>
         /// Gets or sets the Total Imputed 
         /// </summary>
         /// <value>The Total Imputed</value>
@@ -83,35 +91,35 @@ namespace AppTokiota.Users.Components.ManageImputedDay
 
         #region EventOnDeleteItem
         public DelegateCommand<object> OnDeleteItemCommand => new DelegateCommand<object>((obj) => { OnDeleteItem((ActivityDay)obj); });
-        protected void OnDeleteItem(ActivityDay activity)
+        protected async void OnDeleteItem(ActivityDay activity)
         {
 			IsBusy = true;
-			if (IsInternetAndCloseModal())
-			{
-				Device.BeginInvokeOnMainThread(async () =>
-				{
-					try
-					{
-						var result = await _manageImputedDayModule.TimesheetService.DeleteActivityTimesheet(activity.Date, activity.Id);
-						if (result != null)
-						{
-
-							_currentTimesheetForDay.Activities.Remove(activity);
-							UpdateDayOfTimesheet(_currentTimesheetForDay);
-							IsBusy = false;
-						}
-						else
-						{
-							IsBusy = false;
-							BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-						}
-					} catch(Exception e) {
-						IsBusy = false;
-						Debug.WriteLine(e);
-						BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-					}
-				});
-			}
+            if (IsInternetAndCloseModal())
+            {
+                try
+                {
+                    BaseModule.AnalyticsService.TrackEvent("[DeleteActivity] :: Start");
+                    var result = await _manageImputedDayModule.TimesheetService.DeleteActivityTimesheet(activity.Date, activity.Id);
+                    if (result != null)
+                    {
+                        _currentTimesheetForDay.Activities.Remove(activity);
+                        UpdateDayOfTimesheet(_currentTimesheetForDay);
+                        IsBusy = false;
+                        BaseModule.AnalyticsService.TrackEvent("[DeleteActivity] :: Success");
+                    }
+                    else
+                    {
+                        IsBusy = false;
+                        BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                        BaseModule.AnalyticsService.TrackEvent("[DeleteActivity] :: Error");
+                    }
+                }
+                catch (Exception)
+                {
+                    IsBusy = false;
+                    BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                }
+            }			
         }
         #endregion
 
@@ -125,7 +133,8 @@ namespace AppTokiota.Users.Components.ManageImputedDay
                 CurrentTimesheet = _currentTimesheetForDay
             };
             navigationParameters.Add(Imputed.Tag, imputedContext);
-            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters, false, true);           
+            await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters, false, true);   
+            BaseModule.AnalyticsService.TrackEvent("[Activity] :: Add :: Single :: ManageImputedDay");
         }
         #endregion
 
@@ -172,7 +181,7 @@ namespace AppTokiota.Users.Components.ManageImputedDay
                 Activities = new ObservableCollection<ActivityDay>(timesheet.Activities);
                 ImputedTotal = Activities.Sum(x => x.Imputed);
                 DeviationTotal = Activities.Sum(x => x.Deviation);
-
+                AnyActivities = timesheet.Activities.Any();
                 IsEnabled = !_currentTimesheetForDay.Day.IsClosed;
             });
         }

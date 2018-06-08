@@ -7,13 +7,14 @@
     xmlns:converters="clr-namespace:AppTokiota.Users.Converters;assembly=AppTokiota.Users"
     xmlns:controls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
     xmlns:b="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
-    xmlns:utils="clr-namespace:AppTokiota.Users.Utils;assembly=AppTokiota.Users"
+    xmlns:utils="clr-namespace:AppTokiota.Users.Utils;assembly=AppTokiota.Users"  
+    xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
     utils:NavigationBarAttachedProperty.BackgroundColor="{StaticResource RedColor}"
     utils:NavigationBarAttachedProperty.TextColor="{StaticResource WhiteColor}"                  
     x:Name="this"
     Title="{Binding Title}"
     >
-    <ContentPage.ToolbarItems>
+    <ContentPage.ToolbarItems> 
         <controls:HideToolbarItemControl Text="Add" IsEnabled="{Binding IsEnabled, Mode=TwoWay}" IsVisible="{Binding IsVisibleButtonAdd}" Parent="{x:Reference this}" Command="{Binding OnAddItemCommand}"/>
     </ContentPage.ToolbarItems>
     
@@ -21,26 +22,48 @@
         <ResourceDictionary>        
 
             <Style x:Key="HeaderTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MidLittleSize }" 
+                                 Tablet="{StaticResource LargeSize }" />
+                    </Setter.Value>
+                </Setter>
                  <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
+                <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
             </Style>
 
             <Style x:Key="CellHeaderStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}" />
+                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}" >
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MidLittleSize }" 
+                                 Tablet="{StaticResource LargeSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
             </Style>
             <Style x:Key="CellTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}" />
-                <Setter Property="VerticalTextAlignment" Value="Center" />
-                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MidLittleSize }" 
+                                 Tablet="{StaticResource MidLargeSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
             </Style>
 
             <Style x:Key="CellIcontStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource ExtraBigSize }" 
+                                 Tablet="{StaticResource ExtraBigSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
                 <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
@@ -57,62 +80,132 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="8.5*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Grid Padding="10" Grid.Row="0" BackgroundColor="{StaticResource DarkColor}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.6*" />
-                    <ColumnDefinition Width="5.4*" />
-                    <ColumnDefinition Width="1.5*" />
-                    <ColumnDefinition Width="1.5*" />
-                </Grid.ColumnDefinitions>
-                    <Label Text="Deviation" Grid.Column="2" Style="{StaticResource HeaderTextStyle}" />
-                    <Label Text="Imputed" Grid.Column="3" Style="{StaticResource HeaderTextStyle}"/>
-             </Grid>
+            <BoxView BackgroundColor="{StaticResource RedColor}" 
+                     Grid.Row="0" 
+                     VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand">
+            </BoxView>
+
+            <StackLayout Grid.Row="0"
+                        Grid.RowSpan="2"
+                        VerticalOptions="FillAndExpand" 
+                        HorizontalOptions="FillAndExpand"
+                        Padding="20">
+                <Frame VerticalOptions="FillAndExpand" 
+                       HorizontalOptions="FillAndExpand"
+                       Padding="20"
+                       BorderColor="{StaticResource DarkColor}"
+                       HasShadow="false"
+                       IsVisible="{Binding AnyActivities,  Converter={StaticResource cnvInverseBoolConverter}}">
+
+                    <lottie:AnimationView
+                     x:Name="LottieView" 
+                     Animation="NoDataAdd.json" 
+                     Loop="True" 
+                     AutoPlay="True"
+                     VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand" />
+                    
+                </Frame>
+            </StackLayout>
 
            <ListView x:Name="listView" 
-                     Grid.Row="1"
-                     RowHeight="90"
+                     Grid.Row="0"
+                     Grid.RowSpan="2"
                      HasUnevenRows="true"
                      CachingStrategy="RecycleElement"
                      VerticalOptions="FillAndExpand" 
                      HorizontalOptions="FillAndExpand" 
-                     BackgroundColor="{StaticResource WhiteColor}"
+                     BackgroundColor="Transparent"
                      ItemsSource="{Binding Activities}" 
                      IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                     SeparatorVisibility="None"
+                     IsVisible="{Binding AnyActivities}"
                      >
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell StyleId="disclosure-button">
+                        <ViewCell StyleId="disclosure">
                             <ViewCell.ContextActions>
                                 <MenuItem Command="{Binding Source={x:Reference this}, Path=BindingContext.OnDeleteItemCommand}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True"/>
                             </ViewCell.ContextActions>
-                          <Grid Padding="10">
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OnInfoActivityItemCommand}" CommandParameter="{Binding .}" NumberOfTapsRequired="2" />
-                                </Grid.GestureRecognizers>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.6*" />
-                                    <ColumnDefinition Width="5.4*" />
-                                    <ColumnDefinition Width="1.5*" />
-                                    <ColumnDefinition Width="1.5*" />
-                                </Grid.ColumnDefinitions> 
-                                <StackLayout Grid.Row="0" Grid.ColumnSpan="4">
-                                    <Label Text="{Binding Project.DisplayName}" Style="{StaticResource CellHeaderStyle}"></Label>
-                                    <Label Text="{Binding Task.DisplayName}" Style="{StaticResource CellHeaderStyle}"></Label>
-                                </StackLayout>
-                                <Label Grid.Row="1" Text="{Binding Project.IsHoliday, Converter={StaticResource cnvActivityType}}" Grid.Column="0" Style="{StaticResource CellIcontStyle}"/>
-                                <Label Grid.Row="1" Text="{Binding Description, Converter={StaticResource cnvDescriptionToShortDescription}}" Grid.Column="1" Style="{StaticResource CellTextStyle}"/>
-                                <Label Grid.Row="1" Text="{Binding Deviation, Converter={StaticResource cnvMinutesToHour}}" Grid.Column="2" Style="{StaticResource CellTextStyle}"/>
-                                <Label Grid.Row="1" Text="{Binding Imputed, Converter={StaticResource cnvMinutesToHour}}" Grid.Column="3" Style="{StaticResource CellTextStyle}"/>
-                            </Grid>
+                            
+                            <StackLayout Padding="5,10,5,10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                <Frame VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
+                                       Padding="5,15,5,15" 
+                                       HasShadow="true" 
+                                       CornerRadius="10">
+                                  <Grid>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OnInfoActivityItemCommand}" CommandParameter="{Binding .}" NumberOfTapsRequired="2" />
+                                        </Grid.GestureRecognizers>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="8*" />
+                                        </Grid.ColumnDefinitions> 
+                                        <StackLayout Grid.Row="0"
+                                                     Grid.RowSpan="2"
+                                                     Grid.Column="0"
+                                                     VerticalOptions="CenterAndExpand"
+                                                     HorizontalOptions="CenterAndExpand">
+                                        <Label Text="{Binding Project.IsHoliday, Converter={StaticResource cnvActivityType}}"
+                                               VerticalTextAlignment="Center"
+                                               HorizontalTextAlignment="Center"
+                                               Style="{StaticResource CellIcontStyle}"/>
+                                        </StackLayout>
+                                        
+                                        <StackLayout Grid.Row="0" Grid.Column="1">
+                                            <Label Text="{Binding Project.DisplayName}" Style="{StaticResource CellHeaderStyle}"></Label>
+                                            <Label Text="{Binding Task.DisplayName}" Style="{StaticResource CellHeaderStyle}"></Label>
+                                        </StackLayout>
+
+                                        <StackLayout Grid.Row="1" Grid.Column="1">
+                                            <Label  Text="{Binding Description, Converter={StaticResource cnvDescriptionToShortDescription}}" 
+                                                    Style="{StaticResource CellTextStyle}"/>
+                                        
+                                            <StackLayout Orientation="Horizontal" 
+                                                         VerticalOptions="FillAndExpand" 
+                                                         HorizontalOptions="FillAndExpand">
+                                                <Label Text="Deviation" Style="{StaticResource HeaderTextStyle}" />
+                                                <Frame VerticalOptions="CenterAndExpand" 
+                                                       HorizontalOptions="CenterAndExpand"
+                                                       CornerRadius="15"
+                                                       Padding="10"
+                                                       BorderColor="{StaticResource RedColor}"
+                                                       HasShadow="false">
+                                                    
+                                                    <Label Text="{Binding Deviation, Converter={StaticResource cnvMinutesToHour}}" 
+                                                        Style="{StaticResource CellTextStyle}"/>
+                                                </Frame>
+
+                                                <Label Text="Imputed" Style="{StaticResource HeaderTextStyle}"/>
+                                                <Frame
+                                                        VerticalOptions="CenterAndExpand" 
+                                                        HorizontalOptions="CenterAndExpand"
+                                                        CornerRadius="15"
+                                                        Padding="10"
+                                                        BorderColor="{StaticResource RedColor}"
+                                                        HasShadow="false">
+                                                    <Label
+                                                       Text="{Binding Imputed, Converter={StaticResource cnvMinutesToHour}}" 
+                                                       Style="{StaticResource CellTextStyle}"/>
+                                                </Frame>
+
+                                            </StackLayout>
+                                         </StackLayout>
+
+
+                                    </Grid>
+                               </Frame>
+                           </StackLayout>
                         </ViewCell>
                 </DataTemplate>
               </ListView.ItemTemplate>

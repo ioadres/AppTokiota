@@ -125,8 +125,10 @@ namespace AppTokiota.Users.Components.Activity
 			try {
 				IsBusy = true;
 				if(IsInternetAndCloseModal()) {
+                     
 					if (Context.CurrentTimesheet == null)
                     {
+                        BaseModule.AnalyticsService.TrackEvent("[BatchActivity] :: Start");
 						var multiplesDay = Context.CurrentTimesheetMultipleDay.Days?.Select(x => new TimesheetAddActivityBatch()
 						{
 							Day = int.Parse(x.Date.ToString("dd")),
@@ -142,9 +144,12 @@ namespace AppTokiota.Users.Components.Activity
 						await _addActivityModule.TimesheetService.BatchActivity(multiplesDay.ToList());
 						IsBusy = false;
 						CloseCommand.Execute();
+                        BaseModule.AnalyticsService.TrackEvent("[BatchActivity] :: Success");
                     }
                     else
                     {
+
+                        BaseModule.AnalyticsService.TrackEvent("[PostActivity] :: Start");
                         var response = await _addActivityModule.TimesheetService.PostActivity(new TimesheetAddActivity()
                         {
 							AssignementId = SelectedTask.AssignementId,
@@ -160,12 +165,12 @@ namespace AppTokiota.Users.Components.Activity
 						navigationParameters.Add(AppTokiota.Users.Models.ActivityDay.Tag, activityDay);
 						IsBusy = false;
                         await BaseModule.NavigationService.GoBackAsync(navigationParameters);
+                        BaseModule.AnalyticsService.TrackEvent("[PostActivity] :: Success");
                     }
 				}
-			} catch(Exception ex) {
+			} catch(Exception) {
 				IsBusy = false;              
 				BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-				Debug.WriteLine($"[PostActivity] Error: {ex}");
 			}
             
         }

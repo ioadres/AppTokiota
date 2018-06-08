@@ -47,7 +47,7 @@ namespace AppTokiota.Users.Services
             return Task.FromResult(true);
         }
 
-        public Task<bool> UserIsAuthenticatedAndValidAsync()
+        public Task<bool> UserIsAuthenticatedAndValidAsync(bool forceRefresh = false)
         {
             return Task.FromResult(true);
         }

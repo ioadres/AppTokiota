@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Reactive.Linq;
 using System.Diagnostics;
 
-namespace AppTokiota.Users.Services.Cache
+namespace AppTokiota.Users.Services
 {
     public class AkavacheEntity : ICacheEntity
     {
@@ -25,11 +25,30 @@ namespace AppTokiota.Users.Services.Cache
                 return default(T);
             }
         }
+        public async Task<T> GetLocalObjectAsync<T>(string key)
+        {
+            try
+            {
+                var res = await BlobCache.LocalMachine.GetObject<T>(key);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return default(T);
+            }
+        }
 
         public async Task InsertObjectAsync<T>(string key, T value)
         {
             await BlobCache.UserAccount.InsertObject<T>(key, value);
         }
+
+        public async Task InsertLocalObjectAsync<T>(string key, T value)
+        {
+            await BlobCache.LocalMachine.InsertObject<T>(key, value);
+        }
+
 
         public async Task RemoveObjectAsync<T>(string key)
         {
@@ -39,6 +58,11 @@ namespace AppTokiota.Users.Services.Cache
         public async Task DeleteAll()
         {
             await BlobCache.UserAccount.InvalidateAll();
+        }
+
+        public async Task DeleteLocalAll()
+        {
+            await BlobCache.LocalMachine.InvalidateAll();
         }
 
         public async Task InsertObjectAsync<T>(string key, T value, DateTimeOffset dateTimeOffset)

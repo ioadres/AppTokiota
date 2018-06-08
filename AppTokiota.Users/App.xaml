@@ -3,11 +3,11 @@
                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                         xmlns:ctrls="clr-namespace:AppTokiota.Users.Controls;assembly=AppTokiota.Users"
                         xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
-                        xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"   
+                        xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation" 
                         x:Class="AppTokiota.Users.App">
     <prism:PrismApplication.Resources>
         <ResourceDictionary>
-            <!-- COLORS -->
+            <!-- START COLORS -->
             <Color x:Key="PrimaryColor">#ca5d5b</Color>
             <Color x:Key="PrimaryLightColor">#ff8d88</Color>
             <Color x:Key="PrimaryDarkColor">#952e32</Color>
@@ -37,6 +37,8 @@
             <Color x:Key="DarkGrayColor">#C6C6C6</Color>
             <Color x:Key="GrayColor">#ECECEC</Color>
 
+            <!-- END COLORS -->
+            
             <!-- FONTS -->
             <OnPlatform x:Key="AwaesomeRegular"
               x:TypeArguments="x:String"
@@ -132,7 +134,27 @@
                   iOS="34"
                   Android="32"/>
 
-            <!-- STYLES -->
+            <OnPlatform x:Key="XHugeSize"
+                  x:TypeArguments="x:Double"
+                  iOS="38"
+                  Android="36"/>
+            
+            <OnPlatform x:Key="XXHugeSize"
+                  x:TypeArguments="x:Double"
+                  iOS="42"
+                  Android="40"/>
+
+            <OnPlatform x:Key="XXXHugeSize"
+                  x:TypeArguments="x:Double"
+                  iOS="46"
+                  Android="44"/>
+
+            <OnPlatform x:Key="XXXXHugeSize"
+                  x:TypeArguments="x:Double"
+                  iOS="50"
+                  Android="48"/>
+
+            <!-- START Fonts -->
             <Style x:Key="BaseLabelStyle" TargetType="Label">
             </Style>
 
@@ -155,8 +177,9 @@
             <Style x:Key="PoppinsSemiBoldLabelStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}">
                 <Setter Property="FontFamily" Value="{StaticResource PoppinsSemiBold}" />
             </Style>
+            <!-- END Fonts -->
 
-
+            <!-- START Inputs -->
             <Style x:Key="BaseEntryStyle" TargetType="ctrls:ExtendedEntry">
                 <Setter Property="FontFamily" Value="{StaticResource PoppinsRegular}" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
@@ -193,8 +216,10 @@
             </Style>
 
             <Style TargetType="ctrls:ExtendedEntry" BasedOn="{StaticResource BaseEntryStyle}" />
+            <!-- END Inputs -->
+            
 
-            <!-- Button -->
+            <!-- START Button -->
             <Style x:Key="BaseButtonStyle" TargetType="Button">
                 <Setter Property="BorderRadius" Value="20" />
                 <Setter Property="HeightRequest" Value="73" />
@@ -236,45 +261,202 @@
                 <Setter Property="BackgroundColor" Value="{StaticResource DarkColor}" />
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
                 <Setter Property="BorderWidth" Value="1" />
-                <Setter Property="HeightRequest" Value="40" />
-                <Setter Property="WidthRequest" Value="100" />
+                <Setter Property="HeightRequest">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="40" 
+                                 Tablet="70" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="WidthRequest">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="100" 
+                                 Tablet="130" />
+                    </Setter.Value>
+                 </Setter>
                 <Setter Property="FontFamily"  Value="{StaticResource PoppinsSemiBold}" />
             </Style>
 
+            <!-- END Button -->
+
+            <!-- START H -->
              <Style x:Key="TitleH5Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MidLittleSize }" 
+                                 Tablet="{StaticResource MediumSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
             </Style>
 
             <Style x:Key="TitleH4Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource LittleSize }" 
+                                 Tablet="{StaticResource MidLargeSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
             </Style>
+            
             <Style x:Key="TitleH3Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidMediumSize}" />
+                <Setter Property="FontSize" >
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MidMediumSize }" 
+                                 Tablet="{StaticResource LargeSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
             </Style>
+            
             <Style x:Key="TitleH2Style" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MediumSize }" 
+                                 Tablet="{StaticResource BigSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
             </Style>
+            
             <Style x:Key="TitleH1Style" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource HugeSize}" 
+                                 Tablet="{StaticResource XXXHugeSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}"/>
             </Style>
 
+            
+
+            <!-- END H -->
 
              <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource LittleSize }" 
+                                 Tablet="{StaticResource ExtraBigSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
 
 
-            <Style x:Key="IconTextStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="{StaticResource HugeSize}" />
-                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}" />
-                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+            <!-- START Icon -->
+            <Style x:Key="IconFontBaseStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
             </Style>
+
+            <Style x:Key="IconTextStyle" TargetType="Label" BasedOn="{StaticResource IconFontBaseStyle}">
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource HugeSize }" 
+                                 Tablet="{StaticResource XXHugeSize }" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="TextColor" Value="{StaticResource SecondaryLightColor}" />
+            </Style>
+
+            <Style x:Key="IconPlusMidTextStyle" TargetType="ctrls:AwesomeLabelControl">
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource HugeSize}" 
+                                 Tablet="110" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="TextColor" Value="{StaticResource RedColor}" />
+            </Style>
+            
+            <Style x:Key="IconPlusTextStyle" TargetType="ctrls:AwesomeLabelControl">
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="110" 
+                                 Tablet="130" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="TextColor" Value="{StaticResource RedColor}" />
+            </Style>
+            <!-- END Icon -->
+
+            <!-- START Calendar -->
+            <Style x:Key="Calendar" TargetType="ctrls:Calendar">
+                <Setter Property="DatesFontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MidMediumSize }" 
+                                 Tablet="{StaticResource LargeSize }" />
+                    </Setter.Value>
+                </Setter>
+
+                <Setter Property="TitleLabelFontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource LargeSize }" 
+                                 Tablet="{StaticResource BigSize }" />
+                    </Setter.Value>
+                </Setter>
+
+                <!-- START Weekdays -->
+                <Setter Property="WeekdaysFontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource LittleSize }" 
+                                 Tablet="{StaticResource MediumSize }" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="WeekdaysTextColor" Value="{StaticResource DarkColor}" />
+                <Setter Property="WeekdaysFontAttributes" Value="Bold" />
+                <!-- END Weekdays -->
+
+                <Setter Property="DisabledBorderColor" Value="{StaticResource DarkGrayColor}" />
+                <Setter Property="DisabledBackgroundColor" Value="{StaticResource DarkGrayColor}" />
+                <Setter Property="DisabledFontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource LittleSize }" 
+                                 Tablet="{StaticResource MediumSize }" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="DisabledBorderWidth" Value="6" />
+
+                <Setter Property="DatesBackgroundColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="TitleLeftArrowTextColor" Value="{StaticResource DarkGrayColor}" />
+                <Setter Property="TitleRightArrowTextColor" Value="{StaticResource DarkGrayColor}" />
+
+
+                <Setter Property="SelectedFontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource LittleSize }" 
+                                 Tablet="{StaticResource MediumSize }" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="SelectedBorderWidth" Value="1" />
+                <Setter Property="SelectedTextColor" Value="{StaticResource DarkColor}" />
+                <Setter Property="SelectedBorderColor" Value="{StaticResource BlueColor}" />
+                <Setter Property="SelectedBackgroundColor" Value="{StaticResource BlueColor}" />
+                
+                <Setter Property="BorderWidth" Value="0" />
+                <Setter Property="BorderColor" Value="{StaticResource DarkColor}" />
+
+                
+                
+            </Style>
+            <!-- END Calendar -->
+            
 
             <Style TargetType="ActivityIndicator">
                 <Setter Property="VerticalOptions" Value="Center" />
@@ -294,7 +476,13 @@
             </Style>
 
             <Style x:Key="MenuLabelItem" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MediumSize}" 
+                                 Tablet="{StaticResource LargeSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
             </Style>
 

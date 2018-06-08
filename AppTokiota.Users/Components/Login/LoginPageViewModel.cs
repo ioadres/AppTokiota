@@ -8,6 +8,7 @@ using AppTokiota.Users.Components.Core;
 using AppTokiota.Users.Components.Core.Validations;
 using AppTokiota.Users.Services;
 using AppTokiota.Users.Components.DashBoard;
+using Microsoft.AppCenter.Crashes;
 
 namespace AppTokiota.Users.Components.Login
 {
@@ -77,10 +78,11 @@ namespace AppTokiota.Users.Components.Login
 						IsBusy = false;
 					}
 			   }
-			   catch (Exception)
+			   catch (Exception e)
 			   {
 				   IsBusy = false;
 				   BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                   Crashes.TrackError(e);
 			   }
 		   });
         }

@@ -133,9 +133,5 @@ namespace AppTokiota.Users.Components.Activity
 			}
         }
 
-        public override void OnNavigatedFrom(NavigationParameters parameters)
-        {
-            //_currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
-        }
     }
 }

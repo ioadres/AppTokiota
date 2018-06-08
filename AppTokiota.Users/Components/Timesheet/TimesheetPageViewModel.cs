@@ -16,6 +16,8 @@ using AppTokiota.Users.Models;
 using AppTokiota.Users.Components.ManageImputedDay;
 using AppTokiota.Users.Components.Activity;
 using System.Collections.Generic;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter.Analytics;
 
 namespace AppTokiota.Users.Components.Timesheet
 {
@@ -174,10 +176,11 @@ namespace AppTokiota.Users.Components.Timesheet
 						var navigationParameters = new NavigationParameters();
 						navigationParameters.Add(TimesheetForDay.Tag, selectedDateTimesheet);
 						await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<ManageImputedDayPage>(), navigationParameters);
+                        BaseModule.AnalyticsService.TrackEvent("[Activity] :: Info :: Timesheet");
 					} else {
                         throw new ArgumentNullException();
                     }
-				} catch(Exception e) {
+				} catch(Exception) {
 					BaseModule.DialogService.ShowToast("The all days selected is closed or failed load the month. The month will be load again");
 					ChangeDateCalendar(_currentDayMonthYear);
                 }
@@ -205,12 +208,13 @@ namespace AppTokiota.Users.Components.Timesheet
 						var navigationParameters = new NavigationParameters();
 						navigationParameters.Add(Imputed.Tag, imputed);
 						await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters);
+                        BaseModule.AnalyticsService.TrackEvent("[Activity] :: Add :: Multilple :: Timesheet");
 
 					} else {
 						throw new ArgumentNullException();
 					}
 
-				} catch(Exception e) 
+				} catch(Exception) 
 				{
 					BaseModule.DialogService.ShowToast("The all days selected is closed or failed load the month. The month will be load again");
 					ChangeDateCalendar(_currentDayMonthYear);
@@ -243,11 +247,10 @@ namespace AppTokiota.Users.Components.Timesheet
 					}
 					IsBusy = false;
 				}
-				catch (Exception ex)
+				catch (Exception)
 				{
 					IsBusy = false;
 					BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-					Debug.WriteLine($"[GetTimesheet] Error: {ex}");
 				}
 			});  
         }

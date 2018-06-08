@@ -21,6 +21,10 @@
     <PackageReference Include="Refractored.XamForms.PullToRefresh" Version="2.2.1" />
     <PackageReference Include="Microcharts.Forms" Version="0.7.1" />
     <PackageReference Include="Microcharts" Version="0.7.1" />
+    <PackageReference Include="Xam.Plugins.Notifier" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.6.1" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.6.1" />
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="2.5.4" />
   </ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Components\ManageImputedDay\" />
@@ -37,6 +41,7 @@
 	  <Folder Include="Services\DialogError\" />
 	  <Folder Include="Components\Configuration\" />
 	  <Folder Include="Services\Chart\" />
+	  <Folder Include="Services\Analytics\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Components\Activity\NavigationPage\ActivityNavigationPage.xaml.cs">

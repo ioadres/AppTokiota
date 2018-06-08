@@ -3,6 +3,7 @@ using AppTokiota.Users.Components.Core.Module;
 using AppTokiota.Users.Components.ManageImputedDay;
 using AppTokiota.Users.Controls;
 using AppTokiota.Users.Models;
+using Microsoft.AppCenter.Crashes;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -155,7 +156,7 @@ namespace AppTokiota.Users.Components.Review
                 {
                     IsBusy = false;
                     BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                    Debug.WriteLine($"[GetTimesheet] Error: {ex}");
+                    Crashes.TrackError(ex);
                 }
             });
 
@@ -219,7 +220,7 @@ namespace AppTokiota.Users.Components.Review
                 {
                     IsBusy = false;
                     BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                    Debug.WriteLine($"[Review load data] Error: {ex}");
+                    Crashes.TrackError(ex);
                 }
             });
         }
@@ -241,7 +242,7 @@ namespace AppTokiota.Users.Components.Review
             {
                 IsBusy = false;
                 BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                Debug.WriteLine($"[Review load data] Error: {ex}");
+                Crashes.TrackError(ex);
             }
         }
 
@@ -329,7 +330,7 @@ namespace AppTokiota.Users.Components.Review
                 {
                     IsBusy = false;
                     BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                    Debug.WriteLine($"[Review load data] Error: {ex}");
+                    Crashes.TrackError(ex);
                 }
 
             });

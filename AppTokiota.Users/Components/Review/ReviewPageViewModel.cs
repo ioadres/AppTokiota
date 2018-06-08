@@ -258,8 +258,8 @@ namespace AppTokiota.Users.Components.Review
         private ReviewTimeLine map(TimesheetForDay x)
         {
             var currentTimeSheetDay = new ReviewTimeLine();
-            currentTimeSheetDay.ProjectsForDay = x.Activities.Select(y => y.Project).Distinct().Count();
-            currentTimeSheetDay.TasksForDay = x.Activities.Select(y => y.Task).Distinct().Count();
+            currentTimeSheetDay.ProjectsForDay = x.Activities.Select(y => y.Project.Id).Distinct().Count();
+            currentTimeSheetDay.TasksForDay = x.Activities.Select(y => y.Task.Id).Distinct().Count();
             currentTimeSheetDay.DesviationTasksDay = x.Activities.Sum(d => d.Deviation);
             currentTimeSheetDay.ImputationTasksDay = x.Activities.Sum(d => d.Imputed);
             currentTimeSheetDay.Day = x.Day;

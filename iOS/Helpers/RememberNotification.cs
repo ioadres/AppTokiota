@@ -7,7 +7,7 @@ using Xamarin.Forms;
 [assembly: Dependency(typeof(RememberNotification))]
 namespace AppTokiota.iOS.Helpers
 {
-    public class RememberNotification : RememberNotification
+    public class RememberNotification : IRememberNotificationBase
     {
         public static string CreateRememberNotification = "CreateRememberNotification";
         public static string DestroyRememberNotification = "DestroyRememberNotification";

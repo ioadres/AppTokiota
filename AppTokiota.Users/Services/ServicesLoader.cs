@@ -32,6 +32,7 @@ namespace AppTokiota.Users.Services
             containerRegistry.RegisterSingleton<IAnalyticsService, AnalyticsService>();
 
             containerRegistry.Register<IRequestService, RequestService>();
+
         }
     }
 }

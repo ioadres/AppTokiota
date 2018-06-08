@@ -6,6 +6,7 @@ using AppTokiota.Users.Components.Core.Module;
 using AppTokiota.Users.Components.DashBoard;
 using AppTokiota.Users.Components.Review;
 using AppTokiota.Users.Components.Timesheet;
+using AppTokiota.Users.OS;
 using Microsoft.AppCenter.Crashes;
 using Plugin.LocalNotifications;
 using Prism.Commands;
@@ -25,15 +26,15 @@ namespace AppTokiota.Users.Components.Configuration
             get { return _isEnableNotification; }
             set { 
                 AppSettings.IsEnableNotification = value;
-                SetProperty(ref _isEnableNotification, value); 
+                SetProperty(ref _isEnableNotification, value);
 
                 if (AppSettings.IsEnableNotification)
                 {
-                    var dateNow = DateTime.Now;
-                    var limitDate = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, 16, 0, 0);
-                    CrossLocalNotifications.Current.Show("Tokiota :: Timesheet", "Remember check your timesheet", 1, limitDate);
-                } else {
-                    CrossLocalNotifications.Current.Cancel(1);
+                    _configurationModule.RememberNotificationBase.EmitRemoveRememberNotification();
+                    _configurationModule.RememberNotificationBase.EmitCreateRememberNotification();
+                }
+                else {
+                    _configurationModule.RememberNotificationBase.EmitRemoveRememberNotification();
                 }
             }
         }

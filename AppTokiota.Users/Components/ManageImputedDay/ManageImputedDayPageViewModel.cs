@@ -22,7 +22,8 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         public ManageImputedDayPageViewModel(IViewModelBaseModule baseModule, IManageImputedDayModule manageImputedDayModule) : base(baseModule)
         {
             _manageImputedDayModule = manageImputedDayModule;
-            Title = "Imputed Day";
+            Title = "";
+            IsBusy = true;
         }
 
         private Models.TimesheetForDay _currentTimesheetForDay;
@@ -64,7 +65,7 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         /// Gets or sets the Total DeviationTotal 
         /// </summary>
         /// <value>The Total DeviationTotal</value>
-        private bool _anyActivities;
+        private bool _anyActivities = true;
         public bool AnyActivities
         {
             get { return _anyActivities; }
@@ -86,7 +87,6 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         public DelegateCommand<object> OnDeleteItemCommand => new DelegateCommand<object>((obj) => { OnDeleteItem((ActivityDay)obj); });
         protected async void OnDeleteItem(ActivityDay activity)
         {
-			IsBusy = true;
             if (IsInternetAndCloseModal())
             {
                 try
@@ -143,6 +143,7 @@ namespace AppTokiota.Users.Components.ManageImputedDay
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
+            IsBusy = true;
             var keyContains = parameters.ContainsKey(TimesheetForDay.Tag);
             if(keyContains) {
                 var currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
@@ -157,6 +158,8 @@ namespace AppTokiota.Users.Components.ManageImputedDay
 				_currentTimesheetForDay.Activities.Add(activity);
 				UpdateDayOfTimesheet(_currentTimesheetForDay);
             }
+
+            IsBusy = false;
         }
 
         private void UpdateDayOfTimesheet(TimesheetForDay timesheet)

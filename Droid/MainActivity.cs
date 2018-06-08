@@ -29,6 +29,7 @@ namespace AppTokiota.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             UserDialogs.Init(this);
+            AnimationViewRenderer.Init();
 
            /* LoadApplication(UXDivers.Gorilla.Droid.Player.CreateApplication(
                 this,

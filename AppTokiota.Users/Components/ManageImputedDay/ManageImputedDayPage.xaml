@@ -101,12 +101,13 @@
                        Padding="20"
                        BorderColor="{StaticResource DarkColor}"
                        HasShadow="false"
+                       CornerRadius="5"
                        IsVisible="{Binding AnyActivities,  Converter={StaticResource cnvInverseBoolConverter}}">
 
                     <lottie:AnimationView
                      x:Name="LottieView" 
                      Animation="NoDataAdd.json" 
-                     Loop="True" 
+                     Loop="false"
                      AutoPlay="True"
                      VerticalOptions="FillAndExpand"
                      HorizontalOptions="FillAndExpand" />
@@ -126,6 +127,7 @@
                      IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                      SeparatorVisibility="None"
                      IsVisible="{Binding AnyActivities}"
+
                      >
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -136,9 +138,9 @@
                             
                             <StackLayout Padding="5,10,5,10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                                 <Frame VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
-                                       Padding="5,15,5,15" 
+                                       Padding="5,15,5,20" 
                                        HasShadow="true" 
-                                       CornerRadius="10">
+                                       CornerRadius="5">
                                   <Grid>
                                         <Grid.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OnInfoActivityItemCommand}" CommandParameter="{Binding .}" NumberOfTapsRequired="2" />
@@ -211,7 +213,7 @@
               </ListView.ItemTemplate>
             </ListView>
 
-           <Grid Grid.Row="2" BackgroundColor="{StaticResource DarkColor}">
+           <Grid Grid.Row="2" BackgroundColor="{StaticResource DarkColor}"  IsVisible="{Binding AnyActivities}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />

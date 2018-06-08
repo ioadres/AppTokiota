@@ -338,6 +338,8 @@
     <Compile Include="Renderers\CustomPageRenderer.cs" />
     <Compile Include="AkavacheSqliteLinkerOverride.cs" />
     <Compile Include="Renderers\StandardViewCellRenderer.cs" />
+    <Compile Include="Helpers\UserNotificationCenterDelegate.cs" />
+    <Compile Include="Helpers\RememberNotification.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Settings.bundle\Root.plist" />

@@ -42,6 +42,7 @@
 	  <Folder Include="Components\Configuration\" />
 	  <Folder Include="Services\Chart\" />
 	  <Folder Include="Services\Analytics\" />
+	  <Folder Include="OS\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Components\Activity\NavigationPage\ActivityNavigationPage.xaml.cs">

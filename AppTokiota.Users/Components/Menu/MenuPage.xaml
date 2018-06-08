@@ -119,7 +119,8 @@
 
                 <ContentView 
                              FlexLayout.Shrink="0"
-                             FlexLayout.AlignSelf="End">
+                             FlexLayout.AlignSelf="End"
+                             TranslationY="-50">
                     
                      <StackLayout HorizontalOptions="EndAndExpand" Padding="15">
                             <Label Text="{Binding Email}" Style="{StaticResource UserTextStyle}" HorizontalTextAlignment="End"></Label>

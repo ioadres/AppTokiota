@@ -14,6 +14,9 @@ using AppTokiota.Users.Controls;
 using AppTokiota.Droid.Renderers;
 using Prism.Unity;
 using Acr.UserDialogs;
+using Lottie.Forms.Droid;
+using AppTokiota.Users.OS;
+using AppTokiota.Droid.Helpers;
 
 namespace AppTokiota.Droid
 {
@@ -22,8 +25,8 @@ namespace AppTokiota.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
-            TabLayoutResource = Resource.Layout.Tabbar;
-            ToolbarResource = Resource.Layout.Toolbar;
+            TabLayoutResource = AppTokiota.Droid.Resource.Layout.Tabbar;
+            ToolbarResource = AppTokiota.Droid.Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
 
@@ -31,18 +34,6 @@ namespace AppTokiota.Droid
             UserDialogs.Init(this);
             AnimationViewRenderer.Init();
 
-           /* LoadApplication(UXDivers.Gorilla.Droid.Player.CreateApplication(
-                this,
-                new UXDivers.Gorilla.Config("Good Gorilla")
-                             // Register Grial Shared assembly
-                             .RegisterAssembliesFromTypes<Prism.IPlatformInitializer, Prism.PrismApplicationBase, Prism.Unity.PrismApplication>()
-                            .RegisterAssemblyFromType<ExtendedEntry>()
-                            .RegisterAssemblyFromType<ExtendedEntryRenderer>()
-                            .RegisterAssemblyFromType<AwesomeLabelRenderer>()
-                            .RegisterAssemblyFromType<RoundButtonRenderer>()
-                            .RegisterAssembly(typeof(AppTokiota.Components.Core.ViewModelBase).Assembly)
-                ));        
-                */
             LoadApplication(new AppTokiota.Users.App(new AndroidInitializer()));
         }
     }
@@ -51,6 +42,7 @@ namespace AppTokiota.Droid
     {
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.Register<IRememberNotificationBase, RememberNotification>();
         }
     }
 }

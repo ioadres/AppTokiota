@@ -335,6 +335,7 @@
     <Compile Include="Renderers\ExtendedEntryRenderer.cs" />
     <Compile Include="Renderers\MenuItemCellRenderer.cs" />
     <Compile Include="MainApplication.cs" />
+    <Compile Include="Helpers\RememberNotification.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="..\CommonResources\Fonts\poppins\Poppins-SemiBold.ttf">

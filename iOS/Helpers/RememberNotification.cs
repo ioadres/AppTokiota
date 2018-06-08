@@ -7,7 +7,7 @@ using Xamarin.Forms;
 [assembly: Dependency(typeof(RememberNotification))]
 namespace AppTokiota.iOS.Helpers
 {
-    public class RememberNotification : IRememberNotificationBase
+    public class RememberNotification : RememberNotification
     {
         public static string CreateRememberNotification = "CreateRememberNotification";
         public static string DestroyRememberNotification = "DestroyRememberNotification";
@@ -37,7 +37,7 @@ namespace AppTokiota.iOS.Helpers
             content.Body = "Remember input your timesheet ;)";
 
             // New trigger time
-            var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(60, true);
+            var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(60 * 60 * 8, true);
 
             // ID of Notification to be updated
             var requestID = "RememberNotification";

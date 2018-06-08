@@ -16,7 +16,7 @@ namespace AppTokiota
 
         // Endpoint Timesheet
         private const string DefaultTimesheetUrlEndPoint = "";
-        private const string DefaultTimesheetDomain = ";
+        private const string DefaultTimesheetDomain = "";
 
         // App Config
         private const string DefaultIdAppCache = "TokiotaApp";

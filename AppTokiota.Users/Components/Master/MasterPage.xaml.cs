@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Microsoft.AppCenter.Crashes;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,11 +16,22 @@ namespace AppTokiota.Users.Components.Master
         {
             try
             {
-                InitializeComponent();
-            } catch(Exception e)
-            {
+				IsPresented = false;
+				MasterBehavior = MasterBehavior.Popover;
+                Appearing += (sender, e) =>
+                {
+                    this.IsPresented = false;
+					this.MasterBehavior = MasterBehavior.Popover;
+                };
 
-                var t = e;
+                InitializeComponent();
+            } 
+            catch(Exception e)
+            {
+                var dic = new Dictionary<string, string>();
+                dic.Add("Page", "MasterPage");
+
+                Crashes.TrackError(e, dic);
             }
         }
     }

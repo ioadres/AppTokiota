@@ -49,44 +49,67 @@
                     <Label Text="ACCOUNT" Style="{StaticResource TitleH4Style}" TextColor="{StaticResource DarkColor}" Margin="10,15,0,2"></Label>
                     <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
                         <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Push Notifications</Label>
-                        <Switch HorizontalOptions="EndAndExpand"></Switch>    
+                        <Switch HorizontalOptions="EndAndExpand" IsToggled="{Binding IsEnableNotification, Mode=TwoWay}"></Switch>    
                     </StackLayout>
+                    
                     <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" TranslationX="10" HorizontalOptions="FillAndExpand"></BoxView>
                     <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding OpenHoursViewCommand}" />
+                        </StackLayout.GestureRecognizers>
                         <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Hours/Day </Label>
+                        <Label HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center" Style="{StaticResource ItemText}" Text="{Binding HoursText}"></Label> 
                     </StackLayout>
+                    
                     <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" HorizontalOptions="FillAndExpand"></BoxView>
 
                     <Label Text="CACHE" Style="{StaticResource TitleH4Style}" TextColor="{StaticResource DarkColor}" Margin="10,25,5,2"></Label>
                     <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
-                        <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Cache Active</Label>
-                        <Switch HorizontalOptions="EndAndExpand"></Switch>    
+                        <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Cache</Label>
+                        <Switch HorizontalOptions="EndAndExpand" IsToggled="{Binding IsEnableCache, Mode=TwoWay}"></Switch>    
                     </StackLayout>
-                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" TranslationX="10" HorizontalOptions="FillAndExpand"></BoxView>
-                    <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
+                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" TranslationX="10" HorizontalOptions="FillAndExpand" ></BoxView>
+                    
+                    <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0" IsVisible="{Binding IsEnableCache}">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding ClearCacheCommand}" />
+                        </StackLayout.GestureRecognizers>
                         <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Clear Cache</Label>
                     </StackLayout>
-                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" HorizontalOptions="FillAndExpand"></BoxView>
+                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsEnableCache}"></BoxView>
 
                     <Label Text="APPEARANCE" Style="{StaticResource TitleH4Style}" TextColor="{StaticResource DarkColor}" Margin="10,25,0,2"></Label>
                     <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding OpenStartUpViewCommand}" />
+                        </StackLayout.GestureRecognizers>
                         <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Startup View</Label>
+                        <Label HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center" Style="{StaticResource ItemText}" Text="{Binding StartupViewText}"></Label> 
                     </StackLayout>
                     <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" HorizontalOptions="FillAndExpand"></BoxView>
 
                     <Label Text="ABOUT" Style="{StaticResource TitleH4Style}" TextColor="{StaticResource DarkColor}" Margin="10,25,0,2"></Label>
+                     <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding OpenTwitterCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Follow in Twitter!</Label>
+                    </StackLayout>
+                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" TranslationX="10" HorizontalOptions="FillAndExpand"></BoxView>
+
                     <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding OpenCodeCommand}" />
+                        </StackLayout.GestureRecognizers>
                         <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Source Code</Label>
                     </StackLayout>
                     <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" TranslationX="10" HorizontalOptions="FillAndExpand"></BoxView>
-                     <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
-                        <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Follow in Twitter! Code</Label>
-                    </StackLayout>
-                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" TranslationX="10" HorizontalOptions="FillAndExpand"></BoxView>
-                     <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
-                        <Label HorizontalOptions="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">Follow in LinkedIn</Label>
-                    </StackLayout>
-                    <BoxView BackgroundColor="{StaticResource DarkGrayColor}" HeightRequest="1" TranslationX="10" HorizontalOptions="FillAndExpand"></BoxView>
+
                     <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource WhiteColor}" Padding="10,10,5,10" Spacing="0" Margin="0">
                         <Label HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">App Version</Label>
                         <Label HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center" Style="{StaticResource ItemText}">1.0.0</Label> 

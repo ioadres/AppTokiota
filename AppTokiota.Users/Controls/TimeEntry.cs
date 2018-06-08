@@ -98,10 +98,12 @@ namespace AppTokiota.Users.Controls
         private void DefaultHourAndMinuteSelected()
         {
             SelectedHour = (ButtonTimeTask)MainHours.Children.FirstOrDefault();
-            SelectedHour.BackgroundColor = Color.LightGreen;
+			SelectedHour.BackgroundColor = Color.FromHex("40baaa");
+			SelectedHour.TextColor = Color.White;
 
             SelectedMinute = (ButtonTimeTask)MainMinutes.Children.FirstOrDefault();
-            SelectedMinute.BackgroundColor = Color.LightGreen;
+			SelectedMinute.BackgroundColor = Color.FromHex("40baaa");
+			SelectedMinute.TextColor = Color.White;
         }
 
         protected void CreatedHours()
@@ -133,12 +135,12 @@ namespace AppTokiota.Users.Controls
 						CornerRadius = 0,
                         BorderWidth = 1,
                         BorderColor = Color.Gray,
-                        FontSize = 10,
+						FontSize = Device.Idiom == TargetIdiom.Tablet ? 20:12,
                         BackgroundColor = Color.Transparent,
                         TextColor = Color.DarkSalmon,
                         Text = $"{i + (fila * 5)} h",
-                        WidthRequest = 50,
-                        HeightRequest = 35,
+						WidthRequest = Device.Idiom == TargetIdiom.Tablet ? 100:50,
+						HeightRequest = Device.Idiom == TargetIdiom.Tablet ? 100:50,
                         Value = (i + (fila * 5)).ToString(),
                     });
                     var b = ButtonsHour.Last();
@@ -177,12 +179,12 @@ namespace AppTokiota.Users.Controls
 					CornerRadius = 0,
                     BorderWidth = 1,
                     BorderColor = Color.Gray,
-                    FontSize = 10,
+					FontSize = Device.Idiom == TargetIdiom.Tablet ? 20 : 12,
                     BackgroundColor = Color.Transparent,
                     TextColor = Color.DarkSalmon,
                     Text = $"{i} m",
-                    WidthRequest = 50,
-                    HeightRequest = 35,
+					WidthRequest = Device.Idiom == TargetIdiom.Tablet ? 100 : 50,
+                    HeightRequest = Device.Idiom == TargetIdiom.Tablet ? 100 : 50,
                     Value = i.ToString(),
                 });
                 var b = ButtonsMinutes.Last();
@@ -210,9 +212,11 @@ namespace AppTokiota.Users.Controls
                 var selected = (s as ButtonTimeTask);
                 if (SelectedMinute != null)
                 {
-                    SelectedMinute.BackgroundColor = Color.Transparent;
+					SelectedMinute.BackgroundColor = Color.Transparent;
+					SelectedMinute.TextColor = Color.DarkSalmon;
                 }
-                selected.BackgroundColor = Color.LightGreen;
+				selected.BackgroundColor = Color.FromHex("40baaa");
+				selected.TextColor = Color.White;
                 SelectedMinute = selected;
 
                 ExecuteSelectedHandle();
@@ -226,9 +230,11 @@ namespace AppTokiota.Users.Controls
                 var selectedHour = (s as ButtonTimeTask);
                 if (SelectedHour != null)
                 {
-                    SelectedHour.BackgroundColor = Color.Transparent;
+					SelectedHour.BackgroundColor = Color.Transparent;
+					SelectedHour.TextColor = Color.DarkSalmon;
                 }
-                selectedHour.BackgroundColor = Color.LightGreen;
+				selectedHour.BackgroundColor = Color.FromHex("40baaa");
+				selectedHour.TextColor = Color.White;
                 SelectedHour = selectedHour;
 
                 ChangeOptionImputation(MainMinutes);

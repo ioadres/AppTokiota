@@ -44,7 +44,7 @@ namespace AppTokiota.Users.Helpers
             };
         }
 
-        public static DayStyle GetInputed()
+        public static DayStyle GetImputed()
         {
             return new DayStyle()
             {

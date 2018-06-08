@@ -13,6 +13,7 @@ namespace AppTokiota.Users.Components.Master
     {
         public MasterPageViewModel(IViewModelBaseModule baseModule) : base(baseModule)
         {
+			
         }
     }
 }

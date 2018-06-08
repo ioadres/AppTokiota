@@ -18,15 +18,15 @@
         <ResourceDictionary>
            
             <Style x:Key="ActionSelectedTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidLargeSize}" />
+                <Setter Property="FontSize">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="{StaticResource MidLargeSize }" 
+                                 Tablet="{StaticResource XHugeSize }" />
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
-
-            <Style x:Key="IconPlusTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="90" />
-                <Setter Property="TextColor" Value="{StaticResource RedColor}"/>
-            </Style>
-            
 
             <xamanimation:StoryBoard 
                 x:Key="ActionSelectedTextStyleAnimation"    

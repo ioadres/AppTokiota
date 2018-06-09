@@ -473,9 +473,6 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\torii.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-ldpi\icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\MyIcon.png" />
   </ItemGroup>
   <ItemGroup>

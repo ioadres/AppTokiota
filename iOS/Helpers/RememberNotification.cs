@@ -1,6 +1,9 @@
 ﻿using System;
+using Acr.UserDialogs;
 using AppTokiota.iOS.Helpers;
 using AppTokiota.Users.OS;
+using Foundation;
+using UIKit;
 using UserNotifications;
 using Xamarin.Forms;
 
@@ -17,40 +20,43 @@ namespace AppTokiota.iOS.Helpers
         }
 
         public void CreateNotification() {
-
-            // Request notification permissions from the user
-            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound, (approved, err) => {
-               
-            });
-
+            this.EmitRemoveRememberNotification();
             // Watch for notifications while the app is active
             UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate();
-
         }
 
         public void EmitCreateRememberNotification() {
-
-            Console.WriteLine("Create Notification");
-            // Rebuild notification
-            var content = new UNMutableNotificationContent();
-            content.Title = "Tokiota: Timesheet";
-            content.Body = "Remember input your timesheet ;)";
-
-            // New trigger time
-            var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(60 * 60 * 8, true);
-
-            // ID of Notification to be updated
-            var requestID = "RememberNotification";
-            var request = UNNotificationRequest.FromIdentifier(requestID, content, trigger);
-
-            // Add to system to modify existing Notification
-            UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) => {
-                if (err != null)
+            
+            // Request notification permissions from the user
+            UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound, (approved, err) =>
+            {
+                if (approved)
                 {
-                    // Do something with error...
+                    // Rebuild notification
+                    var content = new UNMutableNotificationContent();
+                    content.Title = "Tokiota: Timesheet";
+                    content.Body = "Remember input your timesheet ;)";
+
+                    var date = new NSDateComponents();
+                    date.Hour = 16;
+                    date.Minute = 0;
+                    var trigger = UNCalendarNotificationTrigger.CreateTrigger(date, true);
+
+                    // ID of Notification to be updated
+                    var requestID = "RememberNotification";
+                    var request = UNNotificationRequest.FromIdentifier(requestID, content, trigger);
+
+                    // Add to system to modify existing Notification
+                    UNUserNotificationCenter.Current.AddNotificationRequest(request, (error) => {
+                        if (error != null)
+                        {
+                            // Do something with error...
+                        }
+                    });
+                }  else {
+                    UserDialogs.Instance.AlertAsync("Please enable the notifications in your settings", "iOS Settings - Notification - Tokiota App", "Ok");
                 }
             });
-
         }
 
         public void EmitRemoveRememberNotification() {

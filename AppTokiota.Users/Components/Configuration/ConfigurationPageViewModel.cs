@@ -25,10 +25,7 @@ namespace AppTokiota.Users.Components.Configuration
         {
             get { return _isEnableNotification; }
             set { 
-                AppSettings.IsEnableNotification = value;
-                SetProperty(ref _isEnableNotification, value);
-
-                if (AppSettings.IsEnableNotification)
+                if (value)
                 {
                     _configurationModule.RememberNotificationBase.EmitRemoveRememberNotification();
                     _configurationModule.RememberNotificationBase.EmitCreateRememberNotification();
@@ -36,6 +33,10 @@ namespace AppTokiota.Users.Components.Configuration
                 else {
                     _configurationModule.RememberNotificationBase.EmitRemoveRememberNotification();
                 }
+
+                AppSettings.IsEnableNotification = value;
+
+                SetProperty(ref _isEnableNotification, AppSettings.IsEnableNotification);
             }
         }
 

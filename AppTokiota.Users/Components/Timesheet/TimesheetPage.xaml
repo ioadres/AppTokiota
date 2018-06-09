@@ -100,11 +100,17 @@
                 
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="7.5*" />
                 <RowDefinition Height="1*" />
-                <RowDefinition Height="9*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <StackLayout Grid.Row="0" Orientation="Horizontal" Margin="1" HorizontalOptions="Center" VerticalOptions="Center">
+            <BoxView BackgroundColor="{StaticResource RedColor}" 
+                     Grid.Row="0" 
+                     VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand">
+            </BoxView>
+            <StackLayout Grid.Row="2" Orientation="Horizontal" Margin="1" HorizontalOptions="Center" VerticalOptions="Center">
                 <StackLayout Orientation="Horizontal" Margin="1">
                     <BoxView BackgroundColor="{StaticResource BlueColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
                     <Label Text="Selected" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
@@ -125,9 +131,9 @@
                 </StackLayout>
                 
             </StackLayout>
-        
+                    
             <Grid
-                Grid.Row="1">
+                Grid.Row="0" Grid.RowSpan="2">
                 <controls:Calendar 
                         x:Name="Calendar" 
                         Style="{StaticResource Calendar}"
@@ -152,7 +158,7 @@
             <Grid 
                 AutomationId="MultipleGrid"
                 x:Name="MultipleGrid"
-                Grid.Row="2"
+                Grid.Row="3"
                 IsVisible="{Binding IsMultiple}"
                 BackgroundColor="{StaticResource RedColor}"
                 Padding="20"
@@ -178,7 +184,7 @@
             <Grid 
                 AutomationId="NotMultipleGrid"
                 x:Name="NotMultipleGrid"
-                Grid.Row="2"
+                Grid.Row="3"
                 IsVisible="{Binding IsNotMultiple}"
                 BackgroundColor="{StaticResource GreenColor}" 
                 Padding="20"
@@ -201,7 +207,7 @@
                 </StackLayout>
             </Grid>
 
-            <Grid Grid.Row="2" 
+            <Grid Grid.Row="3" 
                   x:Name="Footer"
                   AutomationId="Footer"
                   BackgroundColor="{StaticResource DarkColor}"

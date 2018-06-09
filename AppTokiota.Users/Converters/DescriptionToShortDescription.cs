@@ -9,7 +9,7 @@ namespace AppTokiota.Users.Converters
 {
     public class DescriptionToShortDescription : IValueConverter
     {
-        private const int MAXSTRING = 70;
+        private const int MAXSTRING = 80;
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var endMessage = "...";

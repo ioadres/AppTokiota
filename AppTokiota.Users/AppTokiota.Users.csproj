@@ -52,4 +52,7 @@
 	    <DependentUpon>AddActivityTimeDesviationPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="AppTokiota.Users.csproj.sb-e45ae8f6-w5mshZ" />
+	</ItemGroup>
 	</Project>

@@ -86,6 +86,16 @@ namespace AppTokiota.Users
 			if(_network.IsAvailable()) {
 				await AuthenticationRun();
 			}
+            var rememberNotification = Container.Resolve<IRememberNotificationBase>();
+            if (AppSettings.IsEnableNotification)
+            {
+                rememberNotification.EmitCreateRememberNotification();
+            }
+            else
+            {
+                rememberNotification.EmitRemoveRememberNotification();
+            }
+
             base.OnResume();
         }  
         

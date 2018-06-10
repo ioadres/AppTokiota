@@ -25,6 +25,7 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.6.1" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.6.1" />
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="2.5.4" />
+    <PackageReference Include="Xamarin.Forms" Version="3.0.0.530893" />
   </ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Components\ManageImputedDay\" />
@@ -42,6 +43,7 @@
 	  <Folder Include="Components\Configuration\" />
 	  <Folder Include="Services\Chart\" />
 	  <Folder Include="Services\Analytics\" />
+	  <Folder Include="OS\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Components\Activity\NavigationPage\ActivityNavigationPage.xaml.cs">
@@ -50,5 +52,8 @@
 	  <Compile Update="Components\Activity\Desviation\AddActivityTimeDesviationPage.xaml.cs">
 	    <DependentUpon>AddActivityTimeDesviationPage.xaml</DependentUpon>
 	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="AppTokiota.Users.csproj.sb-e45ae8f6-w5mshZ" />
 	</ItemGroup>
 	</Project>

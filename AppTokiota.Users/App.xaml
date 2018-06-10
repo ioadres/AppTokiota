@@ -29,6 +29,7 @@
             <Color x:Key="YellowColor">#ffd88d</Color>
             <Color x:Key="RedColor">#CA5D5B</Color>
             <Color x:Key="RedDarkColor">#AC4E4C</Color>
+            <Color x:Key="RedDarkDarkColor">#7f3a38</Color>
 
             <Color x:Key="LightOrangeColor">#D87E56</Color>
             <Color x:Key="WhiteColor">#FFFFFF</Color>
@@ -417,7 +418,7 @@
                                  Tablet="{StaticResource MediumSize }" />
                     </Setter.Value>
                 </Setter>
-                <Setter Property="WeekdaysTextColor" Value="{StaticResource DarkColor}" />
+                <Setter Property="WeekdaysTextColor" Value="{StaticResource WhiteColor}" />
                 <Setter Property="WeekdaysFontAttributes" Value="Bold" />
                 <!-- END Weekdays -->
 

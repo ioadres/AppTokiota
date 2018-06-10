@@ -173,8 +173,5 @@ namespace AppTokiota
             set => Settings.AddOrUpdateValue(nameof(IsEnableCache), value);
         }
 
-
-
-
     }
 }

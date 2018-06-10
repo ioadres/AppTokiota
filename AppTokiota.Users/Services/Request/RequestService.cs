@@ -109,7 +109,7 @@ namespace AppTokiota.Users.Services
         private HttpClient CreateHttpClient(string token = "")
         {
 			var httpClient = new HttpClient() {
-				Timeout = TimeSpan.FromSeconds(10) 
+				Timeout = TimeSpan.FromSeconds(15) 
 			};
 
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

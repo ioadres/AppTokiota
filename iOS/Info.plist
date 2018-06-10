@@ -57,5 +57,7 @@
 	</array>
 	<key>CFBundleName</key>
 	<string>Tokiota</string>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 </dict>
 </plist>

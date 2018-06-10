@@ -16,6 +16,7 @@ using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter;
 using Xamarin.Forms;
 using Plugin.Connectivity;
+using AppTokiota.Users.OS;
 
 namespace AppTokiota.Users
 {
@@ -30,7 +31,6 @@ namespace AppTokiota.Users
 
         protected override async void OnInitialized()
         {
-            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
             BlobCache.ApplicationName = AppSettings.IdAppCache;
 
             InitializeComponent();
@@ -53,21 +53,24 @@ namespace AppTokiota.Users
 			_network = Container.Resolve<INetworkConnectionService>();
 			_authenticationService = Container.Resolve<IAuthenticationService>();
 
-            // Handle when your app starts
             AppCenter.Start(AppSettings.AppCenter, typeof(Analytics), typeof(Crashes));
-            OnAppearing();
 
-            if (AppSettings.IsEnableNotification)
+            MessagingCenter.Subscribe<ISubscribeMessagingCenter>(this, nameof(UnauthorizedAccessException), async (app) =>
             {
-                var dateNow = DateTime.Now;
-                var limitDate = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, 16, 0, 0);
-                CrossLocalNotifications.Current.Show("Tokiota :: Timesheet", "Remember input your timesheet", 1, dateNow.AddSeconds(10));
-            }
+                if (CrossConnectivity.Current.IsConnected)
+                {
+                    await AuthenticationRun(true);
+                }
+            });
+
+            RememberNotificationBuild();
+
+            base.OnStart();
         }
 
         protected override void OnSleep()
         {
-            CrossLocalNotifications.Current.Cancel(1);
+            base.OnSleep();
         }
 
         protected override async void OnResume()
@@ -75,31 +78,22 @@ namespace AppTokiota.Users
 			if(_network.IsAvailable()) {
 				await AuthenticationRun();
 			}
-            if (AppSettings.IsEnableNotification)
-            {
-                var dateNow = DateTime.Now;
-                var limitDate = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, 16, 0, 0);
-                CrossLocalNotifications.Current.Show("Tokiota :: Timesheet", "Remember input your timesheet", 1, dateNow.AddSeconds(10));
-            }
+            RememberNotificationBuild();
+            base.OnResume();
         }  
 
-        protected void OnDisappearing()
-        {
-            MessagingCenter.Unsubscribe<App>(this, "UnauthorizedAccessException");
-        }
-
-        protected void OnAppearing()
-        {
-            MessagingCenter.Subscribe<ISubscribeMessagingCenter>(this, nameof(UnauthorizedAccessException), async (app) =>
+        void RememberNotificationBuild() {
+            var rememberNotification = Container.Resolve<IRememberNotificationBase>();
+            rememberNotification.RemoveBadgeRememberNotification();
+            if (AppSettings.IsEnableNotification)
             {
-                if (CrossConnectivity.Current.IsConnected)
-                {
-                    Debug.WriteLine("sdsadasd --" + nameof(UnauthorizedAccessException));
-                    await AuthenticationRun(true);
-                }
-            });
+                rememberNotification.EmitCreateRememberNotification();
+            }
+            else
+            {
+                rememberNotification.EmitRemoveRememberNotification();
+            }
         }
-
         
         async Task AuthenticationRun(bool forceRefresh = false) 
         {
@@ -116,20 +110,5 @@ namespace AppTokiota.Users
 				Debug.WriteLine(ex);
             }
         }
-
-
-
-        void TaskScheduler_UnobservedTaskException(Object sender, UnobservedTaskExceptionEventArgs e)
-        {
-            if (!e.Observed)
-            {
-                // prevents the app domain from being torn down
-                e.SetObserved();
-
-                // show the crash page
-                //ShowCrashPage(e.Exception.Flatten().GetBaseException());
-            }
-        }
-
     }
 }

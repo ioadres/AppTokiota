@@ -85,33 +85,31 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <BoxView BackgroundColor="{StaticResource RedColor}" 
-                     Grid.Row="0" 
-                     VerticalOptions="FillAndExpand"
-                     HorizontalOptions="FillAndExpand">
+            <controls:GradientColorStack Grid.Row="0" Grid.RowSpan="3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" StartColor="{StaticResource RedColor}" EndColor="#7f3a38">
+            </controls:GradientColorStack>
+
+            <BoxView BackgroundColor="{StaticResource WhiteColor}" 
+                      Grid.Row="1" 
+                      VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand"
+                      IsVisible="{Binding AnyActivities}">
             </BoxView>
-
-            <StackLayout Grid.Row="0"
-                        Grid.RowSpan="2"
-                        VerticalOptions="FillAndExpand" 
+            
+            <StackLayout Grid.Row="0" Grid.RowSpan="3"
+                        VerticalOptions="StartAndExpand" 
                         HorizontalOptions="FillAndExpand"
+                        IsVisible="{Binding AnyActivities,  Converter={StaticResource cnvInverseBoolConverter}}"
                         Padding="20">
-                <Frame VerticalOptions="FillAndExpand" 
-                       HorizontalOptions="FillAndExpand"
-                       Padding="20"
-                       BorderColor="{StaticResource DarkColor}"
-                       HasShadow="false"
-                       IsVisible="{Binding AnyActivities,  Converter={StaticResource cnvInverseBoolConverter}}">
-
+                
                     <lottie:AnimationView
+                    TranslationY="50"
                      x:Name="LottieView" 
                      Animation="NoDataAdd.json" 
-                     Loop="True" 
+                     Loop="false"
                      AutoPlay="True"
-                     VerticalOptions="FillAndExpand"
-                     HorizontalOptions="FillAndExpand" />
+                     HeightRequest="250"
+                     WidthRequest="250" />
                     
-                </Frame>
             </StackLayout>
 
            <ListView x:Name="listView" 
@@ -126,6 +124,7 @@
                      IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                      SeparatorVisibility="None"
                      IsVisible="{Binding AnyActivities}"
+
                      >
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -136,9 +135,9 @@
                             
                             <StackLayout Padding="5,10,5,10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                                 <Frame VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
-                                       Padding="5,15,5,15" 
+                                       Padding="5,15,5,20" 
                                        HasShadow="true" 
-                                       CornerRadius="10">
+                                       CornerRadius="5">
                                   <Grid>
                                         <Grid.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OnInfoActivityItemCommand}" CommandParameter="{Binding .}" NumberOfTapsRequired="2" />
@@ -211,7 +210,7 @@
               </ListView.ItemTemplate>
             </ListView>
 
-           <Grid Grid.Row="2" BackgroundColor="{StaticResource DarkColor}">
+           <Grid Grid.Row="2" BackgroundColor="{StaticResource DarkColor}"  IsVisible="{Binding AnyActivities}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />

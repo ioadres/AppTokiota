@@ -64,10 +64,11 @@
             </Grid.RowDefinitions>
 
             <Image Source="login_background_menu.png" Aspect="AspectFill"  Grid.Row="0"/>
+            
             <FlexLayout Direction="Column"
                       JustifyContent="SpaceBetween"
                       Grid.Row="0"
-                    >
+             >
 
                 <StackLayout VerticalOptions="Fill" 
                              HorizontalOptions="Fill"  
@@ -119,6 +120,7 @@
 
                 <ContentView 
                              FlexLayout.Shrink="0"
+                             FlexLayout.AlignSelf="End" TranslationY="-50">
                              FlexLayout.AlignSelf="End"
                              TranslationY="-50">
                     

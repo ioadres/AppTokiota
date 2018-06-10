@@ -33,7 +33,7 @@ namespace AppTokiota.Users.Controls
 				HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Center,
                 FontAttributes = FontAttributes.None,
-				TextColor = Color.Black,
+                TextColor = Color.White,
 				HorizontalOptions = LayoutOptions.CenterAndExpand,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 Text = string.Empty,

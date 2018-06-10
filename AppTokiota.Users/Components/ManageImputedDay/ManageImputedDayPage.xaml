@@ -15,7 +15,7 @@
     Title="{Binding Title}"
     >
     <ContentPage.ToolbarItems> 
-        <ToolbarItem Text="Add" IsEnabled="{Binding IsEnabled, Mode=TwoWay}" Command="{Binding OnAddItemCommand}" />
+        <controls:HideToolbarItemControl Text="Add" IsEnabled="{Binding IsEnabled, Mode=TwoWay}" IsVisible="{Binding IsVisibleButtonAdd}" Parent="{x:Reference this}" Command="{Binding OnAddItemCommand}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Resources>

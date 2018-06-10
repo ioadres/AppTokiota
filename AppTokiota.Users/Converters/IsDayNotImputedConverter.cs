@@ -1,28 +1,28 @@
-﻿using AppTokiota.Users.Models;
+﻿using AppTokiota.Users.Helpers;
+using AppTokiota.Users.Models;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 using Xamarin.Forms;
-using AppTokiota.Users.Helpers;
 
 namespace AppTokiota.Users.Converters
 {
-    public class EnableDayConverter :  IValueConverter
+    public class IsDayNotImputedConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value != null)
             {
-                var day = (Day)value;
-                var result = FreeDay.IsFreeOrWeekendDay(day);
-                return !result;
+                var numProject = (int)value;
+                if (numProject == 0) return true; 
             }
-            return value;
-
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return value;
         }
     }
 }

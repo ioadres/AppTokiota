@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace AppTokiota.Users.Models
@@ -8,6 +10,10 @@ namespace AppTokiota.Users.Models
     {
         public Day Day { get; set; }
         public bool IsLast { get; set; } = false;
-        public ActivityDay Activity { get; set; }
+
+        public int ProjectsForDay { get; set; }
+        public int TasksForDay { get; set; }
+        public double ImputationTasksDay { get; set; }
+        public double DesviationTasksDay { get; set; }
     }
 }

@@ -22,13 +22,18 @@ namespace AppTokiota.Users.Components.Review
 {
     public class ReviewPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        //Todo Sacar a settings
         DateTimeFormatInfo dtinfo = new CultureInfo(AppSettings.CultureInfoApp).DateTimeFormat;
 
         #region Services
         protected readonly IReviewModule _reviewModule;
         #endregion
 
+        private IList<TimesheetForDay> _lstReviewDates;
+        public IList<TimesheetForDay> LstReviewDates
+        {
+            get { return _lstReviewDates; }
+            set { _lstReviewDates = value; }
+        }
         #region Datapicker
         private ObservableCollection<PickerItem> _yearPicker;
         public ObservableCollection<PickerItem> YearPicker
@@ -44,19 +49,33 @@ namespace AppTokiota.Users.Components.Review
             set { SetProperty(ref _monthPicker, value); }
         }
 
+        private PickerItem _myItemYearPicker;
 
-        private int _myIndexYearPicker;
-        public int MyIndexYearPicker
+        public PickerItem MyItemYearPicker
         {
-            get { return _myIndexYearPicker; }
-            set { SetProperty(ref _myIndexYearPicker, value); }
+            get { return _myItemYearPicker; }
+            set
+            {
+                if (value != _myItemYearPicker && value != null)
+                {
+                    SetProperty(ref _myItemYearPicker, value);
+                    //LoadDataReviewByDate(value.Value, _myItemMonthPicker.Value);
+                }
+            }
         }
+        private PickerItem _myItemMonthPicker;
 
-        private int _myIndexMonthPicker;
-        public int MyIndexMonthPicker
+        public PickerItem MyItemMonthPicker
         {
-            get { return _myIndexMonthPicker; }
-            set { SetProperty(ref _myIndexMonthPicker, value); }
+            get { return _myItemMonthPicker; }
+            set
+            {
+                if (value != _myItemMonthPicker && value != null)
+                {
+                    SetProperty(ref _myItemMonthPicker, value);
+                    //LoadDataReviewByDate();
+                }
+            }
         }
 
         #endregion datapicker
@@ -129,7 +148,7 @@ namespace AppTokiota.Users.Components.Review
                     if (this.IsInternetAndCloseModal())
                     {
                         await LoadDataPickerAsync();
-                        LoadDataReviewByDate(YearPicker.ElementAt(MyIndexYearPicker).Value, MonthPicker.ElementAt(MyIndexMonthPicker).Value);
+                        LoadDataReviewByDate();
                     }
                     IsBusy = false;
                 }
@@ -142,7 +161,6 @@ namespace AppTokiota.Users.Components.Review
             });
 
         }
-
 
         private async Task LoadDataPickerAsync()
         {
@@ -161,9 +179,9 @@ namespace AppTokiota.Users.Components.Review
 					monthPickerTemp.Add(new PickerItem { Value = imes, DisplayName = dtinfo.GetMonthName(imes) });
                 }
 				MonthPicker = monthPickerTemp;
-				
                 LoadDefaultValues();
             });
+            
         }
 
         private void LoadDefaultValues()
@@ -181,11 +199,11 @@ namespace AppTokiota.Users.Components.Review
                 DisplayName = dtinfo.GetMonthName(MyDate.Month),
             };
 
-            MyIndexYearPicker = YearPicker.IndexOf(YearPicker.Where(x => x.Value == InitYearPickerItem.Value).FirstOrDefault());
-            MyIndexMonthPicker = MonthPicker.IndexOf(MonthPicker.Where(x => x.Value == InitMonthPickerItem.Value).FirstOrDefault());
+            MyItemMonthPicker = MonthPicker.Where(x=>x.Value == InitMonthPickerItem.Value).FirstOrDefault();
+            MyItemYearPicker = YearPicker.Where(x => x.Value == InitYearPickerItem.Value).FirstOrDefault();
         }
 
-        protected void LoadDataReviewByDate(int year, int month)
+        protected void LoadDataReviewByDate()
         {
             IsBusy = true;
             Device.BeginInvokeOnMainThread(async () =>
@@ -194,7 +212,7 @@ namespace AppTokiota.Users.Components.Review
                 {
                     if (this.IsInternetAndCloseModal())
                     {
-                        _currentReview = await _reviewModule.ReviewService.GetReview(year, month);
+                        _currentReview = await _reviewModule.ReviewService.GetReview(MyItemYearPicker.Value, MyItemMonthPicker.Value);
                         LoadDataReviewAsync(_currentReview);
                     }
                 }
@@ -212,10 +230,10 @@ namespace AppTokiota.Users.Components.Review
             try
             {
                 BtnSendReviewIsVisible = !(review.IsValidated || review.IsClosed);
-                var lstReviewDates = await _reviewModule.TimeLineService.GetListTimesheetForDay(review);
-                LoadTotalTime(lstReviewDates);
+                LstReviewDates = await _reviewModule.TimeLineService.GetListTimesheetForDay(review);
+                LoadTotalTime(LstReviewDates);
                 var listTemp = new ObservableCollection<ReviewTimeLine>();
-                lstReviewDates.ForEach(x => listTemp.Add(map(x)));
+                LstReviewDates.ForEach(x => listTemp.Add(map(x)));
                 listTemp.Last().IsLast = true;
                 LstReview = listTemp;
                 IsBusy = false;
@@ -240,7 +258,10 @@ namespace AppTokiota.Users.Components.Review
         private ReviewTimeLine map(TimesheetForDay x)
         {
             var currentTimeSheetDay = new ReviewTimeLine();
-            currentTimeSheetDay.Activity = x.Activities.FirstOrDefault();
+            currentTimeSheetDay.ProjectsForDay = x.Activities.Select(y => y.Project.Id).Distinct().Count();
+            currentTimeSheetDay.TasksForDay = x.Activities.Select(y => y.Task.Id).Distinct().Count();
+            currentTimeSheetDay.DesviationTasksDay = x.Activities.Sum(d => d.Deviation);
+            currentTimeSheetDay.ImputationTasksDay = x.Activities.Sum(d => d.Imputed);
             currentTimeSheetDay.Day = x.Day;
             currentTimeSheetDay.IsLast = x.IsLast;
             return currentTimeSheetDay;
@@ -248,19 +269,42 @@ namespace AppTokiota.Users.Components.Review
 
         #endregion LoadPickersListViewData
 
-        #region EventOnInfoActivityItemCommand
-        public DelegateCommand<object> OnInfoActivityItemCommand => new DelegateCommand<object>((obj) => { OnInfoActivityItem((ReviewTimeLine)obj); });
-        protected void OnInfoActivityItem(ReviewTimeLine from)
+        #region NavigateToManageImputedDay
+        public DelegateCommand<object> ManageImputedDayCommand => new DelegateCommand<object>((obj)=> { ManageImputedDay((ReviewTimeLine)obj); });
+        protected async void ManageImputedDay(ReviewTimeLine from)
         {
-            var navigationParameters = new NavigationParameters();
-            navigationParameters.Add(ActivityDay.Tag, from.Activity);
-            BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<InfoActivityPopUpPage>(), navigationParameters, true, true);
+            if (this.IsInternetAndCloseModal())
+            {
+                try
+                {
+                    var selectedDateTimesheet = LstReviewDates.Where(x => x.Day == from.Day).FirstOrDefault();
+                    if (selectedDateTimesheet.Day != null)
+                    {
+                        var navigationParameters = new NavigationParameters();
+                        navigationParameters.Add(TimesheetForDay.Tag, selectedDateTimesheet);
+                        navigationParameters.Add("IsVisibleButtonAdd", false);
+                        await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<ManageImputedDayPage>(), navigationParameters);
+                    }
+                    else
+                    {
+                        throw new ArgumentNullException();
+                    }
+                }
+                catch (Exception e)
+                {
+                    BaseModule.DialogService.ShowToast("Fail load Detail. Try Again.");
+                }
+            }
         }
         #endregion
+
+        public DelegateCommand LoadDataReviewByDateCommand => new DelegateCommand(LoadDataReviewByDate);
+
 
         #region sendValidateReview
 
         public DelegateCommand SendReviewValidateCommand => new DelegateCommand(SendReviewToValidate);
+
         protected void SendReviewToValidate()
         {
             IsBusy = true;
@@ -270,10 +314,10 @@ namespace AppTokiota.Users.Components.Review
                 {
                     if (this.IsInternetAndCloseModal())
                     {
-                        var response = await _reviewModule.ReviewService.PatchReview(YearPicker.ElementAt(MyIndexYearPicker).Value, MonthPicker.ElementAt(MyIndexMonthPicker).Value);
+                        var response = await _reviewModule.ReviewService.PatchReview(MyItemYearPicker.Value, MyItemMonthPicker.Value);
                         if (response)
                         {
-                            LoadDataReviewByDate(YearPicker.ElementAt(MyIndexYearPicker).Value, MonthPicker.ElementAt(MyIndexMonthPicker).Value);
+                            LoadDataReviewByDate();
                         }
                         else
                         {

@@ -19,5 +19,9 @@ namespace AppTokiota.Droid.Helpers
         public void EmitRemoveRememberNotification()
         {
         }
+
+        public void RemoveBadgeRememberNotification()
+        {
+        }
     }
 }

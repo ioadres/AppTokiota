@@ -340,6 +340,7 @@
     <Compile Include="Renderers\StandardViewCellRenderer.cs" />
     <Compile Include="Helpers\UserNotificationCenterDelegate.cs" />
     <Compile Include="Helpers\RememberNotification.cs" />
+    <Compile Include="Renderers\GradientColorStackRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Settings.bundle\Root.plist" />
@@ -387,6 +388,7 @@
     <BundleResource Include="Resources\menu%402x.png" />
     <BundleResource Include="Resources\menu%403x.png" />
     <BundleResource Include="Resources\NoDataAdd.json" />
+    <BundleResource Include="Resources\clock_animation.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppTokiota.Users\AppTokiota.Users.csproj">

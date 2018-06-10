@@ -25,6 +25,10 @@ namespace AppTokiota.iOS.Helpers
             UNUserNotificationCenter.Current.Delegate = new UserNotificationCenterDelegate();
         }
 
+        public void RemoveBadgeRememberNotification() {
+            UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
+        }
+
         public void EmitCreateRememberNotification() {
             
             // Request notification permissions from the user
@@ -36,10 +40,11 @@ namespace AppTokiota.iOS.Helpers
                     var content = new UNMutableNotificationContent();
                     content.Title = "Tokiota: Timesheet";
                     content.Body = "Remember input your timesheet ;)";
+                    content.Badge = 1;
 
                     var date = new NSDateComponents();
-                    date.Hour = 16;
-                    date.Minute = 0;
+                    date.Hour = 22;
+                    date.Minute = 32;
                     var trigger = UNCalendarNotificationTrigger.CreateTrigger(date, true);
 
                     // ID of Notification to be updated

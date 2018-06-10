@@ -24,7 +24,7 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.6.1" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.6.1" />
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="2.5.4" />
-    <PackageReference Include="Xamarin.Forms" Version="3.0.0.550146" />
+    <PackageReference Include="Xamarin.Forms" Version="3.0.0.530893" />
   </ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Components\ManageImputedDay\" />

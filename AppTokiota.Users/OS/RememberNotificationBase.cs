@@ -5,10 +5,8 @@ namespace AppTokiota.Users.OS
 {
     public interface IRememberNotificationBase
     {
-
+        void RemoveBadgeRememberNotification();
         void EmitCreateRememberNotification();
         void EmitRemoveRememberNotification();
-
-
     }
 }

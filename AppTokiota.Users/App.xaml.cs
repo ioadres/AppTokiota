@@ -31,7 +31,6 @@ namespace AppTokiota.Users
 
         protected override async void OnInitialized()
         {
-            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
             BlobCache.ApplicationName = AppSettings.IdAppCache;
 
             InitializeComponent();
@@ -63,15 +62,8 @@ namespace AppTokiota.Users
                     await AuthenticationRun(true);
                 }
             });
-            var rememberNotification = Container.Resolve<IRememberNotificationBase>();
-            if (AppSettings.IsEnableNotification)
-            {
-                rememberNotification.EmitCreateRememberNotification();
-            }
-            else
-            {
-                rememberNotification.EmitRemoveRememberNotification();
-            }
+
+            RememberNotificationBuild();
 
             base.OnStart();
         }
@@ -86,7 +78,13 @@ namespace AppTokiota.Users
 			if(_network.IsAvailable()) {
 				await AuthenticationRun();
 			}
+            RememberNotificationBuild();
+            base.OnResume();
+        }  
+
+        void RememberNotificationBuild() {
             var rememberNotification = Container.Resolve<IRememberNotificationBase>();
+            rememberNotification.RemoveBadgeRememberNotification();
             if (AppSettings.IsEnableNotification)
             {
                 rememberNotification.EmitCreateRememberNotification();
@@ -95,9 +93,7 @@ namespace AppTokiota.Users
             {
                 rememberNotification.EmitRemoveRememberNotification();
             }
-
-            base.OnResume();
-        }  
+        }
         
         async Task AuthenticationRun(bool forceRefresh = false) 
         {
@@ -114,20 +110,5 @@ namespace AppTokiota.Users
 				Debug.WriteLine(ex);
             }
         }
-
-
-
-        void TaskScheduler_UnobservedTaskException(Object sender, UnobservedTaskExceptionEventArgs e)
-        {
-            if (!e.Observed)
-            {
-                // prevents the app domain from being torn down
-                e.SetObserved();
-
-                // show the crash page
-                //ShowCrashPage(e.Exception.Flatten().GetBaseException());
-            }
-        }
-
     }
 }

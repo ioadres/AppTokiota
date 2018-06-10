@@ -13,17 +13,34 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         protected readonly IManageImputedDayModule _manageImputedDayModule;
         #endregion
 
+        private double _deviation;
+        public double Deviation
+        {
+            get { return _deviation; }
+            set { SetProperty(ref _deviation, value); }
+        }
+
+        private double _consumed;
+        public double Imputed
+        {
+            get { return _consumed; }
+            set { SetProperty(ref _consumed, value); }
+        }
+
         private Models.ActivityDay _context;
         public Models.ActivityDay Context
         {
             get { return _context; }
             set { SetProperty(ref _context, value); }
         }
+
         public InfoActivityPopUpPageViewModel(IViewModelBaseModule baseModule, IManageImputedDayModule manageImputedDayModule) : base(baseModule)
         {
             _manageImputedDayModule = manageImputedDayModule;
 
-            Title = "Info activity";
+            Title = "Activity";
+            Deviation = 0;
+            Imputed = 0;
         }
 
         #region CloseAction
@@ -38,7 +55,8 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
             Context = parameters.GetValue<ActivityDay>(ActivityDay.Tag);
-           
+            Imputed = Context.Imputed;
+            Deviation = Context.Deviation;           
         }
 
     }

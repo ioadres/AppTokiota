@@ -70,6 +70,13 @@ namespace AppTokiota.Users.Components.Timesheet
             set { SetProperty(ref _specialDates, value); }
         }
 
+        private bool _isLoadCalendar;
+        public bool IsLoadCalendar
+        {
+            get { return _isLoadCalendar; }
+            set { SetProperty(ref _isLoadCalendar, value); }
+        }
+
         /// <summary>
         /// Gets if is a multipleSelection
         /// </summary>
@@ -251,7 +258,9 @@ namespace AppTokiota.Users.Components.Timesheet
 				{
 					IsBusy = false;
 					BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-				}
+                }finally {
+                    IsLoadCalendar = true;
+                }
 			});  
         }
 		#endregion

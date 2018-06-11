@@ -18,10 +18,13 @@ namespace AppTokiota.Droid.Renderers
         }
 
         IPageController PageController => Element as IPageController;
+        BaseNavigationPage CustomNavigationPage => Element as BaseNavigationPage;
 
         protected override void OnLayout(bool changed, int l, int t, int r, int b)
         {
+            CustomNavigationPage.IgnoreLayoutChange = true;
             base.OnLayout(changed, l, t, r, b);
+            CustomNavigationPage.IgnoreLayoutChange = false;
 
             int containerHeight = b - t;
 
@@ -31,7 +34,7 @@ namespace AppTokiota.Droid.Renderers
             {
                 AView child = GetChildAt(i);
 
-                if (child is Toolbar)
+                if (child is Android.Support.V7.Widget.Toolbar)
                 {
                     continue;
                 }
@@ -39,5 +42,6 @@ namespace AppTokiota.Droid.Renderers
                 child.Layout(0, 0, r, b);
             }
         }
+
     }
 }

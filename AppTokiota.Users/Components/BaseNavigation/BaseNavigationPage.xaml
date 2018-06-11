@@ -7,7 +7,7 @@
      BarTextColor="{StaticResource WhiteColor}">
     <NavigationPage.BarBackgroundColor>
         <OnPlatform x:TypeArguments="Color">
-            <On Platform="Android, iOS" Value="{StaticResource RedDarkColor}" />
+            <On Platform="Android, iOS" Value="{StaticResource RedColor}" />
         </OnPlatform>
     </NavigationPage.BarBackgroundColor>
 </NavigationPage>

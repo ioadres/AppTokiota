@@ -25,7 +25,9 @@ namespace AppTokiota.Users.Controls
                 WidthRequest = 28,
                 Margin = new Thickness(24, 0, 0, 0),
                 VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.End
+                HorizontalOptions = LayoutOptions.End,
+                TextColor = Color.FromHex("424242"),
+                Text = "<"
 			};
 
 			TitleLabel = new Label { 
@@ -33,8 +35,8 @@ namespace AppTokiota.Users.Controls
 				HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Center,
                 FontAttributes = FontAttributes.None,
-                TextColor = Color.White,
-				HorizontalOptions = LayoutOptions.CenterAndExpand,
+                TextColor = Color.FromHex("424242"),
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 Text = string.Empty,
                 LineBreakMode = LineBreakMode.NoWrap
@@ -48,8 +50,10 @@ namespace AppTokiota.Users.Controls
                 WidthRequest = 28,
                 Margin = new Thickness(0, 0, 24, 0),
                 VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.Start
-			};
+                HorizontalOptions = LayoutOptions.Start,
+                TextColor = Color.FromHex("424242"),
+                Text = ">"
+            };
 
 			MonthNavigationLayout = new StackLayout
 			{

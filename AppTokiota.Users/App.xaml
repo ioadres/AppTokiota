@@ -418,7 +418,7 @@
                                  Tablet="{StaticResource MediumSize }" />
                     </Setter.Value>
                 </Setter>
-                <Setter Property="WeekdaysTextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="WeekdaysTextColor" Value="{StaticResource SecondaryColor}" />
                 <Setter Property="WeekdaysFontAttributes" Value="Bold" />
                 <!-- END Weekdays -->
 

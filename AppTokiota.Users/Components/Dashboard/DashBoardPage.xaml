@@ -72,7 +72,7 @@
              
             <BoxView Grid.Row="1" BackgroundColor="{StaticResource GrayColor}"></BoxView>
             <ScrollView Grid.Row="1"  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding ReDraw}">
                     
                     <Label Text="Tasks Imputed" Style="{StaticResource TitleH2Style}" Margin="5,15,5,5" IsVisible="{Binding ChartProjectsImputedIsVisible}" ></Label>
                     <microcharts:ChartView  x:Name="chartProjectsImputed" Chart="{Binding ChartProjectsImputed}" HeightRequest="150" IsVisible="{Binding ChartProjectsImputedIsVisible}">

@@ -20,7 +20,7 @@ namespace AppTokiota.Droid.Renderers
         protected override void DispatchDraw(global::Android.Graphics.Canvas canvas)
         {
             #region for Horizontal Gradient
-            var gradient = new Android.Graphics.LinearGradient(0, 0, Width, 0,
+            var gradient = new Android.Graphics.LinearGradient(0, 0, 0, Height,
             #endregion
 
                    this.StartColor.ToAndroid(),

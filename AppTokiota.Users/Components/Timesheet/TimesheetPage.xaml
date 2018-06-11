@@ -91,18 +91,8 @@
     </ContentPage.Triggers>
     <ContentPage.Content>
          <Grid RowSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1.3*" />
-                <RowDefinition Height="8.7*" />
-            </Grid.RowDefinitions>
-            <BoxView BackgroundColor="{StaticResource RedColor}" 
-                     Grid.Row="0" 
-                     VerticalOptions="FillAndExpand"
-                     HorizontalOptions="FillAndExpand">
-            </BoxView>
             
              <controlsRefractored:PullToRefreshLayout
-              Grid.Row="0" Grid.RowSpan="2"
               IsPullToRefreshEnabled="True"
               RefreshCommand="{Binding ReloadDataCalendarCommand}"
               IsRefreshing="{Binding IsBusy}"
@@ -156,19 +146,7 @@
                                 <BoxView BackgroundColor="{StaticResource DarkGrayColor}" Style="{StaticResource ColorBoxStyle}"></BoxView>
                                 <Label Text="Close" Style="{StaticResource ColorDescriptionTextStyle}"></Label>
                             </StackLayout>
-                        </StackLayout>
-
-                        <StackLayout Margin="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" IsVisible="{Binding IsLoadCalendar}">
-                            <lottie:AnimationView
-                             x:Name="LottieView" 
-                             Animation="clock_animation.json" 
-                             Loop="false"
-                             AutoPlay="true"
-                             HeightRequest="70"
-                             WidthRequest="70"
-                             VerticalOptions="Center"
-                             HorizontalOptions="Center" />
-                        </StackLayout>
+                        </StackLayout>                      
                                 
                     </StackLayout>
 

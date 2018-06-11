@@ -20,7 +20,7 @@ using AppTokiota.Droid.Helpers;
 
 namespace AppTokiota.Droid
 {
-    [Activity(Label = "TimeSheet", Icon = "@drawable/MyIcon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "TimeSheet", Icon = "@drawable/logo", Theme = "@style/MyTheme", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)

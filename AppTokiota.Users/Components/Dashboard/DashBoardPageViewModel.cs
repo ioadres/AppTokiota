@@ -78,8 +78,15 @@ namespace AppTokiota.Users.Components.DashBoard
 			set { SetProperty(ref _isHolidayTomorrow, value); }
         }
 
-		#region MethodLoadDataAsync
-		protected async void LoadDataAsync()
+        private bool _reDraw = false;
+        public bool ReDraw
+        {
+            get { return _reDraw; }
+            set { SetProperty(ref _reDraw, value); }
+        }
+
+        #region MethodLoadDataAsync
+        protected async void LoadDataAsync()
         {
 		   try
             {
@@ -101,8 +108,16 @@ namespace AppTokiota.Users.Components.DashBoard
 					}
 
 					await Task.WhenAll(GenerateChartActivitiesImputationVsDeviation(timesheet), GenerateChartImputationMonthVsHourMonthExpected(timesheet), GenerateChartActivitiesImputedGroupByTaskAndProject(timesheet));
-                      
-                    IsBusy = false;
+
+                    if (Device.RuntimePlatform == Device.Android)
+                    {
+                        Device.StartTimer(new TimeSpan(0, 0, 0, 1, 100), () =>
+                        {
+                            IsBusy = false;
+                            ReDraw = true;
+                            return false;
+                        });
+                    }
                 }
             }
             catch (Exception ex)

@@ -337,6 +337,7 @@
     <Compile Include="MainApplication.cs" />
     <Compile Include="Helpers\RememberNotification.cs" />
     <Compile Include="Renderers\GradientColorStackRenderer.cs" />
+    <Compile Include="SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="..\CommonResources\Fonts\poppins\Poppins-SemiBold.ttf">
@@ -362,7 +363,9 @@
     </AndroidAsset>
     <None Include="app.config" />
     <None Include="Resources\AboutResources.txt" />
-    <None Include="Properties\AndroidManifest.xml" />
+    <None Include="Properties\AndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Assets\AboutAssets.txt" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -476,22 +479,27 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\torii.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\MyIcon.png" />
+    <AndroidResource Include="Resources\drawable\splash_background.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-mdpi\MyIcon.png" />
+    <AndroidResource Include="Resources\drawable\logoSplash.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\MyIcon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\MyIcon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\MyIcon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\MyIcon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Annotations.27.0.2\build\MonoAndroid81\Xamarin.Android.Support.Annotations.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Annotations.27.0.2\build\MonoAndroid81\Xamarin.Android.Support.Annotations.targets')" />

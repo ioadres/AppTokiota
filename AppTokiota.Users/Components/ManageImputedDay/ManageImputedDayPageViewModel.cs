@@ -166,12 +166,13 @@ namespace AppTokiota.Users.Components.ManageImputedDay
 				UpdateDayOfTimesheet(_currentTimesheetForDay);
             }
 
-            IsBusy = false;
             keyContains = parameters.ContainsKey("IsVisibleButtonAdd");
             if (keyContains)
             {
                 IsVisibleButtonAdd = parameters.GetValue<bool>("IsVisibleButtonAdd");
             }
+
+            IsBusy = false;
         }
 
         private void UpdateDayOfTimesheet(TimesheetForDay timesheet)

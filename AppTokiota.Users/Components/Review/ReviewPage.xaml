@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppTokiota.Users.Components.Review.ReviewPage"
@@ -23,28 +23,13 @@
                 <converters:EnableDayConverter/>
                 <converters:IsDayNotImputedConverter/>
             </converters:ValueConverterGroup>
-            
 
-            <Style x:Key="FooterTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource LittleSize}" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}"/>
-            </Style>
 
-            <Style x:Key="TaskTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsRegularLabelStyle}">
-                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}"/>
+            <Style x:Key="TaskTextStyle" TargetType="Label" BasedOn="{StaticResource TitleH5Style}">                
                 <Setter Property="VerticalTextAlignment" Value="Center" />
-                <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
-            </Style>
-            
-            <Style x:Key="DescriptionTextStyle" TargetType="Label">
-                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
-                <Setter Property="FontSize" Value="{StaticResource MidLittleSize}"/>
-                <Setter Property="VerticalTextAlignment" Value="Center" />
-                <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
             </Style>
 
-            <Style x:Key="DayTextStyle" TargetType="Label" BasedOn="{StaticResource PoppinsBoldLabelStyle}">
-                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+            <Style x:Key="DayTextStyle" TargetType="Label" BasedOn="{StaticResource IconFontBaseStyle}">
                 <Setter Property="FontSize" Value="{StaticResource LittleSize}"/>
                 <Setter Property="TextColor" Value="{StaticResource AccentColor}"/>
                 <Style.Triggers>
@@ -54,8 +39,7 @@
                 </Style.Triggers>
             </Style>
 
-            <Style x:Key="ProjectTextStyle" TargetType="Label">
-                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+            <Style x:Key="ProjectTextStyle" TargetType="Label" BasedOn="{StaticResource IconFontBaseStyle}">
                 <Setter Property="FontSize" Value="{StaticResource LittleSize}"/>
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}"/>
@@ -67,8 +51,7 @@
                 </Style.Triggers>
             </Style>
 
-            <Style x:Key="TimeLineSimbolStyle" TargetType="Label">
-                <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+            <Style x:Key="TimeLineSimbolStyle" TargetType="Label" BasedOn="{StaticResource IconFontBaseStyle}">
                 <Setter Property="FontSize" Value="{StaticResource BigSize}"/>
                 <Style.Triggers>
                     <DataTrigger TargetType="Label" Binding="{Binding Day, Converter= {StaticResource cnvDisabledDay}}" Value="True" >
@@ -93,6 +76,7 @@
                     <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
+                
                 <Picker Grid.Row="0" Grid.Column="0" x:Name="pickerMonth"
                             Title="Month" WidthRequest="100"
                             ItemsSource="{Binding MonthPicker}"
@@ -133,22 +117,24 @@
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.ManageImputedDayCommand}" CommandParameter="{Binding .}" NumberOfTapsRequired="2" />
                                 </Grid.GestureRecognizers>
-                                <Label  Grid.Column="0" HorizontalOptions="Center" Text="{Binding Day.Date, Converter ={StaticResource DateOfWeekFormat}}" Style ="{StaticResource DayTextStyle}" />
+                                
+                                <Label  Grid.Column="0" 
+                                        HorizontalOptions="Center" 
+                                        Text="{Binding Day.Date, Converter={StaticResource DateOfWeekFormat}}" 
+                                        Style ="{StaticResource DayTextStyle}" />
 
-                                <!--<StackLayout  Grid.Row ="0" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="4" VerticalOptions="CenterAndExpand" IsVisible="{Binding Day, Converter= {StaticResource cnvDisabledDay}}">
-                                    <controls:LabelReviewControl ProjectDescription="{Binding ProjectsForDay}" Day="{Binding Day}" Style="{StaticResource ProjectTextStyle}" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"></controls:LabelReviewControl>
-                                 </StackLayout>-->
-
-                                <StackLayout  Grid.Row ="1" Grid.Column="1">
+                                <StackLayout  Grid.Row="1" Grid.Column="1">
                                     <BoxView
-                                    Grid.Row ="1"
-                                    Grid.RowSpan="2"
-                                    Grid.Column="1"
-                                    HorizontalOptions="CenterAndExpand"
-                                    VerticalOptions="FillAndExpand"
-                                    WidthRequest="2"
-                                    BackgroundColor="{StaticResource RedColor}"
-                                    IsVisible="{Binding IsLast, Converter={StaticResource NotBooleanConverter}"/>
+                                        Grid.Row ="1"
+                                        Grid.RowSpan="2"
+                                        Grid.Column="1"
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="FillAndExpand"
+                                        WidthRequest="2"
+                                        BackgroundColor="{StaticResource RedColor}"
+
+                                        IsVisible="{Binding IsLast, Converter={StaticResource NotBooleanConverter}"/>
+                                    
                                 </StackLayout>
 
                                 <StackLayout  Grid.Row ="0" Grid.Column="1">
@@ -156,21 +142,61 @@
                                 </StackLayout>
 
 
-                                <Label Grid.Row="0" Grid.Column="2" Text="PROJECTS" Style="{StaticResource ProjectTextStyle}" HorizontalTextAlignment="Center" IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}"></Label>
-                                <Label Grid.Row="0" Grid.Column="3" Text="TASKS" Style="{StaticResource ProjectTextStyle}" HorizontalTextAlignment="Center" IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}"></Label>
-                                <Label Grid.Row="0" Grid.Column="4" Text="Desvia." Style="{StaticResource ProjectTextStyle}" IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}"></Label>
-                                <Label Grid.Row="0" Grid.Column="5" Text="Imputa." Style="{StaticResource ProjectTextStyle}" IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}"></Label>
+                                <Label Grid.Row="0" Grid.Column="2" 
+                                       Text="PROJECTS" 
+                                       Style="{StaticResource ProjectTextStyle}" 
+                                       HorizontalTextAlignment="Center" 
+                                       IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}">                                    
+                                </Label>
+                                
+                                <Label Grid.Row="0" Grid.Column="3" 
+                                       Text="TASKS" 
+                                       Style="{StaticResource ProjectTextStyle}" 
+                                       HorizontalTextAlignment="Center" 
+                                       IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}">
+                                </Label>
+                                
+                                <Label Grid.Row="0" Grid.Column="4" 
+                                       Text="Desvia." 
+                                       Style="{StaticResource ProjectTextStyle}" 
+                                       IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}">                                    
+                                </Label>
+                                
+                                <Label Grid.Row="0" Grid.Column="5" Text="Imput." 
+                                       Style="{StaticResource ProjectTextStyle}" 
+                                       IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}">                                    
+                                </Label>
 
-                                <Frame Grid.Row="1" Grid.Column="2" HeightRequest="25" WidthRequest="25" CornerRadius="20"  HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="{StaticResource PrimaryColor}" Padding="10" Margin ="5" IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}">
+                                <Frame Grid.Row="1" Grid.Column="2" HeightRequest="25" WidthRequest="25" Padding="10" Margin="5" 
+                                       CornerRadius="20" 
+                                       HasShadow="false"  
+                                       HorizontalOptions="Center" 
+                                       VerticalOptions="Center" 
+                                       BackgroundColor="{StaticResource PrimaryColor}" 
+                                       IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}">
                                     <Label Text="{Binding ProjectsForDay}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
                                 </Frame>
 
-                                <Frame Grid.Row="1" Grid.Column="3" HeightRequest="25" WidthRequest="25" CornerRadius="20" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="{StaticResource PrimaryColor}" Padding="10" Margin ="5" IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}">
+                                <Frame Grid.Row="1" Grid.Column="3" HeightRequest="25" WidthRequest="25" 
+                                       Padding="10" Margin="5" 
+                                       CornerRadius="20" 
+                                       HasShadow="false" 
+                                       HorizontalOptions="Center" 
+                                       VerticalOptions="Center" 
+                                       BackgroundColor="{StaticResource PrimaryColor}" 
+                                       IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}">
                                     <Label Text="{Binding TasksForDay}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
                                 </Frame>
 
-                                <Label Grid.Row="1" Grid.Column="4" Text="{Binding ImputationTasksDay, Converter ={StaticResource cnvMinutesToHour}}" Style="{StaticResource TaskTextStyle}" IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}" />
-                                <Label Grid.Row="1" Grid.Column="5" Text="{Binding DesviationTasksDay, Converter ={StaticResource cnvMinutesToHour}}" Style="{StaticResource TaskTextStyle}" IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}"/>
+                                <Label Grid.Row="1" Grid.Column="4" 
+                                       Text="{Binding ImputationTasksDay, Converter={StaticResource cnvMinutesToHour}}" 
+                                       Style="{StaticResource TaskTextStyle}" 
+                                       IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}" />
+                                
+                                <Label Grid.Row="1" Grid.Column="5" 
+                                       Text="{Binding DesviationTasksDay, Converter={StaticResource cnvMinutesToHour}}" 
+                                       Style="{StaticResource TaskTextStyle}" 
+                                       IsVisible="{Binding Day, Converter= {StaticResource cnvEnabledDay}}"/>
                                 
                             </Grid>
                         </ViewCell>

@@ -6,47 +6,33 @@ using Xamarin.Forms;
 
 namespace AppTokiota.Users.Controls
 {
-    public class HideToolbarItemControl : ToolbarItem
+    public class BindableToolbarItem : ToolbarItem
     {
-            public HideToolbarItemControl() : base()
+        public static readonly BindableProperty IsVisibleProperty = BindableProperty.Create(nameof(IsVisible), typeof(bool), typeof(BindableToolbarItem), true, BindingMode.TwoWay, propertyChanged: OnIsVisibleChanged);
+
+        public bool IsVisible
+        {
+            get => (bool)GetValue(IsVisibleProperty);
+            set => SetValue(IsVisibleProperty, value);
+        }
+
+        private static void OnIsVisibleChanged(BindableObject bindable, object oldvalue, object newvalue)
+        {
+            var item = bindable as BindableToolbarItem;
+
+            if (item == null || item.Parent == null)
+                return;
+
+            var toolbarItems = ((ContentPage)item.Parent).ToolbarItems;
+
+            if ((bool)newvalue && !toolbarItems.Contains(item))
             {
-                this.InitVisibility();
+                Device.BeginInvokeOnMainThread(() => { toolbarItems.Add(item); });
             }
-
-            private async void InitVisibility()
+            else if (!(bool)newvalue && toolbarItems.Contains(item))
             {
-                await Task.Delay(100);
-                OnIsVisibleChanged(this, false, IsVisible);
+                Device.BeginInvokeOnMainThread(() => { toolbarItems.Remove(item); });
             }
-
-            public ContentPage Parent { set; get; }
-
-            public bool IsVisible
-            {
-                get { return (bool)GetValue(IsVisibleProperty); }
-                set { SetValue(IsVisibleProperty, value); }
-            }
-
-            public static BindableProperty IsVisibleProperty =
-                BindableProperty.Create<HideToolbarItemControl, bool>(o => o.IsVisible, false, propertyChanged: OnIsVisibleChanged);
-
-            private static void OnIsVisibleChanged(BindableObject bindable, bool oldvalue, bool newvalue)
-            {
-                var item = bindable as HideToolbarItemControl;
-
-                if (item.Parent == null)
-                    return;
-
-                var items = item.Parent.ToolbarItems;
-
-                if (newvalue && !items.Contains(item))
-                {
-                    items.Add(item);
-                }
-                else if (!newvalue && items.Contains(item))
-                {
-                    items.Remove(item);
-                }
-            }
+        }
     }
 }

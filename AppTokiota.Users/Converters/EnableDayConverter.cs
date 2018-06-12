@@ -12,17 +12,16 @@ namespace AppTokiota.Users.Converters
         {
             if (value != null)
             {
-                var day = (Day)value;
-                var result = FreeDay.IsFreeOrWeekendDay(day);
-                return !result;
+                var result = int.Parse(value.ToString());
+                return result > 0;
             }
-            return value;
+            return false;
 
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return value;
         }
     }
 }

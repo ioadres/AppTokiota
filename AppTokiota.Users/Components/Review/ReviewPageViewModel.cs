@@ -130,58 +130,45 @@ namespace AppTokiota.Users.Components.Review
             Title = "Review";
             ModeLoadingPopUp = true;
             LstReview = new ObservableCollection<ReviewTimeLine>();
-            LoadDataAsync();
+            LoadDataPickers();
         }
         #endregion constructor
 
         #region LoadPickersListViewData
 
-        protected void LoadDataAsync()
+        protected void LoadDataPickers()
         {
-            IsBusy = true;
-            Device.BeginInvokeOnMainThread(() =>
+            try
             {
-                try
+                if (this.IsInternetAndCloseModal())
                 {
-                    if (this.IsInternetAndCloseModal())
+                    var yearPickerTemp = new ObservableCollection<PickerItem>();
+                    for (int iyear = DateTime.Now.Year - 1; iyear <= (DateTime.Now.Year + 1); iyear++)
                     {
-                        LoadDataPicker();
-                        LoadDataReviewByDate();
+                        yearPickerTemp.Add(new PickerItem { Value = iyear, DisplayName = iyear.ToString() });
                     }
-                    IsBusy = false;
+                    YearPicker = yearPickerTemp;
+
+                    var monthPickerTemp = new ObservableCollection<PickerItem>();
+                    for (int imes = DateTime.MinValue.Month; imes < DateTime.MaxValue.Month + 1; imes++)
+                    {
+                        monthPickerTemp.Add(new PickerItem { Value = imes, DisplayName = dtinfo.GetMonthName(imes) });
+                    }
+                    MonthPicker = monthPickerTemp;
+                    LoadDefaultValues();
                 }
-                catch (Exception ex)
-                {
-                    IsBusy = false;
-                    BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                    Crashes.TrackError(ex);
-                }
-            });
-
-        }
-
-        protected void LoadDataPicker()
-        {
-			var yearPickerTemp = new ObservableCollection<PickerItem>();
-            for (int iyear = DateTime.Now.Year - 1; iyear <= (DateTime.Now.Year + 1); iyear++)
-            {
-				yearPickerTemp.Add(new PickerItem { Value = iyear, DisplayName = iyear.ToString() });
             }
-			YearPicker = yearPickerTemp;
-
-			var monthPickerTemp = new ObservableCollection<PickerItem>();
-            for (int imes = DateTime.MinValue.Month; imes < DateTime.MaxValue.Month + 1; imes++)
+            catch (Exception ex)
             {
-				monthPickerTemp.Add(new PickerItem { Value = imes, DisplayName = dtinfo.GetMonthName(imes) });
+                IsBusy = false;
+                BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                Crashes.TrackError(ex);
             }
-			MonthPicker = monthPickerTemp;
-            LoadDefaultValues();
-            
         }
 
         protected void LoadDefaultValues()
         {
-            DateTime MyDate = DateTime.Now;
+            var MyDate = DateTime.Now;
             var InitYearPickerItem = new PickerItem
             {
                 Value = MyDate.Year,
@@ -206,31 +193,18 @@ namespace AppTokiota.Users.Components.Review
                 if (this.IsInternetAndCloseModal())
                 {
                     _currentReview = await _reviewModule.ReviewService.GetReview(MyItemYearPicker.Value, MyItemMonthPicker.Value);
-                    LoadDataReviewAsync(_currentReview);
+
+                    BtnSendReviewIsVisible = !(_currentReview.IsValidated || _currentReview.IsClosed);
+                    LstReviewDates = await _reviewModule.TimeLineService.GetListTimesheetForDay(_currentReview);
+                    LoadTotalTime(LstReviewDates);
+
+                    var listTemp = new ObservableCollection<ReviewTimeLine>();
+                    LstReviewDates.ForEach(x => listTemp.Add(map(x)));
+                    listTemp.Last().IsLast = true;
+                    LstReview = listTemp;
+
+                    IsBusy = false;
                 }
-            }
-            catch (Exception ex)
-            {
-                IsBusy = false;
-                BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                Crashes.TrackError(ex);
-            }
-        }
-
-        protected async void LoadDataReviewAsync(Models.Review review)
-        {
-            try
-            {
-                BtnSendReviewIsVisible = !(review.IsValidated || review.IsClosed);
-                LstReviewDates = await _reviewModule.TimeLineService.GetListTimesheetForDay(review);
-                LoadTotalTime(LstReviewDates);
-
-                var listTemp = new ObservableCollection<ReviewTimeLine>();
-                LstReviewDates.ForEach(x => listTemp.Add(map(x)));
-                listTemp.Last().IsLast = true;
-                LstReview = listTemp;
-
-                IsBusy = false;
             }
             catch (Exception ex)
             {
@@ -330,5 +304,10 @@ namespace AppTokiota.Users.Components.Review
             });
         }
         #endregion
+
+        public override void OnNavigatedTo(NavigationParameters parameters)
+        {
+            LoadDataReviewByDate();
+        }
     }
 }

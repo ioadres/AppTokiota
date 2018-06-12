@@ -10,7 +10,6 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             
-            <converters:DescriptionToShortDescription x:Key="cnvDescriptionToShortDescription"></converters:DescriptionToShortDescription>
             <converters:DateToStringConverter x:Key="DateOfWeekFormat"></converters:DateToStringConverter>
             <converters:NotBooleanConverter x:Key="NotBooleanConverter"></converters:NotBooleanConverter>
             <converters:MinutesToHourConverter x:Key="cnvMinutesToHour"></converters:MinutesToHourConverter>
@@ -18,13 +17,7 @@
             <converters:GetIconDayConverter x:Key="cnvGetIconDay"></converters:GetIconDayConverter>
             <converters:IsNotActivityConverter x:Key="cnvIsNotActivity"></converters:IsNotActivityConverter>
             <converters:IsActivityConverter x:Key="cnvIsActivity"></converters:IsActivityConverter>
-            
-            <converters:IsDayNotImputedConverter x:Key="cnvNotImputedDay"></converters:IsDayNotImputedConverter>
-
-            <converters:ValueConverterGroup x:Key="cnvIsVisibleDataReview">
-                <converters:EnableDayConverter/>
-                <converters:IsDayNotImputedConverter/>
-            </converters:ValueConverterGroup>
+            <converters:DisabledDayConverter x:Key="cnvDisabledDay"></converters:DisabledDayConverter>
 
 
             <Style x:Key="TaskTextStyle" TargetType="Label" BasedOn="{StaticResource TitleH5Style}">                
@@ -146,6 +139,7 @@
                                         IsVisible="{Binding IsLast, Converter={StaticResource NotBooleanConverter}" />
                                 </StackLayout>
                                 <!-- END Icon - Day -->
+                            
 
                                 <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="4" 
                                              VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"

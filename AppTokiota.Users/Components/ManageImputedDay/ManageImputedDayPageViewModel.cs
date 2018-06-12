@@ -39,7 +39,7 @@ namespace AppTokiota.Users.Components.ManageImputedDay
             set { SetProperty(ref _isEnabled, value); }
         }
 
-        private bool _isVisibleButtonAdd = true;
+        private bool _isVisibleButtonAdd = false;
         public bool IsVisibleButtonAdd
         {
             get { return _isVisibleButtonAdd; }
@@ -94,7 +94,10 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         public DelegateCommand<object> OnDeleteItemCommand => new DelegateCommand<object>((obj) => { OnDeleteItem((ActivityDay)obj); });
         protected async void OnDeleteItem(ActivityDay activity)
         {
-            if (IsInternetAndCloseModal())
+            if(!IsEnabled) {
+                BaseModule.DialogService.ShowToast("This day is closed!");
+            }
+            if (IsEnabled && IsInternetAndCloseModal())
             {
                 try
                 {
@@ -170,6 +173,8 @@ namespace AppTokiota.Users.Components.ManageImputedDay
             if (keyContains)
             {
                 IsVisibleButtonAdd = parameters.GetValue<bool>("IsVisibleButtonAdd");
+            } else{
+                IsVisibleButtonAdd = true;
             }
 
             IsBusy = false;

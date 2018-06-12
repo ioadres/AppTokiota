@@ -6,14 +6,14 @@ using AppTokiota.Users.Helpers;
 
 namespace AppTokiota.Users.Converters
 {
-    public class EnableDayConverter :  IValueConverter
+    public class IsNotActivityConverter :  IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value != null)
             {
                 var result = int.Parse(value.ToString());
-                return result > 0;
+                return result == 0;
             }
             return false;
 
@@ -21,7 +21,7 @@ namespace AppTokiota.Users.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value;
+            return null;
         }
     }
 }

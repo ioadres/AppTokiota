@@ -121,7 +121,6 @@
                      HorizontalOptions="FillAndExpand" 
                      BackgroundColor="Transparent"
                      ItemsSource="{Binding Activities}" 
-                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                      SeparatorVisibility="None"
                      IsVisible="{Binding AnyActivities}"
 

@@ -43,8 +43,8 @@ namespace AppTokiota.iOS.Helpers
                     content.Badge = 1;
 
                     var date = new NSDateComponents();
-                    date.Hour = 22;
-                    date.Minute = 32;
+                    date.Hour = 19;
+                    date.Minute = 05;
                     var trigger = UNCalendarNotificationTrigger.CreateTrigger(date, true);
 
                     // ID of Notification to be updated
@@ -58,7 +58,8 @@ namespace AppTokiota.iOS.Helpers
                             // Do something with error...
                         }
                     });
-                }  else {
+                }  else if(AppSettings.IsEnableNotification) {
+                    
                     UserDialogs.Instance.AlertAsync("Please enable the notifications in your settings", "iOS Settings - Notification - Tokiota App", "Ok");
                 }
             });

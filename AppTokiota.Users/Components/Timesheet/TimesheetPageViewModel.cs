@@ -34,7 +34,7 @@ namespace AppTokiota.Users.Components.Timesheet
 			ModeLoadingPopUp = false;
 
             Title = "Timesheet";
-
+            IsBusy = true;
             DateTime date = DateTime.Now;
             _dates = new ObservableCollection<DateTime>();
             _specialDates = new ObservableCollection<SpecialDate>();
@@ -254,7 +254,7 @@ namespace AppTokiota.Users.Components.Timesheet
 					}
 					IsBusy = false;
 				}
-				catch (Exception)
+				catch (Exception e)
 				{
 					IsBusy = false;
 					BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();

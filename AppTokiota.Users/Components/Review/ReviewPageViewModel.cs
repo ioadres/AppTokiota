@@ -130,6 +130,7 @@ namespace AppTokiota.Users.Components.Review
             Title = "Review";
             ModeLoadingPopUp = true;
             LstReview = new ObservableCollection<ReviewTimeLine>();
+            IsBusy = true;
             LoadDataPickers();
         }
         #endregion constructor
@@ -280,7 +281,8 @@ namespace AppTokiota.Users.Components.Review
             {
                 try
                 {
-                    if (this.IsInternetAndCloseModal())
+                    var remove = await BaseModule.DialogService.ShowConfirmAsync("Are your sure that you want send this month?", "Send Timesheet", "Send", "Cancel");
+                    if (remove && this.IsInternetAndCloseModal())
                     {
                         var response = await _reviewModule.ReviewService.PatchReview(MyItemYearPicker.Value, MyItemMonthPicker.Value);
                         if (response)

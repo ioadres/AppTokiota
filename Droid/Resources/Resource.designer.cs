@@ -752,13 +752,7 @@ namespace AppTokiota.Droid
 			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Drawable.abc_textfield_search_material = global::AppTokiota.Droid.Resource.Drawable.abc_textfield_search_material;
 			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Drawable.abc_vector_test = global::AppTokiota.Droid.Resource.Drawable.abc_vector_test;
 			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Drawable.avd_hide_password = global::AppTokiota.Droid.Resource.Drawable.avd_hide_password;
-			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Drawable.avd_hide_password_1 = global::AppTokiota.Droid.Resource.Drawable.avd_hide_password_1;
-			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Drawable.avd_hide_password_2 = global::AppTokiota.Droid.Resource.Drawable.avd_hide_password_2;
-			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Drawable.avd_hide_password_3 = global::AppTokiota.Droid.Resource.Drawable.avd_hide_password_3;
 			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Drawable.avd_show_password = global::AppTokiota.Droid.Resource.Drawable.avd_show_password;
-			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Drawable.avd_show_password_1 = global::AppTokiota.Droid.Resource.Drawable.avd_show_password_1;
-			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Drawable.avd_show_password_2 = global::AppTokiota.Droid.Resource.Drawable.avd_show_password_2;
-			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Drawable.avd_show_password_3 = global::AppTokiota.Droid.Resource.Drawable.avd_show_password_3;
 			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Drawable.design_bottom_navigation_item_background = global::AppTokiota.Droid.Resource.Drawable.design_bottom_navigation_item_background;
 			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Drawable.design_fab_background = global::AppTokiota.Droid.Resource.Drawable.design_fab_background;
 			global::EntryCustomReturn.Forms.Plugin.Android.Resource.Drawable.design_ic_visibility = global::AppTokiota.Droid.Resource.Drawable.design_ic_visibility;
@@ -4538,26 +4532,8 @@ namespace AppTokiota.Droid
 			// aapt resource value: 0x7f020053
 			public const int avd_hide_password = 2130837587;
 			
-			// aapt resource value: 0x7f020140
-			public const int avd_hide_password_1 = 2130837824;
-			
-			// aapt resource value: 0x7f020141
-			public const int avd_hide_password_2 = 2130837825;
-			
-			// aapt resource value: 0x7f020142
-			public const int avd_hide_password_3 = 2130837826;
-			
 			// aapt resource value: 0x7f020054
 			public const int avd_show_password = 2130837588;
-			
-			// aapt resource value: 0x7f020143
-			public const int avd_show_password_1 = 2130837827;
-			
-			// aapt resource value: 0x7f020144
-			public const int avd_show_password_2 = 2130837828;
-			
-			// aapt resource value: 0x7f020145
-			public const int avd_show_password_3 = 2130837829;
 			
 			// aapt resource value: 0x7f020055
 			public const int clock = 2130837589;

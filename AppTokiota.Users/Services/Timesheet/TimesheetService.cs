@@ -11,6 +11,8 @@ using Prism.Navigation;
 using System.Diagnostics;
 using Xamarin.Forms;
 using Microsoft.AppCenter.Crashes;
+using Newtonsoft.Json;
+using Polly;
 
 namespace AppTokiota.Users.Services
 {
@@ -19,14 +21,12 @@ namespace AppTokiota.Users.Services
     {
         private IRequestService _requestService;
         private ICacheEntity _cacheService;
-		private IAuthenticationService _authenticationService;
 
-		public TimesheetService(IRequestService requestService, ICacheEntity cacheService, IAuthenticationService authentication)
+		public TimesheetService(IRequestService requestService, ICacheEntity cacheService)
           
         {
             _cacheService = cacheService;
             _requestService = requestService;
-			_authenticationService = authentication;
         }
 
         public async Task<Timesheet> GetTimesheetBeetweenDates(DateTime from, DateTime to)
@@ -48,18 +48,19 @@ namespace AppTokiota.Users.Services
 
                 }
                 return timesheet;
-            }            
+            }      
             catch (Exception e)
             {
-                MessagingCenter.Send<ISubscribeMessagingCenter>(this,nameof(UnauthorizedAccessException));
+                MessagingCenter.Send<ISubscribeMessagingCenter>(this, nameof(UnauthorizedAccessException));
                 Crashes.TrackError(e);
                 throw e;
-            }			
+            }            
         }
 
 		public async Task<TimesheetDeleteActivity> DeleteActivityTimesheet(DateTime from, int idActivity)
         {
-            try {
+            try 
+            {
                 var url = $"{AppSettings.TimesheetUrlEndPoint}/{from.ToString("yyyy")}/{from.ToString("MM")}/{idActivity}";
                 var timesheet = await _requestService.DeleteAsync<TimesheetDeleteActivity>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
                 return timesheet;

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using Polly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,12 @@ namespace AppTokiota.Users.Services
 {
     public class RequestService : IRequestService
     {
+        private IAuthenticationService _authenticationService;
         private readonly JsonSerializerSettings _serializerSettings;
 
-        public RequestService()
+        public RequestService(IAuthenticationService authentication)
         {
+            _authenticationService = authentication;
             _serializerSettings = new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
@@ -106,7 +109,26 @@ namespace AppTokiota.Users.Services
             return result;
         }
 
-        private HttpClient CreateHttpClient(string token = "")
+        private HttpClient CreateHttpClient(string token = "") {
+            var response = Policy.Handle<JsonException>()
+                                 .WaitAndRetry(1, retryAtemp => TimeSpan.FromMilliseconds(500), (exception, timeSpan, retryCount, context) =>
+            {
+                var authTask = Task.Run(async () =>
+                {
+                    await _authenticationService.UserIsAuthenticatedAndValidAsync(true);
+                });
+
+                authTask.RunSynchronously();
+
+            }).Execute<HttpClient>(() =>
+            {
+                return _CreateHttpClient(token);
+            });
+
+            return response;
+        }
+
+        private HttpClient _CreateHttpClient(string token = "")
         {
 			var httpClient = new HttpClient() {
 				Timeout = TimeSpan.FromSeconds(15) 

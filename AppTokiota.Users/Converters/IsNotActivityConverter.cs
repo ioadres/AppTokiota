@@ -6,17 +6,16 @@ using AppTokiota.Users.Helpers;
 
 namespace AppTokiota.Users.Converters
 {
-    public class EnableDayConverter :  IValueConverter
+    public class IsNotActivityConverter :  IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value != null)
             {
-                var day = (Day)value;
-                var result = FreeDay.IsFreeOrWeekendDay(day);
-                return !result;
+                var result = int.Parse(value.ToString());
+                return result == 0;
             }
-            return value;
+            return false;
 
         }
 

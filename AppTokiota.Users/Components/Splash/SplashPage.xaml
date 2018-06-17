@@ -23,7 +23,7 @@
             <Image Source="logo_horizontal.png" WidthRequest="200" TranslationY="-70" />
             <ActivityIndicator
                 IsRunning="{Binding IsBusy}"
-                Color="{StaticResource  WhiteColor}"></ActivityIndicator>
+                Color="{StaticResource  RedColor}"></ActivityIndicator>
             </StackLayout>
             
         </Grid>

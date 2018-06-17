@@ -36,6 +36,7 @@ namespace AppTokiota.Users.Components.DashBoard
 			get { return _chartConsumedMonthVsHourMonthExpected; }
 			set { SetProperty(ref _chartConsumedMonthVsHourMonthExpected, value); }
         }
+
 		private bool _chartProjectsImputedIsVisible;
 		public bool ChartProjectsImputedIsVisible
         {
@@ -43,13 +44,13 @@ namespace AppTokiota.Users.Components.DashBoard
 			set { SetProperty(ref _chartProjectsImputedIsVisible, value); }
         }
 
-
-		private Microcharts.DonutChart _chartProjectsImputed;
-		public Microcharts.DonutChart ChartProjectsImputed
+        private Microcharts.RadarChart _chartProjectsImputed;
+        public Microcharts.RadarChart ChartProjectsImputed
         {
 			get { return _chartProjectsImputed; }
 			set { SetProperty(ref _chartProjectsImputed, value); }
         }
+
 		private bool _chartImputedVsDeviationIsVisible;
 		public bool ChartImputedVsDeviationIsVisible
         {
@@ -169,7 +170,7 @@ namespace AppTokiota.Users.Components.DashBoard
         {
 			return Task.Run(() => {
 				var entries = _dashBoardModule.ChartService.GenerateChartActivitiesImputedGroupByTaskAndProject(timesheet);
-                var chartT = new DonutChart()
+                var chartT = new RadarChart()
                 {
 					Entries = entries
                 };

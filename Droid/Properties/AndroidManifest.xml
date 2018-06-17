@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.tokiota.AppTokiota" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="15" />
-	<application android:icon="@drawable/logo" android:label="TimeSheet"></application>
+  <uses-permission android:name="com.android.alarm.permission.SET_ALARM"></uses-permission>
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+	<application android:icon="@drawable/logo" android:label="TimeSheet">
+ 
+    <!--<receiver android:name=".Helpers.AlarmReceiver" >
+      <intent-filter>
+        <action android:name="android.media.action.NotificationService" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    <service android:name="NotificationService" android:enabled="true" />-->
+
+  </application>
+  
+  
 </manifest>

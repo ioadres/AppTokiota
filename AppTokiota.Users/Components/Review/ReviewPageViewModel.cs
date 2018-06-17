@@ -131,7 +131,7 @@ namespace AppTokiota.Users.Components.Review
             _monthPicker = new ObservableCollection<PickerItem>();
 
             Title = "Review";
-            ModeLoadingPopUp = true;
+            ModeLoadingPopUp = false;
             LstReview = new ObservableCollection<ReviewTimeLine>();
             IsBusy = true;
             LoadDataPickers();
@@ -259,39 +259,35 @@ namespace AppTokiota.Users.Components.Review
 
         public DelegateCommand SendReviewValidateCommand => new DelegateCommand(SendReviewToValidate);
 
-        protected void SendReviewToValidate()
+        protected async void SendReviewToValidate()
         {
-            IsBusy = true;
-            Device.BeginInvokeOnMainThread(async () =>
+            try
             {
-                try
+                var send = await BaseModule.DialogService.ShowConfirmAsync("Are your sure that you want send this month?", "Send Timesheet", "Send", "Cancel");
+                if (send && this.IsInternetAndCloseModal())
                 {
-                    var send = await BaseModule.DialogService.ShowConfirmAsync("Are your sure that you want send this month?", "Send Timesheet", "Send", "Cancel");
-                    if (send && this.IsInternetAndCloseModal())
+                    BaseModule.AnalyticsService.TrackEvent("[Review] :: Send :: Start");
+                    var response = await _reviewModule.ReviewService.PatchReview(MyItemYearPicker.Value, MyItemMonthPicker.Value);
+                    if (response)
                     {
-                        BaseModule.AnalyticsService.TrackEvent("[Review] :: Send :: Start");
-                        var response = await _reviewModule.ReviewService.PatchReview(MyItemYearPicker.Value, MyItemMonthPicker.Value);
-                        if (response)
-                        {
-                            LoadDataReviewByDate();
-                            BaseModule.AnalyticsService.TrackEvent("[Review] :: Send :: End");
-                        }
-                        else
-                        {
-                            BaseModule.DialogService.ShowToast("The sending review is not avaible in this moment. Please try again later.");
-                            BaseModule.AnalyticsService.TrackEvent("[Review] :: Send :: Cancel");
-                        }
-                        IsBusy = false;
+                        BaseModule.DialogService.ShowToast("This month has been sent to be validated.");
+                        BaseModule.AnalyticsService.TrackEvent("[Review] :: Send :: End");
+                        LoadDataReviewByDate();
+                    }
+                    else
+                    {
+                        BaseModule.DialogService.ShowToast("Review is not available in this moment. Please try again later.");
+                        BaseModule.AnalyticsService.TrackEvent("[Review] :: Send :: Cancel");
                     }
                 }
-                catch (Exception ex)
-                {
-                    IsBusy = false;
-                    BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                    Crashes.TrackError(ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                IsBusy = false;
+                BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                Crashes.TrackError(ex);
+            }
 
-            });
         }
         #endregion
 

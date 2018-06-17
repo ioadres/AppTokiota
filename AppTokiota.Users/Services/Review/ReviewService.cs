@@ -59,10 +59,12 @@ namespace AppTokiota.Users.Services
         {
             try
             {
+                if (!AppSettings.SendReview) return true;
+
                 if (await _authenticationService.UserIsAuthenticatedAndValidAsync())
                 {
                     var reviewDatos = new Review(); 
-                    var url = $"{AppSettings.TimesheetUrlEndPoint}/{year}/{month}/review";
+                    var url = $"{AppSettings.TimesheetUrlEndPoint}/{year}/{month}/reviesss";
                     var response = await _requestService.PatchAsync<bool>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
                     return response;
                 }

@@ -46,7 +46,7 @@
 
         <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="4" 
                      Orientation="Horizontal">
-             <Label Text="{Binding Day, Converter={StaticResource cnvGetIconDay}}" Style="{DynamicResource IconFontBaseStyle}" FontSize="{DynamicResource LittleSize}"></Label>
+             <Label Text="{Binding Day, Converter={StaticResource cnvGetIconDay}}" TextColor="{StaticResource BlueColor}" Style="{DynamicResource IconFontBaseStyle}" FontSize="{DynamicResource LittleSize}"></Label>
         </StackLayout>
        
         </Grid>

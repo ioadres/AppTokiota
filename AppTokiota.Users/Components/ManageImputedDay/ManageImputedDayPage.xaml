@@ -98,7 +98,7 @@
             <StackLayout Grid.Row="0" Grid.RowSpan="3"
                         VerticalOptions="StartAndExpand" 
                         HorizontalOptions="FillAndExpand"
-                        IsVisible="{Binding AnyActivities,  Converter={StaticResource cnvInverseBoolConverter}}"
+                        IsVisible="{Binding AnyActivitiesIcon,  Converter={StaticResource cnvInverseBoolConverter}}"
                         Padding="20">
                 
                     <lottie:AnimationView
@@ -121,7 +121,6 @@
                      HorizontalOptions="FillAndExpand" 
                      BackgroundColor="Transparent"
                      ItemsSource="{Binding Activities}" 
-                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                      SeparatorVisibility="None"
                      IsVisible="{Binding AnyActivities}"
 

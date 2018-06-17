@@ -117,6 +117,9 @@ namespace AppTokiota.Users.Components.DashBoard
                             ReDraw = true;
                             return false;
                         });
+                    } else {
+                        IsBusy = false;
+                        ReDraw = true;
                     }
                 }
             }

@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Globalization;
+using AppTokiota.Users.Helpers;
+using AppTokiota.Users.Models;
 using Xamarin.Forms;
 
 namespace AppTokiota.Users.Converters
 {
-    public class ActivityTypeConverter:IValueConverter
+    public class DisabledDayConverter: IValueConverter
     {
-        private const string holiday = "\uf072";
-        private const string task = "\uf0ae";
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value == true ? holiday : task;
+            var day = (Day)value;
+            var result = FreeDay.IsFreeOrWeekendDay(day);
+            return result;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value;
+            return value;
         }
     }
 }

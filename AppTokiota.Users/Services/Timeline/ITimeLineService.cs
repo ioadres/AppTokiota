@@ -7,6 +7,6 @@ namespace AppTokiota.Users.Services
 {
     public interface ITimeLineService
     {
-        Task<IList<TimesheetForDay>> GetListTimesheetForDay(Review review);
+        Task<IList<ItemTimeLine>> GetListTimesheetForDay(Review review);
     }
 }

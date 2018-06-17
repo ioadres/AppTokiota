@@ -10,8 +10,5 @@ namespace AppTokiota.Users.Models
     {
         public static string Tag = nameof(TimesheetForDay);
         public Day Day { get; set; }
-        public bool IsLast { get; set; } = false;
-
-
     }
 }

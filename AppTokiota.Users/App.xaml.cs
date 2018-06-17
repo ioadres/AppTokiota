@@ -59,7 +59,7 @@ namespace AppTokiota.Users
             {
                 if (CrossConnectivity.Current.IsConnected)
                 {
-                    await AuthenticationRun(true);
+                    await AuthenticationRun();
                 }
             });
 

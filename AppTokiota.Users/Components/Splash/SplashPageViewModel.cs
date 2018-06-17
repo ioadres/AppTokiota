@@ -22,12 +22,14 @@ namespace AppTokiota.Users.Components.Splash
             Title = "Splash";
             _splashModule = splashModule;
 
+            ModeLoadingPopUp = false;
+
             IsBusy = true;
                      
-            Device.StartTimer(new TimeSpan(0, 0, 2), () =>
+            Device.StartTimer(new TimeSpan(0, 0, 0,1,800), () =>
             {
 				IsBusy = false;
-                AuthenticationRun();                
+                AuthenticationRun();
                 return false;
             });
         }

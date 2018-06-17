@@ -63,11 +63,13 @@ namespace AppTokiota.Users.Components.Login
 					{
 						if (this.IsInternetAndCloseModal())
 					    {
+                            BaseModule.AnalyticsService.TrackEvent("[Login] :: Start");
 							var responseRequest = await BaseModule.AuthenticationService.Login(_email.Value, _password.Value);
 							IsBusy = false;
 							if (responseRequest.Success)
 						    {
 							    NavigateCommand.Execute(MasterModule.GetMasterNavigationPage(PageRoutes.GetKey<DashBoardPage>()));
+                                BaseModule.AnalyticsService.TrackEvent("[Login] :: End");
 						    }
 						    else
 						    {							  

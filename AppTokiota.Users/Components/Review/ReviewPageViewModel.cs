@@ -255,6 +255,15 @@ namespace AppTokiota.Users.Components.Review
         }
         #endregion
 
+        #region RefreshReviewDataCommand
+        public DelegateCommand RefreshReviewDataCommand => new DelegateCommand(RefreshReviewData);
+
+        protected void RefreshReviewData() {
+
+            LoadDataReviewByDate();
+        }
+        #endregion
+
         #region sendValidateReview
 
         public DelegateCommand SendReviewValidateCommand => new DelegateCommand(SendReviewToValidate);

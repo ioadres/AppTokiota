@@ -65,7 +65,7 @@ namespace AppTokiota.Users.Components.DashBoard
 			set { SetProperty(ref _chartImputedVsDeviation, value); }
         }
 
-		private string _statusMonth;
+		private string _statusMonth = "0.00 %";
 		public string StatusMonth 
 		{
 			get { return _statusMonth; }

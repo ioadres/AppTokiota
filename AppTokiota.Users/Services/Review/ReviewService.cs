@@ -1,5 +1,6 @@
 ﻿using AppTokiota.Users.Models;
 using Microsoft.AppCenter.Crashes;
+using Polly;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,21 +29,25 @@ namespace AppTokiota.Users.Services
                 try
                 {
                     Review review = await _cacheService.GetObjectAsync<Review>($"/{year}/{month}/review");
-                    if (await _authenticationService.UserIsAuthenticatedAndValidAsync())
+                    if (review == null)
                     {
-                        if (review == null)
-                        {
-                            var nowLess3Month = DateTime.Now.AddMonths(-3);
-                            var requestDate = new DateTime(year, month, 1);
+                        var nowLess3Month = DateTime.Now.AddMonths(-3);
+                        var requestDate = new DateTime(year, month, 1);
 
-                            var url = $"{AppSettings.TimesheetUrlEndPoint}/{year}/{month}/review";
-                            review = await _requestService.GetAsync<Review>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
-                            if (requestDate < nowLess3Month)
-                            {
-                                await _cacheService.InsertObjectAsync($"/{year}/{month}/review", review);
-                            }
+                        var url = $"{AppSettings.TimesheetUrlEndPoint}/{year}/{month}/review";
+                     
+                        review = await Policy.Handle<Exception>()
+                                .WaitAndRetryAsync(1, retryAtemp => TimeSpan.FromMilliseconds(100), async (exception, timeSpan, retryCount, context) => { await _authenticationService.UserIsAuthenticatedAndValidAsync(true); })
+                                .ExecuteAsync<Review>(async () => {
+                                    return await _requestService.GetAsync<Review>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
+                                });
+                
+                        if (requestDate < nowLess3Month)
+                        {
+                            await _cacheService.InsertObjectAsync($"/{year}/{month}/review", review);
                         }
                     }
+                    
 
                     return review;
                 }
@@ -65,7 +70,12 @@ namespace AppTokiota.Users.Services
                 {
                     var reviewDatos = new Review(); 
                     var url = $"{AppSettings.TimesheetUrlEndPoint}/{year}/{month}/reviesss";
-                    var response = await _requestService.PatchAsync<bool>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
+
+                    var response = await Policy.Handle<Exception>()
+                                .WaitAndRetryAsync(1, retryAtemp => TimeSpan.FromMilliseconds(100), async (exception, timeSpan, retryCount, context) => { await _authenticationService.UserIsAuthenticatedAndValidAsync(true); })
+                                .ExecuteAsync<bool>(async () => {
+                                    return await _requestService.PatchAsync<bool>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
+                                });
                     return response;
                 }
                 else

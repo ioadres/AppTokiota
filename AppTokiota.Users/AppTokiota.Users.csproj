@@ -3,6 +3,12 @@
  <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>  
   </PropertyGroup>
+
+ <ItemGroup>
+   <Compile Remove="Behaviors\**" />
+   <EmbeddedResource Remove="Behaviors\**" />
+   <None Remove="Behaviors\**" />
+ </ItemGroup>
 	<ItemGroup>
     <PackageReference Include="akavache" Version="5.0.0" />
     <PackageReference Include="modernhttpclient" Version="2.4.2" />
@@ -45,7 +51,6 @@
 	  <Folder Include="Services\Analytics\" />
 	  <Folder Include="OS\" />
 	  <Folder Include="Cell\" />
-	  <Folder Include="Behaviors\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Components\Activity\NavigationPage\ActivityNavigationPage.xaml.cs">

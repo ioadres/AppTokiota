@@ -12,6 +12,8 @@ using Android.Widget;
 
 namespace AppTokiota.Droid.Helpers
 {
+    [BroadcastReceiver]
+    [IntentFilter(new string[] { "android.intent.action.BOOT_COMPLETED" }, Priority = (int)IntentFilterPriority.HighPriority)]
     public class AlarmReceiver : BroadcastReceiver
     {
         public override void OnReceive(Context context, Intent intent)

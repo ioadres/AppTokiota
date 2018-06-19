@@ -17,7 +17,8 @@ namespace AppTokiota.Users.Services
         {
             try
             {
-                if (!await ExistKey(key)) return default(T);
+                var exist = await ExistKey(key);
+                if (!exist) return default(T);
                 var res = await BlobCache.UserAccount.GetObject<T>(key);
                 return res;
             }
@@ -31,7 +32,7 @@ namespace AppTokiota.Users.Services
         private async Task<bool> ExistKey(string key)
         {
             var res = await BlobCache.UserAccount.GetAllKeys().ToList();
-            return res != null && res.Any(x => x.Equals(key));
+            return res != null && res.Any(x => x.Any(y=> y.Equals(key)));
         }
 
         public async Task<T> GetLocalObjectAsync<T>(string key)

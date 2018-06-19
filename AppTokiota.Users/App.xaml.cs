@@ -73,11 +73,8 @@ namespace AppTokiota.Users
             base.OnSleep();
         }
 
-        protected override async void OnResume()
+        protected override void OnResume()
         {
-			if(_network.IsAvailable()) {
-				await AuthenticationRun();
-			}
             RememberNotificationBuild();
             base.OnResume();
         }  

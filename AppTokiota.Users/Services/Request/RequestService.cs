@@ -110,20 +110,21 @@ namespace AppTokiota.Users.Services
         }
 
         private HttpClient CreateHttpClient(string token = "") {
-            var response = Policy.Handle<JsonException>()
-                                 .WaitAndRetry(1, retryAtemp => TimeSpan.FromMilliseconds(500), (exception, timeSpan, retryCount, context) =>
-            {
-                var authTask = Task.Run(async () =>
+            var response = 
+                Policy.Handle<Exception>()
+                .WaitAndRetry(1, retryAtemp => TimeSpan.FromMilliseconds(500), (exception, timeSpan, retryCount, context) =>
                 {
-                    await _authenticationService.UserIsAuthenticatedAndValidAsync(true);
+                    var authTask = Task.Run(async () =>
+                    {
+                        await _authenticationService.UserIsAuthenticatedAndValidAsync(true);
+                    });
+
+                    authTask.RunSynchronously();
+
+                }).Execute<HttpClient>(() =>
+                {
+                    return _CreateHttpClient(token);
                 });
-
-                authTask.RunSynchronously();
-
-            }).Execute<HttpClient>(() =>
-            {
-                return _CreateHttpClient(token);
-            });
 
             return response;
         }

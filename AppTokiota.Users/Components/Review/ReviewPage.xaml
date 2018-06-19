@@ -96,7 +96,9 @@
                       ItemTemplate="{StaticResource cellDayTemplateSelector}"
                       Grid.Row="1" 
                       ItemsSource="{Binding LstReview}" 
-                      IsRefreshing="{Binding IsBusy}" 
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}" 
+                      IsPullToRefreshEnabled="true"
+                      RefreshCommand="{Binding RefreshReviewDataCommand}"
                       SeparatorVisibility="None">
                 <ListView.Behaviors>
                     <b:EventToCommandBehavior EventName="ItemTapped" 

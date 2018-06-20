@@ -14,65 +14,65 @@ using Java.Util;
 
 namespace AppTokiota.Droid.Helpers
 {
+    [Service]
     public class NotificationService : Service
     {
 
-        private NotificationManager mManager;
+        protected NotificationManager mManager;
 
-        //public class LocalBinder: Binder
-        //{
-        //    NotificationService getService() {
-        //        return NotificationService.this;
-        //    }
-        //}
 
-    public override IBinder OnBind(Intent intent)
-    {
-        return null;
+        public override IBinder OnBind(Intent intent)
+        {
+            return null;
+        }
+
+        public override void OnCreate()
+        {
+            base.OnCreate();
+        }
+
+        [return: GeneratedEnum]
+        public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
+        {           
+            //Getting Notification Service            
+            mManager = (NotificationManager)this.BaseContext.ApplicationContext
+                    .GetSystemService(NotificationService);
+            /*
+             * When the user taps the notification we have to show the Home Screen
+             * of our App, this job can be done with the help of the following
+             * Intent.
+             */
+            Intent intent1 = new Intent(this.BaseContext.ApplicationContext, typeof(MainActivity));            
+
+            intent1.AddFlags(ActivityFlags.SingleTop
+                    | ActivityFlags.ClearTop);
+
+            PendingIntent pendingNotificationIntent = PendingIntent.GetActivity(
+                    Android.App.Application.Context.ApplicationContext, 0, intent1,
+                    PendingIntentFlags.UpdateCurrent);
+
+            Notification.Builder builder = new Notification.Builder(this);
+
+            builder.SetAutoCancel(true);
+            builder.SetTicker("this is ticker text");
+            builder.SetContentTitle("WhatsApp Notification");
+            builder.SetContentText("You have a new message");
+            builder.SetSmallIcon(Resource.Drawable.logo);
+            builder.SetContentIntent(pendingNotificationIntent);
+            builder.SetOngoing(true);            
+            builder.SetSubText("This is subtext...");   //API level 16
+            builder.SetNumber(100);
+            var notification = builder.Build();
+
+            mManager.Notify(0, notification);
+
+            return base.OnStartCommand(intent, flags, startId);
+
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
     }
-
-    public override void OnCreate()
-    {
-        base.OnCreate();
-    }
-
-    [return: GeneratedEnum]
-    public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
-    {
-        return base.OnStartCommand(intent, flags, startId);
-
-        //Getting Notification Service
-        mManager = (NotificationManager)Android.App.Application.Context.ApplicationContext
-                .GetSystemService("NOTIFICATION_SERVICE");
-        /*
-         * When the user taps the notification we have to show the Home Screen
-         * of our App, this job can be done with the help of the following
-         * Intent.
-         */
-        Intent intent1 = new Intent(Android.App.Application.Context.ApplicationContext, typeof(MainActivity));
-
-        Notification notification = new Notification(Resource.Drawable.logo,
-                "See My App something for you", Java.Lang.JavaSystem.CurrentTimeMillis());
-
-        intent1.AddFlags(ActivityFlags.SingleTop
-                | ActivityFlags.ClearTop);
-
-        PendingIntent pendingNotificationIntent = PendingIntent.GetActivity(
-                Android.App.Application.Context.ApplicationContext, 0, intent1,
-                PendingIntentFlags.UpdateCurrent);
-
-        notification.Flags |= NotificationFlags.AutoCancel;
-
-        notification.SetLatestEventInfo(Application.Context.ApplicationContext,
-                "SANBOOK", "See My App something for you",
-                pendingNotificationIntent);
-
-        mManager.Notify(0, notification);
-    }
-
-    public override void OnDestroy()
-    {
-        base.OnDestroy();
-    }
-}
 }

@@ -55,8 +55,8 @@ namespace AppTokiota.Droid.Helpers
 
             builder.SetAutoCancel(true);
             builder.SetTicker("this is ticker text");
-            builder.SetContentTitle("WhatsApp Notification");
-            builder.SetContentText("You have a new message");
+            builder.SetContentTitle("TimeSheet");
+            builder.SetContentText("Remember input your timesheet ;)");
             builder.SetSmallIcon(Resource.Drawable.logo);
             builder.SetContentIntent(pendingNotificationIntent);
             builder.SetOngoing(true);            

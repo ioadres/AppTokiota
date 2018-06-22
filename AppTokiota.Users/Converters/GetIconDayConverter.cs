@@ -8,7 +8,7 @@ namespace AppTokiota.Users.Converters
 {
     public class GetIconDayConverter: IValueConverter
     {
-        private const string holiday = "\uf000";
+        private const string holiday = "\uf290";
         private const string task = "\uf040";
         private const string weekend = "\uf0fc";
 

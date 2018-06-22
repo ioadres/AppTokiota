@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using Android.Content;
 using Android.App;
 using Android.Widget;
+using Android.OS;
 
 [assembly: Dependency(typeof(RememberNotification))]
 namespace AppTokiota.Droid.Helpers
@@ -33,26 +34,23 @@ namespace AppTokiota.Droid.Helpers
 
         private void LoadAlarm()
         {
-            /* Android.Icu.Util.Calendar Calendar_Object = Android.Icu.Util.Calendar.GetInstance(Android.Icu.Util.TimeZone.Default);
+            //Android.Icu.Util.Calendar Calendar_Object = Android.Icu.Util.Calendar.GetInstance(Android.Icu.Util.TimeZone.Default);
+            //Calendar_Object.Set(Android.Icu.Util.CalendarField.Millisecond, DateTime.UtcNow.Millisecond);
 
-             var nowDate = DateTime.Now;
-             Calendar_Object.Set(Android.Icu.Util.CalendarField.Month, nowDate.Month);
-             Calendar_Object.Set(Android.Icu.Util.CalendarField.Year, nowDate.Year);
-             Calendar_Object.Set(Android.Icu.Util.CalendarField.DayOfMonth, nowDate.Day);
+            // Set the alarm to start at approximately 2:00 p.m.
+            Android.Icu.Util.Calendar calendar = Android.Icu.Util.Calendar.GetInstance(Android.Icu.Util.TimeZone.Default);
+            calendar.Set(Android.Icu.Util.CalendarField.Millisecond, DateTime.UtcNow.Millisecond);
+            calendar.Set(Android.Icu.Util.CalendarField.HourOfDay, 17);
 
-             Calendar_Object.Set(Android.Icu.Util.CalendarField.HourOfDay, nowDate.Hour);
-             Calendar_Object.Set(Android.Icu.Util.CalendarField.Minute, nowDate.Minute + 2);
-             Calendar_Object.Set(Android.Icu.Util.CalendarField.Second, 0);
+            // MyView is my current Activity, and AlarmReceiver is the
+            // BoradCastReceiver
+            //Intent myIntent = new Intent(Activity.ApplicationContext, typeof(AlarmReceiver));
 
-             // MyView is my current Activity, and AlarmReceiver is the
-             // BoradCastReceiver
-             Intent myIntent = new Intent(Activity.ApplicationContext, typeof(AlarmReceiver));
+            //PendingIntent pendingIntent = PendingIntent.GetBroadcast(Activity, 0, myIntent, 0);
 
-             PendingIntent pendingIntent = PendingIntent.GetBroadcast(Activity, 0, myIntent, 0);
+            //AlarmManager alarmManager = (AlarmManager)Android.App.Application.Context
+            //        .GetSystemService(Context.AlarmService);
 
-             AlarmManager alarmManager = (AlarmManager)Android.App.Application.Context
-                     .GetSystemService(Context.AlarmService);
-                     */
             /*
              * The following sets the Alarm in the specific time by getting the long
              * value of the alarm date time which is in calendar object by calling
@@ -64,9 +62,9 @@ namespace AppTokiota.Droid.Helpers
             //alarmManager.Set(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime() + 5 * 1000, pendingIntent);
             //alarmManager.Set(AlarmType.Rtc, Calendar_Object.TimeInMillis, pendingIntent);
             //alarmManager.SetExact(AlarmType.RtcWakeup, Calendar_Object.TimeInMillis, pendingIntent);
-            SetAlarm(Java.Lang.JavaSystem.CurrentTimeMillis() + 7000);
+            var ms = calendar.TimeInMillis - SystemClock.ElapsedRealtime();
+            SetAlarm (ms);
         }
-
         public void SetAlarm(long miliseconds)
         {
             AlarmManager alarmManager = (AlarmManager)Activity.GetSystemService(Context.AlarmService);
@@ -76,8 +74,9 @@ namespace AppTokiota.Droid.Helpers
 
             PendingIntent pendingIntent = PendingIntent.GetBroadcast(Activity, /*id de la alarma que sea unico */0, intent, PendingIntentFlags.CancelCurrent);
 
-            alarmManager.Set(AlarmType.Rtc, miliseconds, pendingIntent);
-
+            //alarmManager.Set(AlarmType.Rtc, miliseconds, pendingIntent);
+            alarmManager.SetInexactRepeating(AlarmType.ElapsedRealtimeWakeup, miliseconds, AlarmManager.IntervalHour, pendingIntent);
+            //API19 NOt work  https://stackoverflow.com/questions/27806336/alarmmanager-setinexactrepeating-not-working-in-android-4-1-2-works-on-android
             Toast toast = Toast.MakeText(Activity, "Set", ToastLength.Short);
 
             toast.Show();

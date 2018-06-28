@@ -123,6 +123,13 @@ namespace AppTokiota.Users.Components.Review
             set { SetProperty(ref _btnSendReviewIsVisible, value); }
         }
 
+        public bool _labelSendingIsVisible;
+        public bool LabelSendingIsVisible
+        {
+            get { return _labelSendingIsVisible; }
+            set { SetProperty(ref _labelSendingIsVisible, value); }
+        }
+
         #region Construct
         public ReviewPageViewModel(IViewModelBaseModule baseModule, IReviewModule reviewModule) : base(baseModule)
         {
@@ -134,6 +141,7 @@ namespace AppTokiota.Users.Components.Review
             ModeLoadingPopUp = false;
             LstReview = new ObservableCollection<ReviewTimeLine>();
             IsBusy = true;
+            LabelSendingIsVisible = false;
             LoadDataPickers();
         }
         #endregion constructor
@@ -199,8 +207,8 @@ namespace AppTokiota.Users.Components.Review
                     _currentReview = await _reviewModule.ReviewService.GetReview(MyItemYearPicker.Value, MyItemMonthPicker.Value);
 
                     BtnSendReviewIsVisible = !(_currentReview.IsValidated || _currentReview.IsClosed);
-                    ImputedTotal = ImputedTotal + _currentReview.Activities.Sum(x => x.Value.Deviation);
-                    DeviationTotal = DeviationTotal + _currentReview.Activities.Sum(x => x.Value.Deviation);
+                    ImputedTotal = _currentReview.Activities.Sum(x => x.Value.Imputed);
+                    DeviationTotal = _currentReview.Activities.Sum(x => x.Value.Deviation);
 
                     TimeLineList = await _reviewModule.TimeLineService.GetListTimesheetForDay(_currentReview);
 
@@ -272,6 +280,8 @@ namespace AppTokiota.Users.Components.Review
         {
             try
             {
+                IsBusy = true;
+                BtnSendReviewIsVisible = false;
                 var send = await BaseModule.DialogService.ShowConfirmAsync("Are your sure that you want send this month?", "Send Timesheet", "Send", "Cancel");
                 if (send && this.IsInternetAndCloseModal())
                 {
@@ -287,12 +297,17 @@ namespace AppTokiota.Users.Components.Review
                     {
                         BaseModule.DialogService.ShowToast("Review is not available in this moment. Please try again later.");
                         BaseModule.AnalyticsService.TrackEvent("[Review] :: Send :: Cancel");
+                        BtnSendReviewIsVisible = true;
                     }
+                } else {
+                    IsBusy = false;
+                    BtnSendReviewIsVisible = true;
                 }
             }
             catch (Exception ex)
             {
                 IsBusy = false;
+                BtnSendReviewIsVisible = true;
                 BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
                 Crashes.TrackError(ex);
             }

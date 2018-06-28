@@ -29,7 +29,7 @@ namespace AppTokiota.Users.Services
                 try
                 {
                     Review review = await _cacheService.GetObjectAsync<Review>($"/{year}/{month}/review");
-                    if (review == null || AppSettings.IsEnableCache == false)
+                    if (review == null)
                     {
                         var nowLess3Month = DateTime.Now.AddMonths(-3);
                         var requestDate = new DateTime(year, month, 1);
@@ -65,9 +65,9 @@ namespace AppTokiota.Users.Services
             try
             {
                 if (!AppSettings.SendReview) return true;
-                
+
                 var reviewDatos = new Review(); 
-                var url = $"{AppSettings.TimesheetUrlEndPoint}/{year}/{month}/reviesss";
+                var url = $"{AppSettings.TimesheetUrlEndPoint}/{year}/{month}/review";
 
                 var response = await Policy.Handle<Exception>()
                             .WaitAndRetryAsync(1, retryAtemp => TimeSpan.FromMilliseconds(100), async (exception, timeSpan, retryCount, context) => { await _authenticationService.UserIsAuthenticatedAndValidAsync(true); })
@@ -75,6 +75,7 @@ namespace AppTokiota.Users.Services
                                 return await _requestService.PatchAsync<bool>(url, AppSettings.AuthenticatedUserResponse.AccessToken);
                             });
                 return response;
+
             }
             catch (Exception e)
             {

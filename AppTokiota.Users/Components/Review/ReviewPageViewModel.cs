@@ -123,13 +123,6 @@ namespace AppTokiota.Users.Components.Review
             set { SetProperty(ref _btnSendReviewIsVisible, value); }
         }
 
-        public bool _labelSendingIsVisible;
-        public bool LabelSendingIsVisible
-        {
-            get { return _labelSendingIsVisible; }
-            set { SetProperty(ref _labelSendingIsVisible, value); }
-        }
-
         #region Construct
         public ReviewPageViewModel(IViewModelBaseModule baseModule, IReviewModule reviewModule) : base(baseModule)
         {
@@ -141,7 +134,6 @@ namespace AppTokiota.Users.Components.Review
             ModeLoadingPopUp = false;
             LstReview = new ObservableCollection<ReviewTimeLine>();
             IsBusy = true;
-            LabelSendingIsVisible = false;
             LoadDataPickers();
         }
         #endregion constructor
@@ -299,7 +291,9 @@ namespace AppTokiota.Users.Components.Review
                         BaseModule.AnalyticsService.TrackEvent("[Review] :: Send :: Cancel");
                         BtnSendReviewIsVisible = true;
                     }
-                } else {
+                } 
+                else 
+                {
                     IsBusy = false;
                     BtnSendReviewIsVisible = true;
                 }

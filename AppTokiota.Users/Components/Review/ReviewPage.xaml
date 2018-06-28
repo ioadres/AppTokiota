@@ -123,8 +123,7 @@
                 </StackLayout>
                 <StackLayout Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center">
                     <Button Style="{StaticResource ButtonPrimary}"  Text="Send" Command="{Binding SendReviewValidateCommand}" IsVisible="{Binding BtnSendReviewIsVisible}"></Button>
-                    <Label Style="{StaticResource FooterTextStyle}" Text="Sending ..." IsVisible="{Binding LabelSendingIsVisible}" />
-                </StackLayout>
+                 </StackLayout>
             </Grid>
 
         </Grid>

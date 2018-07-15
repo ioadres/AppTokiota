@@ -43,7 +43,7 @@ namespace AppTokiota.iOS.Helpers
                     content.Badge = 1;
 
                     var date = new NSDateComponents();
-                    date.Hour = 19;
+                    date.Hour = 11;
                     date.Minute = 05;
                     var trigger = UNCalendarNotificationTrigger.CreateTrigger(date, true);
 

@@ -121,9 +121,9 @@
                     <Label Text="{Binding ImputedTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
                     <Label Text="{Binding DeviationTotal, Converter={StaticResource cnvMinutesToHour}}" Style="{StaticResource FooterTextStyle}"/>
                 </StackLayout>
-                <StackLayout Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding BtnSendReviewIsVisible}">
-                    <Button Style="{StaticResource ButtonPrimary}"  Text="Send" Command="{Binding SendReviewValidateCommand}"></Button>
-                </StackLayout>
+                <StackLayout Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Button Style="{StaticResource ButtonPrimary}"  Text="Send" Command="{Binding SendReviewValidateCommand}" IsVisible="{Binding BtnSendReviewIsVisible}"></Button>
+                 </StackLayout>
             </Grid>
 
         </Grid>

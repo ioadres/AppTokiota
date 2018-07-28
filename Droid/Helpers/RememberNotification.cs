@@ -34,35 +34,12 @@ namespace AppTokiota.Droid.Helpers
 
         private void LoadAlarm()
         {
-            //Android.Icu.Util.Calendar Calendar_Object = Android.Icu.Util.Calendar.GetInstance(Android.Icu.Util.TimeZone.Default);
-            //Calendar_Object.Set(Android.Icu.Util.CalendarField.Millisecond, DateTime.UtcNow.Millisecond);
-
-            // Set the alarm to start at approximately 2:00 p.m.
             Android.Icu.Util.Calendar calendar = Android.Icu.Util.Calendar.GetInstance(Android.Icu.Util.TimeZone.Default);
-            calendar.Set(Android.Icu.Util.CalendarField.Millisecond, DateTime.UtcNow.Millisecond);
-            calendar.Set(Android.Icu.Util.CalendarField.HourOfDay, 17);
+            //calendar.Set(Android.Icu.Util.CalendarField.Millisecond, DateTime.UtcNow.Millisecond);
+            calendar.Set(Android.Icu.Util.CalendarField.HourOfDay, 15);
+            calendar.Set(Android.Icu.Util.CalendarField.Minute, 00);
 
-            // MyView is my current Activity, and AlarmReceiver is the
-            // BoradCastReceiver
-            //Intent myIntent = new Intent(Activity.ApplicationContext, typeof(AlarmReceiver));
-
-            //PendingIntent pendingIntent = PendingIntent.GetBroadcast(Activity, 0, myIntent, 0);
-
-            //AlarmManager alarmManager = (AlarmManager)Android.App.Application.Context
-            //        .GetSystemService(Context.AlarmService);
-
-            /*
-             * The following sets the Alarm in the specific time by getting the long
-             * value of the alarm date time which is in calendar object by calling
-             * the getTimeInMillis(). Since Alarm supports only long value , we're
-             * using this method.
-             */
-
-            // alarmManager.SetInexactRepeating(AlarmType.RtcWakeup, 600, 1200, pendingIntent);
-            //alarmManager.Set(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime() + 5 * 1000, pendingIntent);
-            //alarmManager.Set(AlarmType.Rtc, Calendar_Object.TimeInMillis, pendingIntent);
-            //alarmManager.SetExact(AlarmType.RtcWakeup, Calendar_Object.TimeInMillis, pendingIntent);
-            var ms = calendar.TimeInMillis - SystemClock.ElapsedRealtime();
+            var ms = calendar.TimeInMillis;
             SetAlarm (ms);
         }
         public void SetAlarm(long miliseconds)
@@ -73,13 +50,8 @@ namespace AppTokiota.Droid.Helpers
             intent.PutExtra("repeat", true);
 
             PendingIntent pendingIntent = PendingIntent.GetBroadcast(Activity, /*id de la alarma que sea unico */0, intent, PendingIntentFlags.CancelCurrent);
-
-            //alarmManager.Set(AlarmType.Rtc, miliseconds, pendingIntent);
-            alarmManager.SetInexactRepeating(AlarmType.ElapsedRealtimeWakeup, miliseconds, AlarmManager.IntervalHour, pendingIntent);
+            alarmManager.SetInexactRepeating(AlarmType.RtcWakeup, miliseconds, AlarmManager.IntervalDay, pendingIntent);
             //API19 NOt work  https://stackoverflow.com/questions/27806336/alarmmanager-setinexactrepeating-not-working-in-android-4-1-2-works-on-android
-            Toast toast = Toast.MakeText(Activity, "Set", ToastLength.Short);
-
-            toast.Show();
         }
 
         public void CancelAlarm()
@@ -92,10 +64,6 @@ namespace AppTokiota.Droid.Helpers
             //Con el pending intent actualizado podemos cancelarlo
             pendingIntent.Cancel();
             alarmManager.Cancel(pendingIntent);
-
-            Toast toast = Toast.MakeText(Activity, "Remove", ToastLength.Short);
-
-            toast.Show();
         }
 
         public static void Init(MainActivity mainActivity)

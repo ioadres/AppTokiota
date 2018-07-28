@@ -54,13 +54,14 @@ namespace AppTokiota.Droid.Helpers
             Notification.Builder builder = new Notification.Builder(this);
 
             builder.SetAutoCancel(true);
-            builder.SetTicker("this is ticker text");
+            //builder.SetTicker("this is ticker text");
             builder.SetContentTitle("TimeSheet");
             builder.SetContentText("Remember input your timesheet ;)");
             builder.SetSmallIcon(Resource.Drawable.logo);
             builder.SetContentIntent(pendingNotificationIntent);
-            builder.SetOngoing(true);            
-            builder.SetSubText("This is subtext...");   //API level 16
+            //builder.SetOngoing(true);
+            //setBadgeIconType(1);
+            //builder.SetSubText("This is subtext...");   //API level 16
             builder.SetNumber(100);
             var notification = builder.Build();
 

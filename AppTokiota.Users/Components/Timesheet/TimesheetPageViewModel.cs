@@ -182,7 +182,7 @@ namespace AppTokiota.Users.Components.Timesheet
 					{
 						var navigationParameters = new NavigationParameters();
 						navigationParameters.Add(TimesheetForDay.Tag, selectedDateTimesheet);
-						await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<ManageImputedDayPage>(), navigationParameters);
+                        await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<ManageImputedDayPage>(), navigationParameters);
                         BaseModule.AnalyticsService.TrackEvent("[Activity] :: Info :: Timesheet");
 					} else {
                         throw new ArgumentNullException();
@@ -214,7 +214,7 @@ namespace AppTokiota.Users.Components.Timesheet
 
 						var navigationParameters = new NavigationParameters();
 						navigationParameters.Add(Imputed.Tag, imputed);
-						await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters);
+                        await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<AddActivityPage>(), navigationParameters);
                         BaseModule.AnalyticsService.TrackEvent("[Activity] :: Add :: Multilple :: Timesheet");
 
 					} else {

@@ -100,10 +100,13 @@ namespace AppTokiota.Users.Services
                                 .ExecuteAsync<Activity>(async () => {
                                     return await _requestService.PostAsync<TimesheetAddActivity, Activity>(url, timesheetAddActivity, AppSettings.AuthenticatedUserResponse.AccessToken);
                                 });
+
+                
     			timesheet.ProjectId = timesheetAddActivity.ProjectId;
     			timesheet.TaskId = timesheetAddActivity.TaskId;
     			return timesheet;				
-            } 
+            }
+            
             catch (Exception e)
             {
                 MessagingCenter.Send<ISubscribeMessagingCenter>(this, nameof(UnauthorizedAccessException));

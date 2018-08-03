@@ -6,6 +6,7 @@
   <uses-permission android:name="android.permission.VIBRATE" />
   <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
   <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 	<application android:icon="@drawable/logo" android:label="TimeSheet">
  
   <receiver android:name=".AlarmReceiver" android:enabled="true">

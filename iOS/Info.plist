@@ -7,13 +7,13 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.tokiota.AppTokiota</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.0</string>
+	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>
-	<string>11.0</string>
+	<string>11.4</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
@@ -55,9 +55,9 @@
 		<string>fonts/Poppins-Light.ttf</string>
 		<string>fonts/fontawesome.ttf</string>
 	</array>
-	<key>CFBundleName</key>
-	<string>Tokiota</string>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleLightContent</string>
+	<key>CFBundleName</key>
+	<string>AppTokiota</string>
 </dict>
 </plist>

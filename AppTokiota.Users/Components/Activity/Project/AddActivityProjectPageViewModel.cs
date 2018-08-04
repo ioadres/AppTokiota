@@ -36,7 +36,10 @@ namespace AppTokiota.Users.Components.Activity
                 SetProperty(ref _selectedProject, value);
                 ProjectSelected = true;
                 ConfirmVisibility = false;
-                Tasks = _selectedProject.Tasks.Select(x => x.Value).ToList();
+                if (_selectedProject != null)
+                {
+                    Tasks = _selectedProject?.Tasks?.Select(x => x.Value).ToList();
+                }
             }
         }
 
@@ -180,8 +183,6 @@ namespace AppTokiota.Users.Components.Activity
                         catch (Exception e)
                         {
                             IsBusy = false;
-                            //var message = JsonConvert.DeserializeObject<string>(e.Message);
-                            //BaseModule.DialogService.ShowToast(message);
                             if (e.Message == ("{\"message\":\"You can not add more hours than estimated in fixed assignements\"}"))
                             {
                                 BaseModule.DialogService.ShowToast("You can not add more hours than estimated in fixed assignements");
@@ -225,6 +226,22 @@ namespace AppTokiota.Users.Components.Activity
         }
 
         public override void OnNavigatedTo(NavigationParameters parameters)
+        {
+            if (parameters.ContainsKey(Imputed.Tag))
+            {
+                Context = parameters.GetValue<Imputed>(Imputed.Tag);
+                if (Context.CurrentTimesheet == null)
+                {
+                    Projects = Context.CurrentTimesheetMultipleDay.Projects;
+                }
+                else
+                {
+                    Projects = Context.CurrentTimesheet.Projects;
+                }
+            }
+        }
+
+        public override void OnNavigatedFrom(NavigationParameters parameters)
         {
             if (parameters.ContainsKey(Imputed.Tag))
             {

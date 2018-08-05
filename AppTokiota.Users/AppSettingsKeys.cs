@@ -1,4 +1,11 @@
-private const string DefaultMicrosoftTenant = "";
+using System;
+using AppTokiota.Users.Models;
+
+namespace AppTokiota
+{
+    public static partial class AppSettings
+    {
+        private const string DefaultMicrosoftTenant = "";
         private const string DefaultMicrosoftApiClientId = "";
         private const string DefaultMicrosoftGrantType = "password";
         private const string DefaultMicrosoftResource = "";
@@ -28,3 +35,7 @@ private const string DefaultMicrosoftTenant = "";
         private const bool DefaultIsEnableCache = true;
         private const bool DefaultSendReview = false;
         private const bool DefaultUseFakeServices = false;
+
+
+    }
+}

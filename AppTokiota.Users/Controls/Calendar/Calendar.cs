@@ -452,7 +452,7 @@ namespace AppTokiota.Users.Controls
 
             var grid = new Grid { VerticalOptions = LayoutOptions.FillAndExpand, HorizontalOptions = LayoutOptions.Start, RowSpacing = 0, ColumnSpacing = 0, Padding = new Thickness(0, 0, 0, 0) };         
 			var columnDefinition = new ColumnDefinitionCollection { columDef };
-			var rowDefinition = new RowDefinitionCollection { rowDef, rowDef, rowDef, rowDef, rowDef, rowDef };
+            var rowDefinition = new RowDefinitionCollection { rowDef, rowDef, rowDef, rowDef, rowDef, rowDef };
 
 			var numberOfWeekFontSize = NumberOfWeekFontSize * (Device.RuntimePlatform == Device.iOS ? 1.5 : 2.5);
 			numberOfWeekFontSize = numberOfWeekFontSize * (Device.Idiom == TargetIdiom.Tablet ? 1.5 : 2.5);
@@ -498,7 +498,7 @@ namespace AppTokiota.Users.Controls
             
 			var grid = new Grid { VerticalOptions = LayoutOptions.FillAndExpand, HorizontalOptions = LayoutOptions.CenterAndExpand, RowSpacing = GridSpace, ColumnSpacing = GridSpace, Padding = 1, BackgroundColor = BorderColor };
 			var columnDefinition = new ColumnDefinitionCollection { columDef, columDef, columDef, columDef, columDef, columDef, columDef };
-			var rowDefinition = new RowDefinitionCollection { rowDef, rowDef, rowDef, rowDef, rowDef, rowDef };
+            var rowDefinition = new RowDefinitionCollection { rowDef, rowDef, rowDef, rowDef, rowDef, rowDef };
 		
 			for (var i = 0; i < ShowNumOfMonths; i++)
 			{
@@ -506,7 +506,7 @@ namespace AppTokiota.Users.Controls
 				mainCalendar.ColumnDefinitions = columnDefinition;
 				mainCalendar.RowDefinitions = rowDefinition;
 
-				for (int r = 0; r < 5; r++)
+				for (int r = 0; r < 6; r++)
 				{
 					for (int c = 0; c < 7; c++)
 					{

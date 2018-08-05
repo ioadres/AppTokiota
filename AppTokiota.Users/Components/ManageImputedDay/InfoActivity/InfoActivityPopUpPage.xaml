@@ -18,116 +18,116 @@
       <ContentPage.Resources>
         <ResourceDictionary>
             <converters:FormatTimeMinutesToStringEntry x:Key="cnvFormatTimeMinutesToStringEntry"></converters:FormatTimeMinutesToStringEntry>
-            
         </ResourceDictionary>
     </ContentPage.Resources>
     
     <ContentPage.Content>
-        <Grid RowSpacing="0" ColumnSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+
+        <ScrollView  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource RedDarkDarkColor}">
             
-            <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource WhiteColor}">
-                <StackLayout.Padding>
-                    <OnPlatform x:TypeArguments="Thickness">
-                       <On Platform="iOS" Value="15,35,15,20" />
-                       <On Platform="Android" Value="15,15,15,15" />
-                   </OnPlatform>
-                </StackLayout.Padding>
-
-                <Grid HorizontalOptions="FillAndExpand">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label  Style="{StaticResource TitleH2Style}" Text="{Binding Title}"  Grid.Column="1" VerticalOptions="Center" HorizontalTextAlignment="Center"></Label>
-
-                    <Label Style="{StaticResource IconTextStyle}" Text="&#xf00d;" Grid.Column="2" HorizontalTextAlignment="Center" IsVisible="true">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ClosePopupCommand}" />
-                        </Label.GestureRecognizers>
-                    </Label>
-                </Grid>
-
-            </StackLayout>
-
-            <controls:GradientColorStack Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" StartColor="{StaticResource RedColor}" EndColor="#7f3a38">
-            </controls:GradientColorStack>
-
-            <StackLayout Grid.Row="1"
-                         VerticalOptions="FillAndExpand"
-                         HorizontalOptions="FillAndExpand">
-                <Grid HorizontalOptions="FillAndExpand"  Padding="25,25,25,30">
-                    <Grid.RowDefinitions>
+            <Grid VerticalOptions="Fill" HorizontalOptions="Fill" RowSpacing="0" ColumnSpacing="0" >
+                <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <StackLayout Grid.Row="1" Grid.Column="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                           <Label 
-                                   Style="{StaticResource TitleH1Style}" 
-                                   Text="{Binding Imputed, Converter={StaticResource cnvFormatTimeMinutesToStringEntry}}"
+                        <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource WhiteColor}">
+                    <StackLayout.Padding>
+                        <OnPlatform x:TypeArguments="Thickness">
+                           <On Platform="iOS" Value="15,35,15,20" />
+                           <On Platform="Android" Value="15,15,15,15" />
+                       </OnPlatform>
+                    </StackLayout.Padding>
+
+                    <Grid HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label  Style="{StaticResource TitleH2Style}" Text="{Binding Title}"  Grid.Column="1" VerticalOptions="Center" HorizontalTextAlignment="Center"></Label>
+
+                        <Label Style="{StaticResource IconTextStyle}" Text="&#xf00d;" Grid.Column="2" HorizontalTextAlignment="Center" IsVisible="true">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ClosePopupCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </StackLayout>
+
+
+                <controls:GradientColorStack Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" StartColor="{StaticResource RedColor}" EndColor="{StaticResource RedDarkDarkColor}">
+                </controls:GradientColorStack>
+
+                <StackLayout  Grid.Row="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Spacing="0">
+                    <Grid HorizontalOptions="FillAndExpand"  Padding="25,25,25,30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Row="1" Grid.Column="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                               <Label 
+                                       Style="{StaticResource TitleH1Style}" 
+                                       Text="{Binding Imputed, Converter={StaticResource cnvFormatTimeMinutesToStringEntry}}"
+                                       TextColor="{StaticResource WhiteColor}"
+                                       HorizontalTextAlignment="Center">
+                                </Label>
+                            
+                            <Label 
+                                   Style="{StaticResource TitleH3Style}" 
+                                   Text="Consumed"
                                    TextColor="{StaticResource WhiteColor}"
                                    HorizontalTextAlignment="Center">
                             </Label>
+                             </StackLayout>
+                        <StackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <Label 
+                                   Style="{StaticResource TitleH1Style}" 
+                                    Margin="0,0,0,5"    
+                                   Text="{Binding Deviation, Converter={StaticResource cnvFormatTimeMinutesToStringEntry}}" 
+                                   TextColor="{StaticResource WhiteColor}"
+                                   HorizontalTextAlignment="Center">
+                                </Label>
+                            <Label 
+                                   Style="{StaticResource TitleH3Style}" 
+                                   Text="Deviation" 
+                                   TextColor="{StaticResource WhiteColor}"
+                                   HorizontalTextAlignment="Center">
+                            </Label>
+                        </StackLayout>
+                    </Grid>
+
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="15">
                         
                         <Label 
-                               Style="{StaticResource TitleH3Style}" 
-                               Text="Consumed"
-                               TextColor="{StaticResource WhiteColor}"
-                               HorizontalTextAlignment="Center">
+                           Style="{StaticResource TitleH2Style}" 
+                           Margin="5"  
+                           Text="{Binding Context.Project.DisplayName}"
+                           TextColor="{StaticResource WhiteColor}"
+                           HorizontalTextAlignment="Center">
                         </Label>
-                         </StackLayout>
-                    <StackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                            <Label 
-                               Style="{StaticResource TitleH1Style}" 
-                                Margin="0,0,0,5"    
-                               Text="{Binding Deviation, Converter={StaticResource cnvFormatTimeMinutesToStringEntry}}" 
-                               TextColor="{StaticResource WhiteColor}"
-                               HorizontalTextAlignment="Center">
-                            </Label>
+                        
                         <Label 
-                               Style="{StaticResource TitleH3Style}" 
-                               Text="Deviation" 
-                               TextColor="{StaticResource WhiteColor}"
-                               HorizontalTextAlignment="Center">
+                           Style="{StaticResource TitleH2Style}" 
+                           Margin="5"  
+                           Text="{Binding Context.Task.DisplayName}"
+                           TextColor="{StaticResource WhiteColor}"
+                           HorizontalTextAlignment="Center">
+                        </Label>
+                        
+                        <Label 
+                           Style="{StaticResource TitleH3Style}" 
+                           Margin="5"  
+                           Text="{Binding Context.Description}"
+                           TextColor="{StaticResource WhiteColor}"
+                           HorizontalTextAlignment="Center">
                         </Label>
                     </StackLayout>
-                </Grid>
-
-                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="15">
-                    
-                    <Label 
-                       Style="{StaticResource TitleH2Style}" 
-                       Margin="5"  
-                       Text="{Binding Context.Project.DisplayName}"
-                       TextColor="{StaticResource WhiteColor}"
-                       HorizontalTextAlignment="Center">
-                    </Label>
-                    
-                    <Label 
-                       Style="{StaticResource TitleH2Style}" 
-                       Margin="5"  
-                       Text="{Binding Context.Task.DisplayName}"
-                       TextColor="{StaticResource WhiteColor}"
-                       HorizontalTextAlignment="Center">
-                    </Label>
-                    
-                    <Label 
-                       Style="{StaticResource TitleH3Style}" 
-                       Margin="5"  
-                       Text="{Binding Context.Description}"
-                       TextColor="{StaticResource WhiteColor}"
-                       HorizontalTextAlignment="Center">
-                    </Label>
                 </StackLayout>
-            </StackLayout>
-        </Grid>
-
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

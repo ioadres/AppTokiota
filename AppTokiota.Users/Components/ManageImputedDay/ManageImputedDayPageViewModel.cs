@@ -117,7 +117,7 @@ namespace AppTokiota.Users.Components.ManageImputedDay
 
             if (IsEnabled && IsInternetAndCloseModal())
             {
-                var remove = await BaseModule.DialogService.ShowConfirmAsync("Are your sure that you want remove this activity?", "Remove Activity", "Remove", "Cancel");
+                var remove = await BaseModule.DialogService.ShowConfirmAsync("Are your sure you want delete this activity?", "Delete Activity", "Delete", "Cancel");
                 if (remove)
                 {
                     try

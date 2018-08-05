@@ -91,7 +91,7 @@
             </StackLayout>
 
             <StackLayout Grid.Row="1"   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource WhiteColor}">
-                <Grid Padding="10,10,0,0" >
+                <Grid Padding="10,10,10,10" >
                     <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
@@ -123,7 +123,7 @@
                              PlaceholderColor="{StaticResource GrayColor}"
                              AutomationId="Description" 
                              Text="{Binding Description}"
-                             AutoSize="TextChanges"
+                             HeightRequest="140"
                              TextColor="{StaticResource SecondaryTextColor}">
                         </controls:ExtendedEditor>
                     </StackLayout>

@@ -44,7 +44,7 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
 <AssemblyName>Tokiota</AssemblyName>
-<CodesignProvision>Provisioning AppTokiota iOS Distribution</CodesignProvision>
+<CodesignProvision>Provisioning Ad-Hoc AppTokiota</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>pdbonly</DebugType>

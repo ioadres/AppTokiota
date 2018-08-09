@@ -263,8 +263,20 @@
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
                 <Setter Property="BorderWidth" Value="1" />
-                <Setter Property="HeightRequest" Value="40" />
-                <Setter Property="WidthRequest" Value="100" />
+                <Setter Property="HeightRequest">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="40" 
+                                 Tablet="55" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="WidthRequest">
+                    <Setter.Value>
+                        <OnIdiom x:TypeArguments="x:Double" 
+                                 Phone="100" 
+                                 Tablet="115" />
+                    </Setter.Value>
+                 </Setter>
                 <Setter Property="FontFamily"  Value="{StaticResource PoppinsSemiBold}" />
             </Style>
 
@@ -277,14 +289,14 @@
                     <Setter.Value>
                         <OnIdiom x:TypeArguments="x:Double" 
                                  Phone="40" 
-                                 Tablet="70" />
+                                 Tablet="55" />
                     </Setter.Value>
                 </Setter>
                 <Setter Property="WidthRequest">
                     <Setter.Value>
                         <OnIdiom x:TypeArguments="x:Double" 
                                  Phone="100" 
-                                 Tablet="130" />
+                                 Tablet="115" />
                     </Setter.Value>
                  </Setter>
                 <Setter Property="FontFamily"  Value="{StaticResource PoppinsSemiBold}" />

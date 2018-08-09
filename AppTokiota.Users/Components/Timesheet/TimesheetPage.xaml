@@ -173,7 +173,7 @@
                             
                              <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="FillAndExpand">
                                 <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource CustomIconPlusTextStyle}"/>
-                                <Label TranslationX="10" Text="Multiple Entry" Style="{StaticResource ActionSelectedTextStyle}" VerticalTextAlignment="Center"></Label>
+
                             </StackLayout>
                     </Grid>
                     <Grid 
@@ -198,7 +198,7 @@
                         </Grid.GestureRecognizers>
                             
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="FillAndExpand">
-                            <controls:AwesomeLabelControl Text="&#xf0fe;" Style="{StaticResource CustomIconPlusTextStyle}"/>
+                            <controls:AwesomeLabelControl Text="&#xf18e;" Style="{StaticResource CustomIconPlusTextStyle}"/>
                         </StackLayout>
                     </Grid>
 

@@ -61,7 +61,7 @@
                     <Setter.Value>
                         <OnIdiom x:TypeArguments="x:Double" 
                                  Phone="{StaticResource ExtraBigSize }" 
-                                 Tablet="{StaticResource ExtraBigSize }" />
+                                 Tablet="{StaticResource XXXHugeSize }" />
                     </Setter.Value>
                 </Setter>
                 <Setter Property="VerticalTextAlignment" Value="Center" />
@@ -123,7 +123,7 @@
                      ItemsSource="{Binding Activities}" 
                      SeparatorVisibility="None"
                      IsVisible="{Binding AnyActivities}"
-
+                     TranslationY="25"
                      >
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -134,7 +134,7 @@
                             
                             <StackLayout Padding="5,10,5,10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                                 <Frame VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
-                                       Padding="5,15,5,20" 
+                                       Padding="10,15,20,20" 
                                        HasShadow="true" 
                                        CornerRadius="5">
                                   <Grid>

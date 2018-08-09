@@ -38,7 +38,7 @@
                     <Setter.Value>
                         <OnIdiom x:TypeArguments="x:Double" 
                                  Phone="{StaticResource MidMediumSize }" 
-                                 Tablet="{StaticResource BigSize }" />
+                                 Tablet="{StaticResource LargeSize }" />
                     </Setter.Value>
                 </Setter>
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />

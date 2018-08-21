@@ -169,28 +169,30 @@
                 </Button>
             </Grid>
 
-            <Label Grid.Row="3"
-                       TextColor="{StaticResource WhiteColor}" 
-                       Text="Copyright © 2012 Tokiota. Todos los derechos reservados."
-                       Style="{StaticResource PoppinsLightLabelStyle}"
-                       FontSize="{StaticResource LittleSize}"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="Center">
-                <Label.HorizontalOptions>
-                    <OnIdiom
-                                x:TypeArguments="LayoutOptions" 
-                                Desktop="Center"
-                                Tablet="Center"
-                                Phone="FillAndExpand"/>
-                </Label.HorizontalOptions>
-                <Label.VerticalOptions>
-                    <OnIdiom
-                                x:TypeArguments="LayoutOptions" 
-                                Desktop="Center"
-                                Tablet="Center"
-                                Phone="CenterAndExpand"/>
-                </Label.VerticalOptions>
-            </Label>
+            <StackLayout Grid.Row="3" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Padding="0,5,0,15">
+                <Label 
+                           TextColor="{StaticResource WhiteColor}" 
+                           Text="Copyright © 2018 Tokiota. Todos los derechos reservados."
+                           Style="{StaticResource PoppinsLightLabelStyle}"
+                           FontSize="{StaticResource LittleSize}"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center">
+                    <Label.HorizontalOptions>
+                        <OnIdiom
+                                    x:TypeArguments="LayoutOptions" 
+                                    Desktop="Center"
+                                    Tablet="Center"
+                                    Phone="FillAndExpand"/>
+                    </Label.HorizontalOptions>
+                    <Label.VerticalOptions>
+                        <OnIdiom
+                                    x:TypeArguments="LayoutOptions" 
+                                    Desktop="Center"
+                                    Tablet="Center"
+                                    Phone="CenterAndExpand"/>
+                    </Label.VerticalOptions>
+                </Label>
+           </StackLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

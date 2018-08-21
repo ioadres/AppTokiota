@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="AppTokiota.Users.Cell.ProjectDataTemplate"
+    x:Name="this"
+    StyleId="disclosure">
+        <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*" />
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="2.4*" />
+            <ColumnDefinition Width="2.4*" />
+            <ColumnDefinition Width="1.4*" />
+            <ColumnDefinition Width="1.4*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <!-- START Icon - Day -->
+        
+        <Label  
+                Grid.Row="0"
+                Grid.Column="0" 
+                HorizontalOptions="Center" 
+                Text="{Binding Day.Date, Converter={StaticResource DateOfWeekFormat}}" 
+                Style="{DynamicResource DayTextStyle}" />
+        <StackLayout  Grid.Row ="0" Grid.Column="1">
+            <Image x:Name="ToriIcon" Source="torii.png" HeightRequest="15"/>
+        </StackLayout>
+        <StackLayout  Grid.Row="1" Grid.Column="1">
+            <BoxView
+                Grid.Row ="1"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="FillAndExpand"
+                WidthRequest="2"
+                BackgroundColor="{DynamicResource RedColor}"
+                IsVisible="{Binding IsLast, Converter={StaticResource cnvInverseBool}" />
+        </StackLayout>
+        <!-- END Icon - Day -->
+    
+        <StackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="4" Orientation="Horizontal">
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Label
+                   Text="PROJECTS" 
+                   Style="{DynamicResource ProjectTextStyle}">                                    
+                </Label>
+                <Frame HeightRequest="25" WidthRequest="25" Padding="10" Margin="0,0,0,8" 
+                   CornerRadius="20" 
+                   HasShadow="false"  
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center" 
+                   BackgroundColor="{DynamicResource PrimaryColor}">
+                <Label Text="{Binding ProjectsForDay}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+            </Frame>
+
+            </StackLayout>
+
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            
+            <Label
+                   Text="TASKS" 
+                   Style="{DynamicResource ProjectTextStyle}">
+            </Label>
+                <Frame HeightRequest="25" WidthRequest="25" Margin="0,0,0,8"
+                   Padding="10"
+                   CornerRadius="20" 
+                   HasShadow="false" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center" 
+                   BackgroundColor="{DynamicResource PrimaryColor}">
+                <Label Text="{Binding TasksForDay}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+            </Frame>
+            </StackLayout>
+
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Label Text="Desvia." 
+                       Style="{DynamicResource ProjectTextStyle}">                                    
+                </Label>
+                <Label Text="{Binding ImputationTasksDay, Converter={StaticResource cnvMinutesToHour}}" 
+                       Style="{DynamicResource TaskTextStyle}"/>
+            </StackLayout>
+
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Label Text="Imput." 
+                       Style="{DynamicResource ProjectTextStyle}">                                    
+                </Label>
+
+                <Label Text="{Binding DesviationTasksDay, Converter={StaticResource cnvMinutesToHour}}" 
+                       Style="{DynamicResource TaskTextStyle}"/>
+            </StackLayout>
+
+         </StackLayout>
+        </Grid>
+
+</ViewCell>

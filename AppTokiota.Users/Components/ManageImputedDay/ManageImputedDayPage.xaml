@@ -14,8 +14,8 @@
     x:Name="this"
     Title="{Binding Title}"
     >
-    <ContentPage.ToolbarItems> 
-        <ToolbarItem Text="Add" IsEnabled="{Binding IsEnabled, Mode=TwoWay}" Command="{Binding OnAddItemCommand}" />
+    <ContentPage.ToolbarItems>
+        <controls:BindableToolbarItem Text="Add" IsEnabled="{Binding IsEnabled, Mode=TwoWay}" IsVisible="{Binding IsVisibleButtonAdd}" Parent="{x:Reference this}" Command="{Binding OnAddItemCommand}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Resources>
@@ -61,7 +61,7 @@
                     <Setter.Value>
                         <OnIdiom x:TypeArguments="x:Double" 
                                  Phone="{StaticResource ExtraBigSize }" 
-                                 Tablet="{StaticResource ExtraBigSize }" />
+                                 Tablet="{StaticResource XXXHugeSize }" />
                     </Setter.Value>
                 </Setter>
                 <Setter Property="VerticalTextAlignment" Value="Center" />
@@ -85,33 +85,31 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <BoxView BackgroundColor="{StaticResource RedColor}" 
-                     Grid.Row="0" 
-                     VerticalOptions="FillAndExpand"
-                     HorizontalOptions="FillAndExpand">
+            <controls:GradientColorStack Grid.Row="0" Grid.RowSpan="3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" StartColor="{StaticResource RedColor}" EndColor="#7f3a38">
+            </controls:GradientColorStack>
+
+            <BoxView BackgroundColor="{StaticResource WhiteColor}" 
+                      Grid.Row="1" 
+                      VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand"
+                      IsVisible="{Binding AnyActivities}">
             </BoxView>
-
-            <StackLayout Grid.Row="0"
-                        Grid.RowSpan="2"
-                        VerticalOptions="FillAndExpand" 
+            
+            <StackLayout Grid.Row="0" Grid.RowSpan="3"
+                        VerticalOptions="StartAndExpand" 
                         HorizontalOptions="FillAndExpand"
+                        IsVisible="{Binding AnyActivitiesIcon,  Converter={StaticResource cnvInverseBoolConverter}}"
                         Padding="20">
-                <Frame VerticalOptions="FillAndExpand" 
-                       HorizontalOptions="FillAndExpand"
-                       Padding="20"
-                       BorderColor="{StaticResource DarkColor}"
-                       HasShadow="false"
-                       IsVisible="{Binding AnyActivities,  Converter={StaticResource cnvInverseBoolConverter}}">
-
+                
                     <lottie:AnimationView
+                    TranslationY="50"
                      x:Name="LottieView" 
                      Animation="NoDataAdd.json" 
-                     Loop="True" 
+                     Loop="false"
                      AutoPlay="True"
-                     VerticalOptions="FillAndExpand"
-                     HorizontalOptions="FillAndExpand" />
+                     HeightRequest="250"
+                     WidthRequest="250" />
                     
-                </Frame>
             </StackLayout>
 
            <ListView x:Name="listView" 
@@ -123,9 +121,9 @@
                      HorizontalOptions="FillAndExpand" 
                      BackgroundColor="Transparent"
                      ItemsSource="{Binding Activities}" 
-                     IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                      SeparatorVisibility="None"
                      IsVisible="{Binding AnyActivities}"
+                     TranslationY="25"
                      >
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -136,12 +134,12 @@
                             
                             <StackLayout Padding="5,10,5,10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                                 <Frame VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
-                                       Padding="5,15,5,15" 
+                                       Padding="10,15,20,20" 
                                        HasShadow="true" 
-                                       CornerRadius="10">
+                                       CornerRadius="5">
                                   <Grid>
                                         <Grid.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OnInfoActivityItemCommand}" CommandParameter="{Binding .}" NumberOfTapsRequired="2" />
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OnInfoActivityItemCommand}" CommandParameter="{Binding .}" NumberOfTapsRequired="1" />
                                         </Grid.GestureRecognizers>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"/>
@@ -211,7 +209,7 @@
               </ListView.ItemTemplate>
             </ListView>
 
-           <Grid Grid.Row="2" BackgroundColor="{StaticResource DarkColor}">
+           <Grid Grid.Row="2" BackgroundColor="{StaticResource DarkColor}"  IsVisible="{Binding AnyActivities}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />

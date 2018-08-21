@@ -173,8 +173,12 @@ namespace AppTokiota
             set => Settings.AddOrUpdateValue(nameof(IsEnableCache), value);
         }
 
+        public static bool SendReview
+        {
+            get => Settings.GetValueOrDefault(nameof(SendReview), DefaultSendReview);
 
-
+            set => Settings.AddOrUpdateValue(nameof(SendReview), value);
+        }
 
     }
 }

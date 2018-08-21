@@ -91,11 +91,11 @@
             </StackLayout>
 
             <StackLayout Grid.Row="1"   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="{StaticResource WhiteColor}">
-                <Grid Padding="10,10,0,0" >
+                <Grid Padding="10,10,10,10" >
                     <Grid.RowDefinitions>
-                    <RowDefinition Height="2.5*"/>
-                    <RowDefinition Height="2.5*"/>
-                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     
                         <Picker Grid.Row="0" Title="Projects" HorizontalOptions="FillAndExpand" 
@@ -117,11 +117,13 @@
                          <controls:ExtendedEditor 
                              VerticalOptions="FillAndExpand"
                              HorizontalOptions="FillAndExpand"
+                             BackgroundColor="{StaticResource GrayColor}"
                              x:Name="Description" 
                              Placeholder="Description"
                              PlaceholderColor="{StaticResource GrayColor}"
                              AutomationId="Description" 
                              Text="{Binding Description}"
+                             HeightRequest="140"
                              TextColor="{StaticResource SecondaryTextColor}">
                         </controls:ExtendedEditor>
                     </StackLayout>

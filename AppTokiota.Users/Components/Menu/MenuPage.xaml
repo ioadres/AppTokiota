@@ -38,7 +38,7 @@
                     <Setter.Value>
                         <OnIdiom x:TypeArguments="x:Double" 
                                  Phone="{StaticResource MidMediumSize }" 
-                                 Tablet="{StaticResource BigSize }" />
+                                 Tablet="{StaticResource LargeSize }" />
                     </Setter.Value>
                 </Setter>
                 <Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
@@ -64,10 +64,11 @@
             </Grid.RowDefinitions>
 
             <Image Source="login_background_menu.png" Aspect="AspectFill"  Grid.Row="0"/>
+            
             <FlexLayout Direction="Column"
                       JustifyContent="SpaceBetween"
                       Grid.Row="0"
-                    >
+             >
 
                 <StackLayout VerticalOptions="Fill" 
                              HorizontalOptions="Fill"  
@@ -119,10 +120,10 @@
 
                 <ContentView 
                              FlexLayout.Shrink="0"
-                             FlexLayout.AlignSelf="End">
+                             FlexLayout.AlignSelf="End" TranslationY="-50">
                     
                      <StackLayout HorizontalOptions="EndAndExpand" Padding="15">
-                            <Label Text="{Binding Email}" Style="{StaticResource UserTextStyle}" HorizontalTextAlignment="End"></Label>
+                            <Label Text="{Binding Email}" Style="{StaticResource UserTextStyle}" HorizontalTextAlignment="End" VerticalTextAlignment="Center"></Label>
                             <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" VerticalOptions="Fill">
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer 

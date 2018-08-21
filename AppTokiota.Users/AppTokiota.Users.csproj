@@ -1,11 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
  <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
-    <PackageTargetFallback>$(PackageTargetFallback);portable-win+net45+wp8+win81+wpa8;portable-net45+win8</PackageTargetFallback>   
+    <TargetFramework>netstandard2.0</TargetFramework>  
   </PropertyGroup>
+
+ <ItemGroup>
+   <Compile Remove="Behaviors\**" />
+   <EmbeddedResource Remove="Behaviors\**" />
+   <None Remove="Behaviors\**" />
+ </ItemGroup>
 	<ItemGroup>
-    <PackageReference Include="Acr.UserDialogs" Version="6.5.1" />
     <PackageReference Include="akavache" Version="5.0.0" />
     <PackageReference Include="modernhttpclient" Version="2.4.2" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
@@ -13,11 +17,9 @@
     <PackageReference Include="Xam.Plugin.Connectivity" Version="3.1.1" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
     <PackageReference Include="Xamanimation" Version="1.1.0" />
-    <PackageReference Include="Xamarin.Forms.BehaviorsPack" Version="1.4.0" />
     <PackageReference Include="Plugin.DeviceOrientation" Version="1.0.7" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.0.4" />
     <PackageReference Include="Unity" Version="5.7.3" />
-    <PackageReference Include="Xamarin.Forms" Version="3.0.0.446417" />
     <PackageReference Include="Refractored.XamForms.PullToRefresh" Version="2.2.1" />
     <PackageReference Include="Microcharts.Forms" Version="0.7.1" />
     <PackageReference Include="Microcharts" Version="0.7.1" />
@@ -25,6 +27,10 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.6.1" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.6.1" />
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="2.5.4" />
+    <PackageReference Include="Polly" Version="6.0.1" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.0.1" />
+    <PackageReference Include="Xamarin.Forms.BehaviorsPack" Version="2.0.0" />
+    <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
   </ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Components\ManageImputedDay\" />
@@ -42,6 +48,8 @@
 	  <Folder Include="Components\Configuration\" />
 	  <Folder Include="Services\Chart\" />
 	  <Folder Include="Services\Analytics\" />
+	  <Folder Include="OS\" />
+	  <Folder Include="Cell\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Components\Activity\NavigationPage\ActivityNavigationPage.xaml.cs">
@@ -50,5 +58,8 @@
 	  <Compile Update="Components\Activity\Desviation\AddActivityTimeDesviationPage.xaml.cs">
 	    <DependentUpon>AddActivityTimeDesviationPage.xaml</DependentUpon>
 	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="AppTokiota.Users.csproj.sb-e45ae8f6-w5mshZ" />
 	</ItemGroup>
 	</Project>

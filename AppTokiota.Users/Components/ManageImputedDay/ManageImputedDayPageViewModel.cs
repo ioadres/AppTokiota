@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using AppTokiota.Users.Components.Core;
 using AppTokiota.Users.Components.Core.Module;
 using Prism.Navigation;
@@ -22,7 +22,8 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         public ManageImputedDayPageViewModel(IViewModelBaseModule baseModule, IManageImputedDayModule manageImputedDayModule) : base(baseModule)
         {
             _manageImputedDayModule = manageImputedDayModule;
-            Title = "Imputed Day";
+            Title = "";
+            IsBusy = true;
         }
 
         private Models.TimesheetForDay _currentTimesheetForDay;
@@ -36,6 +37,13 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         {
             get { return _isEnabled; }
             set { SetProperty(ref _isEnabled, value); }
+        }
+
+        private bool _isVisibleButtonAdd = false;
+        public bool IsVisibleButtonAdd
+        {
+            get { return _isVisibleButtonAdd; }
+            set { SetProperty(ref _isVisibleButtonAdd, value); }
         }
 
         /// <summary>
@@ -64,11 +72,27 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         /// Gets or sets the Total DeviationTotal 
         /// </summary>
         /// <value>The Total DeviationTotal</value>
-        private bool _anyActivities;
+        private bool _anyActivities = false;
         public bool AnyActivities
         {
             get { return _anyActivities; }
-            set { SetProperty(ref _anyActivities, value); }
+            set { 
+                SetProperty(ref _anyActivities, value);            
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Visibility Any Activity 
+        /// </summary>
+        /// <value>The Total DeviationTotal</value>
+        private bool _anyActivitiesIcon = true;
+        public bool AnyActivitiesIcon
+        {
+            get { return _anyActivitiesIcon; }
+            set
+            {
+                SetProperty(ref _anyActivitiesIcon, value);
+            }
         }
 
         /// <summary>
@@ -86,31 +110,39 @@ namespace AppTokiota.Users.Components.ManageImputedDay
         public DelegateCommand<object> OnDeleteItemCommand => new DelegateCommand<object>((obj) => { OnDeleteItem((ActivityDay)obj); });
         protected async void OnDeleteItem(ActivityDay activity)
         {
-			IsBusy = true;
-            if (IsInternetAndCloseModal())
+            if(!IsEnabled) {
+                BaseModule.DialogService.ShowToast("This day is closed!");
+            }
+
+
+            if (IsEnabled && IsInternetAndCloseModal())
             {
-                try
+                var remove = await BaseModule.DialogService.ShowConfirmAsync("Are your sure you want delete this activity?", "Delete Activity", "Delete", "Cancel");
+                if (remove)
                 {
-                    BaseModule.AnalyticsService.TrackEvent("[DeleteActivity] :: Start");
-                    var result = await _manageImputedDayModule.TimesheetService.DeleteActivityTimesheet(activity.Date, activity.Id);
-                    if (result != null)
+                    try
                     {
-                        _currentTimesheetForDay.Activities.Remove(activity);
-                        UpdateDayOfTimesheet(_currentTimesheetForDay);
-                        IsBusy = false;
-                        BaseModule.AnalyticsService.TrackEvent("[DeleteActivity] :: Success");
+                        BaseModule.AnalyticsService.TrackEvent("[DeleteActivity] :: Start");
+                        var result = await _manageImputedDayModule.TimesheetService.DeleteActivityTimesheet(activity.Date, activity.Id);
+                        if (result != null)
+                        {
+                            _currentTimesheetForDay.Activities.Remove(activity);
+                            UpdateDayOfTimesheet(_currentTimesheetForDay);
+                            IsBusy = false;
+                            BaseModule.AnalyticsService.TrackEvent("[DeleteActivity] :: Success");
+                        }
+                        else
+                        {
+                            IsBusy = false;
+                            BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                            BaseModule.AnalyticsService.TrackEvent("[DeleteActivity] :: Error");
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
                         IsBusy = false;
                         BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                        BaseModule.AnalyticsService.TrackEvent("[DeleteActivity] :: Error");
                     }
-                }
-                catch (Exception)
-                {
-                    IsBusy = false;
-                    BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
                 }
             }			
         }
@@ -143,6 +175,7 @@ namespace AppTokiota.Users.Components.ManageImputedDay
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
+            IsBusy = true;
             var keyContains = parameters.ContainsKey(TimesheetForDay.Tag);
             if(keyContains) {
                 var currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
@@ -157,6 +190,16 @@ namespace AppTokiota.Users.Components.ManageImputedDay
 				_currentTimesheetForDay.Activities.Add(activity);
 				UpdateDayOfTimesheet(_currentTimesheetForDay);
             }
+
+            keyContains = parameters.ContainsKey("IsVisibleButtonAdd");
+            if (keyContains)
+            {
+                IsVisibleButtonAdd = parameters.GetValue<bool>("IsVisibleButtonAdd");
+            } else{
+                IsVisibleButtonAdd = true;
+            }
+
+            IsBusy = false;
         }
 
         private void UpdateDayOfTimesheet(TimesheetForDay timesheet)
@@ -169,6 +212,7 @@ namespace AppTokiota.Users.Components.ManageImputedDay
                 ImputedTotal = Activities.Sum(x => x.Imputed);
                 DeviationTotal = Activities.Sum(x => x.Deviation);
                 AnyActivities = timesheet.Activities.Any();
+                AnyActivitiesIcon = AnyActivities;
                 IsEnabled = !_currentTimesheetForDay.Day.IsClosed;
             });
         }

@@ -111,7 +111,12 @@ namespace AppTokiota.Users.Components.Activity
 
         public override void OnNavigatedFrom(NavigationParameters parameters)
         {
-            //_currentTimesheetForDay = parameters.GetValue<TimesheetForDay>(TimesheetForDay.Tag);
+            if (parameters.ContainsKey(Imputed.Tag))
+            {
+                _context = parameters.GetValue<Imputed>(Imputed.Tag);
+                TimeSelectedImputation = Context.Consumed.ToString();
+            }
+
         }
     }
 }

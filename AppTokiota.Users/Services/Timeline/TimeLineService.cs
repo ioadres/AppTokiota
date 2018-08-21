@@ -10,13 +10,13 @@ namespace AppTokiota.Users.Services
 {
     public class TimeLineService : ITimeLineService
     {
-        public async Task<IList<TimesheetForDay>> GetListTimesheetForDay(Review review)
+        public async Task<IList<ItemTimeLine>> GetListTimesheetForDay(Review review)
         {
-            var listTimesheetForDay = new List<TimesheetForDay>();
+            var listTimesheetForDay = new List<ItemTimeLine>();
 
             foreach (var TsDay in review.Days)
             {
-                var timesheetForDay = new TimesheetForDay();
+                var timesheetForDay = new ItemTimeLine();
                 timesheetForDay.Day = new Day {
                     Date = TsDay.Date, 
                     IsClosed = TsDay.IsClosed,
@@ -35,6 +35,7 @@ namespace AppTokiota.Users.Services
             foreach (var ts in listTimesheetForDay) {
                 ts.Activities = MapActivities(ts.Day.Date, review);
             }
+
             return await Task.FromResult(listTimesheetForDay);
 
         }
@@ -52,14 +53,14 @@ namespace AppTokiota.Users.Services
                     activities.Add(new ActivityDay()
                     {
                         AssignementId = activity.AssignementId,
-                        Project = TimesheetForDay.Map(project.Value),
+                        Project = TimesheetImutationBase.Map(project.Value),
                         Date = activity.Date,
                         Id = activity.Id,
                         Description = activity.Description,
                         Deviation = activity.Deviation,
                         UserId = activity.UserId,
                         Imputed = activity.Imputed,
-                        Task = TimesheetForDay.Map(project.Value, activity.TaskId)
+                        Task = TimesheetImutationBase.Map(project.Value, activity.TaskId)
                     });
                 }
             }
@@ -69,7 +70,6 @@ namespace AppTokiota.Users.Services
             }
             return activities;
         }
-
       
     }
 }

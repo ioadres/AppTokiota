@@ -36,6 +36,7 @@ namespace AppTokiota.Users.Components.DashBoard
 			get { return _chartConsumedMonthVsHourMonthExpected; }
 			set { SetProperty(ref _chartConsumedMonthVsHourMonthExpected, value); }
         }
+
 		private bool _chartProjectsImputedIsVisible;
 		public bool ChartProjectsImputedIsVisible
         {
@@ -43,13 +44,13 @@ namespace AppTokiota.Users.Components.DashBoard
 			set { SetProperty(ref _chartProjectsImputedIsVisible, value); }
         }
 
-
-		private Microcharts.DonutChart _chartProjectsImputed;
-		public Microcharts.DonutChart ChartProjectsImputed
+        private Microcharts.RadarChart _chartProjectsImputed;
+        public Microcharts.RadarChart ChartProjectsImputed
         {
 			get { return _chartProjectsImputed; }
 			set { SetProperty(ref _chartProjectsImputed, value); }
         }
+
 		private bool _chartImputedVsDeviationIsVisible;
 		public bool ChartImputedVsDeviationIsVisible
         {
@@ -64,7 +65,7 @@ namespace AppTokiota.Users.Components.DashBoard
 			set { SetProperty(ref _chartImputedVsDeviation, value); }
         }
 
-		private string _statusMonth;
+		private string _statusMonth = "0.00 %";
 		public string StatusMonth 
 		{
 			get { return _statusMonth; }
@@ -78,8 +79,15 @@ namespace AppTokiota.Users.Components.DashBoard
 			set { SetProperty(ref _isHolidayTomorrow, value); }
         }
 
-		#region MethodLoadDataAsync
-		protected async void LoadDataAsync()
+        private bool _reDraw = false;
+        public bool ReDraw
+        {
+            get { return _reDraw; }
+            set { SetProperty(ref _reDraw, value); }
+        }
+
+        #region MethodLoadDataAsync
+        protected async void LoadDataAsync()
         {
 		   try
             {
@@ -101,8 +109,19 @@ namespace AppTokiota.Users.Components.DashBoard
 					}
 
 					await Task.WhenAll(GenerateChartActivitiesImputationVsDeviation(timesheet), GenerateChartImputationMonthVsHourMonthExpected(timesheet), GenerateChartActivitiesImputedGroupByTaskAndProject(timesheet));
-                      
-                    IsBusy = false;
+
+                    if (Device.RuntimePlatform == Device.Android)
+                    {
+                        Device.StartTimer(new TimeSpan(0, 0, 0, 1, 100), () =>
+                        {
+                            IsBusy = false;
+                            ReDraw = true;
+                            return false;
+                        });
+                    } else {
+                        IsBusy = false;
+                        ReDraw = true;
+                    }
                 }
             }
             catch (Exception ex)
@@ -151,7 +170,7 @@ namespace AppTokiota.Users.Components.DashBoard
         {
 			return Task.Run(() => {
 				var entries = _dashBoardModule.ChartService.GenerateChartActivitiesImputedGroupByTaskAndProject(timesheet);
-                var chartT = new DonutChart()
+                var chartT = new RadarChart()
                 {
 					Entries = entries
                 };

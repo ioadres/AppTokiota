@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reactive.Linq;
 using System.Diagnostics;
+using System.Linq;
 
 namespace AppTokiota.Users.Services
 {
@@ -16,6 +17,8 @@ namespace AppTokiota.Users.Services
         {
             try
             {
+                var exist = await ExistKey(key);
+                if (!exist) return default(T);
                 var res = await BlobCache.UserAccount.GetObject<T>(key);
                 return res;
             }
@@ -25,10 +28,18 @@ namespace AppTokiota.Users.Services
                 return default(T);
             }
         }
+
+        private async Task<bool> ExistKey(string key)
+        {
+            var res = await BlobCache.UserAccount.GetAllKeys().ToList();
+            return res != null && res.Any(x => x.Any(y=> y.Equals(key)));
+        }
+
         public async Task<T> GetLocalObjectAsync<T>(string key)
         {
             try
             {
+                if (!await ExistKey(key)) return default(T);
                 var res = await BlobCache.LocalMachine.GetObject<T>(key);
                 return res;
             }

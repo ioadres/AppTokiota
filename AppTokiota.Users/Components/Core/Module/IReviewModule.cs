@@ -6,5 +6,6 @@ namespace AppTokiota.Users.Components.Core.Module
     {
         IReviewService ReviewService { get; }
         ITimeLineService TimeLineService { get; }
+
     }
 }

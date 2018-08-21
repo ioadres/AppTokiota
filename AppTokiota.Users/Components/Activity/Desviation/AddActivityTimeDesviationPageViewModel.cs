@@ -133,5 +133,14 @@ namespace AppTokiota.Users.Components.Activity
 			}
         }
 
+        public override void OnNavigatedFrom(NavigationParameters parameters)
+        {
+            if (parameters.ContainsKey(Imputed.Tag))
+            {
+                _context = parameters.GetValue<Imputed>(Imputed.Tag);
+                TimeSelectedImputation = Context.Deviation.ToString();
+            }
+        }
+
     }
 }

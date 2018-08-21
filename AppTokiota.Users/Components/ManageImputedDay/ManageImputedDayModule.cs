@@ -6,18 +6,11 @@ namespace AppTokiota.Users.Components.ManageImputedDay
 {
     public class ManageImputedDayModule : IManageImputedDayModule
     {
-        private readonly IAuthenticationService _authenticationService;
-        private readonly IDialogService _dialogService;
-        private readonly ITimesheetService _timesheetService;
-
-        public IAuthenticationService AuthenticationService => _authenticationService;
-        public IDialogService DialogService => _dialogService;
+        private readonly ITimesheetService _timesheetService;        
         public ITimesheetService TimesheetService => _timesheetService;
 
-        public ManageImputedDayModule(IAuthenticationService authenticationService, IDialogService dialogService, ITimesheetService timesheetService)
+        public ManageImputedDayModule(TimesheetService timesheetService)
         {
-            _authenticationService = authenticationService;
-            _dialogService = dialogService;
             _timesheetService = timesheetService;
         }
     }

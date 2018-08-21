@@ -18,8 +18,15 @@
 
             <Image Grid.Row="0" Source="login_background.png" Aspect="AspectFill" />
             <BoxView Grid.Row="0" BackgroundColor="{StaticResource DarkColor}" Opacity="0.4" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
-            <Image Grid.Row="0" Source="logo_horizontal.png" WidthRequest="200" TranslationY="-70" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" />
 
+            <StackLayout Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Image Source="logo_horizontal.png" WidthRequest="200" TranslationY="-70" />
+            <ActivityIndicator
+                IsRunning="{Binding IsBusy}"
+                TranslationY="-40"
+                Color="{StaticResource  RedColor}"></ActivityIndicator>
+            </StackLayout>
+            
         </Grid>
     </ContentPage.Content>
 </ContentPage>

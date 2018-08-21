@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace AppTokiota.Users.Converters
 {
-    public class ActivityTypeConverter: IValueConverter
+    public class ActivityTypeConverter:IValueConverter
     {
         private const string holiday = "\uf072";
         private const string task = "\uf0ae";

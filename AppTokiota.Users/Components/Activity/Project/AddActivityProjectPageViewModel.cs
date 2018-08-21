@@ -1,6 +1,7 @@
 ﻿using AppTokiota.Users.Components.Core;
 using AppTokiota.Users.Components.Core.Module;
 using AppTokiota.Users.Models;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -30,11 +31,15 @@ namespace AppTokiota.Users.Components.Activity
         {
             get { return _selectedProject; }
 
-            set {
+            set
+            {
                 SetProperty(ref _selectedProject, value);
                 ProjectSelected = true;
                 ConfirmVisibility = false;
-                Tasks = _selectedProject.Tasks.Select(x => x.Value).ToList();
+                if (_selectedProject != null)
+                {
+                    Tasks = _selectedProject?.Tasks?.Select(x => x.Value).ToList();
+                }
             }
         }
 
@@ -60,22 +65,25 @@ namespace AppTokiota.Users.Components.Activity
         {
             get { return _selectedTask; }
 
-            set { 
+            set
+            {
                 SetProperty(ref _selectedTask, value);
                 if (ConfirmVisibility == false) ConfirmVisibility = true;
-                if(_selectedTask == null )  {
+                if (_selectedTask == null)
+                {
                     Consumed = 0;
                     Deviation = 0;
-                    ConfirmVisibility = false; 
+                    ConfirmVisibility = false;
                 }
-                if(_selectedTask != null && Context.CurrentTimesheet != null) {
+                if (_selectedTask != null && Context.CurrentTimesheet != null)
+                {
                     Consumed = _selectedTask.Consumed + Context.Consumed.GetMinutes();
-					Deviation = _selectedTask.Deviation + Context.Deviation.GetMinutes();
+                    Deviation = _selectedTask.Deviation + Context.Deviation.GetMinutes();
                 }
                 if (_selectedTask != null && Context.CurrentTimesheetMultipleDay != null)
                 {
-					Consumed = _selectedTask.Consumed + (Context.Consumed.GetMinutes() * Context.CurrentTimesheetMultipleDay.Days.Count());
-					Deviation = _selectedTask.Deviation + (Context.Deviation.GetMinutes() * Context.CurrentTimesheetMultipleDay.Days.Count());
+                    Consumed = _selectedTask.Consumed + (Context.Consumed.GetMinutes() * Context.CurrentTimesheetMultipleDay.Days.Count());
+                    Deviation = _selectedTask.Deviation + (Context.Deviation.GetMinutes() * Context.CurrentTimesheetMultipleDay.Days.Count());
                 }
             }
         }
@@ -96,12 +104,12 @@ namespace AppTokiota.Users.Components.Activity
             set { SetProperty(ref _deviation, value); }
         }
 
-		public string _description;
-		public string Description
+        public string _description;
+        public string Description
         {
-			get { return _description; }
+            get { return _description; }
 
-			set { SetProperty(ref _description, value); }
+            set { SetProperty(ref _description, value); }
         }
 
         private bool _confirmVisibility;
@@ -117,65 +125,81 @@ namespace AppTokiota.Users.Components.Activity
             get { return _projectSelected; }
             set { SetProperty(ref _projectSelected, value); }
         }
-        
-		#region GoBack
-		public DelegateCommand EndCommand => new DelegateCommand(End);
-		public async void End()
+
+        #region GoBack
+        public DelegateCommand EndCommand => new DelegateCommand(End);
+        public async void End()
         {
-			try {
-				IsBusy = true;
-				if(IsInternetAndCloseModal()) {
-                     
-					if (Context.CurrentTimesheet == null)
+            try
+            {
+                IsBusy = true;
+                if (IsInternetAndCloseModal())
+                {
+
+                    if (Context.CurrentTimesheet == null)
                     {
                         BaseModule.AnalyticsService.TrackEvent("[BatchActivity] :: Start");
-						var multiplesDay = Context.CurrentTimesheetMultipleDay.Days?.Select(x => new TimesheetAddActivityBatch()
-						{
-							Day = int.Parse(x.Date.ToString("dd")),
-							Month = int.Parse(x.Date.ToString("MM")),
-							Year = int.Parse(x.Date.ToString("yyyy")),
-							AssignementId = SelectedTask.AssignementId,
+                        var multiplesDay = Context.CurrentTimesheetMultipleDay.Days?.Select(x => new TimesheetAddActivityBatch()
+                        {
+                            Day = int.Parse(x.Date.ToString("dd")),
+                            Month = int.Parse(x.Date.ToString("MM")),
+                            Year = int.Parse(x.Date.ToString("yyyy")),
+                            AssignementId = SelectedTask.AssignementId,
                             ProjectId = SelectedProject.Id,
                             Description = Description,
                             Deviation = Convert.ToInt16(Context.Deviation.GetMinutes()),
                             Imputed = Convert.ToInt16(Context.Consumed.GetMinutes()),
                             TaskId = SelectedTask.Id
-						});
-						await _addActivityModule.TimesheetService.BatchActivity(multiplesDay.ToList());
-						IsBusy = false;
-						CloseCommand.Execute();
+                        });
+                        await _addActivityModule.TimesheetService.BatchActivity(multiplesDay.ToList());
+                        IsBusy = false;
+                        CloseCommand.Execute();
                         BaseModule.AnalyticsService.TrackEvent("[BatchActivity] :: Success");
                     }
                     else
                     {
 
                         BaseModule.AnalyticsService.TrackEvent("[PostActivity] :: Start");
-                        var response = await _addActivityModule.TimesheetService.PostActivity(new TimesheetAddActivity()
-                        {
-							AssignementId = SelectedTask.AssignementId,
-                            ProjectId = SelectedProject.Id,
-                            Description = Description,
-                            Deviation = Convert.ToInt16(Context.Deviation.GetMinutes()),
-                            Imputed = Convert.ToInt16(Context.Consumed.GetMinutes()),
-							TaskId = SelectedTask.Id
-                        }, Context.CurrentTimesheet.Day.Date);
 
-						var activityDay = ActivityDay.Map(response,Context.CurrentTimesheet);
-                        var navigationParameters = new NavigationParameters();
-						navigationParameters.Add(AppTokiota.Users.Models.ActivityDay.Tag, activityDay);
-						IsBusy = false;
-                        await BaseModule.NavigationService.GoBackAsync(navigationParameters);
-                        BaseModule.AnalyticsService.TrackEvent("[PostActivity] :: Success");
+                        try
+                        {
+                            var response = await _addActivityModule.TimesheetService.PostActivity(new TimesheetAddActivity()
+                            {
+                                AssignementId = SelectedTask.AssignementId,
+                                ProjectId = SelectedProject.Id,
+                                Description = Description,
+                                Deviation = Convert.ToInt16(Context.Deviation.GetMinutes()),
+                                Imputed = Convert.ToInt16(Context.Consumed.GetMinutes()),
+                                TaskId = SelectedTask.Id
+                            }, Context.CurrentTimesheet.Day.Date);
+                            var activityDay = ActivityDay.Map(response, Context.CurrentTimesheet);
+                            var navigationParameters = new NavigationParameters();
+                            navigationParameters.Add(AppTokiota.Users.Models.ActivityDay.Tag, activityDay);
+                            IsBusy = false;
+                            await BaseModule.NavigationService.GoBackAsync(navigationParameters);
+                            BaseModule.AnalyticsService.TrackEvent("[PostActivity] :: Success");
+
+                        }
+                        catch (Exception e)
+                        {
+                            IsBusy = false;
+                            if (e.Message == ("{\"message\":\"You can not add more hours than estimated in fixed assignements\"}"))
+                            {
+                                BaseModule.DialogService.ShowToast("You can not add more hours than estimated in fixed assignements");
+                            }
+                        }
                     }
-				}
-			} catch(Exception) {
-				IsBusy = false;              
-				BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-			}
-            
+                }
+            }
+            catch (Exception e)
+            {
+                IsBusy = false;
+                BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+            }
+
         }
         #endregion
-        
+
         #region GoBack
         public DelegateCommand GoBackCommand => new DelegateCommand(GoBack);
         protected void GoBack()
@@ -203,9 +227,9 @@ namespace AppTokiota.Users.Components.Activity
 
         public override void OnNavigatedTo(NavigationParameters parameters)
         {
-			if (parameters.ContainsKey(Imputed.Tag))
+            if (parameters.ContainsKey(Imputed.Tag))
             {
-				Context = parameters.GetValue<Imputed>(Imputed.Tag);
+                Context = parameters.GetValue<Imputed>(Imputed.Tag);
                 if (Context.CurrentTimesheet == null)
                 {
                     Projects = Context.CurrentTimesheetMultipleDay.Projects;
@@ -214,7 +238,23 @@ namespace AppTokiota.Users.Components.Activity
                 {
                     Projects = Context.CurrentTimesheet.Projects;
                 }
-            }            
+            }
+        }
+
+        public override void OnNavigatedFrom(NavigationParameters parameters)
+        {
+            if (parameters.ContainsKey(Imputed.Tag))
+            {
+                Context = parameters.GetValue<Imputed>(Imputed.Tag);
+                if (Context.CurrentTimesheet == null)
+                {
+                    Projects = Context.CurrentTimesheetMultipleDay.Projects;
+                }
+                else
+                {
+                    Projects = Context.CurrentTimesheet.Projects;
+                }
+            }
         }
     }
 }

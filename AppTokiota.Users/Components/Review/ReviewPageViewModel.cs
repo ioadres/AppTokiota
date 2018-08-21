@@ -22,7 +22,6 @@ namespace AppTokiota.Users.Components.Review
 {
     public class ReviewPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
-        //Todo Sacar a settings
         DateTimeFormatInfo dtinfo = new CultureInfo(AppSettings.CultureInfoApp).DateTimeFormat;
 
         #region Services
@@ -44,22 +43,39 @@ namespace AppTokiota.Users.Components.Review
             set { SetProperty(ref _monthPicker, value); }
         }
 
-
-        private int _myIndexYearPicker;
-        public int MyIndexYearPicker
+        private PickerItem _myItemYearPicker;
+        public PickerItem MyItemYearPicker
         {
-            get { return _myIndexYearPicker; }
-            set { SetProperty(ref _myIndexYearPicker, value); }
+            get { return _myItemYearPicker; }
+            set
+            {
+                if (value != _myItemYearPicker && value != null)
+                {
+                    SetProperty(ref _myItemYearPicker, value);
+                }
+            }
         }
 
-        private int _myIndexMonthPicker;
-        public int MyIndexMonthPicker
+        private PickerItem _myItemMonthPicker;
+        public PickerItem MyItemMonthPicker
         {
-            get { return _myIndexMonthPicker; }
-            set { SetProperty(ref _myIndexMonthPicker, value); }
+            get { return _myItemMonthPicker; }
+            set
+            {
+                if (value != _myItemMonthPicker && value != null)
+                {
+                    SetProperty(ref _myItemMonthPicker, value);
+                }
+            }
         }
-
         #endregion datapicker
+
+        private IList<ItemTimeLine> _timeLineList;
+        public IList<ItemTimeLine> TimeLineList
+        {
+            get { return _timeLineList; }
+            set { _timeLineList = value; }
+        }
 
         #region DataReview
         private ObservableCollection<ReviewTimeLine> _lstReview;
@@ -96,6 +112,10 @@ namespace AppTokiota.Users.Components.Review
             set { SetProperty(ref _imputedTotal, value); }
         }
 
+        /// <summary>
+        /// Element view Btn Send Validation Logic - Is Visible
+        /// </summary>
+        /// <value>boolean</value>
         public bool _btnSendReviewIsVisible;
         public bool BtnSendReviewIsVisible
         {
@@ -111,114 +131,51 @@ namespace AppTokiota.Users.Components.Review
             _monthPicker = new ObservableCollection<PickerItem>();
 
             Title = "Review";
-            ModeLoadingPopUp = true;
+            ModeLoadingPopUp = false;
             LstReview = new ObservableCollection<ReviewTimeLine>();
-            LoadDataAsync();
+            IsBusy = true;
+            LoadDataPickers();
         }
         #endregion constructor
 
         #region LoadPickersListViewData
 
-        protected void LoadDataAsync()
-        {
-            IsBusy = true;
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                try
-                {
-                    if (this.IsInternetAndCloseModal())
-                    {
-                        await LoadDataPickerAsync();
-                        LoadDataReviewByDate(YearPicker.ElementAt(MyIndexYearPicker).Value, MonthPicker.ElementAt(MyIndexMonthPicker).Value);
-                    }
-                    IsBusy = false;
-                }
-                catch (Exception ex)
-                {
-                    IsBusy = false;
-                    BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                    Crashes.TrackError(ex);
-                }
-            });
-
-        }
-
-
-        private async Task LoadDataPickerAsync()
-        {
-            await Task.Run(() =>
-            {
-				var yearPickerTemp = new ObservableCollection<PickerItem>();
-                for (int iyear = DateTime.Now.Year - 1; iyear <= (DateTime.Now.Year + 1); iyear++)
-                {
-					yearPickerTemp.Add(new PickerItem { Value = iyear, DisplayName = iyear.ToString() });
-                }
-				YearPicker = yearPickerTemp;
-
-				var monthPickerTemp = new ObservableCollection<PickerItem>();
-                for (int imes = DateTime.MinValue.Month; imes < DateTime.MaxValue.Month + 1; imes++)
-                {
-					monthPickerTemp.Add(new PickerItem { Value = imes, DisplayName = dtinfo.GetMonthName(imes) });
-                }
-				MonthPicker = monthPickerTemp;
-				
-                LoadDefaultValues();
-            });
-        }
-
-        private void LoadDefaultValues()
-        {
-            DateTime MyDate = DateTime.Now;
-            var InitYearPickerItem = new PickerItem
-            {
-                Value = MyDate.Year,
-                DisplayName = MyDate.Year.ToString(),
-            };
-
-            var InitMonthPickerItem = new PickerItem
-            {
-                Value = MyDate.Month,
-                DisplayName = dtinfo.GetMonthName(MyDate.Month),
-            };
-
-            MyIndexYearPicker = YearPicker.IndexOf(YearPicker.Where(x => x.Value == InitYearPickerItem.Value).FirstOrDefault());
-            MyIndexMonthPicker = MonthPicker.IndexOf(MonthPicker.Where(x => x.Value == InitMonthPickerItem.Value).FirstOrDefault());
-        }
-
-        protected void LoadDataReviewByDate(int year, int month)
-        {
-            IsBusy = true;
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                try
-                {
-                    if (this.IsInternetAndCloseModal())
-                    {
-                        _currentReview = await _reviewModule.ReviewService.GetReview(year, month);
-                        LoadDataReviewAsync(_currentReview);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    IsBusy = false;
-                    BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                    Crashes.TrackError(ex);
-                }
-            });
-        }
-
-        protected async void LoadDataReviewAsync(Models.Review review)
+        protected void LoadDataPickers()
         {
             try
             {
-                BtnSendReviewIsVisible = !(review.IsValidated || review.IsClosed);
-                var lstReviewDates = await _reviewModule.TimeLineService.GetListTimesheetForDay(review);
-                LoadTotalTime(lstReviewDates);
-                var listTemp = new ObservableCollection<ReviewTimeLine>();
-                lstReviewDates.ForEach(x => listTemp.Add(map(x)));
-                listTemp.Last().IsLast = true;
-                LstReview = listTemp;
-                IsBusy = false;
+                if (this.IsInternetAndCloseModal())
+                {
+                    var yearPickerTemp = new ObservableCollection<PickerItem>();
+                    for (int iyear = DateTime.Now.Year - 1; iyear <= (DateTime.Now.Year + 1); iyear++)
+                    {
+                        yearPickerTemp.Add(new PickerItem { Value = iyear, DisplayName = iyear.ToString() });
+                    }
+                    YearPicker = yearPickerTemp;
+
+                    var monthPickerTemp = new ObservableCollection<PickerItem>();
+                    for (int imes = DateTime.MinValue.Month; imes < DateTime.MaxValue.Month + 1; imes++)
+                    {
+                        monthPickerTemp.Add(new PickerItem { Value = imes, DisplayName = dtinfo.GetMonthName(imes) });
+                    }
+                    MonthPicker = monthPickerTemp;
+
+                    var MyDate = DateTime.Now;
+                    var InitYearPickerItem = new PickerItem
+                    {
+                        Value = MyDate.Year,
+                        DisplayName = MyDate.Year.ToString(),
+                    };
+
+                    var InitMonthPickerItem = new PickerItem
+                    {
+                        Value = MyDate.Month,
+                        DisplayName = dtinfo.GetMonthName(MyDate.Month),
+                    };
+
+                    MyItemMonthPicker = MonthPicker.Where(x => x.Value == InitMonthPickerItem.Value).FirstOrDefault();
+                    MyItemYearPicker = YearPicker.Where(x => x.Value == InitYearPickerItem.Value).FirstOrDefault();
+                }
             }
             catch (Exception ex)
             {
@@ -228,69 +185,133 @@ namespace AppTokiota.Users.Components.Review
             }
         }
 
-        private void LoadTotalTime(IList<TimesheetForDay> lstReviewDates)
+        #endregion LoadPickersListViewData
+
+
+        public DelegateCommand LoadDataReviewByDateCommand => new DelegateCommand(LoadDataReviewByDate);
+        protected async void LoadDataReviewByDate()
         {
-            foreach (var tsd in lstReviewDates)
+            try
             {
-                ImputedTotal = ImputedTotal + tsd.Activities.Sum(x => x.Imputed);
-                DeviationTotal = DeviationTotal + tsd.Activities.Sum(x => x.Deviation);
+                IsBusy = true;
+                if (this.IsInternetAndCloseModal())
+                {
+                    _currentReview = await _reviewModule.ReviewService.GetReview(MyItemYearPicker.Value, MyItemMonthPicker.Value);
+
+                    BtnSendReviewIsVisible = !(_currentReview.IsValidated || _currentReview.IsClosed);
+                    ImputedTotal = _currentReview.Activities.Sum(x => x.Value.Imputed);
+                    DeviationTotal = _currentReview.Activities.Sum(x => x.Value.Deviation);
+
+                    TimeLineList = await _reviewModule.TimeLineService.GetListTimesheetForDay(_currentReview);
+
+                    var listTemp = new ObservableCollection<ReviewTimeLine>();
+                    TimeLineList.ForEach(x => listTemp.Add(ReviewTimeLine.Map(x)));
+                    listTemp.Last().IsLast = true;
+                    LstReview = listTemp;
+
+                    IsBusy = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                IsBusy = false;
+                BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                Crashes.TrackError(ex);
             }
         }
 
-        private ReviewTimeLine map(TimesheetForDay x)
+        #region NavigateToManageImputedDay
+        public DelegateCommand<object> ManageImputedDayCommand => new DelegateCommand<object>((obj)=> { ManageImputedDay((ReviewTimeLine)obj); });
+        protected async void ManageImputedDay(ReviewTimeLine from)
         {
-            var currentTimeSheetDay = new ReviewTimeLine();
-            currentTimeSheetDay.Activity = x.Activities.FirstOrDefault();
-            currentTimeSheetDay.Day = x.Day;
-            currentTimeSheetDay.IsLast = x.IsLast;
-            return currentTimeSheetDay;
+            if (this.IsInternetAndCloseModal())
+            {
+                try
+                {
+                    var selectedDateTimesheet = TimeLineList.FirstOrDefault(x => x.Day == from.Day);
+                    if (selectedDateTimesheet.Day != null)
+                    {
+                        var navigationParameters = new NavigationParameters();
+                        var timesheetForDay = new TimesheetForDay()
+                        {
+                            Day = selectedDateTimesheet.Day,
+                            Activities = selectedDateTimesheet.Activities,
+                            Projects = _currentReview?.Projects?.Values?.ToList()
+                        };
+                        navigationParameters.Add(TimesheetForDay.Tag, timesheetForDay);
+                        navigationParameters.Add("IsVisibleButtonAdd", false);
+                        await BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<ManageImputedDayPage>(), navigationParameters);
+                    }
+                    else
+                    {
+                        throw new ArgumentNullException();
+                    }
+                }
+                catch (Exception)
+                {
+                    BaseModule.DialogService.ShowToast("Fail load Detail. Try Again.");
+                }
+            }
         }
+        #endregion
 
-        #endregion LoadPickersListViewData
+        #region RefreshReviewDataCommand
+        public DelegateCommand RefreshReviewDataCommand => new DelegateCommand(RefreshReviewData);
 
-        #region EventOnInfoActivityItemCommand
-        public DelegateCommand<object> OnInfoActivityItemCommand => new DelegateCommand<object>((obj) => { OnInfoActivityItem((ReviewTimeLine)obj); });
-        protected void OnInfoActivityItem(ReviewTimeLine from)
-        {
-            var navigationParameters = new NavigationParameters();
-            navigationParameters.Add(ActivityDay.Tag, from.Activity);
-            BaseModule.NavigationService.NavigateAsync(PageRoutes.GetKey<InfoActivityPopUpPage>(), navigationParameters, true, true);
+        protected void RefreshReviewData() {
+
+            LoadDataReviewByDate();
         }
         #endregion
 
         #region sendValidateReview
 
         public DelegateCommand SendReviewValidateCommand => new DelegateCommand(SendReviewToValidate);
-        protected void SendReviewToValidate()
+
+        protected async void SendReviewToValidate()
         {
-            IsBusy = true;
-            Device.BeginInvokeOnMainThread(async () =>
+            try
             {
-                try
+                IsBusy = true;
+                BtnSendReviewIsVisible = false;
+                var send = await BaseModule.DialogService.ShowConfirmAsync("Are your sure that you want send this month?", "Send Timesheet", "Send", "Cancel");
+                if (send && this.IsInternetAndCloseModal())
                 {
-                    if (this.IsInternetAndCloseModal())
+                    BaseModule.AnalyticsService.TrackEvent("[Review] :: Send :: Start");
+                    var response = await _reviewModule.ReviewService.PatchReview(MyItemYearPicker.Value, MyItemMonthPicker.Value);
+                    if (response)
                     {
-                        var response = await _reviewModule.ReviewService.PatchReview(YearPicker.ElementAt(MyIndexYearPicker).Value, MonthPicker.ElementAt(MyIndexMonthPicker).Value);
-                        if (response)
-                        {
-                            LoadDataReviewByDate(YearPicker.ElementAt(MyIndexYearPicker).Value, MonthPicker.ElementAt(MyIndexMonthPicker).Value);
-                        }
-                        else
-                        {
-                            BaseModule.DialogService.ShowToast("The sending review is not avaible in this moment. Please try again later.");
-                        }
-                        IsBusy = false;
+                        BaseModule.DialogService.ShowToast("This month has been sent to be validated.");
+                        BaseModule.AnalyticsService.TrackEvent("[Review] :: Send :: End");
+                        LoadDataReviewByDate();
                     }
-                }
-                catch (Exception ex)
+                    else
+                    {
+                        BaseModule.DialogService.ShowToast("Review is not available in this moment. Please try again later.");
+                        BaseModule.AnalyticsService.TrackEvent("[Review] :: Send :: Cancel");
+                        BtnSendReviewIsVisible = true;
+                    }
+                } 
+                else 
                 {
                     IsBusy = false;
-                    BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
-                    Crashes.TrackError(ex);
+                    BtnSendReviewIsVisible = true;
                 }
+            }
+            catch (Exception ex)
+            {
+                IsBusy = false;
+                BtnSendReviewIsVisible = true;
+                BaseModule.DialogErrorCustomService.DialogErrorCommonTryAgain();
+                Crashes.TrackError(ex);
+            }
 
-            });
         }
         #endregion
+
+        public override void OnNavigatedTo(NavigationParameters parameters)
+        {
+            LoadDataReviewByDate();
+        }
     }
 }
